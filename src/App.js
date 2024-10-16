@@ -14,10 +14,12 @@ import FooterSection from "./Components/FooterSection";
 import Auth from "./Auth/Auth"; // Auth component
 import AboutUs from "./AboutUs/AboutUs";
 import User from "./User/User";
+import SignalRHub from "./SignalR";
 
 function App() {
   return (
     <div>
+      <SignalRHub />
       {/* head */}
       <Helmet>
         {/* Meta tags */}

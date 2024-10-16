@@ -1,9 +1,13 @@
 import React, { useState } from "react";
 import "./Auth.css";
+import { registerUser } from "../Functions/UserEntryFunctions";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleLoginClick = () => {
     setIsLogin(true);
@@ -108,19 +112,39 @@ function Auth() {
 
             {/* Signup Form */}
             {!isLogin && !isForgotPassword && (
-              <form className="signup" id="signup-form">
+              <form
+                className="signup"
+                id="signup-form"
+                onSubmit={(e) =>
+                  registerUser(e, email, password, confirmPassword)
+                }
+              >
                 <div className="field">
-                  <input type="text" placeholder="Email Address" required />
+                  <input
+                    type="text"
+                    placeholder="Email Address"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                 </div>
 
                 <div className="field">
-                  <input type="password" placeholder="Password" required />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
                 <div className="field">
                   <input
                     type="password"
                     placeholder="Confirm password"
                     required
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
                 <div className="field btn">
