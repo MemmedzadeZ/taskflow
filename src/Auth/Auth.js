@@ -129,6 +129,17 @@ function Auth() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
+
+                <div className="field">
+                  <input
+                    type="text"
+                    placeholder="Username "
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
+                </div>
+
                 <div className="field">
                   <input
                     type="password"
