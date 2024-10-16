@@ -1,0 +1,51 @@
+.about-us {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Full viewport height */
+}
+
+.about-section {
+  flex: 1; /* Allow each section to grow */
+  display: flex;
+  align-items: center; /* Center the items vertically */
+  padding: 40px; /* Increased padding for more space */
+  margin: 0; /* Remove margin to prevent spacing issues */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Add shadow */
+}
+
+.section-1 {
+  background-color: #b6a0e6;
+}
+
+.section-2 {
+  background-color: #ffffff;
+}
+
+.section-3 {
+  background-color: #f6b26b;
+}
+
+.section-4 {
+  background-color: #ffffff;
+}
+
+.section-5 {
+  background-color: #91c499;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+}
+
+.content img {
+  width: 50%; /* Adjust width as needed */
+  max-width: 300px; /* Optional: limit the image size */
+  height: auto;
+  margin-right: 20px; /* Space between image and text */
+}
+
+.content p {
+  width: 50%; /* Adjust width as needed */
+  margin: 0; /* Remove default margin */
+}
