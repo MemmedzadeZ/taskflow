@@ -6,6 +6,12 @@ export const registerUser = (e, email, password, confirmPassword) => {
     alert("Passwords do not match!");
     return;
   }
+
+  if (password === null || confirmPassword === null) {
+    alert("Password CANNOT be NULL!");
+    return;
+  }
+
   const userData = {
     email,
     password,
