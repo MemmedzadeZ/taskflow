@@ -117,7 +117,7 @@ function Auth() {
                 className="signup"
                 id="signup-form"
                 onSubmit={(e) =>
-                  registerUser(e, email, password, confirmPassword)
+                  registerUser(e, email, password, confirmPassword, username)
                 }
               >
                 <div className="field">

@@ -1,4 +1,4 @@
-export const registerUser = (e, email, password, confirmPassword) => {
+export const registerUser = (e, email, password, confirmPassword, username) => {
   e.preventDefault();
   console.log("inside register");
 
@@ -11,11 +11,17 @@ export const registerUser = (e, email, password, confirmPassword) => {
     alert("Password CANNOT be NULL!");
     return;
   }
-
+  if (username === null || email === null) {
+    alert("Password CANNOT be NULL!");
+    return;
+  }
   const userData = {
     email,
     password,
+    username,
   };
+  console.log(userData);
+
   fetch("https://localhost:7268/api/Auth/register", {
     method: "POST",
     headers: {
@@ -23,7 +29,13 @@ export const registerUser = (e, email, password, confirmPassword) => {
     },
     body: JSON.stringify(userData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      } else {
+        throw new Error(`HTTP status ${response.status}`);
+      }
+    })
     .then((data) => {
       console.log("Success:", data);
     })
