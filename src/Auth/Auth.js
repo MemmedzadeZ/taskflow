@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "./Auth.css";
 import { registerUser } from "../Functions/UserEntryFunctions";
+import { Link } from "react-router-dom";
+import welcomejson from "../animations/welcome.json";
+
+import Lottie from "lottie-react";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -25,17 +29,26 @@ function Auth() {
   };
 
   return (
-    <div>
-      <div className="titlE">
-        <h2>Task Flow</h2>
-        <h5>Welcome back! We missed you.</h5>
-      </div>
+    <div className="div">
+      <grid>
+        <div className="titlE">
+          <h1 className="titleH2">
+            {isLogin ? "Log In to TaskFlow" : "Sign Up to TaskFlow"}
+          </h1>
+          <h5>Welcome back! We missed you.</h5>
+        </div>
+
+        <div className="lottie-welcome">
+          <Lottie animationData={welcomejson} loop={true} />
+        </div>
+      </grid>
       <div className="wrapper">
         <div className="title-text">
           <div className={`title ${isLogin ? "login" : "signup"}`}>
             {isLogin ? "Login Form" : "Signup Form"}
           </div>
         </div>
+
         <div className="form-container">
           <div className="slide-controls">
             <input
@@ -52,18 +65,10 @@ function Auth() {
               checked={!isLogin && !isForgotPassword}
               onChange={handleSignupClick}
             />
-            <label
-              htmlFor="login"
-              className="slide login"
-              // onClick={handleLoginClick}
-            >
+            <label htmlFor="login" className="slide login">
               Login
             </label>
-            <label
-              htmlFor="signup"
-              className="slide signup"
-              // onClick={handleSignupClick}
-            >
+            <label htmlFor="signup" className="slide signup">
               Signup
             </label>
             <div className="slider-tab"></div>
@@ -79,14 +84,19 @@ function Auth() {
                   <input type="password" placeholder="Password" required />
                 </div>
                 <div className="pass-link">
-                  <a>Forgot password?</a>
+                  <a onClick={handleForgotPasswordClick}>Forgot password?</a>
                 </div>
                 <div className="field btn">
-                  <div className="btn-layer"></div>
-                  <input type="submit" value="Login" />
+                  {/* <div className="btn-layer"></div> */}
+
+                  <input
+                    className="btn btn-primary"
+                    type="submit"
+                    value="Login"
+                  />
                 </div>
                 <div className="signup-link">
-                  Not a member? <a>Signup now</a>
+                  Not a member? <a onClick={handleSignupClick}>Signup now</a>
                 </div>
               </form>
             )}
@@ -105,8 +115,11 @@ function Auth() {
                   />
                 </div>
                 <div className="field btn">
-                  <div className="btn-layer"></div>
-                  <input type="submit" value="Reset Password" />
+                  <input
+                    className="btn-layer"
+                    type="submit"
+                    value="Reset Password"
+                  />
                 </div>
               </form>
             )}
@@ -158,10 +171,16 @@ function Auth() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </div>
-                <div className="field btn">
-                  <div className="btn-layer"></div>
-                  <input type="submit" value="Signup" />
-                </div>
+                {/* <div className="btn-layer"></div> */}
+                <Link to="/quiz">
+                  <div className="field btn">
+                    <input
+                      className="btn btn-primary"
+                      type="submit"
+                      value="Signup"
+                    />
+                  </div>
+                </Link>
               </form>
             )}
           </div>

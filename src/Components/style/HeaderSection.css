@@ -5,17 +5,22 @@
   overflow: hidden;
 }
 
-.header-section::before {
-  content: "";
+.video-background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("https://img.youtube.com/vi/I59b7qknlZE/maxresdefault.jpg")
-    no-repeat center center;
-  background-size: cover;
-  z-index: 1;
+  pointer-events: none; /* This ensures the video doesn’t interfere with other interactions */
+  z-index: 0; /* Keeps the video behind the content */
+}
+
+.content {
+  position: relative;
+  z-index: 1; /* Make sure your content is above the video */
+  color: white;
+  text-align: center;
+  padding: 20px;
 }
 
 .mbr-overlay {

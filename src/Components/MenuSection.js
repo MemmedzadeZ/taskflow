@@ -1,6 +1,9 @@
 import React from "react";
 // import { Img } from "./../../public/assets/images/photo-1590650516494-0c8e4a4dd67e.jpeg";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import Lottie from "lottie-react";
+import animationData from "../animations/animation.json"; // Make sure the path is correct
+import "./style/MenuSection.css";
 
 function MenuSection() {
   return (
@@ -12,21 +15,15 @@ function MenuSection() {
       <nav className="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
         <div className="container">
           <div className="navbar-brand">
-            <span className="navbar-logo">
-              <a href="https://mobiri.se">
-                <img
-                  src="/assets/images/photo-1590650516494-0c8e4a4dd67e.jpeg"
-                  alt="Mobirise Website Builder"
-                  style={{ height: "4.3rem" }}
-                />
-              </a>
-            </span>
+            <div className="lottie-container">
+              <Lottie animationData={animationData} loop={true} />
+            </div>
             <span className="navbar-caption-wrap">
               <a
                 className="navbar-caption text-black display-4"
                 href="https://mobiri.se"
               >
-                Projectify
+                Task Flow
               </a>
             </span>
           </div>

@@ -15,6 +15,8 @@ import Auth from "./Auth/Auth"; // Auth component
 import AboutUs from "./AboutUs/AboutUs";
 import User from "./User/User";
 import SignalRHub from "./SignalR";
+import InfoQuiz from "./QuizForm/InfoQuiz/InfoQuiz";
+import TradeQuiz from "./QuizForm/TradeQuiz/TradeQuiz";
 
 function App() {
   return (
@@ -87,6 +89,8 @@ function App() {
         <Route path="/signin" element={<Auth />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/user" element={<User />} />
+        <Route path="/quiz" element={<InfoQuiz />} />
+        <Route path="/quiztrade" element={<TradeQuiz />} />
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         <Route
           path="*"
