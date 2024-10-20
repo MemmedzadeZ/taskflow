@@ -10,6 +10,8 @@ function Auth() {
   const [isLogin, setIsLogin] = useState(true);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
+  const [firstname, setFirstName] = useState("");
+    const [lastname, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -144,6 +146,26 @@ function Auth() {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+
+                <div className="field">
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    required
+                    value={firstname}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                </div>
+
+                <div className="field">
+                  <input
+                    type="text"
+                    placeholder="Last name"
+                    required
+                    value={lastname}
+                    onChange={(e) => setLastName(e.target.value)}
                   />
                 </div>
 
