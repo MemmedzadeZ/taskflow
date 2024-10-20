@@ -31,6 +31,8 @@ export const registerUser = (e, email, password, confirmPassword, username) => {
   })
     .then((response) => {
       if (response.ok) {
+        window.location.href = "/quiz";
+
         return response.json();
       } else {
         throw new Error(`HTTP status ${response.status}`);
@@ -52,7 +54,7 @@ export const loginUser = (e, username, password) => {
     username,
     password,
   };
-
+  console.log(userData);
   fetch("https://localhost:7268/api/Auth/login", {
     method: "POST",
     headers: {
@@ -60,7 +62,9 @@ export const loginUser = (e, username, password) => {
     },
     body: JSON.stringify(userData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      console.log(response.json());
+    })
     .then((data) => {
       console.log("Success:", data);
     })

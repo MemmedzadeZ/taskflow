@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Auth.css";
-import { registerUser } from "../Functions/UserEntryFunctions";
+import { loginUser, registerUser } from "../Functions/UserEntryFunctions";
 import { Link } from "react-router-dom";
 import welcomejson from "../animations/welcome.json";
 
@@ -80,12 +80,22 @@ function Auth() {
           <div className="form-inner">
             {/* Login Form */}
             {isLogin && !isForgotPassword && (
-              <form className="login" id="login-form">
+              <form
+                className="login"
+                id="login-form"
+                onSubmit={(e) => loginUser(e, username, password)}
+              >
                 <div className="field">
-                  <input type="text" placeholder="Username" required />
+                  <input type="text" placeholder="Email Address" required />
                 </div>
                 <div className="field">
-                  <input type="password" placeholder="Password" required />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
                 <div className="pass-link">
                   <a onClick={handleForgotPasswordClick}>Forgot password?</a>
@@ -205,15 +215,13 @@ function Auth() {
                   />
                 </div>
                 {/* <div className="btn-layer"></div> */}
-                <Link to="/quiz">
-                  <div className="field btn">
-                    <input
-                      className="btn btn-primary"
-                      type="submit"
-                      value="Signup"
-                    />
-                  </div>
-                </Link>
+                <div className="field btn">
+                  <input
+                    className="btn btn-primary"
+                    type="submit"
+                    value="Signup"
+                  />
+                </div>
               </form>
             )}
           </div>
