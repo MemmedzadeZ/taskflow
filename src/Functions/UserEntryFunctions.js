@@ -1,5 +1,3 @@
-import { Navigate } from "react-router-dom";
-
 export const registerUser = (e, email, password, confirmPassword, username) => {
   e.preventDefault();
   console.log("inside register");
@@ -56,7 +54,7 @@ export const loginUser = (e, username, password) => {
     username,
     password,
   };
-
+  console.log(userData);
   fetch("https://localhost:7268/api/Auth/login", {
     method: "POST",
     headers: {
@@ -65,8 +63,7 @@ export const loginUser = (e, username, password) => {
     body: JSON.stringify(userData),
   })
     .then((response) => {
-      response.json();
-      console.log("inside login");
+      console.log(response.json());
     })
     .then((data) => {
       console.log("Success:", data);

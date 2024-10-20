@@ -84,10 +84,22 @@ function Auth() {
                 onSubmit={(e) => loginUser(e, username, password)}
               >
                 <div className="field">
-                  <input type="text" placeholder="Email Address" required />
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </div>
                 <div className="field">
-                  <input type="password" placeholder="Password" required />
+                  <input
+                    type="password"
+                    placeholder="Password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </div>
                 <div className="pass-link">
                   <a onClick={handleForgotPasswordClick}>Forgot password?</a>
