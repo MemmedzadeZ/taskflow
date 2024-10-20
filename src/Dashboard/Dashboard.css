@@ -1,0 +1,95 @@
+.DIV {
+  background-color: white;
+}
+.classH1 {
+  color: linear-gradient(to right, #b6a0e6, #f6b26b, #91c499);
+}
+
+/* General Sidebar Styles */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(
+    to right,
+    #b6a0e6,
+    #f6b26b,
+    #91c499
+  ); /* Darker background for the sidebar */
+  height: 100%;
+  border-radius: 10px;
+}
+
+.sidebar-submenu a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  color: #ffffff; /* White text for links */
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  border-radius: 8px; /* Added rounding for buttons */
+}
+
+.sidebar-submenu a:hover {
+  background-color: #b6a0e6; /* Soft Purple for hover */
+  color: #ffffff; /* Text stays white */
+}
+
+.sidebar-menu-dropdown-content {
+  background-color: red; /* Slightly lighter background for dropdowns */
+  padding-left: 15px;
+  display: none; /* Initially hidden */
+}
+
+.sidebar-menu-dropdown:hover .sidebar-menu-dropdown-content {
+  display: block; /* Dropdown appears on hover */
+}
+
+/* Active/Highlighted Links */
+.sidebar-highlight {
+  background-color: #b6a0e6; /* Soft Purple for key highlights */
+  color: #fff;
+}
+
+/* Sidebar Links */
+.sidebar-link {
+  color: #ffffff; /* White text for links */
+}
+
+.sidebar-link:hover {
+  background-color: #b6a0e6; /* Soft Purple for hover state */
+  color: #fff;
+}
+
+/* Status Markers */
+.sidebar-submenu .in-progress {
+  background-color: #f6b26b; /* Light Orange for "In Progress" status */
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.sidebar-submenu .completed {
+  background-color: #91c499; /* Subtle Green for "Completed" status */
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+/* Dark Mode Toggle */
+.darkmode-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #b6a0e6; /* Dark mode button background */
+  color: #ffffff; /* White text */
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.darkmode-toggle:hover {
+  background-color: #f6b26b; /* Darker on hover */
+}

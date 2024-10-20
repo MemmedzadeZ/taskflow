@@ -11,7 +11,7 @@ function Auth() {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [firstname, setFirstName] = useState("");
-    const [lastname, setLastName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -59,6 +59,7 @@ function Auth() {
               id="login"
               checked={isLogin && !isForgotPassword}
               onChange={handleLoginClick}
+              style={{ display: "none" }} // Hide the input
             />
             <input
               type="radio"
@@ -66,6 +67,7 @@ function Auth() {
               id="signup"
               checked={!isLogin && !isForgotPassword}
               onChange={handleSignupClick}
+              style={{ display: "none" }} // Hide the input
             />
             <label htmlFor="login" className="slide login">
               Login
@@ -80,7 +82,7 @@ function Auth() {
             {isLogin && !isForgotPassword && (
               <form className="login" id="login-form">
                 <div className="field">
-                  <input type="text" placeholder="Email Address" required />
+                  <input type="text" placeholder="Username" required />
                 </div>
                 <div className="field">
                   <input type="password" placeholder="Password" required />
@@ -95,6 +97,15 @@ function Auth() {
                     className="btn btn-primary"
                     type="submit"
                     value="Login"
+                  />
+                </div>
+
+                <div className="field btn">
+                  {/* New button with custom style */}
+                  <input
+                    className="btn custom-btn"
+                    type="submit"
+                    value="Custom Button"
                   />
                 </div>
                 <div className="signup-link">

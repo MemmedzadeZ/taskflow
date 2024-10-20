@@ -57,14 +57,6 @@ function MenuSection() {
                   About Us
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link
-                  className="nav-link link text-black display-4"
-                  to="/signin" // Link to the SignIn page
-                >
-                  SignIn
-                </Link>
-              </li>
 
               <li className="nav-item">
                 <Link
@@ -85,9 +77,13 @@ function MenuSection() {
             </ul>
 
             <div className="navbar-buttons mbr-section-btn">
-              <a className="btn btn-primary display-4" href="https://mobiri.se">
-                Get Started
-              </a>
+              <Link
+                className="nav-link link text-black display-4"
+                to="/signin" // Link to the SignIn page
+              >
+              <a className="btn btn-primary display-4">Get Started</a>
+        
+              </Link>
             </div>
           </div>
         </div>

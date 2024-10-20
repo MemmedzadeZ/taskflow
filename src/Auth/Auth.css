@@ -13,12 +13,8 @@ body {
   height: 100%;
   width: 100%;
   place-items: center;
-  background: linear-gradient(
-    to right,
-    #b6a0e6,
-    #f6b26b,
-    #91c499
-  ); /* Combined gradient background */
+  background: #6852FF;
+ /* Combined gradient background */
 }
 
 .lottie-welcome {
@@ -33,6 +29,7 @@ body {
 .titleH2 {
   text-align: left;
   font-size: 50px;
+  color: #6852FF;
 }
 
 .titlE {
@@ -84,7 +81,7 @@ body {
 .slide-controls .slide {
   height: 100%;
   width: 100%;
-  color: #333; /* Darker text color for buttons */
+  color: white; /* Darker text color for buttons */
   font-size: 18px;
   font-weight: 500;
   text-align: center;
@@ -105,12 +102,8 @@ body {
   left: 0;
   z-index: 0;
   border-radius: 15px;
-  background: linear-gradient(
-    to right,
-    #b6a0e6,
-    #f6b26b,
-    #91c499
-  ); /* Gradient using Soft Purple, Light Orange, Subtle Green */
+  background:#6852FF;
+ /* Gradient using Soft Purple, Light Orange, Subtle Green */
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -191,7 +184,16 @@ form .field input:focus::placeholder {
 .form-inner form .signup-link {
   text-align: center;
   margin-top: 30px;
+
 }
+
+
+/* .btnlayer {
+  background-color: #6852FF;
+
+
+} */
+
 
 .form-inner form .pass-link a,
 .form-inner form .signup-link a {
@@ -203,6 +205,17 @@ form .field input:focus::placeholder {
 .form-inner form .signup-link a:hover {
   text-decoration: underline;
 }
+
+.btn-primary1 {
+  background-color: #6852FF;
+  color: white; /* Ensure the text remains visible on the new background */
+  border: none; /* Optional: Remove default border */
+}
+
+.btn-primary:hover {
+  background-color: #563DDF; /* Optional: Add a hover effect */
+}
+
 
 form .btn {
   height: 50px;
@@ -217,12 +230,9 @@ form .btn .btn-layer {
   width: 300%;
   position: absolute;
   left: -100%;
-  background: linear-gradient(
-    to right,
-    #b6a0e6,
-    #f6b26b,
-    #91c499
-  ); /* Button gradient with Soft Purple, Light Orange, and Subtle Green */
+  background:#6852FF;
+
+   /* Button gradient with Soft Purple, Light Orange, and Subtle Green */
   border-radius: 15px;
   transition: all 0.4s ease;
 }
