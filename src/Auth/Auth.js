@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Auth.css";
-import { registerUser } from "../Functions/UserEntryFunctions";
+import { loginUser, registerUser } from "../Functions/UserEntryFunctions";
 import { Link } from "react-router-dom";
 import welcomejson from "../animations/welcome.json";
 
@@ -76,7 +76,11 @@ function Auth() {
           <div className="form-inner">
             {/* Login Form */}
             {isLogin && !isForgotPassword && (
-              <form className="login" id="login-form">
+              <form
+                className="login"
+                id="login-form"
+                onSubmit={(e) => loginUser(e, username, password)}
+              >
                 <div className="field">
                   <input type="text" placeholder="Email Address" required />
                 </div>
@@ -172,15 +176,15 @@ function Auth() {
                   />
                 </div>
                 {/* <div className="btn-layer"></div> */}
-                <Link to="/quiz">
-                  <div className="field btn">
-                    <input
-                      className="btn btn-primary"
-                      type="submit"
-                      value="Signup"
-                    />
-                  </div>
-                </Link>
+                {/* <Link to="/quiz"> */}
+                <div className="field btn">
+                  <input
+                    className="btn btn-primary"
+                    type="submit"
+                    value="Signup"
+                  />
+                </div>
+                {/* </Link> */}
               </form>
             )}
           </div>

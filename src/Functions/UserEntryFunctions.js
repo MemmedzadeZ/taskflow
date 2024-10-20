@@ -60,7 +60,10 @@ export const loginUser = (e, username, password) => {
     },
     body: JSON.stringify(userData),
   })
-    .then((response) => response.json())
+    .then((response) => {
+      response.json();
+      console.log("inside login");
+    })
     .then((data) => {
       console.log("Success:", data);
     })
