@@ -17,6 +17,7 @@ import User from "./User/User";
 import SignalRHub from "./SignalR";
 import InfoQuiz from "./QuizForm/InfoQuiz/InfoQuiz";
 import TradeQuiz from "./QuizForm/TradeQuiz/TradeQuiz";
+import DashboardTemplate from "./Dashboard/Dashboard";
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
         <Route path="/user" element={<User />} />
         <Route path="/quiz" element={<InfoQuiz />} />
         <Route path="/quiztrade" element={<TradeQuiz />} />
+        <Route path="/dashboard" element={<DashboardTemplate />} />
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         <Route
           path="*"

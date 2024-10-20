@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./TradeQuiz.css"; // CSS faylını əlavə et
+import { Link } from "react-router-dom";
 
 function TradeQuiz() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -47,9 +48,11 @@ function TradeQuiz() {
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
+      <Link to = "/dashboard">
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </Link>
     </form>
   );
 }
