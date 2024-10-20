@@ -1,3 +1,5 @@
+import { Navigate } from "react-router-dom";
+
 export const registerUser = (e, email, password, confirmPassword, username) => {
   e.preventDefault();
   console.log("inside register");
@@ -31,6 +33,8 @@ export const registerUser = (e, email, password, confirmPassword, username) => {
   })
     .then((response) => {
       if (response.ok) {
+        window.location.href = "/quiz";
+
         return response.json();
       } else {
         throw new Error(`HTTP status ${response.status}`);

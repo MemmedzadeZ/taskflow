@@ -11,7 +11,7 @@ function Auth() {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [firstname, setFirstName] = useState("");
-    const [lastname, setLastName] = useState("");
+  const [lastname, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
@@ -198,7 +198,6 @@ function Auth() {
                   />
                 </div>
                 {/* <div className="btn-layer"></div> */}
-                {/* <Link to="/quiz"> */}
                 <div className="field btn">
                   <input
                     className="btn btn-primary"
@@ -206,7 +205,6 @@ function Auth() {
                     value="Signup"
                   />
                 </div>
-                {/* </Link> */}
               </form>
             )}
           </div>
