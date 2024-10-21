@@ -8,18 +8,19 @@ function InfoQuiz() {
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
+
     setErrorMessage(""); // Seçim edildikdə error mesajını təmizlə
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    console.log(selectedOption);
     if (!selectedOption) {
       // Əgər heç bir seçim edilməyibsə, xəbərdarlıq mesajını göstər
       setErrorMessage("Please select an option before submitting.");
       return;
     }
-
+    console.log(localStorage.getItem("token"));
     console.log("Selected option:", selectedOption);
   };
 
@@ -52,11 +53,11 @@ function InfoQuiz() {
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <Link to="/quiztrade">
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </Link>
+      {/* <Link to="/quiztrade"> */}
+      <button type="submit" className="btn btn-primary">
+        Submit
+      </button>
+      {/* </Link> */}
     </form>
   );
 }
