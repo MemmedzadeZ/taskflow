@@ -79,7 +79,7 @@ function MenuSection() {
             <div className="navbar-buttons mbr-section-btn">
               <Link
                 className="nav-link link text-black display-4"
-                to="/signin" // Link to the SignIn page
+                to="/auth" // Link to the SignIn page
               >
               <a className="btn btn-primary display-4">Get Started</a>
         

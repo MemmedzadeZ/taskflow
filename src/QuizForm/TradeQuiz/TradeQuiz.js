@@ -48,7 +48,7 @@ function TradeQuiz() {
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <Link to = "/dashboard">
+      <Link to="/auth">
         <button type="submit" className="btn btn-primary">
           Submit
         </button>

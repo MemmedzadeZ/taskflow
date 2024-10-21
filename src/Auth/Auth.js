@@ -106,15 +106,17 @@ function Auth() {
                 <div className="pass-link">
                   <a onClick={handleForgotPasswordClick}>Forgot password?</a>
                 </div>
-                <div className="field btn">
-                  {/* <div className="btn-layer"></div> */}
 
-                  <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="Login"
-                  />
-                </div>
+                <Link to="/dashboard">
+                  <div className="field btn">
+                    {/* <div className="btn-layer"></div> */}
+                    <input
+                      className="btn btn-primary"
+                      type="submit"
+                      value="Login"
+                    />
+                  </div>
+                </Link>
 
                 <div className="field btn">
                   {/* New button with custom style */}
