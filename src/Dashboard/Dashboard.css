@@ -10,12 +10,7 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  background: linear-gradient(
-    to right,
-    #b6a0e6,
-    #f6b26b,
-    #91c499
-  ); /* Darker background for the sidebar */
+ 
   height: 100%;
   border-radius: 10px;
 }
@@ -24,7 +19,7 @@
   display: flex;
   align-items: center;
   padding: 10px 15px;
-  color: #ffffff; /* White text for links */
+  color: #ffffff; /* White text for linkss */
   text-decoration: none;
   transition: background-color 0.3s ease;
   border-radius: 8px; /* Added rounding for buttons */

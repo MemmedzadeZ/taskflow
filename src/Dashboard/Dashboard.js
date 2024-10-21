@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet"; // For head configurations
-
+import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 
 function DashboardTemplate() {
@@ -46,10 +46,11 @@ function DashboardTemplate() {
           {/* SIDEBAR */}
           <div className="sidebar">
             <div className="sidebar-logo">
-              <a href="index.html">
+              <a>
                 <h1 className="classH1">TaskFlow</h1>
                 {/* <img src="./images/logo.png" alt="Protend logo" /> */}
               </a>
+
               <div className="sidebar-close" id="sidebar-close">
                 <i className="bx bx-left-arrow-alt"></i>
               </div>
@@ -69,7 +70,7 @@ function DashboardTemplate() {
                     <li>
                       <a href="index.html"> Dashboard </a>
                     </li>
-                    <li>
+                    {/* <li>
                       <a href="user-profile.html"> User Profile </a>
                     </li>
                     <li>
@@ -77,7 +78,7 @@ function DashboardTemplate() {
                     </li>
                     <li>
                       <a href="new-account.html"> New Account </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </li>
                 <li className="sidebar-submenu">

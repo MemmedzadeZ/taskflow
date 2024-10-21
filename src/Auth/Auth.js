@@ -86,7 +86,13 @@ function Auth() {
                 onSubmit={(e) => loginUser(e, username, password)}
               >
                 <div className="field">
-                  <input type="text" placeholder="Email Address" required />
+                  <input
+                    type="text"
+                    placeholder="Username"
+                    required
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                  />
                 </div>
                 <div className="field">
                   <input
