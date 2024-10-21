@@ -59,7 +59,7 @@ function DashboardTemplate() {
             <div className="simplebar-sc" data-simplebar>
               <ul className="sidebar-menu tf">
                 <li className="sidebar-submenu">
-                  <a href="index.html" className="sidebar-menu-dropdown">
+                  <a href="/dashboard" className="sidebar-menu-dropdown">
                     <i className="bx bxs-home"></i>
                     <span>Board</span>
                     <div className="dropdown-icon">
@@ -82,7 +82,10 @@ function DashboardTemplate() {
                   </ul>
                 </li>
                 <li className="sidebar-submenu">
-                  <a href="project.html" className="sidebar-menu-dropdown">
+                  {/* /////////////////////////////// */}
+                  {/* /////////////////////////////// */}
+                  {/* /////////////////////////////// */}
+                  <a href="/project" className="sidebar-menu-dropdown">
                     <i className="bx bxs-bolt"></i>
                     <span>Project</span>
                     <div className="dropdown-icon">
@@ -91,7 +94,7 @@ function DashboardTemplate() {
                   </a>
                   <ul className="sidebar-menu sidebar-menu-dropdown-content">
                     <li>
-                      <a href="project.html"> Project </a>
+                      <a href="/quiz"> Project </a>
                     </li>
                     <li>
                       <a href="project-details.html"> Project Details </a>

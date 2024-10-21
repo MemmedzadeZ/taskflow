@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Auth.css";
-import { loginUser, registerUser } from "../Functions/UserEntryFunctions";
+import { registerUser } from "../Functions/UserEntryFunctions";
 import { Link } from "react-router-dom";
 import welcomejson from "../animations/welcome.json";
 
@@ -80,43 +80,25 @@ function Auth() {
           <div className="form-inner">
             {/* Login Form */}
             {isLogin && !isForgotPassword && (
-              <form
-                className="login"
-                id="login-form"
-                onSubmit={(e) => loginUser(e, username, password)}
-              >
+              <form className="login" id="login-form">
                 <div className="field">
-                  <input
-                    type="text"
-                    placeholder="Username"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
+                  <input type="text" placeholder="Username" required />
                 </div>
                 <div className="field">
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                  <input type="password" placeholder="Password" required />
                 </div>
                 <div className="pass-link">
                   <a onClick={handleForgotPasswordClick}>Forgot password?</a>
                 </div>
+                <div className="field btn">
+                  {/* <div className="btn-layer"></div> */}
 
-                <Link to="/dashboard">
-                  <div className="field btn">
-                    {/* <div className="btn-layer"></div> */}
-                    <input
-                      className="btn btn-primary"
-                      type="submit"
-                      value="Login"
-                    />
-                  </div>
-                </Link>
+                  <input
+                    className="btn btn-primary"
+                    type="submit"
+                    value="Login"
+                  />
+                </div>
 
                 <div className="field btn">
                   {/* New button with custom style */}
@@ -223,13 +205,15 @@ function Auth() {
                   />
                 </div>
                 {/* <div className="btn-layer"></div> */}
-                <div className="field btn">
-                  <input
-                    className="btn btn-primary"
-                    type="submit"
-                    value="Signup"
-                  />
-                </div>
+                <Link to="/quiz">
+                  <div className="field btn">
+                    <input
+                      className="btn btn-primary"
+                      type="submit"
+                      value="Signup"
+                    />
+                  </div>
+                </Link>
               </form>
             )}
           </div>
