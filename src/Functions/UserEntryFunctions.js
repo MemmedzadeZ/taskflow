@@ -32,7 +32,6 @@ export const registerUser = (e, email, password, confirmPassword, username) => {
     .then((response) => {
       if (response.ok) {
         window.location.href = "/quiz";
-
         return response.json();
       } else {
         throw new Error(`HTTP status ${response.status}`);
@@ -46,7 +45,7 @@ export const registerUser = (e, email, password, confirmPassword, username) => {
     });
 };
 
-export const loginUser = (e, username, password) => {
+export const loginUser = async (e, username, password) => {
   e.preventDefault();
   console.log("inside login");
 
@@ -55,20 +54,23 @@ export const loginUser = (e, username, password) => {
     password,
   };
   console.log(userData);
-  fetch("https://localhost:7268/api/Auth/login", {
+  var response = await fetch("https://localhost:7268/api/Auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
-  })
-    .then((response) => {
-      console.log(response.json());
-    })
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  });
+  var data = await response.json();
+
+  localStorage.setItem("token", data.token);
+  // .then((response) => {
+  //   console.log(response.json());
+  // })
+  // .then((data) => {
+  //   console.log("Success:", data);
+  // })
+  // .catch((error) => {
+  //   console.error("Error:", error);
+  // });
 };
