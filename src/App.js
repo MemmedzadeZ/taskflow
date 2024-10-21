@@ -87,7 +87,7 @@ function App() {
 
       <Routes>
         {/* Only render Auth for /signin or /aboutUs */}
-        <Route path="/signin" element={<Auth />} />
+        <Route path="/auth" element={<Auth />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/user" element={<User />} />
         <Route path="/quiz" element={<InfoQuiz />} />
@@ -95,7 +95,7 @@ function App() {
         <Route path="/dashboard" element={<DashboardTemplate />} />
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         <Route
-          path="*"
+          path="/"
           element={
             <>
               <HeaderSection />
