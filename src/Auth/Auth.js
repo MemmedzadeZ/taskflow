@@ -223,15 +223,14 @@ function Auth() {
                   />
                 </div>
                 {/* <div className="btn-layer"></div> */}
-                <Link to="/quiz">
-                  <div className="field btn">
-                    <input
-                      className="btn btn-primary"
-                      type="submit"
-                      value="Signup"
-                    />
-                  </div>
-                </Link>
+
+                <div className="field btn">
+                  <input
+                    className="btn btn-primary"
+                    type="submit"
+                    value="Signup"
+                  />
+                </div>
               </form>
             )}
           </div>

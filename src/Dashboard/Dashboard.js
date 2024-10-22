@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
@@ -10,6 +10,7 @@ function DashboardTemplate() {
   const themeLight = "light";
   const themeElkan = "elkan";
   const body = document.getElementsByTagName("body")[0];
+  const [username, setUsername] = useState("");
 
   function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -37,7 +38,19 @@ function DashboardTemplate() {
       setCookie(themeCookieName, themeLight);
     }
   }
-
+  const getUserInfo = async () => {
+    var response = await fetch(
+      "https://localhost:7268/api/Auth/FindCurrentUserForToken",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    console.log(response.username);
+    setUsername(response.username);
+  };
   // Apply saved theme on load and set corresponding background color
   useEffect(() => {
     const savedTheme = document.cookie
@@ -57,6 +70,7 @@ function DashboardTemplate() {
       body.style.backgroundColor = "#ffffff"; // Default light mode background
     }
   }, [body]);
+  getUserInfo();
 
   return (
     <div>
@@ -265,7 +279,7 @@ function DashboardTemplate() {
                   />
                   <span className="pulse-css"></span>
                   <span className="info d-xl-inline-block color-span">
-                    <span className="d-block fs-20 font-w600">Randy Riley</span>
+                    <span className="d-block fs-20 font-w600">{username}</span>
                     <span className="d-block mt-7">randy.riley@gmail.com</span>
                   </span>
                   <i className="bx bx-chevron-down"></i>
