@@ -338,7 +338,7 @@ function DashboardTemplate() {
                               <div className="img-mess">
                                 <img
                                   className="mr-14"
-                                  src="./images/avatar/avt-1.png"
+                                  src="/images/avatar/avt-1.png"
                                   alt="avt"
                                 />
                               </div>
@@ -359,7 +359,7 @@ function DashboardTemplate() {
                               <div className="img-mess">
                                 <img
                                   className="mr-14"
-                                  src="./images/avatar/avt-1.png"
+                                  src="/images/avatar/avt-1.png"
                                   alt="avt"
                                 />
                               </div>
@@ -671,7 +671,7 @@ function DashboardTemplate() {
                           <div className="d-flex bd-highlight">
                             <div className="img_cont">
                               <img
-                                src="./images/avatar/message-01.png"
+                                src="/images/avatar/message-01.png"
                                 className="rounded-circle user_img"
                                 alt="Richard Coleman"
                               />
@@ -690,7 +690,7 @@ function DashboardTemplate() {
                           <div className="d-flex bd-highlight">
                             <div className="img_cont border-pink">
                               <img
-                                src="./images/avatar/message-02.png"
+                                src="/images/avatar/message-02.png"
                                 className="rounded-circle user_img"
                                 alt="Jessica Elliot"
                               />
@@ -710,7 +710,7 @@ function DashboardTemplate() {
                           <div className="d-flex bd-highlight">
                             <div className="img_cont border-green">
                               <img
-                                src="./images/avatar/message-03.png"
+                                src="/images/avatar/message-03.png"
                                 className="rounded-circle user_img"
                                 alt="Steve Ford"
                               />
@@ -727,7 +727,7 @@ function DashboardTemplate() {
                           <div className="d-flex bd-highlight">
                             <div className="img_cont border-blue">
                               <img
-                                src="./images/avatar/message-04.png"
+                                src="/images/avatar/message-04.png"
                                 className="rounded-circle user_img"
                                 alt="Mary Ann Lucas"
                               />
@@ -857,31 +857,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
@@ -987,31 +987,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
@@ -1117,31 +1117,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
@@ -1247,31 +1247,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
@@ -1378,31 +1378,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
@@ -1508,31 +1508,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
@@ -1638,31 +1638,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
@@ -1769,31 +1769,31 @@ function DashboardTemplate() {
                                 <ul className="user-list">
                                   <li>
                                     <img
-                                      src="./images/avatar/user-1.png"
+                                      src="/images/avatar/user-1.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-2.png"
+                                      src="/images/avatar/user-2.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-3.png"
+                                      src="/images/avatar/user-3.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-4.png"
+                                      src="/images/avatar/user-4.png"
                                       alt="user"
                                     />
                                   </li>
                                   <li>
                                     <img
-                                      src="./images/avatar/user-5.png"
+                                      src="/images/avatar/user-5.png"
                                       alt="user"
                                     />
                                   </li>
