@@ -63,7 +63,32 @@ export const loginUser = async (e, username, password) => {
   });
   var data = await response.json();
 
-  localStorage.setItem("token", data.token);
+  console.log(data.token);
+
+  if (response.ok) {
+    window.location.href = "/dashboard";
+  }
+
+  // localStorage.setItem("token", data.token);
+  //CurrentUserForToken
+
+  // var newResponse = await fetch(
+  //   "https://localhost:7268/api/Auth/FindCurrentUserForToken",
+  //   {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${data.token}`,
+  //     },
+  //   }
+  // );
+  // const newData = await newResponse.json();
+
+  // if (newResponse.ok) {
+  //   console.log("Current user:", newData);
+  // } else {
+  //   console.error("Failed to get current user:", newData);
+  // }
+
   // .then((response) => {
   //   console.log(response.json());
   // })

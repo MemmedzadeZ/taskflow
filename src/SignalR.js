@@ -32,9 +32,9 @@ function SignalRHub() {
       .start()
       .then(() => {
         console.log("SignalR connected");
-        connection.on("ReceiveConnectInfo", (message) => {
-          setMessage(message);
-        });
+        // connection.on("ReceiveConnectInfo", (message) => {
+        //   setMessage(message);
+        // });
       })
       .catch((err) => console.error("SignalR connection error:", err));
 
