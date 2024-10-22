@@ -759,8 +759,6 @@ function DashboardTemplate() {
                         </p>
                       </div>
                     </div>
-
-<<<<<<< HEAD
                     <div className="box-body pt-20">
                       <div
                         className="themesflat-carousel-box data-effect has-bullets bullet-circle bullet24 clearfix"
@@ -1818,9 +1816,9 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-=======
+                    =======
                     <CurrentProjects></CurrentProjects>
->>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d
+                    >>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d
                   </div>
                 </div>
               </div>
