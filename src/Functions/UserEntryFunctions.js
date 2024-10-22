@@ -31,7 +31,7 @@ export const registerUser = (e, email, password, confirmPassword, username) => {
   })
     .then((response) => {
       if (response.ok) {
-        window.location.href = "/quiz";
+        window.location.href = "/auth?";
         return response.json();
       } else {
         throw new Error(`HTTP status ${response.status}`);
@@ -65,11 +65,22 @@ export const loginUser = async (e, username, password) => {
 
   console.log(data.token);
 
+  var isFirstTime = await fetch("https://localhost:7268/api/Auth/RouteToQuiz", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
   if (response.ok) {
-    window.location.href = "/dashboard";
+    isFirstTime
+      ? (window.location.href = "/quiz")
+      : (window.location.href = "/dashboard");
+  } else {
+    console.log(response.json());
   }
 
-  // localStorage.setItem("token", data.token);
+  localStorage.setItem("token", data.token);
   //CurrentUserForToken
 
   // var newResponse = await fetch(

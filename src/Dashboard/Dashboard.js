@@ -1816,9 +1816,7 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-                    =======
                     <CurrentProjects></CurrentProjects>
-                    >>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d
                   </div>
                 </div>
               </div>
