@@ -2,60 +2,61 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
+import CurrentProjects from "./CurrentProjects";
 
 function DashboardTemplate() {
-   const themeCookieName = "theme";
-   const themeDark = "dark";
-   const themeLight = "light";
-   const themeElkan = "elkan";
-   const body = document.getElementsByTagName("body")[0];
+  const themeCookieName = "theme";
+  const themeDark = "dark";
+  const themeLight = "light";
+  const themeElkan = "elkan";
+  const body = document.getElementsByTagName("body")[0];
 
-   function setCookie(cname, cvalue, exdays) {
-     var d = new Date();
-     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-     var expires = "expires=" + d.toUTCString();
-     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-   }
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
 
-   // Switch between light, dark, and elkan mode, changing background color
-   function switchTheme() {
-     if (body.classList.contains(themeLight)) {
-       body.classList.remove(themeLight);
-       body.classList.add(themeDark);
-       body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
-       setCookie(themeCookieName, themeDark);
-     } else if (body.classList.contains(themeDark)) {
-       body.classList.remove(themeDark);
-       body.classList.add(themeElkan);
-       body.style.backgroundColor = "#ffffff"; // Elkan Mode background (purple)
-       setCookie(themeCookieName, themeElkan);
-     } else if (body.classList.contains(themeElkan)) {
-       body.classList.remove(themeElkan);
-       body.classList.add(themeLight);
-       body.style.backgroundColor = "#ffffff"; // Light Mode background
-       setCookie(themeCookieName, themeLight);
-     }
-   }
+  // Switch between light, dark, and elkan mode, changing background color
+  function switchTheme() {
+    if (body.classList.contains(themeLight)) {
+      body.classList.remove(themeLight);
+      body.classList.add(themeDark);
+      body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
+      setCookie(themeCookieName, themeDark);
+    } else if (body.classList.contains(themeDark)) {
+      body.classList.remove(themeDark);
+      body.classList.add(themeElkan);
+      body.style.backgroundColor = "#ffffff"; // Elkan Mode background (purple)
+      setCookie(themeCookieName, themeElkan);
+    } else if (body.classList.contains(themeElkan)) {
+      body.classList.remove(themeElkan);
+      body.classList.add(themeLight);
+      body.style.backgroundColor = "#ffffff"; // Light Mode background
+      setCookie(themeCookieName, themeLight);
+    }
+  }
 
-   // Apply saved theme on load and set corresponding background color
-   useEffect(() => {
-     const savedTheme = document.cookie
-       .split("; ")
-       .find((row) => row.startsWith(`${themeCookieName}=`))
-       ?.split("=")[1];
+  // Apply saved theme on load and set corresponding background color
+  useEffect(() => {
+    const savedTheme = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(`${themeCookieName}=`))
+      ?.split("=")[1];
 
-     if (savedTheme) {
-       body.classList.add(savedTheme);
-       if (savedTheme === themeDark) {
-         body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
-       } else {
-         body.style.backgroundColor = "#ffffff"; // Light Mode background
-       }
-     } else {
-       body.classList.add(themeLight); // Default to light theme
-       body.style.backgroundColor = "#ffffff"; // Default light mode background
-     }
-   }, [body]);
+    if (savedTheme) {
+      body.classList.add(savedTheme);
+      if (savedTheme === themeDark) {
+        body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
+      } else {
+        body.style.backgroundColor = "#ffffff"; // Light Mode background
+      }
+    } else {
+      body.classList.add(themeLight); // Default to light theme
+      body.style.backgroundColor = "#ffffff"; // Default light mode background
+    }
+  }, [body]);
 
   return (
     <div>
@@ -759,6 +760,7 @@ function DashboardTemplate() {
                       </div>
                     </div>
 
+<<<<<<< HEAD
                     <div className="box-body pt-20">
                       <div
                         className="themesflat-carousel-box data-effect has-bullets bullet-circle bullet24 clearfix"
@@ -1816,6 +1818,9 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
+=======
+                    <CurrentProjects></CurrentProjects>
+>>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d
                   </div>
                 </div>
               </div>
