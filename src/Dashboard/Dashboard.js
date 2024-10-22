@@ -1,9 +1,62 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 
 function DashboardTemplate() {
+   const themeCookieName = "theme";
+   const themeDark = "dark";
+   const themeLight = "light";
+   const themeElkan = "elkan";
+   const body = document.getElementsByTagName("body")[0];
+
+   function setCookie(cname, cvalue, exdays) {
+     var d = new Date();
+     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+     var expires = "expires=" + d.toUTCString();
+     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+   }
+
+   // Switch between light, dark, and elkan mode, changing background color
+   function switchTheme() {
+     if (body.classList.contains(themeLight)) {
+       body.classList.remove(themeLight);
+       body.classList.add(themeDark);
+       body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
+       setCookie(themeCookieName, themeDark);
+     } else if (body.classList.contains(themeDark)) {
+       body.classList.remove(themeDark);
+       body.classList.add(themeElkan);
+       body.style.backgroundColor = "#ffffff"; // Elkan Mode background (purple)
+       setCookie(themeCookieName, themeElkan);
+     } else if (body.classList.contains(themeElkan)) {
+       body.classList.remove(themeElkan);
+       body.classList.add(themeLight);
+       body.style.backgroundColor = "#ffffff"; // Light Mode background
+       setCookie(themeCookieName, themeLight);
+     }
+   }
+
+   // Apply saved theme on load and set corresponding background color
+   useEffect(() => {
+     const savedTheme = document.cookie
+       .split("; ")
+       .find((row) => row.startsWith(`${themeCookieName}=`))
+       ?.split("=")[1];
+
+     if (savedTheme) {
+       body.classList.add(savedTheme);
+       if (savedTheme === themeDark) {
+         body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
+       } else {
+         body.style.backgroundColor = "#ffffff"; // Light Mode background
+       }
+     } else {
+       body.classList.add(themeLight); // Default to light theme
+       body.style.backgroundColor = "#ffffff"; // Default light mode background
+     }
+   }, [body]);
+
   return (
     <div>
       <Helmet>
@@ -41,6 +94,7 @@ function DashboardTemplate() {
         <link rel="stylesheet" href="/css/style.css" />
         <link rel="stylesheet" href="/css/responsive.css" />
       </Helmet>
+
       <div className="sidebar-expand">
         <div className="DIV">
           {/* SIDEBAR */}
@@ -59,7 +113,7 @@ function DashboardTemplate() {
             <div className="simplebar-sc" data-simplebar>
               <ul className="sidebar-menu tf">
                 <li className="sidebar-submenu">
-                  <a href="index.html" className="sidebar-menu-dropdown">
+                  <a href="/dashboard" className="sidebar-menu-dropdown">
                     <i className="bx bxs-home"></i>
                     <span>Board</span>
                     <div className="dropdown-icon">
@@ -82,7 +136,10 @@ function DashboardTemplate() {
                   </ul>
                 </li>
                 <li className="sidebar-submenu">
-                  <a href="project.html" className="sidebar-menu-dropdown">
+                  {/* /////////////////////////////// */}
+                  {/* /////////////////////////////// */}
+                  {/* /////////////////////////////// */}
+                  <a href="/project" className="sidebar-menu-dropdown">
                     <i className="bx bxs-bolt"></i>
                     <span>Project</span>
                     <div className="dropdown-icon">
@@ -91,7 +148,7 @@ function DashboardTemplate() {
                   </a>
                   <ul className="sidebar-menu sidebar-menu-dropdown-content">
                     <li>
-                      <a href="project.html"> Project </a>
+                      <a href="/quiz"> Project </a>
                     </li>
                     <li>
                       <a href="project-details.html"> Project Details </a>
@@ -155,7 +212,7 @@ function DashboardTemplate() {
                   <a
                     className="darkmode-toggle"
                     id="darkmode-toggle"
-                    onClick={() => console.log("Switch Theme")}
+                    onClick={switchTheme} // Here we call the switchTheme function
                   >
                     <div>
                       <i className="bx bx-cog mr-10"></i>

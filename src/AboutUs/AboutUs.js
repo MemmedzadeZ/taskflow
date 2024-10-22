@@ -1,44 +1,83 @@
 import React from "react";
-import "./AboutUs.css"; // We'll create this CSS file for styling
+import "./AboutUs.css"; // Custom CSS file for styling
 
-function AboutUs() {
-return (
-  <div className="about-us">
-    <div className="about-section section-1">
-      <div className="content">
-        <img src="path/to/image1.jpg" alt="Task Management Project" />
+const AboutUs = () => {
+  return (
+    <div className="about-page">
+      {/* Header Section */}
+      <header className="about-header">
+        <h1>About Our Project Management Team</h1>
         <p>
-          Task Management Project: Streamline your tasks and improve
-          productivity.
+          Welcome to our About Us page! We are passionate about delivering the
+          best project management tools to help you succeed.
         </p>
-      </div>
+      </header>
+
+
+      {/* Values Section */}
+      <section className="about-section values-section">
+        <h2>Our Values</h2>
+        <ul>
+          <li>
+            Innovation: Continuously improving our platform with cutting-edge
+            technology.
+          </li>
+          <li>
+            Integrity: We believe in transparency and ethical practices in
+            everything we do.
+          </li>
+          <li>
+            Customer Success: Our success is measured by how much we help our
+            clients achieve.
+          </li>
+        </ul>
+      </section>
+
+      {/* Mission Section */}
+      <section className="about-section mission-section">
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is to provide world-class project management solutions
+          that simplify workflows, enhance collaboration, and help teams meet
+          their goals efficiently. We are constantly evolving to meet the needs
+          of modern businesses.
+        </p>
+      </section>
+      {/* Team Section */}
+      <section className="about-section team-section">
+        <h2>Meet the Team</h2>
+        <div className="team-grid">
+          <div className="team-member">
+            <img src="/assets/images/team1.jpg" alt="Team Member 1" />
+            <h3>Jane Doe</h3>
+            <p>Chief Executive Officer</p>
+          </div>
+          <div className="team-member">
+            <img src="/assets/images/team2.jpg" alt="Team Member 2" />
+            <h3>John Smith</h3>
+            <p>Lead Project Manager</p>
+          </div>
+          <div className="team-member">
+            <img src="/assets/images/team3.jpg" alt="Team Member 3" />
+            <h3>Emily Johnson</h3>
+            <p>UX/UI Designer</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="about-section call-to-action">
+        <h2>Join Us on Our Journey</h2>
+        <p>
+          We're always looking for talented individuals who share our passion
+          for project management and innovation. Get in touch with us to learn
+          more about career opportunities or how we can help your business
+          thrive.
+        </p>
+        <button className="cta-button">Contact Us</button>
+      </section>
     </div>
-    <div className="about-section section-2">
-      <div className="content">
-        <img src="path/to/image2.jpg" alt="Task Management Project" />
-        <p>Manage your projects efficiently and collaborate with your team.</p>
-      </div>
-    </div>
-    <div className="about-section section-3">
-      <div className="content">
-        <img src="path/to/image3.jpg" alt="Task Management Project" />
-        <p>Track your progress and stay on top of deadlines.</p>
-      </div>
-    </div>
-    <div className="about-section section-4">
-      <div className="content">
-        <img src="path/to/image4.jpg" alt="Task Management Project" />
-        <p>Customizable features to suit your workflow.</p>
-      </div>
-    </div>
-    <div className="about-section section-5">
-      <div className="content">
-        <img src="path/to/image5.jpg" alt="Task Management Project" />
-        <p>Join us today for a seamless experience!</p>
-      </div>
-    </div>
-  </div>
-);
-}
+  );
+};
 
 export default AboutUs;

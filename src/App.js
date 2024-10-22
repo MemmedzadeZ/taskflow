@@ -18,6 +18,8 @@ import SignalRHub from "./SignalR";
 import InfoQuiz from "./QuizForm/InfoQuiz/InfoQuiz";
 import TradeQuiz from "./QuizForm/TradeQuiz/TradeQuiz";
 import DashboardTemplate from "./Dashboard/Dashboard";
+import FeaturesSection from "./Components/FeaturesSection";
+import Project from "./Project/Project";
 
 function App() {
   return (
@@ -93,6 +95,8 @@ function App() {
         <Route path="/quiz" element={<InfoQuiz />} />
         <Route path="/quiztrade" element={<TradeQuiz />} />
         <Route path="/dashboard" element={<DashboardTemplate />} />
+        <Route path="/project" element={<Project />} />
+        
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         <Route
           path="/"
@@ -104,6 +108,7 @@ function App() {
               <MetricsSection />
               <FaqSection />
               <VideoSection />
+              <FeaturesSection />
               <Testimonials />
               <ContactFormSection />
               <FooterSection />
