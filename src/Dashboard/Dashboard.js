@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
-import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 import CurrentProjects from "./CurrentProjects";
 import CountNotification from "./NotificationCount";
 import CountMessage from "./MessageCount";
+import CurrentPerson from "./CurrentUser";
+import TwoMessage from "./MessageList";
+import TwoNotification from "./NotificationList";
+import CalendarCount from "./CalendarNotificationCount";
+import TwoCalendarNotification from "./CalendarList";
+import ClientsCount from "./TotalClient";
+import ProjectsCount from "./ProjectCount";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
@@ -12,8 +18,6 @@ function DashboardTemplate() {
   const themeLight = "light";
   const themeElkan = "elkan";
   const body = document.getElementsByTagName("body")[0];
-  const [username, setUsername] = useState("");
-
   function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -40,19 +44,7 @@ function DashboardTemplate() {
       setCookie(themeCookieName, themeLight);
     }
   }
-  const getUserInfo = async () => {
-    var response = await fetch(
-      "https://localhost:7268/api/Auth/FindCurrentUserForToken",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(response.username);
-    setUsername(response.username);
-  };
+
   // Apply saved theme on load and set corresponding background color
   useEffect(() => {
     const savedTheme = document.cookie
@@ -72,7 +64,6 @@ function DashboardTemplate() {
       body.style.backgroundColor = "#ffffff"; // Default light mode background
     }
   }, [body]);
-  getUserInfo();
 
   return (
     <div>
@@ -117,7 +108,7 @@ function DashboardTemplate() {
           {/* SIDEBAR */}
           <div className="sidebar">
             <div className="sidebar-logo">
-              <a>
+              <a href=" ">
                 <h1 className="classH1">TaskFlow</h1>
                 {/* <img src="./images/logo.png" alt="Protend logo" /> */}
               </a>
@@ -227,6 +218,7 @@ function DashboardTemplate() {
                 </li>
                 <li>
                   <a
+                    href=" "
                     className="darkmode-toggle"
                     id="darkmode-toggle"
                     onClick={switchTheme} // Here we call the switchTheme function
@@ -266,37 +258,17 @@ function DashboardTemplate() {
               </form>
 
               <div className="dropdown d-inline-block mt-12">
-                <button
-                  type="button"
-                  className="btn header-item waves-effect"
-                  id="page-header-user-dropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img
-                    className="rounded-circle header-profile-user"
-                    src="./images/profile/profile.png"
-                    alt="Header Avatar"
-                  />
-                  <span className="pulse-css"></span>
-                  <span className="info d-xl-inline-block color-span">
-                    <span className="d-block fs-20 font-w600">{username}</span>
-                    <span className="d-block mt-7">randy.riley@gmail.com</span>
-                  </span>
-                  <i className="bx bx-chevron-down"></i>
-                </button>
+                <CurrentPerson />
                 <div className="dropdown-menu dropdown-menu-end">
-                  {/* Dropdown items */}
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href=" ">
                     <i className="bx bx-user font-size-16 align-middle me-1"></i>
                     <span>Profile</span>
                   </a>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href=" ">
                     <i className="bx bx-wallet font-size-16 align-middle me-1"></i>
                     <span>My Wallet</span>
                   </a>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href=" ">
                     <i className="bx bx-wrench font-size-16 align-middle me-1"></i>
                     <span>Settings</span>
                   </a>
@@ -324,65 +296,7 @@ function DashboardTemplate() {
                         <i className="bx bxs-bell bx-tada"></i>
                       </div>
                       <CountNotification />
-                      <div className="notification-list card">
-                        <div className="top box-header">
-                          <h5>Notification</h5>
-                        </div>
-                        <div className="pd-1r">
-                          <div className="divider"></div>
-                        </div>
-
-                        <div className="box-body">
-                          <ul className="list">
-                            <li className="d-flex no-seen">
-                              <div className="img-mess">
-                                <img
-                                  className="mr-14"
-                                  src="/images/avatar/avt-1.png"
-                                  alt="avt"
-                                />
-                              </div>
-                              <div className="info">
-                                <a
-                                  href="#"
-                                  className="font-w600 mb-0 color-primary"
-                                >
-                                  Elizabeth Holland
-                                </a>
-                                <p className="pb-0 mb-0 line-h14 mt-6">
-                                  Proin ac quam et lectus vestibulum
-                                </p>
-                              </div>
-                            </li>
-
-                            <li className="d-flex">
-                              <div className="img-mess">
-                                <img
-                                  className="mr-14"
-                                  src="/images/avatar/avt-1.png"
-                                  alt="avt"
-                                />
-                              </div>
-                              <div className="info">
-                                <a
-                                  href="#"
-                                  className="font-w600 mb-0 color-primary"
-                                >
-                                  Elizabeth Holland
-                                </a>
-                                <p className="pb-0 mb-0 line-h14 mt-6">
-                                  Proin ac quam et lectus vestibulum
-                                </p>
-                              </div>
-                            </li>
-                          </ul>
-                          <div className="btn-view">
-                            <a className="font-w600 h5" href="message.html">
-                              View All
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                      <TwoNotification />
                     </div>
 
                     <div className="icon-box bg-color-2">
@@ -390,65 +304,7 @@ function DashboardTemplate() {
                         <i className="bx bxs-message-rounded"></i>
                       </div>
                       <CountMessage />
-                      <div className="notification-list card">
-                        <div className="top box-header">
-                          <h5>Message</h5>
-                        </div>
-                        <div className="pd-1r">
-                          <div className="divider"></div>
-                        </div>
-
-                        <div className="box-body">
-                          <ul className="list">
-                            <li className="d-flex no-seen">
-                              <div className="img-mess">
-                                <img
-                                  className="mr-14"
-                                  src="/images/avatar/avt-1.png"
-                                  alt="avt"
-                                />
-                              </div>
-                              <div className="info">
-                                <a
-                                  href="#"
-                                  className="font-w600 mb-0 color-primary"
-                                >
-                                  Elizabeth Holland
-                                </a>
-                                <p className="pb-0 mb-0 line-h14 mt-6">
-                                  Proin ac quam et lectus vestibulum
-                                </p>
-                              </div>
-                            </li>
-
-                            <li className="d-flex">
-                              <div className="img-mess">
-                                <img
-                                  className="mr-14"
-                                  src="/images/avatar/avt-1.png"
-                                  alt="avt"
-                                />
-                              </div>
-                              <div className="info">
-                                <a
-                                  href="#"
-                                  className="font-w600 mb-0 color-primary"
-                                >
-                                  Elizabeth Holland
-                                </a>
-                                <p className="pb-0 mb-0 line-h14 mt-6">
-                                  Proin ac quam et lectus vestibulum
-                                </p>
-                              </div>
-                            </li>
-                          </ul>
-                          <div className="btn-view">
-                            <a className="font-w600 h5" href="message.html">
-                              View All
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                      <TwoMessage />
                     </div>
 
                     <div className="icon-box bg-color-3">
@@ -456,19 +312,15 @@ function DashboardTemplate() {
                         <div className="icon bg-icon-3">
                           <i className="bx bx-calendar"></i>
                         </div>
-                        <div className="content">
-                          <h5 className="title-box">Calendar</h5>
-                          <p className="color-3 mb-0 pt-4">
-                            5 Unread notification
-                          </p>
-                        </div>
                       </a>
+                      <CalendarCount />
+                      <TwoCalendarNotification />
                     </div>
 
                     <div className="icon-box bg-color-4">
                       <a
                         className="create d-flex"
-                        href="#"
+                        href=" "
                         data-toggle="modal"
                         data-target="#add_project"
                       >
@@ -489,36 +341,12 @@ function DashboardTemplate() {
                   <div className="row">
                     <div className="col-6 col-xl-12 col-sm-12">
                       <div className="box">
-                        <div className="box-body d-flex pb-0">
-                          <div className="me-auto">
-                            <h4 className="numb fs-30 font-wb">565</h4>
-                            <h5 className="card-title fs-18 font-w400">
-                              Total Clients
-                            </h5>
-                            <p className="fs-14 mb-0 mt-11">
-                              <span className="text-primary">-3% </span>than
-                              last month
-                            </p>
-                          </div>
-                          <div id="total-revenue-chart"></div>
-                        </div>
+                        <ClientsCount />
                       </div>
                     </div>
                     <div className="col-6 col-xl-12 col-sm-12">
                       <div className="box">
-                        <div className="box-body d-flex pb-0">
-                          <div className="me-auto">
-                            <h4 className="numb fs-30">565</h4>
-                            <h5 className="card-title fs-18 font-w400">
-                              New Projects
-                            </h5>
-                            <p className="fs-14 mb-0 mt-11">
-                              <span className="text-primary">+0.5% </span>than
-                              last month
-                            </p>
-                          </div>
-                          <div id="total-revenue-chart-1"></div>
-                        </div>
+                        <ProjectsCount />
                       </div>
                     </div>
 
@@ -601,7 +429,7 @@ function DashboardTemplate() {
                             </p>
                           </div>
                           <div className="btn-now">
-                            <a className="h6 font-w500" href="#">
+                            <a className="h6 font-w500" href=" ">
                               <span>Try For Free Now</span>
                             </a>
                           </div>
@@ -849,7 +677,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="#"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -887,7 +715,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -895,7 +723,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -953,12 +781,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -981,7 +809,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="#"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -1019,7 +847,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -1027,7 +855,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -1083,12 +911,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -1111,7 +939,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="#"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -1149,7 +977,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -1157,7 +985,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -1213,12 +1041,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -1241,7 +1069,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="#"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -1279,7 +1107,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -1287,7 +1115,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -1343,12 +1171,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -1372,7 +1200,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="#"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -1410,7 +1238,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -1418,7 +1246,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -1474,12 +1302,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -1502,7 +1330,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="javascript:void(0);"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -1540,7 +1368,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -1548,7 +1376,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -1604,12 +1432,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -1632,7 +1460,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="javascript:void(0);"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -1670,7 +1498,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -1678,7 +1506,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -1734,12 +1562,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -1763,7 +1591,7 @@ function DashboardTemplate() {
                               </div>
                               <div className="dropdown">
                                 <a
-                                  href="javascript:void(0);"
+                                  href=" "
                                   className="btn-link"
                                   data-bs-toggle="dropdown"
                                   aria-expanded="false"
@@ -1801,7 +1629,7 @@ function DashboardTemplate() {
                                 <div className="dropdown-menu dropdown-menu-right">
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#delete_project"
                                   >
@@ -1809,7 +1637,7 @@ function DashboardTemplate() {
                                   </a>
                                   <a
                                     className="dropdown-item"
-                                    href="#"
+                                    href=" "
                                     data-toggle="modal"
                                     data-target="#edit_project"
                                   >
@@ -1865,12 +1693,12 @@ function DashboardTemplate() {
                                 </ul>
                                 <ul className="tf-icon-list">
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bx-calendar"></i>
                                     </a>
                                   </li>
                                   <li>
-                                    <a href="#">
+                                    <a href=" ">
                                       <i className="bx bxs-star"></i>
                                     </a>
                                   </li>
@@ -1881,7 +1709,7 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-                    <CurrentProjects></CurrentProjects>
+                    <CurrentProjects />
                   </div>
                 </div>
               </div>

@@ -39,7 +39,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="#"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -77,7 +77,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -85,7 +85,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -126,12 +126,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
@@ -149,7 +149,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="#"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -187,7 +187,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -195,7 +195,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -236,12 +236,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
@@ -259,7 +259,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="#"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -297,7 +297,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -305,7 +305,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -346,12 +346,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
@@ -369,7 +369,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="#"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -407,7 +407,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -415,7 +415,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -456,12 +456,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
@@ -479,7 +479,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="#"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -517,7 +517,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -525,7 +525,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -566,12 +566,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
@@ -589,7 +589,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -627,7 +627,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -635,7 +635,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -676,12 +676,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
@@ -699,7 +699,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -737,7 +737,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -745,7 +745,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -786,12 +786,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
@@ -809,7 +809,7 @@ function CurrentProjects() {
                 </div>
                 <div className="dropdown">
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="btn-link"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -847,7 +847,7 @@ function CurrentProjects() {
                   <div className="dropdown-menu dropdown-menu-right">
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#delete_project"
                     >
@@ -855,7 +855,7 @@ function CurrentProjects() {
                     </a>
                     <a
                       className="dropdown-item"
-                      href="#"
+                      href=" "
                       data-toggle="modal"
                       data-target="#edit_project"
                     >
@@ -896,12 +896,12 @@ function CurrentProjects() {
                   </ul>
                   <ul className="tf-icon-list">
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bx-calendar"></i>
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href=" ">
                         <i className="bx bxs-star"></i>
                       </a>
                     </li>
