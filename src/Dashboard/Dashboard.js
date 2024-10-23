@@ -3,6 +3,8 @@ import { Helmet } from "react-helmet"; // For head configurations
 import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 import CurrentProjects from "./CurrentProjects";
+import CountNotification from "./NotificationCount";
+import CountMessage from "./MessageCount";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
@@ -321,11 +323,65 @@ function DashboardTemplate() {
                       <div className="icon bg-icon-1">
                         <i className="bx bxs-bell bx-tada"></i>
                       </div>
-                      <div className="content">
-                        <h5 className="title-box">Notification</h5>
-                        <p className="color-1 mb-0 pt-4">
-                          5 Unread notification
-                        </p>
+                      <CountNotification />
+                      <div className="notification-list card">
+                        <div className="top box-header">
+                          <h5>Notification</h5>
+                        </div>
+                        <div className="pd-1r">
+                          <div className="divider"></div>
+                        </div>
+
+                        <div className="box-body">
+                          <ul className="list">
+                            <li className="d-flex no-seen">
+                              <div className="img-mess">
+                                <img
+                                  className="mr-14"
+                                  src="/images/avatar/avt-1.png"
+                                  alt="avt"
+                                />
+                              </div>
+                              <div className="info">
+                                <a
+                                  href="#"
+                                  className="font-w600 mb-0 color-primary"
+                                >
+                                  Elizabeth Holland
+                                </a>
+                                <p className="pb-0 mb-0 line-h14 mt-6">
+                                  Proin ac quam et lectus vestibulum
+                                </p>
+                              </div>
+                            </li>
+
+                            <li className="d-flex">
+                              <div className="img-mess">
+                                <img
+                                  className="mr-14"
+                                  src="/images/avatar/avt-1.png"
+                                  alt="avt"
+                                />
+                              </div>
+                              <div className="info">
+                                <a
+                                  href="#"
+                                  className="font-w600 mb-0 color-primary"
+                                >
+                                  Elizabeth Holland
+                                </a>
+                                <p className="pb-0 mb-0 line-h14 mt-6">
+                                  Proin ac quam et lectus vestibulum
+                                </p>
+                              </div>
+                            </li>
+                          </ul>
+                          <div className="btn-view">
+                            <a className="font-w600 h5" href="message.html">
+                              View All
+                            </a>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
@@ -333,15 +389,10 @@ function DashboardTemplate() {
                       <div className="icon bg-icon-2">
                         <i className="bx bxs-message-rounded"></i>
                       </div>
-                      <div className="content click-c">
-                        <h5 className="title-box">Message</h5>
-                        <p className="color-2 mb-0 pt-4">
-                          5 Unread notification
-                        </p>
-                      </div>
+                      <CountMessage />
                       <div className="notification-list card">
                         <div className="top box-header">
-                          <h5>Notification</h5>
+                          <h5>Message</h5>
                         </div>
                         <div className="pd-1r">
                           <div className="divider"></div>
