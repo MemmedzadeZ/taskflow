@@ -24,7 +24,7 @@ import Project from "./Project/Project";
 function App() {
   return (
     <div>
-      <SignalRHub />
+      {/* <SignalRHub /> */}
       {/* head */}
       <Helmet>
         {/* Meta tags */}
@@ -96,7 +96,7 @@ function App() {
         <Route path="/quiztrade" element={<TradeQuiz />} />
         <Route path="/dashboard" element={<DashboardTemplate />} />
         <Route path="/project" element={<Project />} />
-        
+
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         <Route
           path="/"

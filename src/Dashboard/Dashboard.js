@@ -773,7 +773,7 @@ function DashboardTemplate() {
                         </p>
                       </div>
                     </div>
-                    <div className="box-body pt-20">
+                    {/* <div className="box-body pt-20">
                       <div
                         className="themesflat-carousel-box data-effect has-bullets bullet-circle bullet24 clearfix"
                         data-gap="30"
@@ -1305,7 +1305,7 @@ function DashboardTemplate() {
                               </div>
                             </div>
                           </div>
-                          {/* //img */}
+                          ///* //img ///*
                           <div className="box box-carousel">
                             <div className="card-top">
                               <div className="sm-f-wrap d-flex">
@@ -1829,7 +1829,7 @@ function DashboardTemplate() {
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     <CurrentProjects></CurrentProjects>
                   </div>
                 </div>
