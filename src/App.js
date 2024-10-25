@@ -20,6 +20,8 @@ import TradeQuiz from "./QuizForm/TradeQuiz/TradeQuiz";
 import DashboardTemplate from "./Dashboard/Dashboard";
 import FeaturesSection from "./Components/FeaturesSection";
 import Project from "./Project/Project";
+import Profile from "./Profile/Profile";
+
 
 function App() {
   return (
@@ -96,6 +98,7 @@ function App() {
         <Route path="/quiztrade" element={<TradeQuiz />} />
         <Route path="/dashboard" element={<DashboardTemplate />} />
         <Route path="/project" element={<Project />} />
+        {/* <Route path="/profile" element={<Profile />} /> */}
         
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         <Route

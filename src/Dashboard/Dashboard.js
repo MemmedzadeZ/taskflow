@@ -3,61 +3,10 @@ import { Helmet } from "react-helmet"; // For head configurations
 import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 import CurrentProjects from "./CurrentProjects";
+import SidebarComponent from "../SideBar/SidebarComponent";
 
 function DashboardTemplate() {
-  const themeCookieName = "theme";
-  const themeDark = "dark";
-  const themeLight = "light";
-  const themeElkan = "elkan";
-  const body = document.getElementsByTagName("body")[0];
-
-  function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-    var expires = "expires=" + d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-  }
-
-  // Switch between light, dark, and elkan mode, changing background color
-  function switchTheme() {
-    if (body.classList.contains(themeLight)) {
-      body.classList.remove(themeLight);
-      body.classList.add(themeDark);
-      body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
-      setCookie(themeCookieName, themeDark);
-    } else if (body.classList.contains(themeDark)) {
-      body.classList.remove(themeDark);
-      body.classList.add(themeElkan);
-      body.style.backgroundColor = "#ffffff"; // Elkan Mode background (purple)
-      setCookie(themeCookieName, themeElkan);
-    } else if (body.classList.contains(themeElkan)) {
-      body.classList.remove(themeElkan);
-      body.classList.add(themeLight);
-      body.style.backgroundColor = "#ffffff"; // Light Mode background
-      setCookie(themeCookieName, themeLight);
-    }
-  }
-
-  // Apply saved theme on load and set corresponding background color
-  useEffect(() => {
-    const savedTheme = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith(`${themeCookieName}=`))
-      ?.split("=")[1];
-
-    if (savedTheme) {
-      body.classList.add(savedTheme);
-      if (savedTheme === themeDark) {
-        body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
-      } else {
-        body.style.backgroundColor = "#ffffff"; // Light Mode background
-      }
-    } else {
-      body.classList.add(themeLight); // Default to light theme
-      body.style.backgroundColor = "#ffffff"; // Default light mode background
-    }
-  }, [body]);
-
+  
   return (
     <div>
       <Helmet>
@@ -98,134 +47,7 @@ function DashboardTemplate() {
 
       <div className="sidebar-expand">
         <div className="DIV">
-          {/* SIDEBAR */}
-          <div className="sidebar">
-            <div className="sidebar-logo">
-              <a>
-                <h1 className="classH1">TaskFlow</h1>
-                {/* <img src="./images/logo.png" alt="Protend logo" /> */}
-              </a>
-
-              <div className="sidebar-close" id="sidebar-close">
-                <i className="bx bx-left-arrow-alt"></i>
-              </div>
-            </div>
-            {/* SIDEBAR MENU */}
-            <div className="simplebar-sc" data-simplebar>
-              <ul className="sidebar-menu tf">
-                <li className="sidebar-submenu">
-                  <a href="/dashboard" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-home"></i>
-                    <span>Board</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="index.html"> Dashboard </a>
-                    </li>
-                    {/* <li>
-                      <a href="user-profile.html"> User Profile </a>
-                    </li>
-                    <li>
-                      <a href="user-login.html"> User Login </a>
-                    </li>
-                    <li>
-                      <a href="new-account.html"> New Account </a>
-                    </li> */}
-                  </ul>
-                </li>
-                <li className="sidebar-submenu">
-                  {/* /////////////////////////////// */}
-                  {/* /////////////////////////////// */}
-                  {/* /////////////////////////////// */}
-                  <a href="/project" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-bolt"></i>
-                    <span>Project</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="/quiz"> Project </a>
-                    </li>
-                    <li>
-                      <a href="project-details.html"> Project Details </a>
-                    </li>
-                    <li>
-                      <a href="new-project.html"> New Project </a>
-                    </li>
-                  </ul>
-                </li>
-                {/* Other Sidebar Menu Items */}
-                <li className="sidebar-submenu">
-                  <a href="clients.html" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-user"></i>
-                    <span>Client</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="clients.html"> Manager Client </a>
-                    </li>
-                    <li>
-                      <a href="client-details.html"> Client Details </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="board.html">
-                    <i className="bx bxs-dashboard"></i>
-                    <span>Board</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="calendar.html">
-                    <i className="bx bx-calendar"></i>
-                    <span>Calendar</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="message.html">
-                    <i className="bx bxs-message-rounded-detail"></i>
-                    <span>Message</span>
-                  </a>
-                </li>
-                <li className="sidebar-submenu">
-                  <a href="chart-apex.html" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-component"></i>
-                    <span>Components</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="chart-apex.html"> Apex Charts </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a
-                    className="darkmode-toggle"
-                    id="darkmode-toggle"
-                    onClick={switchTheme} // Here we call the switchTheme function
-                  >
-                    <div>
-                      <i className="bx bx-cog mr-10"></i>
-                      <span>darkmode</span>
-                    </div>
-                    <span className="darkmode-switch"></span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          {/* End Sidebar */}
+          <SidebarComponent />
 
           {/* Main Header */}
           <div className="main-header">
@@ -250,26 +72,32 @@ function DashboardTemplate() {
               </form>
 
               <div className="dropdown d-inline-block mt-12">
-                <button
-                  type="button"
-                  className="btn header-item waves-effect"
-                  id="page-header-user-dropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img
-                    className="rounded-circle header-profile-user"
-                    src="./images/profile/profile.png"
-                    alt="Header Avatar"
-                  />
-                  <span className="pulse-css"></span>
-                  <span className="info d-xl-inline-block color-span">
-                    <span className="d-block fs-20 font-w600">Randy Riley</span>
-                    <span className="d-block mt-7">randy.riley@gmail.com</span>
-                  </span>
-                  <i className="bx bx-chevron-down"></i>
-                </button>
+                {/* <Link to="/profile"> */}
+                  <button
+                    type="button"
+                    className="btn header-item waves-effect"
+                    id="page-header-user-dropdown"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    <img
+                      className="rounded-circle header-profile-user"
+                      src="./images/profile/profile.png"
+                      alt="Header Avatar"
+                    />
+                    <span className="pulse-css"></span>
+                    <span className="info d-xl-inline-block color-span">
+                      <span className="d-block fs-20 font-w600">
+                        Randy Riley
+                      </span>
+                      <span className="d-block mt-7">
+                        randy.riley@gmail.com
+                      </span>
+                    </span>
+                    <i className="bx bx-chevron-down"></i>
+                  </button>
+                {/* </Link> */}
                 <div className="dropdown-menu dropdown-menu-end">
                   {/* Dropdown items */}
                   <a className="dropdown-item" href="#">
@@ -1817,9 +1645,9 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-{/* ======= */}
+                    {/* ======= */}
                     <CurrentProjects></CurrentProjects>
-{/* >>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d */}
+                    {/* >>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d */}
                   </div>
                 </div>
               </div>
