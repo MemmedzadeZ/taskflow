@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./InfoQuiz.css"; // CSS faylını əlavə et
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function InfoQuiz() {
   const [selectedOption, setSelectedOption] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const navigate = useNavigate();
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
 
@@ -21,7 +22,18 @@ function InfoQuiz() {
       return;
     }
     console.log(localStorage.getItem("token"));
-    console.log("Selected option:", selectedOption);
+    console.log("Selected option:", selectedOption); //
+    fetch("https://localhost:7268/api/Quiz/Occupation", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(selectedOption),
+    }).then((response) => {
+      if (response.ok) {
+        navigate("/quiztrade");
+      }
+    });
   };
 
   return (

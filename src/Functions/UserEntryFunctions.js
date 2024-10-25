@@ -64,12 +64,23 @@ export const loginUser = async (e, username, password) => {
   var data = await response.json();
 
   console.log(data.token);
+  localStorage.setItem("token", data.token);
 
+  var isFirstTime = await fetch("https://localhost:7268/api/Auth/RouteToQuiz", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  console.log(isFirstTime);
   if (response.ok) {
+    // isFirstTime
+    //   ? (window.location.href = "/quiz")
     window.location.href = "/dashboard";
+  } else {
+    console.log(response.json());
   }
 
-  // localStorage.setItem("token", data.token);
   //CurrentUserForToken
 
   // var newResponse = await fetch(
