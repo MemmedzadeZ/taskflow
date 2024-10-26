@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 import SidebarComponent from "../SideBar/SidebarComponent";
 import "./CreateProject.css"; // Add custom styles here
+import CurrentPerson from "../Dashboard/CurrentUser";
 
 //  {" "}
 //                                 <img
@@ -170,26 +171,7 @@ const Project = () => {
               </div>
 
               <div className="dropdown d-inline-block mt-12">
-                <button
-                  type="button"
-                  className="btn header-item waves-effect"
-                  id="page-header-user-dropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img
-                    className="rounded-circle header-profile-user"
-                    src="/images/profile/profile.png"
-                    alt="Header Avatar"
-                  />
-                  <span className="pulse-css"></span>
-                  <span className="info d-xl-inline-block color-span">
-                    <span className="d-block fs-20 font-w600">Randy Riley</span>
-                    <span className="d-block mt-7">randy.riley@gmail.com</span>
-                  </span>
-                  <i className="bx bx-chevron-down"></i>
-                </button>
+                <CurrentPerson />
                 <div className="dropdown-menu dropdown-menu-end">
                   <a className="dropdown-item" href="#">
                     <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}

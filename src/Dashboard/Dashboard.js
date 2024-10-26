@@ -2,12 +2,11 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import "../Dashboard/Dashboard.css";
 import CurrentProjects from "./CurrentProjects";
-// <<<<<<< HEAD
+
 import SidebarComponent from "../SideBar/SidebarComponent";
 
 // function DashboardTemplate() {
-  
-// =======
+
 import CountNotification from "./NotificationCount";
 import CountMessage from "./MessageCount";
 import CurrentPerson from "./CurrentUser";
@@ -71,7 +70,6 @@ function DashboardTemplate() {
     }
   }, [body]);
 
-// >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02
   return (
     <div>
       <Helmet>
@@ -112,9 +110,8 @@ function DashboardTemplate() {
 
       <div className="sidebar-expand">
         <div className="DIV">
-{/* <<<<<<< HEAD */}
           <SidebarComponent />
-{/* ======= */}
+
           {/* SIDEBAR */}
           <div className="sidebar">
             <div className="sidebar-logo">
@@ -244,7 +241,7 @@ function DashboardTemplate() {
             </div>
           </div>
           {/* End Sidebar */}
-{/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
+          {/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
 
           {/* Main Header */}
           <div className="main-header">
@@ -269,36 +266,12 @@ function DashboardTemplate() {
               </form>
 
               <div className="dropdown d-inline-block mt-12">
-{/* <<<<<<< HEAD */}
+                {/* <<<<<<< HEAD */}
                 {/* <Link to="/profile"> */}
-                  <button
-                    type="button"
-                    className="btn header-item waves-effect"
-                    id="page-header-user-dropdown"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <img
-                      className="rounded-circle header-profile-user"
-                      src="./images/profile/profile.png"
-                      alt="Header Avatar"
-                    />
-                    <span className="pulse-css"></span>
-                    <span className="info d-xl-inline-block color-span">
-                      <span className="d-block fs-20 font-w600">
-                        Randy Riley
-                      </span>
-                      <span className="d-block mt-7">
-                        randy.riley@gmail.com
-                      </span>
-                    </span>
-                    <i className="bx bx-chevron-down"></i>
-                  </button>
+
                 {/* </Link> */}
-=======
+
                 <CurrentPerson />
-{/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
                 <div className="dropdown-menu dropdown-menu-end">
                   <a className="dropdown-item" href=" ">
                     <i className="bx bx-user font-size-16 align-middle me-1"></i>
@@ -692,11 +665,10 @@ function DashboardTemplate() {
                         </p>
                       </div>
                     </div>
-{/* <<<<<<< HEAD */}
+                    {/* <<<<<<< HEAD */}
 
                     <div className="box-body pt-20">
-=======
-                    {/* <div className="box-body pt-20">
+                      {/* <div className="box-body pt-20">
 // >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02
                       <div
                         className="themesflat-carousel-box data-effect has-bullets bullet-circle bullet24 clearfix"
@@ -1753,16 +1725,11 @@ function DashboardTemplate() {
                           </div>
                         </div>
                       </div>
-// <<<<<<< HEAD
+
                     </div>
                     {/* ======= */}
-                    <CurrentProjects></CurrentProjects>
-                    {/* >>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d */}
-{/* ======= */}
-                    </div> 
-
-                    <CurrentProjects />
-{/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
+                      <CurrentProjects></CurrentProjects>
+                    </div>
                   </div>
                 </div>
               </div>
