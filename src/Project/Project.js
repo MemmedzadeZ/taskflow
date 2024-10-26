@@ -4,13 +4,12 @@ import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 import SidebarComponent from "../SideBar/SidebarComponent";
 import "./CreateProject.css"; // Add custom styles here
+import CurrentPerson from "../Dashboard/CurrentUser";
+import TotalProjects from "./ProjectComponents/TotalProjects";
+import CompletedProjects from "./ProjectComponents/CompletedProjects";
+import PendingProjects from "./ProjectComponents/PendingProjects";
+import OngoingProjects from "./ProjectComponents/OngoingProjects";
 
-//  {" "}
-//                                 <img
-//                                   src="./images/icon/html-2.png"
-//                                   alt="img"
-//                                   className=""
-//                                 />{" "}
 const Project = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -39,7 +38,166 @@ const Project = () => {
 
             <div className="d-flex align-items-center">
               {/* App Search */}
-              {/* <CurrentPerson /> */}
+              <form className="app-search d-none d-lg-block">
+                <div className="position-relative">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search"
+                  />
+                  <span className="bx bx-search-alt"></span>
+                </div>
+              </form>
+
+              <div className="dropdown d-inline-block d-lg-none ms-2">
+                <button
+                  type="button"
+                  className="btn header-item noti-icon waves-effect"
+                  id="page-header-search-dropdown"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i className="bx bx-search-alt"></i>
+                </button>
+                <div
+                  className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                  aria-labelledby="page-header-search-dropdown"
+                >
+                  <form className="p-3">
+                    <div className="form-group m-0">
+                      <div className="input-group">
+                        <input
+                          type="text"
+                          className="form-control"
+                          placeholder="Search ..."
+                        />
+                        <div className="input-group-append">
+                          <button
+                            className="btn btn-primary h-100"
+                            type="submit"
+                          >
+                            <i className="bx bx-search-alt"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <div className="dropdown d-inline-block">
+                <button
+                  type="button"
+                  className="btn header-item"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span className="btn dropdown-toggle" id="header-lang-img">
+                    EN
+                    <i className="bx bx-caret-down"></i>
+                  </span>
+                </button>
+                <div className="dropdown-menu dropdown-menu-end">
+                  <a
+                    href="javascript:void(0);"
+                    className="dropdown-item notify-item language"
+                    data-lang="en"
+                  >
+                    <img
+                      src="/images/flags/us.jpg"
+                      alt="user-image"
+                      className="me-1"
+                      height="12"
+                    />{" "}
+                    <span className="align-middle">English</span>
+                  </a>
+                  <a
+                    href="javascript:void(0);"
+                    className="dropdown-item notify-item language"
+                    data-lang="sp"
+                  >
+                    <img
+                      src="/images/flags/spain.jpg"
+                      alt="user-image"
+                      className="me-1"
+                      height="12"
+                    />{" "}
+                    <span className="align-middle">Spanish</span>
+                  </a>
+                  <a
+                    href="javascript:void(0);"
+                    className="dropdown-item notify-item language"
+                    data-lang="gr"
+                  >
+                    <img
+                      src="/images/flags/germany.jpg"
+                      alt="user-image"
+                      className="me-1"
+                      height="12"
+                    />{" "}
+                    <span className="align-middle">German</span>
+                  </a>
+                  <a
+                    href="javascript:void(0);"
+                    className="dropdown-item notify-item language"
+                    data-lang="it"
+                  >
+                    <img
+                      src="/images/flags/italy.jpg"
+                      alt="user-image"
+                      className="me-1"
+                      height="12"
+                    />{" "}
+                    <span className="align-middle">Italian</span>
+                  </a>
+                  <a
+                    href="javascript:void(0);"
+                    className="dropdown-item notify-item language"
+                    data-lang="ru"
+                  >
+                    <img
+                      src="/images/flags/russia.jpg"
+                      alt="user-image"
+                      className="me-1"
+                      height="12"
+                    />{" "}
+                    <span className="align-middle">Russian</span>
+                  </a>
+                </div>
+              </div>
+
+              <div className="dropdown d-inline-block mt-12">
+                <CurrentPerson></CurrentPerson>
+                <div className="dropdown-menu dropdown-menu-end">
+                  <a className="dropdown-item" href="#">
+                    <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}
+                    <span>Profile</span>
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <i className="bx bx-wallet font-size-16 align-middle me-1"></i>{" "}
+                    <span>My Wallet</span>
+                  </a>
+                  <a className="dropdown-item d-block" href="#">
+                    <span className="badge bg-success float-end">11</span>
+                    <i className="bx bx-wrench font-size-16 align-middle me-1"></i>{" "}
+                    <span>Settings</span>
+                  </a>
+                  <a className="dropdown-item" href="#">
+                    <i className="bx bx-lock-open font-size-16 align-middle me-1"></i>{" "}
+                    <span>Lock screen</span>
+                  </a>
+                  <div className="dropdown-divider"></div>
+                  <a
+                    className="dropdown-item text-danger"
+                    href="user-login.html"
+                  >
+                    <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>{" "}
+                    <span>Logout</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -120,78 +278,10 @@ const Project = () => {
                 <div className="row">
                   <div className="col-9 col-xl-7 col-md-8 col-sm-12">
                     <div className="box card-box">
-                      <div className="icon-box bg-color-6 d-block">
-                        <div className="content text-center color-6">
-                          <h5 className="title-box fs-17 font-w500">
-                            Total Project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              1225 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="icon-box bg-color-7 d-block">
-                        <div className="content text-center color-7">
-                          <h5 className="title-box fs-17 font-w500">
-                            Pending Project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              75 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="icon-box bg-color-8 d-block">
-                        <div className="content text-center color-8">
-                          <h5 className="title-box fs-17 font-w500">
-                            On Going project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              1225 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="icon-box bg-color-9 d-block">
-                        <div className="content text-center color-9">
-                          <h5 className="title-box fs-17 font-w500">
-                            Complete Project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              2536 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                      <TotalProjects />
+                      <CompletedProjects />
+                      <OngoingProjects />
+                      <PendingProjects></PendingProjects>
                     </div>
                   </div>
                   <div className="col-3 col-xl-5 col-md-4 col-sm-12">
