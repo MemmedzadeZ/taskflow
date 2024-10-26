@@ -6,7 +6,7 @@ import CurrentProjects from "./CurrentProjects";
 import SidebarComponent from "../SideBar/SidebarComponent";
 
 // function DashboardTemplate() {
-  
+
 // =======
 import CountNotification from "./NotificationCount";
 import CountMessage from "./MessageCount";
@@ -71,7 +71,7 @@ function DashboardTemplate() {
     }
   }, [body]);
 
-// >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02
+  // >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02
   return (
     <div>
       <Helmet>
@@ -112,9 +112,9 @@ function DashboardTemplate() {
 
       <div className="sidebar-expand">
         <div className="DIV">
-{/* <<<<<<< HEAD */}
+          {/* <<<<<<< HEAD */}
           <SidebarComponent />
-{/* ======= */}
+          {/* ======= */}
           {/* SIDEBAR */}
           <div className="sidebar">
             <div className="sidebar-logo">
@@ -244,7 +244,7 @@ function DashboardTemplate() {
             </div>
           </div>
           {/* End Sidebar */}
-{/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
+          {/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
 
           {/* Main Header */}
           <div className="main-header">
@@ -269,36 +269,32 @@ function DashboardTemplate() {
               </form>
 
               <div className="dropdown d-inline-block mt-12">
-{/* <<<<<<< HEAD */}
+                {/* <<<<<<< HEAD */}
                 {/* <Link to="/profile"> */}
-                  <button
-                    type="button"
-                    className="btn header-item waves-effect"
-                    id="page-header-user-dropdown"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    <img
-                      className="rounded-circle header-profile-user"
-                      src="./images/profile/profile.png"
-                      alt="Header Avatar"
-                    />
-                    <span className="pulse-css"></span>
-                    <span className="info d-xl-inline-block color-span">
-                      <span className="d-block fs-20 font-w600">
-                        Randy Riley
-                      </span>
-                      <span className="d-block mt-7">
-                        randy.riley@gmail.com
-                      </span>
-                    </span>
-                    <i className="bx bx-chevron-down"></i>
-                  </button>
+                <button
+                  type="button"
+                  className="btn header-item waves-effect"
+                  id="page-header-user-dropdown"
+                  data-bs-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <img
+                    className="rounded-circle header-profile-user"
+                    src="./images/profile/profile.png"
+                    alt="Header Avatar"
+                  />
+                  <span className="pulse-css"></span>
+                  <span className="info d-xl-inline-block color-span">
+                    <span className="d-block fs-20 font-w600">Randy Riley</span>
+                    <span className="d-block mt-7">randy.riley@gmail.com</span>
+                  </span>
+                  <i className="bx bx-chevron-down"></i>
+                </button>
                 {/* </Link> */}
-=======
+                =======
                 <CurrentPerson />
-{/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
+                {/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
                 <div className="dropdown-menu dropdown-menu-end">
                   <a className="dropdown-item" href=" ">
                     <i className="bx bx-user font-size-16 align-middle me-1"></i>
@@ -476,92 +472,47 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-6 col-sm-12">
+                    <div className="col-6 col-md-12">
                       <div className="box">
                         <div className="box-header">
                           <div className="me-auto">
-                            <h4 className="card-title">Project Category</h4>
-                            <p>Lorem ipsum dolor sit amet</p>
+                            <h4 className="card-title fs-22">
+                              Project Category{" "}
+                            </h4>
+                            <p className="fs-14 mt-4">
+                              Lorem ipsum dolor sit amet
+                            </p>
                           </div>
                         </div>
                         <div className="box-body pt-0">
                           <div className="row">
-                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
-                              <ul className="box-list mt-26 pr-67">
+                            <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0">
+                              <ul className="box-list mt-25 pr-60">
                                 <li>
-                                  <span className="bg-blue square"></span>Web
-                                  Design
-                                  <span>25%</span>
+                                  <span className="bg-blue square" />
+                                  Web Design<span>25%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-success square"></span>
-                                  UX/UI Design
-                                  <span>18%</span>
+                                  <span className="bg-success square" />
+                                  UX/UI Design<span>18%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-warning square"></span>
-                                  Graphics Design
-                                  <span>17%</span>
+                                  <span className="bg-warning square" />
+                                  Graphics Design<span>17%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-blue square"></span>Motion
-                                  Design
-                                  <span>12.50%</span>
+                                  <span className="bg-blue square" />
+                                  Motion Design<span>12.50%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-success square"></span>
-                                  Brand Identity
-                                  <span>12.50%</span>
+                                  <span className="bg-success square" />
+                                  Brand Identity<span>12.50%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-warning square"></span>
-                                  Others
-                                  <span>12.50%</span>
+                                  <span className="bg-warning square" />
+                                  Others<span>12.50%</span>
                                 </li>
                               </ul>
-                            </div>
-                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
-                              {/* <canvas id="doughnut-chart" width="240" height="240"></canvas> */}
-                              <div className="canvas-container">
-                                <canvas
-                                  id="chartjs-4"
-                                  className="chartjs"
-                                  width="100"
-                                  height="100"
-                                ></canvas>
-                                <div className="chart-data">
-                                  <div
-                                    data-percent="25"
-                                    data-color="#3C21F7"
-                                    data-label="Web Design"
-                                  ></div>
-                                  <div
-                                    data-percent="18"
-                                    data-color="#00BC8B"
-                                    data-label="UX/UI Design"
-                                  ></div>
-                                  <div
-                                    data-percent="17"
-                                    data-color="#FFB800"
-                                    data-label="Graphics Design"
-                                  ></div>
-                                  <div
-                                    data-percent="12.5"
-                                    data-color="#00ECCC"
-                                    data-label="Motion Design"
-                                  ></div>
-                                  <div
-                                    data-percent="12.5"
-                                    data-color="#EF7F5A"
-                                    data-label="Brand Identity"
-                                  ></div>
-                                  <div
-                                    data-percent="12.5"
-                                    data-color="#5D45FB"
-                                    data-label="Others"
-                                  ></div>
-                                </div>
-                              </div>
                             </div>
                           </div>
                         </div>
@@ -692,11 +643,11 @@ function DashboardTemplate() {
                         </p>
                       </div>
                     </div>
-{/* <<<<<<< HEAD */}
+                    {/* <<<<<<< HEAD */}
 
                     <div className="box-body pt-20">
-=======
-                    {/* <div className="box-body pt-20">
+                      =======
+                      {/* <div className="box-body pt-20">
 // >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02
                       <div
                         className="themesflat-carousel-box data-effect has-bullets bullet-circle bullet24 clearfix"
@@ -1756,13 +1707,13 @@ function DashboardTemplate() {
 // <<<<<<< HEAD
                     </div>
                     {/* ======= */}
-                    <CurrentProjects></CurrentProjects>
-                    {/* >>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d */}
-{/* ======= */}
-                    </div> 
+                      <CurrentProjects></CurrentProjects>
+                      {/* >>>>>>> eafa7b52cefa0c6920913fe31bc08af71213861d */}
+                      {/* ======= */}
+                    </div>
 
-                    <CurrentProjects />
-{/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
+                    {/* <CurrentProjects /> */}
+                    {/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
                   </div>
                 </div>
               </div>
@@ -1772,20 +1723,20 @@ function DashboardTemplate() {
       </div>
       <div class="overlay"></div>
 
-      <script src="/libs/jquery/jquery.min.js"></script>
-      <script src="/libs/moment/min/moment.min.js"></script>
-      <script src="/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="/libs/peity/jquery.peity.min.js"></script>
-      <script src="/libs/chart.js/Chart.bundle.min.js"></script>
-      <script src="/libs/owl.carousel/owl.carousel.min.js"></script>
-      <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
-      <script src="/libs/apexcharts/apexcharts.js"></script>
-      <script src="/libs/simplebar/simplebar.min.js"></script>
+      {/* <script src="../../libs/jquery/jquery.min.js"></script>
+      <script src="../../libs/moment/min/moment.min.js"></script>
+      <script src="../../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="../../libs/peity/jquery.peity.min.js"></script>
+      <script src="../../libs/chart.js/Chart.bundle.min.js"></script>
+      <script src="../../libs/owl.carousel/owl.carousel.min.js"></script>
+      <script src="../../libs/bootstrap/js/bootstrap.min.js"></script>
+      <script src="../../libs/apexcharts/apexcharts.js"></script>
+      <script src="../../libs/simplebar/simplebar.min.js"></script>
 
-      <script src="/js/main.js"></script>
-      <script src="/js/dashboard.js"></script>
-      <script src="/js/shortcode.js"></script>
-      <script src="/js/pages/dashboard.js"></script>
+      <script src="../../js/main.js"></script>
+      <script src="../../js/dashboard.js"></script>
+      <script src="../../js/shortcode.js"></script>
+      <script src="../../js/pages/dashboard.js"></script> */}
     </div>
   );
 }
