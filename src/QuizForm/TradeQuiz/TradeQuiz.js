@@ -29,7 +29,7 @@ function TradeQuiz() {
       body: JSON.stringify(selectedOption),
     }).then((response) => {
       if (response.ok) {
-        navigate("/dashboard");
+        navigate("/auth?");
       }
     });
   };
