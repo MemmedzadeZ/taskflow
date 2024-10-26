@@ -4,6 +4,7 @@ import "../Dashboard/Dashboard.css";
 import CurrentProjects from "./CurrentProjects";
 // <<<<<<< HEAD
 import SidebarComponent from "../SideBar/SidebarComponent";
+import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 
 // function DashboardTemplate() {
 
@@ -253,71 +254,11 @@ function DashboardTemplate() {
                 <i className="bx bx-menu"></i>
               </div>
               <div className="main-title">Board</div>
+              {/* <SidebarSearchComponent /> */}
             </div>
 
             <div className="d-flex align-items-center">
-              {/* App Search */}
-              <form className="app-search d-none d-lg-block">
-                <div className="position-relative">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search"
-                  />
-                  <span className="bx bx-search-alt"></span>
-                </div>
-              </form>
-
-              <div className="dropdown d-inline-block mt-12">
-                {/* <<<<<<< HEAD */}
-                {/* <Link to="/profile"> */}
-                <button
-                  type="button"
-                  className="btn header-item waves-effect"
-                  id="page-header-user-dropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img
-                    className="rounded-circle header-profile-user"
-                    src="./images/profile/profile.png"
-                    alt="Header Avatar"
-                  />
-                  <span className="pulse-css"></span>
-                  <span className="info d-xl-inline-block color-span">
-                    <span className="d-block fs-20 font-w600">Randy Riley</span>
-                    <span className="d-block mt-7">randy.riley@gmail.com</span>
-                  </span>
-                  <i className="bx bx-chevron-down"></i>
-                </button>
-                {/* </Link> */}
-                =======
-                <CurrentPerson />
-                {/* >>>>>>> 6fead75a67aeebc32608c41ef2c98bf733e4dd02 */}
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-user font-size-16 align-middle me-1"></i>
-                    <span>Profile</span>
-                  </a>
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-wallet font-size-16 align-middle me-1"></i>
-                    <span>My Wallet</span>
-                  </a>
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-wrench font-size-16 align-middle me-1"></i>
-                    <span>Settings</span>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a
-                    className="dropdown-item text-danger"
-                    href="user-login.html"
-                  >
-                    <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-                    <span>Logout</span>
-                  </a>
-                </div>
-              </div>
+              {/* <CurrentPerson /> */}
             </div>
           </div>
           {/* End Main Header */}
