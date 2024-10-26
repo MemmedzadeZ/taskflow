@@ -427,8 +427,8 @@ function DashboardTemplate() {
                         </div>
                         <div className="box-body pt-0">
                           <div className="row">
-                            <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0">
-                              <ul className="box-list mt-25 pr-60">
+                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
+                              <ul className="box-list mt-26 pr-67">
                                 <li>
                                   <span className="bg-blue square" />
                                   Web Design<span>25%</span>
@@ -454,6 +454,49 @@ function DashboardTemplate() {
                                   Others<span>12.50%</span>
                                 </li>
                               </ul>
+                            </div>
+                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
+                              {/* <canvas id="doughnut-chart" width="240" height="240"></canvas> */}
+                              <div className="canvas-container">
+                                <canvas
+                                  id="chartjs-4"
+                                  className="chartjs"
+                                  width={100}
+                                  height={100}
+                                />
+                                <div className="chart-data">
+                                  <div
+                                    data-percent={25}
+                                    data-color="#3C21F7"
+                                    data-label="Web Design"
+                                  />
+                                  <div
+                                    data-percent={18}
+                                    data-color="#00BC8B"
+                                    data-label="UX/UI Design"
+                                  />
+                                  <div
+                                    data-percent={17}
+                                    data-color="#FFB800"
+                                    data-label="Graphics Design"
+                                  />
+                                  <div
+                                    data-percent="12.5"
+                                    data-color="#00ECCC"
+                                    data-label="Motion Design"
+                                  />
+                                  <div
+                                    data-percent="12.5"
+                                    data-color="#EF7F5A"
+                                    data-label="Brand Identity"
+                                  />
+                                  <div
+                                    data-percent="12.5"
+                                    data-color="#5D45FB"
+                                    data-label="Others"
+                                  />
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
