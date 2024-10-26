@@ -5,6 +5,10 @@ import "../Dashboard/Dashboard.css";
 import SidebarComponent from "../SideBar/SidebarComponent";
 import "./CreateProject.css"; // Add custom styles here
 import CurrentPerson from "../Dashboard/CurrentUser";
+import TotalProjects from "./ProjectComponents/TotalProjects";
+import CompletedProjects from "./ProjectComponents/CompletedProjects";
+import PendingProjects from "./ProjectComponents/PendingProjects";
+import OngoingProjects from "./ProjectComponents/OngoingProjects";
 
 const Project = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -165,26 +169,7 @@ const Project = () => {
               </div>
 
               <div className="dropdown d-inline-block mt-12">
-                <button
-                  type="button"
-                  className="btn header-item waves-effect"
-                  id="page-header-user-dropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img
-                    className="rounded-circle header-profile-user"
-                    src="/images/profile/profile.png"
-                    alt="Header Avatar"
-                  />
-                  <span className="pulse-css"></span>
-                  <span className="info d-xl-inline-block color-span">
-                    <span className="d-block fs-20 font-w600">Randy Riley</span>
-                    <span className="d-block mt-7">randy.riley@gmail.com</span>
-                  </span>
-                  <i className="bx bx-chevron-down"></i>
-                </button>
+                <CurrentPerson></CurrentPerson>
                 <div className="dropdown-menu dropdown-menu-end">
                   <a className="dropdown-item" href="#">
                     <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}
@@ -293,78 +278,10 @@ const Project = () => {
                 <div className="row">
                   <div className="col-9 col-xl-7 col-md-8 col-sm-12">
                     <div className="box card-box">
-                      <div className="icon-box bg-color-6 d-block">
-                        <div className="content text-center color-6">
-                          <h5 className="title-box fs-17 font-w500">
-                            Total Project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              1225 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="icon-box bg-color-7 d-block">
-                        <div className="content text-center color-7">
-                          <h5 className="title-box fs-17 font-w500">
-                            Pending Project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              75 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="icon-box bg-color-8 d-block">
-                        <div className="content text-center color-8">
-                          <h5 className="title-box fs-17 font-w500">
-                            On Going project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              1225 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="icon-box bg-color-9 d-block">
-                        <div className="content text-center color-9">
-                          <h5 className="title-box fs-17 font-w500">
-                            Complete Project
-                          </h5>
-                          <div className="themesflat-counter fs-18 font-wb">
-                            <span
-                              className="number"
-                              data-from={0}
-                              data-to={309}
-                              data-speed={2500}
-                              data-inviewport="yes"
-                            >
-                              2536 +
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                      <TotalProjects />
+                      <CompletedProjects />
+                      <OngoingProjects />
+                      <PendingProjects></PendingProjects>
                     </div>
                   </div>
                   <div className="col-3 col-xl-5 col-md-4 col-sm-12">
