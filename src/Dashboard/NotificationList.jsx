@@ -6,7 +6,7 @@ function TwoNotification() {
   const fetchData = async () => {
     console.log("inside short message list");
     var response = await fetch(
-      "https://localhost:7268/api/Notification/TwoNotification",
+      "https://localhost:7157/api/Notification/TwoNotification",
       {
         method: "GET",
         headers: {

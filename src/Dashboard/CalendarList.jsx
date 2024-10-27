@@ -6,7 +6,7 @@ function TwoCalendarNotification() {
   const fetchData = async () => {
     console.log("inside short message list");
     var response = await fetch(
-      "https://localhost:7268/api/Notification/TwoCalendarNotification",
+      "https://localhost:7157/api/Notification/TwoCalendarNotification",
       {
         method: "GET",
         headers: {

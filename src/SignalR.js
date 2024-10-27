@@ -24,7 +24,7 @@ function SignalRHub() {
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:7268/connect")
+      .withUrl("https://localhost:7157/connect")
       .configureLogging(signalR.LogLevel.Information)
       .build();
 

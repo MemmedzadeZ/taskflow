@@ -1,28 +1,133 @@
-export const registerUser = (e, email, password, confirmPassword, username) => {
-  e.preventDefault();
-  console.log("inside register");
+import $ from "jquery";
+
+function inputCheckUp(
+  email,
+  firstname,
+  lastname,
+  username,
+  password,
+  confirmPassword
+) {
+  console.log("inside checkup");
+  $("#email-span").css("display", "none");
+  $("#email-div").css("margin-bottom", "0px");
+  $("#firstname-span").css("display", "none");
+  $("#firstname-div").css("margin-bottom", "0px");
+  $("#lastname-span").css("display", "none");
+  $("#lastname-div").css("margin-bottom", "0px");
+  $("#confirmPassword-span").css("display", "none");
+  $("#confirmPassword-div").css("margin-bottom", "0px");
+  $("#password-span").css("display", "none");
+  $("#password-div").css("margin-bottom", "0px");
+  $("#username-span").css("display", "none");
+  $("#username-div").css("margin-bottom", "0px");
+
+  const hasLowercase = /[a-z]/;
+  const hasUppercase = /[A-Z]/;
+  const hasNumber = /\d/;
+  const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/;
+
+  if (email === "") {
+    $("#email-span").css("display", "block");
+    $("#email-span").text("Email CANNOT be empty!");
+    $("#email-div").css("margin-bottom", "25px");
+    console.log(email);
+    return false;
+  }
+  if (firstname === "") {
+    $("#firstname-span").css("display", "block");
+    $("#firstname-span").text("Firstname CANNOT be empty!");
+    $("#firstname-div").css("margin-bottom", "25px");
+    return false;
+  }
+  if (lastname === "") {
+    $("#lastname-span").css("display", "block");
+    $("#lastname-span").text("Lastname CANNOT be empty!");
+    $("#lastname-div").css("margin-bottom", "25px");
+    return false;
+  }
+  if (username === "") {
+    $("#username-span").css("display", "block");
+    $("#username-span").text("Username CANNOT be empty!");
+    $("#username-div").css("margin-bottom", "25px");
+    return false;
+  }
+  if (password === "") {
+    // alert("Password CANNOT be NULL!");
+    $("#password-span").css("display", "block");
+    $("#password-span").text("Passwords CANNOT be empty!");
+    $("#password-div").css("margin-bottom", "25px");
+    return false;
+  }
+  if (!hasLowercase.test(password)) {
+    $("#password-span")
+      .css("display", "block")
+      .text("Password must include a lowercase letter.");
+  }
+  if (!hasUppercase.test(password)) {
+    $("#password-span")
+      .css("display", "block")
+      .text("Password must include a uppercase letter.");
+  }
+  if (!hasNumber.test(password)) {
+    $("#password-span")
+      .css("display", "block")
+      .text("Password must include a number letter.");
+  }
+  if (!hasSymbol.test(password)) {
+    $("#password-span")
+      .css("display", "block")
+      .text("Password must include a symbol letter.");
+  }
+  if (confirmPassword === "") {
+    $("#confirmPassword-span").css("display", "block");
+    $("#confirmPassword-span").text("Please, re-enter password!");
+    $("#confirmPassword-div").css("margin-bottom", "25px");
+
+    return false;
+  }
 
   if (password !== confirmPassword) {
-    alert("Passwords do not match!");
-    return;
+    // alert("Passwords do not match!");
+    $("#confirmPassword-span").css("display", "block");
+    $("#confirmPassword-span").text("Passwords should match!");
+    $("#confirmPassword-div").css("margin-bottom", "25px");
+    return false;
   }
+}
 
-  if (password === null || confirmPassword === null) {
-    alert("Password CANNOT be NULL!");
+export const registerUser = (
+  e,
+  email,
+  firstname,
+  lastname,
+  username,
+  password,
+  confirmPassword
+) => {
+  e.preventDefault();
+  console.log("inside register");
+  if (
+    inputCheckUp(
+      email,
+      firstname,
+      lastname,
+      username,
+      password,
+      confirmPassword
+    )
+  )
     return;
-  }
-  if (username === null || email === null) {
-    alert("Password CANNOT be NULL!");
-    return;
-  }
   const userData = {
+    firstname,
+    lastname,
     email,
     password,
     username,
   };
   console.log(userData);
 
-  fetch("https://localhost:7268/api/Auth/register", {
+  fetch("https://localhost:7157/api/Auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -45,16 +150,23 @@ export const registerUser = (e, email, password, confirmPassword, username) => {
     });
 };
 
+function loginCheckUp(username, password) {
+  $("#login-password-span").css("display", "none");
+  $("#login-password-div").css("margin-bottom", "0px");
+  $("#login-username-span").css("display", "none");
+  $("#login-username-div").css("margin-bottom", "0px");
+}
+
 export const loginUser = async (e, username, password) => {
   e.preventDefault();
   console.log("inside login");
-
+  loginCheckUp(username, password);
   const userData = {
     username,
     password,
   };
   console.log(userData);
-  var response = await fetch("https://localhost:7268/api/Auth/login", {
+  var response = await fetch("https://localhost:7157/api/Auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -66,7 +178,7 @@ export const loginUser = async (e, username, password) => {
   console.log(data.token);
   localStorage.setItem("token", data.token);
 
-  var isFirstTime = await fetch("https://localhost:7268/api/Auth/RouteToQuiz", {
+  var isFirstTime = await fetch("https://localhost:7157/api/Auth/RouteToQuiz", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +196,7 @@ export const loginUser = async (e, username, password) => {
   //CurrentUserForToken
 
   // var newResponse = await fetch(
-  //   "https://localhost:7268/api/Auth/FindCurrentUserForToken",
+  //   "https://localhost:7157/api/Auth/FindCurrentUserForToken",
   //   {
   //     method: "GET",
   //     headers: {

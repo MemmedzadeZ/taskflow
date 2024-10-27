@@ -14,7 +14,7 @@ body {
   width: 100%;
   place-items: center;
   /* background: transparent; */
- /* Combined gradient background */
+  /* Combined gradient background */
 }
 
 .lottie-welcome {
@@ -29,7 +29,7 @@ body {
 .titleH2 {
   text-align: left;
   font-size: 50px;
-  color: #6852FF;
+  color: #6852ff;
 }
 
 .titlE {
@@ -102,8 +102,8 @@ body {
   left: 0;
   z-index: 0;
   border-radius: 15px;
-  background:#6852FF;
- /* Gradient using Soft Purple, Light Orange, Subtle Green */
+  background: #6852ff;
+  /* Gradient using Soft Purple, Light Orange, Subtle Green */
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -184,16 +184,13 @@ form .field input:focus::placeholder {
 .form-inner form .signup-link {
   text-align: center;
   margin-top: 30px;
-
 }
-
 
 /* .btnlayer {
   background-color: #6852FF;
 
 
 } */
-
 
 .form-inner form .pass-link a,
 .form-inner form .signup-link a {
@@ -207,15 +204,14 @@ form .field input:focus::placeholder {
 }
 
 .btn-primary1 {
-  background-color: #6852FF;
+  background-color: #6852ff;
   color: white; /* Ensure the text remains visible on the new background */
   border: none; /* Optional: Remove default border */
 }
 
 .btn-primary:hover {
-  background-color: #563DDF; /* Optional: Add a hover effect */
+  background-color: #563ddf; /* Optional: Add a hover effect */
 }
-
 
 form .btn {
   height: 50px;
@@ -230,9 +226,9 @@ form .btn .btn-layer {
   width: 300%;
   position: absolute;
   left: -100%;
-  background:#6852FF;
+  background: #6852ff;
 
-   /* Button gradient with Soft Purple, Light Orange, and Subtle Green */
+  /* Button gradient with Soft Purple, Light Orange, and Subtle Green */
   border-radius: 15px;
   transition: all 0.4s ease;
 }

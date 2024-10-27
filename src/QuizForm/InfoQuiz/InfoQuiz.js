@@ -23,7 +23,7 @@ function InfoQuiz() {
     }
     console.log(localStorage.getItem("token"));
     console.log("Selected option:", selectedOption); //
-    fetch("https://localhost:7268/api/Quiz/Occupation", {
+    fetch("https://localhost:7157/api/Quiz/Occupation", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

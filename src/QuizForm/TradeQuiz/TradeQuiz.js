@@ -21,7 +21,7 @@ function TradeQuiz() {
       return;
     }
     console.log("Selected option:", selectedOption);
-    fetch("https://localhost:7268/api/Quiz/Profession", {
+    fetch("https://localhost:7157/api/Quiz/Profession", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

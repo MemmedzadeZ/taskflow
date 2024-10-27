@@ -5,7 +5,7 @@ function ClientsCount() {
     console.log("calendar message count");
 
     var response = await fetch(
-      "https://localhost:7268/api/Auth/UsersCount",
+      "https://localhost:7157/api/Auth/UsersCount",
 
       {
         method: "GET",

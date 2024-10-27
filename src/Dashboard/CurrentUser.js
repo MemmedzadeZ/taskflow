@@ -8,7 +8,7 @@ function CurrentPerson() {
     console.log("inside user");
 
     var response = await fetch(
-      "https://localhost:7268/api/Auth/currentUser",
+      "https://localhost:7157/api/Auth/currentUser",
 
       {
         method: "GET",

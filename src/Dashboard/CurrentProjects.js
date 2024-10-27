@@ -5,7 +5,7 @@ function CurrentProjects() {
   const [projects, setProjects] = useState([]);
   const getProjects = async () => {
     console.log("inside get");
-    fetch("https://localhost:7268/api/Project/UserProjects", {
+    fetch("https://localhost:7157/api/Project/UserProjects", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
