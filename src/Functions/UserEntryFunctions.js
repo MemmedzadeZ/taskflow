@@ -25,7 +25,7 @@ function inputCheckUp(
   const hasLowercase = /[a-z]/;
   const hasUppercase = /[A-Z]/;
   const hasNumber = /\d/;
-  const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/;
+  const hasSymbol = /[!@#$%^&*(),.?":{}|<>_]/;
 
   if (email === "") {
     $("#email-span").css("display", "block");
@@ -72,12 +72,12 @@ function inputCheckUp(
   if (!hasNumber.test(password)) {
     $("#password-span")
       .css("display", "block")
-      .text("Password must include a number letter.");
+      .text("Password must include a number.");
   }
   if (!hasSymbol.test(password)) {
     $("#password-span")
       .css("display", "block")
-      .text("Password must include a symbol letter.");
+      .text("Password must include a symbol.");
   }
   if (confirmPassword === "") {
     $("#confirmPassword-span").css("display", "block");
@@ -150,17 +150,9 @@ export const registerUser = (
     });
 };
 
-function loginCheckUp(username, password) {
-  $("#login-password-span").css("display", "none");
-  $("#login-password-div").css("margin-bottom", "0px");
-  $("#login-username-span").css("display", "none");
-  $("#login-username-div").css("margin-bottom", "0px");
-}
-
 export const loginUser = async (e, username, password) => {
   e.preventDefault();
   console.log("inside login");
-  loginCheckUp(username, password);
   const userData = {
     username,
     password,
@@ -173,6 +165,11 @@ export const loginUser = async (e, username, password) => {
     },
     body: JSON.stringify(userData),
   });
+  if (response.status === 404) {
+    alert("User Not Found!");
+    return;
+  }
+
   var data = await response.json();
 
   console.log(data.token);
