@@ -12,22 +12,22 @@ const FooterSection = () => {
           <div className="row-links">
             <ul className="header-menu">
               <li className="header-menu-item mbr-fonts-style display-5">
-                <a href="#" className="text-white">
+                <a href=" " className="text-white">
                   Home
                 </a>
               </li>
               <li className="header-menu-item mbr-fonts-style display-5">
-                <a href="#" className="text-white">
+                <a href=" " className="text-white">
                   About
                 </a>
               </li>
               <li className="header-menu-item mbr-fonts-style display-5">
-                <a href="#" className="text-white">
+                <a href=" " className="text-white">
                   Services
                 </a>
               </li>
               <li className="header-menu-item mbr-fonts-style display-5">
-                <a href="#" className="text-white">
+                <a href=" " className="text-white">
                   Contact
                 </a>
               </li>

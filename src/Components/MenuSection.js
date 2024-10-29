@@ -81,8 +81,9 @@ function MenuSection() {
                 className="nav-link link text-black display-4"
                 to="/auth" // Link to the SignIn page
               >
-              <a className="btn btn-primary display-4">Get Started</a>
-        
+                <a href=" " className="btn btn-primary display-4">
+                  Get Started
+                </a>
               </Link>
             </div>
           </div>

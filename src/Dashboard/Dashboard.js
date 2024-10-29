@@ -452,10 +452,10 @@ function DashboardTemplate() {
                             </p>
                           </div>
                         </div>
-                        <div className="box-body pt-0">
-                          <div className="row">
-                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
-                              <ul className="box-list mt-26 pr-67">
+                        <div class="box-body pt-0">
+                          <div class="row">
+                            <div class="col-6 col-xl-12 w-sm-100 mb-0">
+                              <ul class="box-list mt-26 pr-67">
                                 <li>
                                   <span className="bg-blue square" />
                                   Web Design<span>25%</span>
@@ -482,9 +482,8 @@ function DashboardTemplate() {
                                 </li>
                               </ul>
                             </div>
-                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
-                              {/* <canvas id="doughnut-chart" width="240" height="240"></canvas> */}
-                              <div className="canvas-container">
+                            <div class="col-6 col-xl-12 w-sm-100 mb-0">
+                              <div class="canvas-container">
                                 <canvas
                                   id="chartjs-4"
                                   className="chartjs"
