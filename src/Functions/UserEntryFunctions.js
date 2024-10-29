@@ -158,17 +158,17 @@ export const loginUser = async (e, username, password) => {
     password,
   };
   console.log(userData);
-  var response = await fetch("https://localhost:7157/api/Auth/login", {
+  var response = await fetch("https://localhost:7157/api/Auth/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
   });
-  if (response.status === 404) {
-    alert("User Not Found!");
-    return;
-  }
+  // if (response.status === 404) {
+  //   alert("User Not Found!");
+  //   return;
+  // }
 
   var data = await response.json();
 

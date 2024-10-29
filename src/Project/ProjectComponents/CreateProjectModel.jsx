@@ -1,14 +1,34 @@
 import { useState } from "react";
 
 function CreateProjectModel({ closeModal }) {
-  const [projectName, setProjectName] = (useState = "");
+  const [projectName, setProjectName] = useState("");
+  const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-
+  const handleCreateProject = (e) => {
+    e.preventDefault();
+    const projectData = {
+      projectName,
+      startDate,
+      description,
+      isCompleted: false,
+    };
+    fetch("https://localhost:7157/api/Project/Post", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(projectData),
+    }).then((response) => {
+      if (response.ok) {
+        console.log(response.json());
+      }
+    });
+  };
   return (
     <div className="modal-background">
       <div className="modal-content">
-        <form>
+        <form onSubmit={(e) => handleCreateProject(e)}>
           <h2>Create Project</h2>
 
           {/* Project Name and Client */}
@@ -19,6 +39,10 @@ function CreateProjectModel({ closeModal }) {
                 type="text"
                 className="form-control"
                 placeholder="Project Name"
+                value={projectName}
+                onChange={(e) => {
+                  setProjectName(e.target.value);
+                }}
               />
             </div>
             <div className="col">
@@ -34,11 +58,26 @@ function CreateProjectModel({ closeModal }) {
           <div className="row">
             <div className="col">
               <label>Start Date:</label>
-              <input type="date" className="form-control" />
+              <input
+                type="date"
+                className="form-control"
+                required
+                value={startDate}
+                onChange={(e) => {
+                  setStartDate(e.target.value);
+                }}
+              />
             </div>
             <div className="col">
               <label>End Date:</label>
-              <input type="date" className="form-control" />
+              <input
+                type="date"
+                className="form-control"
+                value={endDate}
+                onChange={(e) => {
+                  setEndDate(e.target.value);
+                }}
+              />
             </div>
           </div>
 
@@ -65,6 +104,10 @@ function CreateProjectModel({ closeModal }) {
               className="form-control"
               rows="3"
               placeholder="Enter your message here"
+              value={description}
+              onChange={(e) => {
+                setDescription(e.target.value);
+              }}
             ></textarea>
           </div>
 
