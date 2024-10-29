@@ -436,60 +436,53 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-6 col-sm-12">
-                      <div className="box">
-                        <div className="box-header">
-                          <div className="me-auto">
-                            <h4 className="card-title">Project Category</h4>
+                    <div class="col-6 col-sm-12">
+                      <div class="box">
+                        <div class="box-header">
+                          <div class="me-auto">
+                            <h4 class="card-title">Project Category</h4>
                             <p>Lorem ipsum dolor sit amet</p>
                           </div>
                         </div>
-                        <div className="box-body pt-0">
-                          <div className="row">
-                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
-                              <ul className="box-list mt-26 pr-67">
+                        <div class="box-body pt-0">
+                          <div class="row">
+                            <div class="col-6 col-xl-12 w-sm-100 mb-0">
+                              <ul class="box-list mt-26 pr-67">
                                 <li>
-                                  <span className="bg-blue square"></span>Web
-                                  Design
+                                  <span class="bg-blue square"></span>Web Design
                                   <span>25%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-success square"></span>
-                                  UX/UI Design
-                                  <span>18%</span>
+                                  <span class="bg-success square"></span>UX/UI
+                                  Design<span>18%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-warning square"></span>
-                                  Graphics Design
-                                  <span>17%</span>
+                                  <span class="bg-warning square"></span>
+                                  Graphics Design<span>17%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-blue square"></span>Motion
-                                  Design
-                                  <span>12.50%</span>
+                                  <span class="bg-blue square"></span>Motion
+                                  Design<span>12.50%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-success square"></span>
-                                  Brand Identity
-                                  <span>12.50%</span>
+                                  <span class="bg-success square"></span>Brand
+                                  Identity<span>12.50%</span>
                                 </li>
                                 <li>
-                                  <span className="bg-warning square"></span>
-                                  Others
+                                  <span class="bg-warning square"></span>Others
                                   <span>12.50%</span>
                                 </li>
                               </ul>
                             </div>
-                            <div className="col-6 col-xl-12 w-sm-100 mb-0">
-                              {/* <canvas id="doughnut-chart" width="240" height="240"></canvas> */}
-                              <div className="canvas-container">
+                            <div class="col-6 col-xl-12 w-sm-100 mb-0">
+                              <div class="canvas-container">
                                 <canvas
                                   id="chartjs-4"
-                                  className="chartjs"
+                                  class="chartjs"
                                   width="100"
                                   height="100"
                                 ></canvas>
-                                <div className="chart-data">
+                                <div class="chart-data">
                                   <div
                                     data-percent="25"
                                     data-color="#3C21F7"
