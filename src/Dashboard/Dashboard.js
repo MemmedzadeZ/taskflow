@@ -443,14 +443,6 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-<<<<<<< HEAD
-                    <div class="col-6 col-sm-12">
-                      <div class="box">
-                        <div class="box-header">
-                          <div class="me-auto">
-                            <h4 class="card-title">Project Category</h4>
-                            <p>Lorem ipsum dolor sit amet</p>
-=======
                     <div className="col-6 col-md-12">
                       <div className="box">
                         <div className="box-header">
@@ -461,7 +453,6 @@ function DashboardTemplate() {
                             <p className="fs-14 mt-4">
                               Lorem ipsum dolor sit amet
                             </p>
->>>>>>> 59955281b5abe4a5a127fdc42fdc7d1a3cc64e0d
                           </div>
                         </div>
                         <div class="box-body pt-0">
@@ -469,30 +460,6 @@ function DashboardTemplate() {
                             <div class="col-6 col-xl-12 w-sm-100 mb-0">
                               <ul class="box-list mt-26 pr-67">
                                 <li>
-<<<<<<< HEAD
-                                  <span class="bg-blue square"></span>Web Design
-                                  <span>25%</span>
-                                </li>
-                                <li>
-                                  <span class="bg-success square"></span>UX/UI
-                                  Design<span>18%</span>
-                                </li>
-                                <li>
-                                  <span class="bg-warning square"></span>
-                                  Graphics Design<span>17%</span>
-                                </li>
-                                <li>
-                                  <span class="bg-blue square"></span>Motion
-                                  Design<span>12.50%</span>
-                                </li>
-                                <li>
-                                  <span class="bg-success square"></span>Brand
-                                  Identity<span>12.50%</span>
-                                </li>
-                                <li>
-                                  <span class="bg-warning square"></span>Others
-                                  <span>12.50%</span>
-=======
                                   <span className="bg-blue square" />
                                   Web Design<span>25%</span>
                                 </li>
@@ -515,7 +482,6 @@ function DashboardTemplate() {
                                 <li>
                                   <span className="bg-warning square" />
                                   Others<span>12.50%</span>
->>>>>>> 59955281b5abe4a5a127fdc42fdc7d1a3cc64e0d
                                 </li>
                               </ul>
                             </div>
@@ -523,19 +489,11 @@ function DashboardTemplate() {
                               <div class="canvas-container">
                                 <canvas
                                   id="chartjs-4"
-<<<<<<< HEAD
-                                  class="chartjs"
-                                  width="100"
-                                  height="100"
-                                ></canvas>
-                                <div class="chart-data">
-=======
                                   className="chartjs"
                                   width={100}
                                   height={100}
                                 />
                                 <div className="chart-data">
->>>>>>> 59955281b5abe4a5a127fdc42fdc7d1a3cc64e0d
                                   <div
                                     data-percent={25}
                                     data-color="#3C21F7"
