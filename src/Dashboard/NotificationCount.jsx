@@ -7,7 +7,7 @@ function CountNotification() {
     console.log("inside notification");
 
     var response = await fetch(
-      "https://localhost:7268/api/Notification/UserNotificationCount",
+      "https://localhost:7157/api/Notification/UserNotificationCount",
 
       {
         method: "GET",

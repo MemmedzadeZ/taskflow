@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import "../Dashboard/Dashboard.css";
 import CurrentProjects from "./CurrentProjects";
+import SidebarComponent from "../SideBar/SidebarComponent";
 import CountNotification from "./NotificationCount";
 import CountMessage from "./MessageCount";
 import CurrentPerson from "./CurrentUser";
@@ -105,6 +106,7 @@ function DashboardTemplate() {
 
       <div className="sidebar-expand">
         <div className="DIV">
+          <SidebarComponent />
           {/* SIDEBAR */}
           <div className="sidebar">
             <div className="sidebar-logo">
@@ -242,6 +244,7 @@ function DashboardTemplate() {
                 <i className="bx bx-menu"></i>
               </div>
               <div className="main-title">Board</div>
+              {/* <SidebarSearchComponent /> */}
             </div>
 
             <div className="d-flex align-items-center">
@@ -258,6 +261,10 @@ function DashboardTemplate() {
               </form>
 
               <div className="dropdown d-inline-block mt-12">
+                {/* <Link to="/profile"> */}
+
+                {/* </Link> */}
+
                 <CurrentPerson />
                 <div className="dropdown-menu dropdown-menu-end">
                   <a className="dropdown-item" href=" ">
@@ -436,12 +443,25 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
+<<<<<<< HEAD
                     <div class="col-6 col-sm-12">
                       <div class="box">
                         <div class="box-header">
                           <div class="me-auto">
                             <h4 class="card-title">Project Category</h4>
                             <p>Lorem ipsum dolor sit amet</p>
+=======
+                    <div className="col-6 col-md-12">
+                      <div className="box">
+                        <div className="box-header">
+                          <div className="me-auto">
+                            <h4 className="card-title fs-22">
+                              Project Category{" "}
+                            </h4>
+                            <p className="fs-14 mt-4">
+                              Lorem ipsum dolor sit amet
+                            </p>
+>>>>>>> 59955281b5abe4a5a127fdc42fdc7d1a3cc64e0d
                           </div>
                         </div>
                         <div class="box-body pt-0">
@@ -449,6 +469,7 @@ function DashboardTemplate() {
                             <div class="col-6 col-xl-12 w-sm-100 mb-0">
                               <ul class="box-list mt-26 pr-67">
                                 <li>
+<<<<<<< HEAD
                                   <span class="bg-blue square"></span>Web Design
                                   <span>25%</span>
                                 </li>
@@ -471,6 +492,30 @@ function DashboardTemplate() {
                                 <li>
                                   <span class="bg-warning square"></span>Others
                                   <span>12.50%</span>
+=======
+                                  <span className="bg-blue square" />
+                                  Web Design<span>25%</span>
+                                </li>
+                                <li>
+                                  <span className="bg-success square" />
+                                  UX/UI Design<span>18%</span>
+                                </li>
+                                <li>
+                                  <span className="bg-warning square" />
+                                  Graphics Design<span>17%</span>
+                                </li>
+                                <li>
+                                  <span className="bg-blue square" />
+                                  Motion Design<span>12.50%</span>
+                                </li>
+                                <li>
+                                  <span className="bg-success square" />
+                                  Brand Identity<span>12.50%</span>
+                                </li>
+                                <li>
+                                  <span className="bg-warning square" />
+                                  Others<span>12.50%</span>
+>>>>>>> 59955281b5abe4a5a127fdc42fdc7d1a3cc64e0d
                                 </li>
                               </ul>
                             </div>
@@ -478,41 +523,49 @@ function DashboardTemplate() {
                               <div class="canvas-container">
                                 <canvas
                                   id="chartjs-4"
+<<<<<<< HEAD
                                   class="chartjs"
                                   width="100"
                                   height="100"
                                 ></canvas>
                                 <div class="chart-data">
+=======
+                                  className="chartjs"
+                                  width={100}
+                                  height={100}
+                                />
+                                <div className="chart-data">
+>>>>>>> 59955281b5abe4a5a127fdc42fdc7d1a3cc64e0d
                                   <div
-                                    data-percent="25"
+                                    data-percent={25}
                                     data-color="#3C21F7"
                                     data-label="Web Design"
-                                  ></div>
+                                  />
                                   <div
-                                    data-percent="18"
+                                    data-percent={18}
                                     data-color="#00BC8B"
                                     data-label="UX/UI Design"
-                                  ></div>
+                                  />
                                   <div
-                                    data-percent="17"
+                                    data-percent={17}
                                     data-color="#FFB800"
                                     data-label="Graphics Design"
-                                  ></div>
+                                  />
                                   <div
                                     data-percent="12.5"
                                     data-color="#00ECCC"
                                     data-label="Motion Design"
-                                  ></div>
+                                  />
                                   <div
                                     data-percent="12.5"
                                     data-color="#EF7F5A"
                                     data-label="Brand Identity"
-                                  ></div>
+                                  />
                                   <div
                                     data-percent="12.5"
                                     data-color="#5D45FB"
                                     data-label="Others"
-                                  ></div>
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -635,1076 +688,7 @@ function DashboardTemplate() {
                 </div>
                 {/* col-12 */}
 
-                <div className="col-12">
-                  <div className="box">
-                    <div className="box-header">
-                      <div className="me-auto">
-                        <h4 className="card-title mb-6"> Project Statistics</h4>
-                        <p className="mb-0 fs-14 mt-9">
-                          Lorem ipsum dolor sit amet
-                        </p>
-                      </div>
-                    </div>
-                    <div className="box-body pt-20">
-                      <div
-                        className="themesflat-carousel-box data-effect has-bullets bullet-circle bullet24 clearfix"
-                        data-gap="30"
-                        data-column="4"
-                        data-column2="2"
-                        data-column3="1"
-                        data-auto="true"
-                      >
-                        <div className="owl-carousel owl-theme">
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-green">
-                                  G
-                                </h5>
-                                <a
-                                  href="project-details.html"
-                                  className="h5 t-title"
-                                >
-                                  Gold App
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400 fs-16">
-                                Task Done:23/45
-                              </h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "52%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-yellow">
-                                  G
-                                </h5>
-                                <a
-                                  className="h5 t-title"
-                                  href="project-details.html"
-                                >
-                                  Landing Page
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400">Task Done: 30/45</h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "67%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-blue">
-                                  G
-                                </h5>
-                                <a
-                                  className="h5 t-title"
-                                  href="project-details.html"
-                                >
-                                  App Landing UI
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400">Task Done: 35/45</h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "78%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-orange">
-                                  G
-                                </h5>
-                                <a
-                                  className="h5 t-title"
-                                  href="project-details.html"
-                                >
-                                  Blog Template UI
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400">Task Done: 23/45</h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "52%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          {/* //img */}
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-orange">
-                                  G
-                                </h5>
-                                <a
-                                  className="h5 t-title"
-                                  href="project-details.html"
-                                >
-                                  Blog Template UI
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400">Task Done: 23/45</h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "52%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-yellow">
-                                  G
-                                </h5>
-                                <a
-                                  className="h5 t-title"
-                                  href="project-details.html"
-                                >
-                                  Gold App
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400">Task Done: 30/45</h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "67%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-blue">
-                                  G
-                                </h5>
-                                <a
-                                  className="h5 t-title"
-                                  href="project-details.html"
-                                >
-                                  New Landing Design
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400">Task Done: 35/45</h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "78%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div className="box box-carousel">
-                            <div className="card-top">
-                              <div className="sm-f-wrap d-flex">
-                                <h5 className="icon-gold text-white bg-orange">
-                                  G
-                                </h5>
-                                <a
-                                  className="h5 t-title"
-                                  href="project-details.html"
-                                >
-                                  Skote Dashboard UI
-                                </a>
-                              </div>
-                              <div className="dropdown">
-                                <a
-                                  href=" "
-                                  className="btn-link"
-                                  data-bs-toggle="dropdown"
-                                  aria-expanded="false"
-                                >
-                                  <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                  >
-                                    <path
-                                      d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 6C12.5523 6 13 5.55228 13 5C13 4.44772 12.5523 4 12 4C11.4477 4 11 4.44772 11 5C11 5.55228 11.4477 6 12 6Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                    <path
-                                      d="M12 20C12.5523 20 13 19.5523 13 19C13 18.4477 12.5523 18 12 18C11.4477 18 11 18.4477 11 19C11 19.5523 11.4477 20 12 20Z"
-                                      stroke="#575757"
-                                      strokeWidth="2"
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                    ></path>
-                                  </svg>
-                                </a>
-                                <div className="dropdown-menu dropdown-menu-right">
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#delete_project"
-                                  >
-                                    <i className="bx bx-trash"></i> Delete
-                                  </a>
-                                  <a
-                                    className="dropdown-item"
-                                    href=" "
-                                    data-toggle="modal"
-                                    data-target="#edit_project"
-                                  >
-                                    <i className="bx bx-edit mr-5"></i>Edit
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="card-center">
-                              <h6 className="font-w400">Task Done: 23/45</h6>
-                              <div
-                                className="progress skill-progress mb-23"
-                                style={{ height: "7px", width: "80%" }}
-                              >
-                                <div
-                                  className="progress-bar bg-primary progress-animated"
-                                  style={{ width: "52%", height: "7px" }}
-                                  role="progressbar"
-                                ></div>
-                              </div>
-                              <div className="sm-f-wrap d-flex justify-content-between">
-                                <ul className="user-list">
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-1.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-2.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-3.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-4.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                  <li>
-                                    <img
-                                      src="/images/avatar/user-5.png"
-                                      alt="user"
-                                    />
-                                  </li>
-                                </ul>
-                                <ul className="tf-icon-list">
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bx-calendar"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href=" ">
-                                      <i className="bx bxs-star"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <CurrentProjects />
-                  </div>
-                </div>
+                <CurrentProjects></CurrentProjects>
               </div>
             </div>
           </div>
@@ -1712,20 +696,20 @@ function DashboardTemplate() {
       </div>
       <div class="overlay"></div>
 
-      <script src="/libs/jquery/jquery.min.js"></script>
-      <script src="/libs/moment/min/moment.min.js"></script>
-      <script src="/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="/libs/peity/jquery.peity.min.js"></script>
-      <script src="/libs/chart.js/Chart.bundle.min.js"></script>
-      <script src="/libs/owl.carousel/owl.carousel.min.js"></script>
-      <script src="/libs/bootstrap/js/bootstrap.min.js"></script>
-      <script src="/libs/apexcharts/apexcharts.js"></script>
-      <script src="/libs/simplebar/simplebar.min.js"></script>
+      {/* <script src="../../libs/jquery/jquery.min.js"></script>
+      <script src="../../libs/moment/min/moment.min.js"></script>
+      <script src="../../libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="../../libs/peity/jquery.peity.min.js"></script>
+      <script src="../../libs/chart.js/Chart.bundle.min.js"></script>
+      <script src="../../libs/owl.carousel/owl.carousel.min.js"></script>
+      <script src="../../libs/bootstrap/js/bootstrap.min.js"></script>
+      <script src="../../libs/apexcharts/apexcharts.js"></script>
+      <script src="../../libs/simplebar/simplebar.min.js"></script>
 
-      <script src="/js/main.js"></script>
-      <script src="/js/dashboard.js"></script>
-      <script src="/js/shortcode.js"></script>
-      <script src="/js/pages/dashboard.js"></script>
+      <script src="../../js/main.js"></script>
+      <script src="../../js/dashboard.js"></script>
+      <script src="../../js/shortcode.js"></script>
+      <script src="../../js/pages/dashboard.js"></script> */}
     </div>
   );
 }

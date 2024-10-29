@@ -7,7 +7,7 @@ function CalendarCount() {
     console.log("calendar message count");
 
     var response = await fetch(
-      "https://localhost:7268/api/Notification/CalendarNotificationCount",
+      "https://localhost:7157/api/Notification/CalendarNotificationCount",
 
       {
         method: "GET",

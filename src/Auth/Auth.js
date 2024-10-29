@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import welcomejson from "../animations/welcome.json";
 
 import Lottie from "lottie-react";
+import ErrorSpan from "../StyledComponent/ErrorComponents";
 
 function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -85,7 +86,7 @@ function Auth() {
                 id="login-form"
                 onSubmit={(e) => loginUser(e, username, password)}
               >
-                <div className="field">
+                <div id="login-username-div" className="field">
                   <input
                     type="text"
                     placeholder="Username"
@@ -93,8 +94,9 @@ function Auth() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
+                  <ErrorSpan id="login-username-span"></ErrorSpan>
                 </div>
-                <div className="field">
+                <div id="login-password-div" className="field">
                   <input
                     type="password"
                     placeholder="Password"
@@ -102,6 +104,7 @@ function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <ErrorSpan id="login-password-span"></ErrorSpan>
                 </div>
                 <div className="pass-link">
                   <a onClick={handleForgotPasswordClick}>Forgot password?</a>
@@ -161,66 +164,75 @@ function Auth() {
                 className="signup"
                 id="signup-form"
                 onSubmit={(e) =>
-                  registerUser(e, email, password, confirmPassword, username)
+                  registerUser(
+                    e,
+                    email,
+                    firstname,
+                    lastname,
+                    username,
+                    password,
+                    confirmPassword
+                  )
                 }
               >
-                <div className="field">
+                <div id="email-div" className="field">
                   <input
                     type="text"
                     placeholder="Email Address"
-                    required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  <ErrorSpan id="email-span"></ErrorSpan>
                 </div>
 
-                <div className="field">
+                <div id="firstname-div" className="field">
                   <input
                     type="text"
                     placeholder="First Name"
-                    required
                     value={firstname}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
+                  <ErrorSpan id="firstname-span"></ErrorSpan>
                 </div>
 
-                <div className="field">
+                <div id="lastname-div" className="field">
                   <input
                     type="text"
                     placeholder="Last name"
-                    required
                     value={lastname}
                     onChange={(e) => setLastName(e.target.value)}
                   />
+                  <ErrorSpan id="lastname-span"></ErrorSpan>
                 </div>
 
-                <div className="field">
+                <div id="username-div" className="field">
                   <input
                     type="text"
                     placeholder="Username "
-                    required
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
+                  <ErrorSpan id="username-span"></ErrorSpan>
                 </div>
 
-                <div className="field">
+                <div id="password-div" className="field">
                   <input
                     type="password"
                     placeholder="Password"
-                    required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <ErrorSpan id="password-span"></ErrorSpan>
+                  {/* style={{ display: "none" }}  */}
                 </div>
-                <div className="field">
+                <div id="confirmPassword-div" className="field">
                   <input
                     type="password"
                     placeholder="Confirm password"
-                    required
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
+                  <ErrorSpan id="confirmPassword-span"></ErrorSpan>
                 </div>
                 {/* <div className="btn-layer"></div> */}
 
@@ -236,6 +248,7 @@ function Auth() {
           </div>
         </div>
       </div>
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </div>
   );
 }

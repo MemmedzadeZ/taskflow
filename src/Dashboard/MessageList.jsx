@@ -6,7 +6,7 @@ function TwoMessage() {
   const fetchMessages = async () => {
     console.log("inside short message list");
     var response = await fetch(
-      "https://localhost:7268/api/Message/TwoMessage",
+      "https://localhost:7157/api/Message/TwoMessage",
       {
         method: "GET",
         headers: {
