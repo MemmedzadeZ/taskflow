@@ -13,7 +13,7 @@ function CreateProjectModel({ closeModal }) {
       description,
       isCompleted: false,
     };
-    fetch("https://localhost:7157/api/Project/Post", {
+    fetch("https://localhost:7157/api/Project", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
