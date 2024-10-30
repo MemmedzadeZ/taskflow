@@ -12,6 +12,7 @@ import CalendarCount from "./CalendarNotificationCount";
 import TwoCalendarNotification from "./CalendarList";
 import ClientsCount from "./TotalClient";
 import ProjectsCount from "./ProjectCount";
+import OccupationPercent from "./OccupationStatistik";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
@@ -456,78 +457,7 @@ function DashboardTemplate() {
                           </div>
                         </div>
                         <div class="box-body pt-0">
-                          <div class="row">
-                            <div class="col-6 col-xl-12 w-sm-100 mb-0">
-                              <ul class="box-list mt-26 pr-67">
-                                <li>
-                                  <span className="bg-blue square" />
-                                  Web Design<span>25%</span>
-                                </li>
-                                <li>
-                                  <span className="bg-success square" />
-                                  UX/UI Design<span>18%</span>
-                                </li>
-                                <li>
-                                  <span className="bg-warning square" />
-                                  Graphics Design<span>17%</span>
-                                </li>
-                                <li>
-                                  <span className="bg-blue square" />
-                                  Motion Design<span>12.50%</span>
-                                </li>
-                                <li>
-                                  <span className="bg-success square" />
-                                  Brand Identity<span>12.50%</span>
-                                </li>
-                                <li>
-                                  <span className="bg-warning square" />
-                                  Others<span>12.50%</span>
-                                </li>
-                              </ul>
-                            </div>
-                            <div class="col-6 col-xl-12 w-sm-100 mb-0">
-                              <div class="canvas-container">
-                                <canvas
-                                  id="chartjs-4"
-                                  className="chartjs"
-                                  width={100}
-                                  height={100}
-                                />
-                                <div className="chart-data">
-                                  <div
-                                    data-percent={25}
-                                    data-color="#3C21F7"
-                                    data-label="Web Design"
-                                  />
-                                  <div
-                                    data-percent={18}
-                                    data-color="#00BC8B"
-                                    data-label="UX/UI Design"
-                                  />
-                                  <div
-                                    data-percent={17}
-                                    data-color="#FFB800"
-                                    data-label="Graphics Design"
-                                  />
-                                  <div
-                                    data-percent="12.5"
-                                    data-color="#00ECCC"
-                                    data-label="Motion Design"
-                                  />
-                                  <div
-                                    data-percent="12.5"
-                                    data-color="#EF7F5A"
-                                    data-label="Brand Identity"
-                                  />
-                                  <div
-                                    data-percent="12.5"
-                                    data-color="#5D45FB"
-                                    data-label="Others"
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <OccupationPercent />
                         </div>
                       </div>
                     </div>

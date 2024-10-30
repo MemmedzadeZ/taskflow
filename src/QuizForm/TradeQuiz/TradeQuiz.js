@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./TradeQuiz.css"; // CSS faylını əlavə et
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function TradeQuiz() {
