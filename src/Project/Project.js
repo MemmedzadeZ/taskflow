@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { Helmet } from "react-helmet"; // For head configurations
-import { Link } from "react-router-dom";
 import "../Dashboard/Dashboard.css";
 import SidebarComponent from "../SideBar/SidebarComponent";
 import "./CreateProject.css"; // Add custom styles here
@@ -102,7 +100,7 @@ const Project = () => {
                 </button>
                 <div className="dropdown-menu dropdown-menu-end">
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="dropdown-item notify-item language"
                     data-lang="en"
                   >
@@ -115,7 +113,7 @@ const Project = () => {
                     <span className="align-middle">English</span>
                   </a>
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="dropdown-item notify-item language"
                     data-lang="sp"
                   >
@@ -128,7 +126,7 @@ const Project = () => {
                     <span className="align-middle">Spanish</span>
                   </a>
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="dropdown-item notify-item language"
                     data-lang="gr"
                   >
@@ -141,7 +139,7 @@ const Project = () => {
                     <span className="align-middle">German</span>
                   </a>
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="dropdown-item notify-item language"
                     data-lang="it"
                   >
@@ -154,7 +152,7 @@ const Project = () => {
                     <span className="align-middle">Italian</span>
                   </a>
                   <a
-                    href="javascript:void(0);"
+                    href=" "
                     className="dropdown-item notify-item language"
                     data-lang="ru"
                   >
@@ -172,20 +170,20 @@ const Project = () => {
               <div className="dropdown d-inline-block mt-12">
                 <CurrentPerson></CurrentPerson>
                 <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href=" ">
                     <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}
                     <span>Profile</span>
                   </a>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href=" ">
                     <i className="bx bx-wallet font-size-16 align-middle me-1"></i>{" "}
                     <span>My Wallet</span>
                   </a>
-                  <a className="dropdown-item d-block" href="#">
+                  <a className="dropdown-item d-block" href=" ">
                     <span className="badge bg-success float-end">11</span>
                     <i className="bx bx-wrench font-size-16 align-middle me-1"></i>{" "}
                     <span>Settings</span>
                   </a>
-                  <a className="dropdown-item" href="#">
+                  <a className="dropdown-item" href=" ">
                     <i className="bx bx-lock-open font-size-16 align-middle me-1"></i>{" "}
                     <span>Lock screen</span>
                   </a>
@@ -289,7 +287,7 @@ const Project = () => {
                     <div className="box h-100 d-flex align-items-center">
                       <a
                         className="create d-flex bg-primary justify-content-center"
-                        href="#"
+                        href=" "
                         onClick={openModel}
                       >
                         <div className="icon color-white pt-4 pr-8">
@@ -315,21 +313,21 @@ const Project = () => {
                       <div className="card-options">
                         <div className="btn-list d-flex">
                           <a
-                            href="#"
+                            href=" "
                             className="btn text-primary border-primary d-flex align-items-center mr-5"
                           >
                             <i className="bx bx-plus-circle mr-5" />
                             Add Project
                           </a>
                           <a
-                            href="#"
+                            href=" "
                             className="btn btn-light d-flex align-items-center mr-5"
                           >
                             <i className="fas fa-eye mr-5" />
                             View All
                           </a>
                           <a
-                            href="#"
+                            href=" "
                             className="btn btn-light me-0 dropdown-toggle d-flex align-items-center"
                             data-bs-toggle="dropdown"
                             aria-expanded="false"
@@ -343,13 +341,13 @@ const Project = () => {
                             role="menu"
                           >
                             <li>
-                              <a href="#">Monthly</a>
+                              <a href=" ">Monthly</a>
                             </li>
                             <li>
-                              <a href="#">Yearly</a>
+                              <a href=" ">Yearly</a>
                             </li>
                             <li>
-                              <a href="#">Weekly</a>
+                              <a href=" ">Weekly</a>
                             </li>
                           </ul>
                         </div>
@@ -435,7 +433,7 @@ const Project = () => {
                                   </div>{" "}
                                   <a
                                     className="btn btn-outline-light  text-muted pd-0 fs-34"
-                                    href="#"
+                                    href=" "
                                     data-bs-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
@@ -444,25 +442,25 @@ const Project = () => {
                                   </a>
                                   <ul className="dropdown-menu " role="menu">
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="far fa-eye" />
                                         View
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-plus-circle" />
                                         Add
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-trash" />
                                         Remove
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-cog" />
                                         More
                                       </a>
@@ -552,7 +550,7 @@ const Project = () => {
                                   </div>{" "}
                                   <a
                                     className="btn btn-outline-light  text-muted pd-0 fs-34"
-                                    href="#"
+                                    href=" "
                                     data-bs-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
@@ -561,25 +559,25 @@ const Project = () => {
                                   </a>
                                   <ul className="dropdown-menu " role="menu">
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="far fa-eye" />
                                         View
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-plus-circle" />
                                         Add
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-trash" />
                                         Remove
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-cog" />
                                         More
                                       </a>
@@ -669,7 +667,7 @@ const Project = () => {
                                   </div>{" "}
                                   <a
                                     className="btn btn-outline-light  text-muted pd-0 fs-34"
-                                    href="#"
+                                    href=" "
                                     data-bs-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
@@ -678,25 +676,25 @@ const Project = () => {
                                   </a>
                                   <ul className="dropdown-menu " role="menu">
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="far fa-eye" />
                                         View
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-plus-circle" />
                                         Add
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-trash" />
                                         Remove
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-cog" />
                                         More
                                       </a>
@@ -786,7 +784,7 @@ const Project = () => {
                                   </div>{" "}
                                   <a
                                     className="btn btn-outline-light  text-muted pd-0 fs-34"
-                                    href="#"
+                                    href=" "
                                     data-bs-toggle="dropdown"
                                     aria-haspopup="true"
                                     aria-expanded="false"
@@ -795,25 +793,25 @@ const Project = () => {
                                   </a>
                                   <ul className="dropdown-menu " role="menu">
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="far fa-eye" />
                                         View
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-plus-circle" />
                                         Add
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-trash" />
                                         Remove
                                       </a>
                                     </li>
                                     <li>
-                                      <a href="#">
+                                      <a href=" ">
                                         <i className="bx bx-cog" />
                                         More
                                       </a>
@@ -953,7 +951,7 @@ const Project = () => {
                           <div className="dropdown">
                             {" "}
                             <a
-                              href="#"
+                              href=" "
                               className="btn ripple btn-outline-light dropdown-toggle fs-12"
                               data-bs-toggle="dropdown"
                               aria-expanded="false"
@@ -968,13 +966,13 @@ const Project = () => {
                               style={{}}
                             >
                               <li>
-                                <a href="#">Monthly</a>
+                                <a href=" ">Monthly</a>
                               </li>
                               <li>
-                                <a href="#">Yearly</a>
+                                <a href=" ">Yearly</a>
                               </li>
                               <li>
-                                <a href="#">Weekly</a>
+                                <a href=" ">Weekly</a>
                               </li>
                             </ul>
                           </div>
@@ -1002,7 +1000,7 @@ const Project = () => {
                               </div>
                             </div>
                             <div className="card-options me-0 d-flex align-items-center">
-                              <a href="#" className="text-primary fs-14">
+                              <a href=" " className="text-primary fs-14">
                                 Add New Task
                               </a>
                             </div>
@@ -1027,7 +1025,7 @@ const Project = () => {
                               </div>
                             </div>
                             <div className="card-options me-0 d-flex align-items-center">
-                              <a href="#" className="text-success fs-14">
+                              <a href=" " className="text-success fs-14">
                                 Review Completed
                               </a>
                             </div>
@@ -1052,7 +1050,7 @@ const Project = () => {
                               </div>
                             </div>
                             <div className="card-options me-0 d-flex align-items-center">
-                              <a href="#" className="text-completed fs-14">
+                              <a href=" " className="text-completed fs-14">
                                 Task Completed
                               </a>
                             </div>
@@ -1077,7 +1075,7 @@ const Project = () => {
                               </div>
                             </div>
                             <div className="card-options me-0 d-flex align-items-center">
-                              <a href="#" className="text-success fs-14">
+                              <a href=" " className="text-success fs-14">
                                 Review Completed
                               </a>
                             </div>
@@ -1102,7 +1100,7 @@ const Project = () => {
                               </div>
                             </div>
                             <div className="card-options me-0 d-flex align-items-center">
-                              <a href="#" className="text-primary fs-14">
+                              <a href=" " className="text-primary fs-14">
                                 Add New Task
                               </a>
                             </div>
@@ -1123,7 +1121,7 @@ const Project = () => {
                           <div className="dropdown">
                             {" "}
                             <a
-                              href="#"
+                              href=" "
                               className="btn ripple btn-outline-light dropdown-toggle fs-12"
                               data-bs-toggle="dropdown"
                               aria-expanded="false"
@@ -1138,13 +1136,13 @@ const Project = () => {
                               style={{}}
                             >
                               <li>
-                                <a href="#">Monthly</a>
+                                <a href=" ">Monthly</a>
                               </li>
                               <li>
-                                <a href="#">Yearly</a>
+                                <a href=" ">Yearly</a>
                               </li>
                               <li>
-                                <a href="#">Weekly</a>
+                                <a href=" ">Weekly</a>
                               </li>
                             </ul>
                           </div>
@@ -1310,7 +1308,7 @@ const Project = () => {
                           <div className="dropdown">
                             {" "}
                             <a
-                              href="#"
+                              href=" "
                               className="btn ripple btn-outline-light dropdown-toggle fs-14"
                               data-bs-toggle="dropdown"
                               aria-expanded="false"
@@ -1325,13 +1323,13 @@ const Project = () => {
                               style={{}}
                             >
                               <li>
-                                <a href="#">Monthly</a>
+                                <a href=" ">Monthly</a>
                               </li>
                               <li>
-                                <a href="#">Yearly</a>
+                                <a href=" ">Yearly</a>
                               </li>
                               <li>
-                                <a href="#">Weekly</a>
+                                <a href=" ">Weekly</a>
                               </li>
                             </ul>
                           </div>
@@ -1418,7 +1416,7 @@ const Project = () => {
                           <tbody>
                             <tr className="odd">
                               <td>
-                                <a href="#" className="d-flex ">
+                                <a href=" " className="d-flex ">
                                   {" "}
                                   <span>Design Updated</span>{" "}
                                 </a>
@@ -1460,7 +1458,7 @@ const Project = () => {
                               <td>
                                 <div className="dropdown">
                                   <a
-                                    href="javascript:void(0);"
+                                    href=" "
                                     className="btn-link"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
@@ -1470,7 +1468,7 @@ const Project = () => {
                                   <div className="dropdown-menu dropdown-menu-right">
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#delete_client"
                                     >
@@ -1478,7 +1476,7 @@ const Project = () => {
                                     </a>
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#edit_client"
                                     >
@@ -1491,7 +1489,7 @@ const Project = () => {
                             </tr>
                             <tr className="even">
                               <td>
-                                <a href="#" className="d-flex ">
+                                <a href=" " className="d-flex ">
                                   {" "}
                                   <span>Website Develop</span>{" "}
                                 </a>
@@ -1546,7 +1544,7 @@ const Project = () => {
                               <td>
                                 <div className="dropdown">
                                   <a
-                                    href="javascript:void(0);"
+                                    href=" "
                                     className="btn-link"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
@@ -1556,7 +1554,7 @@ const Project = () => {
                                   <div className="dropdown-menu dropdown-menu-right">
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#delete_client"
                                     >
@@ -1564,7 +1562,7 @@ const Project = () => {
                                     </a>
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#edit_client"
                                     >
@@ -1577,7 +1575,7 @@ const Project = () => {
                             </tr>
                             <tr className="odd">
                               <td>
-                                <a href="#" className="d-flex ">
+                                <a href=" " className="d-flex ">
                                   <span>Digital Marketing</span>{" "}
                                 </a>
                               </td>
@@ -1619,7 +1617,7 @@ const Project = () => {
                               <td>
                                 <div className="dropdown">
                                   <a
-                                    href="javascript:void(0);"
+                                    href=" "
                                     className="btn-link"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
@@ -1629,7 +1627,7 @@ const Project = () => {
                                   <div className="dropdown-menu dropdown-menu-right">
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#delete_client"
                                     >
@@ -1637,7 +1635,7 @@ const Project = () => {
                                     </a>
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#edit_client"
                                     >
@@ -1650,7 +1648,7 @@ const Project = () => {
                             </tr>
                             <tr className="even">
                               <td>
-                                <a href="#" className="d-flex ">
+                                <a href=" " className="d-flex ">
                                   <span>Ad Analysis</span>{" "}
                                 </a>
                               </td>
@@ -1692,7 +1690,7 @@ const Project = () => {
                               <td>
                                 <div className="dropdown">
                                   <a
-                                    href="javascript:void(0);"
+                                    href=" "
                                     className="btn-link"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
@@ -1702,7 +1700,7 @@ const Project = () => {
                                   <div className="dropdown-menu dropdown-menu-right">
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#delete_client"
                                     >
@@ -1710,7 +1708,7 @@ const Project = () => {
                                     </a>
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#edit_client"
                                     >
@@ -1723,7 +1721,7 @@ const Project = () => {
                             </tr>
                             <tr className="odd">
                               <td>
-                                <a href="#" className="d-flex ">
+                                <a href=" " className="d-flex ">
                                   <span>Design update</span>{" "}
                                 </a>
                               </td>
@@ -1765,7 +1763,7 @@ const Project = () => {
                               <td>
                                 <div className="dropdown">
                                   <a
-                                    href="javascript:void(0);"
+                                    href=" "
                                     className="btn-link"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
@@ -1775,7 +1773,7 @@ const Project = () => {
                                   <div className="dropdown-menu dropdown-menu-right">
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#delete_client"
                                     >
@@ -1783,7 +1781,7 @@ const Project = () => {
                                     </a>
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#edit_client"
                                     >
@@ -1796,7 +1794,7 @@ const Project = () => {
                             </tr>
                             <tr className="even">
                               <td>
-                                <a href="#" className="d-flex ">
+                                <a href=" " className="d-flex ">
                                   <span>Design update</span>{" "}
                                 </a>
                               </td>
@@ -1850,7 +1848,7 @@ const Project = () => {
                               <td>
                                 <div className="dropdown">
                                   <a
-                                    href="javascript:void(0);"
+                                    href=" "
                                     className="btn-link"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
@@ -1860,7 +1858,7 @@ const Project = () => {
                                   <div className="dropdown-menu dropdown-menu-right">
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#delete_client"
                                     >
@@ -1868,7 +1866,7 @@ const Project = () => {
                                     </a>
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#edit_client"
                                     >
@@ -1881,7 +1879,7 @@ const Project = () => {
                             </tr>
                             <tr className="odd">
                               <td>
-                                <a href="#" className="d-flex ">
+                                <a href=" " className="d-flex ">
                                   <span>Design update</span>{" "}
                                 </a>
                               </td>
@@ -1923,7 +1921,7 @@ const Project = () => {
                               <td>
                                 <div className="dropdown">
                                   <a
-                                    href="javascript:void(0);"
+                                    href=" "
                                     className="btn-link"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
@@ -1933,7 +1931,7 @@ const Project = () => {
                                   <div className="dropdown-menu dropdown-menu-right">
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#delete_client"
                                     >
@@ -1941,7 +1939,7 @@ const Project = () => {
                                     </a>
                                     <a
                                       className="dropdown-item"
-                                      href="#"
+                                      href=" "
                                       data-toggle="modal"
                                       data-target="#edit_client"
                                     >
@@ -1967,7 +1965,7 @@ const Project = () => {
                           <div className="dropdown">
                             {" "}
                             <a
-                              href="#"
+                              href=" "
                               className="btn ripple btn-outline-light dropdown-toggle"
                               data-bs-toggle="dropdown"
                               aria-expanded="false"
@@ -1982,13 +1980,13 @@ const Project = () => {
                               style={{}}
                             >
                               <li>
-                                <a href="#">Monthly</a>
+                                <a href=" ">Monthly</a>
                               </li>
                               <li>
-                                <a href="#">Yearly</a>
+                                <a href=" ">Yearly</a>
                               </li>
                               <li>
-                                <a href="#">Weekly</a>
+                                <a href=" ">Weekly</a>
                               </li>
                             </ul>
                           </div>
@@ -2138,7 +2136,7 @@ const Project = () => {
                           <div className="row">
                             <div className="col-6 mb-0">
                               <a
-                                href="javascript:void(0);"
+                                href=" "
                                 className="btn btn-primary continue-btn"
                               >
                                 Delete
@@ -2146,7 +2144,7 @@ const Project = () => {
                             </div>
                             <div className="col-6 mb-0">
                               <a
-                                href="javascript:void(0);"
+                                href=" "
                                 data-dismiss="modal"
                                 className="btn btn-primary cancel-btn"
                               >
