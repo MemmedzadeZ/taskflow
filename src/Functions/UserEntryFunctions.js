@@ -165,10 +165,10 @@ export const loginUser = async (e, username, password) => {
     },
     body: JSON.stringify(userData),
   });
-  if (response.status === 404) {
-    alert("User Not Found!");
-    return;
-  }
+  // if (response.status === 404) {
+  //   alert("User Not Found!");
+  //   return;
+  // }
 
   var data = await response.json();
 

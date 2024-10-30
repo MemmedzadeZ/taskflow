@@ -147,9 +147,6 @@ function DashboardTemplate() {
                   </ul>
                 </li>
                 <li className="sidebar-submenu">
-                  {/* /////////////////////////////// */}
-                  {/* /////////////////////////////// */}
-                  {/* /////////////////////////////// */}
                   <a href="/project" className="sidebar-menu-dropdown">
                     <i className="bx bxs-bolt"></i>
                     <span>Project</span>
