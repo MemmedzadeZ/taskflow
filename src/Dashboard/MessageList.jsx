@@ -65,5 +65,4 @@ function TwoMessage() {
     </div>
   );
 }
-
 export default TwoMessage;

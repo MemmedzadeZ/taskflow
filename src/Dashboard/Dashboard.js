@@ -13,6 +13,8 @@ import TwoCalendarNotification from "./CalendarList";
 import ClientsCount from "./TotalClient";
 import ProjectsCount from "./ProjectCount";
 import OccupationPercent from "./OccupationStatistik";
+import AllMessages from "./AllMessagesList";
+import DailyTask from "./DailyTask";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
@@ -356,66 +358,7 @@ function DashboardTemplate() {
                     </div>
 
                     {/* Daily Task Section */}
-                    <div className="col-12">
-                      <div className="box">
-                        <div className="box-header">
-                          <h4 className="box-title mb-22">Daily Task</h4>
-                        </div>
-                        <div className="box-body">
-                          <div className="content-item mb-wrap">
-                            <div className="left">
-                              <h5 className="font-w500">10:00</h5>
-                            </div>
-                            <div className="right bg-orange">
-                              <div className="content-box w-100">
-                                <h5 className="font-wb text-white fs-20">
-                                  iOs Dev team meeting
-                                </h5>
-                                <h6 className="font-w400 text-w07">
-                                  10:00 - 11:00
-                                </h6>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="content-item mb-wrap mb-32">
-                            <div className="left">
-                              <h5 className="font-w500">11:00</h5>
-                            </div>
-                            <div className="right d-flex pd-0">
-                              <div className="content-box bg-yellow">
-                                <h5 className="font-wb text-white fs-20">
-                                  Design meeting
-                                </h5>
-                                <h6 className="font-w400 text-w07">
-                                  11:00 - 11:30
-                                </h6>
-                              </div>
-                              <div className="content-box bg-blue">
-                                <h5 className="font-wb text-white fs-20">
-                                  SEO meeting
-                                </h5>
-                                <h6 className="font-w400 text-w07">
-                                  11:30 - 12:00
-                                </h6>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="content-item mb-0 mb-wrap">
-                            <div className="left">
-                              <h5 className="font-w500">12:00</h5>
-                            </div>
-                            <div className="right bg-light">
-                              <div className="content-box w-100">
-                                <h5 className="font-w500">Lunch Break</h5>
-                                <h6 className="font-w400 mt-10">
-                                  12:00 - 1:00
-                                </h6>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <DailyTask />
                   </div>
                 </div>
 
@@ -490,85 +433,7 @@ function DashboardTemplate() {
                         <h4 className="card-title mb-0">Message</h4>
                       </div>
                     </div>
-                    <div className="box-body pb-0 pt-39">
-                      <ul className="message mb-2">
-                        <li className="dlab-chat-user">
-                          <div className="d-flex bd-highlight">
-                            <div className="img_cont">
-                              <img
-                                src="/images/avatar/message-01.png"
-                                className="rounded-circle user_img"
-                                alt="Richard Coleman"
-                              />
-                            </div>
-                            <div className="user_info">
-                              <a className="h6" href="message.html">
-                                Richard Coleman
-                              </a>
-                              <p className="fs-14 mb-0">
-                                Hi Jackma! How are you?
-                              </p>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="dlab-chat-user">
-                          <div className="d-flex bd-highlight">
-                            <div className="img_cont border-pink">
-                              <img
-                                src="/images/avatar/message-02.png"
-                                className="rounded-circle user_img"
-                                alt="Jessica Elliot"
-                              />
-                            </div>
-                            <div className="user_info">
-                              <a className="h6" href="message.html">
-                                Jessica Elliot
-                              </a>
-                              <p className="fs-14 mb-0">
-                                Do you need like the Color, typography and
-                                spacing?
-                              </p>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="dlab-chat-user">
-                          <div className="d-flex bd-highlight">
-                            <div className="img_cont border-green">
-                              <img
-                                src="/images/avatar/message-03.png"
-                                className="rounded-circle user_img"
-                                alt="Steve Ford"
-                              />
-                            </div>
-                            <div className="user_info">
-                              <a className="h6" href="message.html">
-                                Steve Ford
-                              </a>
-                              <p className="fs-14 mb-0">Can I your budget?</p>
-                            </div>
-                          </div>
-                        </li>
-                        <li className="dlab-chat-user">
-                          <div className="d-flex bd-highlight">
-                            <div className="img_cont border-blue">
-                              <img
-                                src="/images/avatar/message-04.png"
-                                className="rounded-circle user_img"
-                                alt="Mary Ann Lucas"
-                              />
-                            </div>
-                            <div className="user_info">
-                              <a className="h6" href="message.html">
-                                Mary Ann Lucas
-                              </a>
-                              <p className="fs-14 mb-0">
-                                Looks Good. Please go forward!
-                              </p>
-                            </div>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+                    <AllMessages />
                   </div>
                 </div>
                 {/* col-12 */}
