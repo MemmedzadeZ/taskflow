@@ -1,5 +1,7 @@
 import "../Dashboard/Dashboard.css";
 import React, { useEffect, useState } from "react";
+import { Dropdown } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function CurrentProjects() {
   const [projects, setProjects] = useState([]);
@@ -70,24 +72,25 @@ function CurrentProjects() {
                           {project.title}
                         </a>
                       </div>
-                      <div className="dropdown">
-                        <a
-                          href=" "
-                          className="btn-link"
-                          data-bs-toggle="dropdown"
-                          aria-expanded="false"
-                        >
+                      <Dropdown>
+                        <Dropdown.Toggle variant="link" className="p-0">
                           <i className="bx bx-dots-vertical-rounded"></i>
-                        </a>
-                        <div className="dropdown-menu dropdown-menu-right">
-                          <a className="dropdown-item" href=" ">
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                          <Dropdown.Item
+                            href="#"
+                            onClick={() => console.log("Edit clicked")}
+                          >
+                            <i className="bx bx-edit me-2"></i> Edit
+                          </Dropdown.Item>
+                          <Dropdown.Item
+                            href="#"
+                            onClick={() => console.log("Delete clicked")}
+                          >
                             <i className="bx bx-trash me-2"></i> Delete
-                          </a>
-                          <a className="dropdown-item" href=" ">
-                            <i className="bx bx-edit me-2"></i>Edit
-                          </a>
-                        </div>
-                      </div>
+                          </Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown>
                     </div>
                     <div className="card-center">
                       <h6 className="font-w400 fs-16">
@@ -116,7 +119,14 @@ function CurrentProjects() {
                           {project.participantsPath?.length > 0 ? (
                             project.participantsPath.map((participant, i) => (
                               <li key={i}>
-                                <img src={participant} alt="user" />
+                                <img
+                                  src={
+                                    participant
+                                      ? participant
+                                      : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                                  }
+                                  alt="user"
+                                />
                               </li>
                             ))
                           ) : (

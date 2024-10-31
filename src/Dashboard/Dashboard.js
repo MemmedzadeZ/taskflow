@@ -15,6 +15,7 @@ import ProjectsCount from "./ProjectCount";
 import OccupationPercent from "./OccupationStatistik";
 import AllMessages from "./AllMessagesList";
 import DailyTask from "./DailyTask";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
