@@ -16,6 +16,8 @@ import OccupationPercent from "./OccupationStatistik";
 import AllMessages from "./AllMessagesList";
 import DailyTask from "./DailyTask";
 import "bootstrap/dist/css/bootstrap.min.css";
+import DoughnutChart from "../Chart/DoughnutChart ";
+import { Link } from "react-router-dom";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
@@ -262,10 +264,7 @@ function DashboardTemplate() {
               </form>
 
               <div className="dropdown d-inline-block mt-12">
-                {/* <Link to="/profile"> */}
-
-                {/* </Link> */}
-
+              
                 <CurrentPerson />
                 <div className="dropdown-menu dropdown-menu-end">
                   <a className="dropdown-item" href=" ">
@@ -399,6 +398,7 @@ function DashboardTemplate() {
                         </div>
                         <div class="box-body pt-0">
                           <OccupationPercent />
+                          <DoughnutChart />
                         </div>
                       </div>
                     </div>

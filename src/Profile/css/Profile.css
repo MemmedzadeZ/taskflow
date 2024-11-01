@@ -1,0 +1,126 @@
+/* UserProfile.css */
+
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.leftSection {
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+}
+
+.coverImage {
+    width: 100%;
+    height: 120px;
+    background-color: #d3d3d3;
+}
+
+.profileImage {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: -75px auto 10px;
+}
+
+.profileCircle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: #e0e0e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #333;
+}
+
+.userName {
+    margin: 10px 0 5px;
+}
+
+.userEmail {
+    color: #666;
+}
+
+.personalInfo {
+    text-align: left;
+    margin-top: 20px;
+}
+
+.rightSection {
+    width: 70%;
+    padding: 20px;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    background: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.activeTab {
+    padding: 10px 20px;
+    background-color: #6852ff;
+    color: #fff;
+    border: 1px solid #6852ff;
+    cursor: pointer;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.textarea {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: vertical;
+    grid-column: span 2;
+}
+
+.buttonGroup {
+    grid-column: span 2;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cancelButton {
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 1px solid red;
+    color: red;
+    cursor: pointer;
+}
+
+.saveButton {
+    padding: 10px 20px;
+    background-color: #6852ff;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
