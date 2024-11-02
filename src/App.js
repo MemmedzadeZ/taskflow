@@ -101,7 +101,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
 
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
-        <Route
+        {/* <Route
           path="/"
           element={
             <>
@@ -117,7 +117,9 @@ function App() {
               <FooterSection />
             </>
           }
-        />
+        /> */}
+
+        <Route path="/" element={<HeaderSection/>} />
       </Routes>
     </div>
   );
