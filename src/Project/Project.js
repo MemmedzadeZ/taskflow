@@ -8,6 +8,7 @@ import CompletedProjects from "./ProjectComponents/CompletedProjects";
 import PendingProjects from "./ProjectComponents/PendingProjects";
 import OngoingProjects from "./ProjectComponents/OngoingProjects";
 import CreateProjectModel from "./ProjectComponents/CreateProjectModel";
+import DoughnutChart from "../Chart/DoughnutChart ";
 
 const Project = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -891,49 +892,9 @@ const Project = () => {
                               </li>
                             </ul>
                           </div>
-                          <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0">
-                            {/* <canvas id="doughnut-chart" width="240" height="240"></canvas> */}
-                            <div className="canvas-container">
-                              <canvas
-                                id="chartjs-4"
-                                className="chartjs"
-                                width={100}
-                                height={100}
-                              />
-                              <div className="chart-data">
-                                <div
-                                  data-percent={25}
-                                  data-color="#3C21F7"
-                                  data-label="Web Design"
-                                />
-                                <div
-                                  data-percent={18}
-                                  data-color="#00BC8B"
-                                  data-label="UX/UI Design"
-                                />
-                                <div
-                                  data-percent={17}
-                                  data-color="#FFB800"
-                                  data-label="Graphics Design"
-                                />
-                                <div
-                                  data-percent="12.5"
-                                  data-color="#00ECCC"
-                                  data-label="Motion Design"
-                                />
-                                <div
-                                  data-percent="12.5"
-                                  data-color="#EF7F5A"
-                                  data-label="Brand Identity"
-                                />
-                                <div
-                                  data-percent="12.5"
-                                  data-color="#5D45FB"
-                                  data-label="Others"
-                                />
-                              </div>
-                            </div>
-                          </div>
+                          {/* <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0"> */}
+                           <DoughnutChart/>
+                          {/* </div> */}
                         </div>
                       </div>
                     </div>

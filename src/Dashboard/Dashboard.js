@@ -16,6 +16,9 @@ import OccupationPercent from "./OccupationStatistik";
 import AllMessages from "./AllMessagesList";
 import DailyTask from "./DailyTask";
 import "bootstrap/dist/css/bootstrap.min.css";
+import DoughnutChart from "../Chart/DoughnutChart ";
+import { Link } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
@@ -262,33 +265,7 @@ function DashboardTemplate() {
               </form>
 
               <div className="dropdown d-inline-block mt-12">
-                {/* <Link to="/profile"> */}
-
-                {/* </Link> */}
-
                 <CurrentPerson />
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-user font-size-16 align-middle me-1"></i>
-                    <span>Profile</span>
-                  </a>
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-wallet font-size-16 align-middle me-1"></i>
-                    <span>My Wallet</span>
-                  </a>
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-wrench font-size-16 align-middle me-1"></i>
-                    <span>Settings</span>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a
-                    className="dropdown-item text-danger"
-                    href="user-login.html"
-                  >
-                    <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
-                    <span>Logout</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
@@ -390,15 +367,24 @@ function DashboardTemplate() {
                         <div className="box-header">
                           <div className="me-auto">
                             <h4 className="card-title fs-22">
-                              Project Category{" "}
+                              Project Category
                             </h4>
                             <p className="fs-14 mt-4">
                               Lorem ipsum dolor sit amet
                             </p>
                           </div>
                         </div>
-                        <div class="box-body pt-0">
-                          <OccupationPercent />
+                        <div className="box-body pt-0">
+                          <div className="row">
+                            <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0">
+                              <ul className="box-list mt-25 pr-60">
+                                <OccupationPercent />
+                              </ul>
+                            </div>
+                            {/* <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0"> */}
+                            <DoughnutChart />
+                            {/* </div> */}
+                          </div>
                         </div>
                       </div>
                     </div>
