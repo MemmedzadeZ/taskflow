@@ -10,6 +10,7 @@ function CreateProjectModel({ closeModal }) {
     const projectData = {
       projectName,
       startDate,
+      endDate,
       description,
       isCompleted: false,
     };
