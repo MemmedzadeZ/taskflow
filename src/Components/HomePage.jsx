@@ -149,11 +149,7 @@ function HomePage() {
               </ul>
               <div className="navbar-buttons mbr-section-btn">
                 <a className="btn btn-primary display-4" href="/auth">
-<<<<<<< HEAD:src/Components/HeaderSection.js
                   Get Started
-=======
-                  Join Now
->>>>>>> 2929a6b867f4579c4abdeae0c3163b7353cebedb:src/Components/HomePage.jsx
                 </a>
               </div>
             </div>
@@ -163,7 +159,6 @@ function HomePage() {
       <section
         data-bs-version="5.1"
         className="header18 cid-us18fEoaR4 mbr-fullscreen"
-        data-bg-video="https://www.youtube.com/embed/TYB7YTQXwXY?autoplay=1&loop=1&playlist=TYB7YTQXwXY&t=20&mute=1&playsinline=1&controls=0&showinfo=0&autohide=1&allowfullscreen=true&mode=transparent"
         id="hero-16-us18fEoaR4"
       >
         <div
