@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { Dropdown } from "react-bootstrap";
 
 function CurrentPerson() {
   const [username, setUsername] = useState(null);
@@ -58,22 +57,7 @@ function CurrentPerson() {
 
         <span className="d-block mt-7">{email}</span>
       </span>
-      <Dropdown>
-        <Dropdown.Toggle variant="link" className="p-0">
-          <i className="bx bx-dots-vertical-rounded"></i>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item
-            href="/profile"
-            onClick={() => console.log("Profile clicked")}
-          >
-            <i className="bx bx-edit me-2"></i>Profile
-          </Dropdown.Item>
-          <Dropdown.Item href="#" onClick={() => console.log("Delete clicked")}>
-            <i className="bx bx-trash me-2"></i> Delete
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <i className="bx bx-chevron-down"></i>
     </button>
   );
 }
