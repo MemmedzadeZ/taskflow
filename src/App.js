@@ -1,18 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "./App.css";
-import HeaderSection from "./Components/HeaderSection";
-import MenuSection from "./Components/MenuSection";
-import AboutSection from "./Components/AboutSection";
-import MetricsSection from "./Components/MetricsSection";
-import FaqSection from "./Components/FaqSection";
-import VideoSection from "./Components/VideoSection";
-import Testimonials from "./Components/Testimonials";
-import ContactFormSection from "./Components/ContactFormSection";
-import FooterSection from "./Components/FooterSection";
+// import HeaderSection from "./Components/HeaderSection";
+// import MenuSection from "./Components/MenuSection";
+// import AboutSection from "./Components/AboutSection";
+// import MetricsSection from "./Components/MetricsSection";
+// import FaqSection from "./Components/FaqSection";
+// import VideoSection from "./Components/VideoSection";
+// import Testimonials from "./Components/Testimonials";
+// import ContactFormSection from "./Components/ContactFormSection";
+// import FooterSection from "./Components/FooterSection";
 import Auth from "./Auth/Auth"; // Auth component
-import AboutUs from "./AboutUs/AboutUs";
+
 import User from "./User/User";
 import SignalRHub from "./SignalR";
 import InfoQuiz from "./QuizForm/InfoQuiz/InfoQuiz";
@@ -21,11 +21,40 @@ import DashboardTemplate from "./Dashboard/Dashboard";
 import FeaturesSection from "./Components/FeaturesSection";
 import Project from "./Project/Project";
 import Profile from "./Profile/Profile";
+import HomePage from "./Components/HomePage";
+import AboutPage from "./Components/AboutPage";
 
 function App() {
+  useEffect(() => {
+    // Scriptleri dinamik olarak ekle
+    const loadScript = (src) => {
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      document.body.appendChild(script);
+    };
+    const scripts = [
+      "https://r.mobirisesite.com/827554/assets/web/assets/jquery/jquery.min.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/bootstrap/js/bootstrap.bundle.min.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/parallax/jarallax.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/smoothscroll/smooth-scroll.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/ytplayer/index.js?rnd=1729676536164", // Diğer script URL'leri burada
+      "https://r.mobirisesite.com/827554/assets/dropdown/js/navbar-dropdown.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/vimeoplayer/player.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/embla/embla.min.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/embla/script.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/scrollgallery/scroll-gallery.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/theme/js/script.js?rnd=1729676536164",
+      "https://r.mobirisesite.com/827554/assets/formoid/formoid.min.js?rnd=1729676536164",
+    ];
+
+    scripts.forEach(loadScript);
+    return () => {};
+  }, []);
   return (
     <div>
       <SignalRHub />
+
       {/* head */}
       <Helmet>
         {/* Meta tags */}
@@ -87,11 +116,10 @@ function App() {
           type="text/css"
         />
       </Helmet>
-
       <Routes>
         {/* Only render Auth for /signin or /aboutUs */}
         <Route path="/auth" element={<Auth />} />
-        <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<User />} />
         <Route path="/quiz" element={<InfoQuiz />} />
         <Route path="/quiztrade" element={<TradeQuiz />} />
@@ -119,7 +147,7 @@ function App() {
           }
         /> */}
 
-        <Route path="/" element={<HeaderSection/>} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </div>
   );
