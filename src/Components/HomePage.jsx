@@ -1,20 +1,6 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
-function HeaderSection() {
-  //return (
-  // <div className="header-section">
-  //   <iframe
-  //     class="video-background"
-  //     src="https://www.youtube.com/watch?v=uyKC9FiTuEs&t=19s"
-  //     frameborder="0"
-  //     allow="autoplay; fullscreen; muted"
-  //     allowfullscreen
-  //   ></iframe>
-  // </div>
-  //);
-
+function HomePage() {
   return (
     <>
       <meta charSet="UTF-8" />
@@ -163,7 +149,11 @@ function HeaderSection() {
               </ul>
               <div className="navbar-buttons mbr-section-btn">
                 <a className="btn btn-primary display-4" href="/auth">
+<<<<<<< HEAD:src/Components/HeaderSection.js
                   Get Started
+=======
+                  Join Now
+>>>>>>> 2929a6b867f4579c4abdeae0c3163b7353cebedb:src/Components/HomePage.jsx
                 </a>
               </div>
             </div>
@@ -191,10 +181,7 @@ function HeaderSection() {
                 tools!
               </p>
               <div className="mbr-section-btn">
-                <a
-                  className="btn btn-white-outline display-7"
-                  href="https://mobiri.se"
-                >
+                <a className="btn btn-white-outline display-7" href="/auth">
                   Join Now
                 </a>
               </div>
@@ -553,7 +540,7 @@ function HeaderSection() {
               <div className="item-wrapper">
                 <div className="card-box align-left">
                   <p className="card-title mbr-fonts-style mb-3 display-1">
-                    <strong>1,000+</strong>
+                    <strong>1K</strong>
                   </p>
                   <p className="card-text mbr-fonts-style mb-3 display-7">
                     Projects Completed
@@ -595,91 +582,66 @@ function HeaderSection() {
             <h3 className="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
               <strong>Curious Minds Ask</strong>
             </h3>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-12 col-lg-8">
-              <div className="item features-without-image col-12 active">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>What is this tool all about?</strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    It’s your new best friend for managing tasks and projects
-                    like a pro!
-                  </p>
+            <div className="row justify-content-center">
+              <div className="col-12 col-lg-8">
+                <div className="item features-without-image col-12 active">
+                  <div className="item-wrapper">
+                    <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
+                      <strong>What is this tool all about?</strong>
+                    </h5>
+                    <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
+                      It’s your new best friend for managing tasks and projects
+                      like a pro!
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>Can I use it for free?</strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    Absolutely! We have a free version that’s packed with
-                    features!
-                  </p>
+                <div className="item features-without-image col-12">
+                  <div className="item-wrapper">
+                    <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
+                      <strong>Can I use it for free?</strong>
+                    </h5>
+                    <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
+                      Absolutely! We have a free version that’s packed with
+                      features!
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>Is it easy to use?</strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    If you can click, you can conquer!
-                  </p>
+                <div className="item features-without-image col-12">
+                  <div className="item-wrapper">
+                    <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
+                      <strong>Is it easy to use?</strong>
+                    </h5>
+                    <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
+                      If you can click, you can conquer!
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>What if I need help?</strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    Our support team is like ninjas—always ready to assist!
-                  </p>
+                <div className="item features-without-image col-12">
+                  <div className="item-wrapper">
+                    <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
+                      <strong>What if I need help?</strong>
+                    </h5>
+                    <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
+                      Our support team is like ninjas—always ready to assist!
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>Can I customize my dashboard?</strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    You bet! Make it as unique as you!
-                  </p>
+                <div className="item features-without-image col-12">
+                  <div className="item-wrapper">
+                    <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
+                      <strong>Can I customize my dashboard?</strong>
+                    </h5>
+                    <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
+                      You bet! Make it as unique as you!
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <section
-        data-bs-version="5.1"
-        className="header09 startm5 cid-us18fEDwaa"
-        id="call-to-action-2-us18fEDwaa"
-      >
-        <div className="container-fluid">
-          <div className="row">
-            <div className="content-wrap col-12 col-md-6">
-              <h1 className="mbr-section-title mbr-fonts-style mbr-white mb-4 display-2">
-                <strong>Unleash Your Productivity Potential!</strong>
-              </h1>
-              <p className="mbr-fonts-style mbr-text mbr-white mb-4 display-7">
-                Transform chaos into order with our tools.
-              </p>
-              <div className="mbr-section-btn">
-                <a
-                  className="btn btn-primary display-7"
-                  href="https://mobiri.se"
-                >
-                  Get Started Now!
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
       <section
         data-bs-version="5.1"
         className="form5 cid-us18fEEKym"
@@ -789,43 +751,45 @@ function HeaderSection() {
                 </h3>
               </div>
             </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="card col-12 col-md-12 col-lg-6">
-              <div className="card-wrapper">
-                <div className="text-wrapper">
-                  <ul className="list mbr-fonts-style display-7">
-                    <li className="mbr-text item-wrap">
-                      Phone:
-                      <a href="tel:+1-800-555-0199" className="text-black">
-                        +1-800-555-0199
-                      </a>
-                    </li>
-                    <li className="mbr-text item-wrap">
-                      WhatsApp:
-                      <a href="tel:+1-800-555-0199" className="text-black">
-                        +1-800-555-0199
-                      </a>
-                    </li>
-                    <li className="mbr-text item-wrap">
-                      Email:
-                      <a
-                        href="mailto:support@taskmaster.com"
-                        className="text-black"
-                      >
-                        support@taskmaster.com
-                      </a>
-                    </li>
-                    <li className="mbr-text item-wrap">Address: Azerbaijan</li>
-                    <li className="mbr-text item-wrap">
-                      Working Hours: Mon-Fri: 9 AM - 5 PM
-                    </li>
-                  </ul>
+            <div className="row justify-content-center">
+              <div className="card col-12 col-md-12 col-lg-6">
+                <div className="card-wrapper">
+                  <div className="text-wrapper">
+                    <ul className="list mbr-fonts-style display-7">
+                      <li className="mbr-text item-wrap">
+                        Phone:
+                        <a href="tel:+1-800-555-0199" className="text-black">
+                          +1-800-555-0199
+                        </a>
+                      </li>
+                      <li className="mbr-text item-wrap">
+                        WhatsApp:
+                        <a href="tel:+1-800-555-0199" className="text-black">
+                          +1-800-555-0199
+                        </a>
+                      </li>
+                      <li className="mbr-text item-wrap">
+                        Email:
+                        <a
+                          href="mailto:support@taskmaster.com"
+                          className="text-black"
+                        >
+                          support@taskmaster.com
+                        </a>
+                      </li>
+                      <li className="mbr-text item-wrap">
+                        Address: Azerbaijan
+                      </li>
+                      <li className="mbr-text item-wrap">
+                        Working Hours: Mon-Fri: 9 AM - 5 PM
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="map-wrapper col-md-12 col-lg-6">
-              <div className="google-map"></div>
+              <div className="map-wrapper col-md-12 col-lg-6">
+                <div className="google-map"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -875,5 +839,4 @@ function HeaderSection() {
     </>
   );
 }
-
-export default HeaderSection;
+export default HomePage;
