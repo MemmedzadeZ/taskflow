@@ -162,9 +162,9 @@ function HeaderSection() {
                 </li>
               </ul>
               <div className="navbar-buttons mbr-section-btn">
-                <Link className="btn btn-primary display-4" href="/login">
+                <a className="btn btn-primary display-4" href="/auth">
                   Get Started
-                </Link>
+                </a>
               </div>
             </div>
           </div>

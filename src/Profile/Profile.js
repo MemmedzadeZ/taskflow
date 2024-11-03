@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./css/Profile.css";
-import CurrentPerson from "../Dashboard/CurrentUser";
 import SidebarComponent from "../SideBar/SidebarComponent";
 
 const Profile = () => {
@@ -43,7 +42,7 @@ const Profile = () => {
           <SidebarComponent />
 
           {/* Main Header */}
-        
+
           <div className="container">
             {/* Left Section */}
             <div className="leftSection">
