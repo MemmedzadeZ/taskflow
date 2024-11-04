@@ -384,21 +384,21 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-6 col-md-12">
+                    <div className="col-12 col-md-12">
                       <div className="box">
                         <div className="box-header">
                           <div className="me-auto">
                             <h4 className="card-title fs-22">
-                              Project Category{" "}
+                              Participant Occupation Profile{" "}
                             </h4>
                             <p className="fs-14 mt-4">
-                              Lorem ipsum dolor sit amet
+                              Statistics according to occupational profile of
+                              all participants
                             </p>
                           </div>
                         </div>
                         <div class="box-body pt-0">
                           <OccupationPercent />
-                          <DoughnutChart />
                         </div>
                       </div>
                     </div>
