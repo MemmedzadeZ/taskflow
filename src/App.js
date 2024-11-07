@@ -12,6 +12,7 @@ import DashboardTemplate from "./Dashboard/Dashboard";
 import Project from "./Project/Project";
 import Profile from "./Profile/Profile";
 import AboutPage from "./Components/AboutPage";
+import Message from "./Message/Message";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
         <Route path="/project" element={<Project />} />
 
         <Route path="/profile" element={<Profile />} />
-
+        <Route path="/message" element={<Message/>} />
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         {/* <Route
           path="/"
