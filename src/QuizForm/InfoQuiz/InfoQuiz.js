@@ -41,10 +41,8 @@ function InfoQuiz() {
       <h2>What field do you want to work in?</h2>
       <div className="options-grid">
         {[
-          "IT (Programming, Systems)",
-          "Marketing",
+          "IT",
           "Design (Graphic, UI/UX)",
-          "Finance",
           "Human Resources",
           "Software Programming",
           "Backend Developer",

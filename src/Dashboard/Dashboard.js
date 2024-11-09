@@ -115,132 +115,6 @@ function DashboardTemplate() {
       <div className="sidebar-expand">
         <div className="DIV">
           <SidebarComponent />
-          {/* SIDEBAR */}
-          <div className="sidebar">
-            <div className="sidebar-logo">
-              <a href=" ">
-                <h1 className="classH1">TaskFlow</h1>
-                {/* <img src="./images/logo.png" alt="Protend logo" /> */}
-              </a>
-
-              <div className="sidebar-close" id="sidebar-close">
-                <i className="bx bx-left-arrow-alt"></i>
-              </div>
-            </div>
-            {/* SIDEBAR MENU */}
-            <div className="simplebar-sc" data-simplebar>
-              <ul className="sidebar-menu tf">
-                <li className="sidebar-submenu">
-                  <a href="/dashboard" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-home"></i>
-                    <span>Board</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="index.html"> Dashboard </a>
-                    </li>
-                    {/* <li>
-                      <a href="user-profile.html"> User Profile </a>
-                    </li>
-                    <li>
-                      <a href="user-login.html"> User Login </a>
-                    </li>
-                    <li>
-                      <a href="new-account.html"> New Account </a>
-                    </li> */}
-                  </ul>
-                </li>
-                <li className="sidebar-submenu">
-                  <a href="/project" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-bolt"></i>
-                    <span>Project</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="/quiz"> Project </a>
-                    </li>
-                    <li>
-                      <a href="project-details.html"> Project Details </a>
-                    </li>
-                    <li>
-                      <a href="new-project.html"> New Project </a>
-                    </li>
-                  </ul>
-                </li>
-                {/* Other Sidebar Menu Items */}
-                <li className="sidebar-submenu">
-                  <a href="clients.html" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-user"></i>
-                    <span>Client</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="clients.html"> Manager Client </a>
-                    </li>
-                    <li>
-                      <a href="client-details.html"> Client Details </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="board.html">
-                    <i className="bx bxs-dashboard"></i>
-                    <span>Board</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="calendar.html">
-                    <i className="bx bx-calendar"></i>
-                    <span>Calendar</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="message.html">
-                    <i className="bx bxs-message-rounded-detail"></i>
-                    <span>Message</span>
-                  </a>
-                </li>
-                <li className="sidebar-submenu">
-                  <a href="chart-apex.html" className="sidebar-menu-dropdown">
-                    <i className="bx bxs-component"></i>
-                    <span>Components</span>
-                    <div className="dropdown-icon">
-                      <i className="bx bx-chevron-down"></i>
-                    </div>
-                  </a>
-                  <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                    <li>
-                      <a href="chart-apex.html"> Apex Charts </a>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <a
-                    href=" "
-                    className="darkmode-toggle"
-                    id="darkmode-toggle"
-                    onClick={switchTheme} // Here we call the switchTheme function
-                  >
-                    <div>
-                      <i className="bx bx-cog mr-10"></i>
-                      <span>darkmode</span>
-                    </div>
-                    <span className="darkmode-switch"></span>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          {/* End Sidebar */}
 
           {/* Main Header */}
           <div className="main-header">
@@ -272,6 +146,28 @@ function DashboardTemplate() {
               <SidebarSearchComponent></SidebarSearchComponent>
               <div className="dropdown d-inline-block mt-12">
                 <CurrentPerson />
+                <div className="dropdown-menu dropdown-menu-end">
+                  <a className="dropdown-item" href=" ">
+                    <i className="bx bx-user font-size-16 align-middle me-1"></i>
+                    <span>Profile</span>
+                  </a>
+                  <a className="dropdown-item" href=" ">
+                    <i className="bx bx-wallet font-size-16 align-middle me-1"></i>
+                    <span>My Wallet</span>
+                  </a>
+                  <a className="dropdown-item" href=" ">
+                    <i className="bx bx-wrench font-size-16 align-middle me-1"></i>
+                    <span>Settings</span>
+                  </a>
+                  <div className="dropdown-divider"></div>
+                  <a
+                    className="dropdown-item text-danger"
+                    href="user-login.html"
+                  >
+                    <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>
+                    <span>Logout</span>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -368,29 +264,21 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-                    <div className="col-6 col-md-12">
+                    <div className="col-12 col-md-12">
                       <div className="box">
                         <div className="box-header">
                           <div className="me-auto">
                             <h4 className="card-title fs-22">
-                              Project Category
+                              Participant Occupation Profile{" "}
                             </h4>
                             <p className="fs-14 mt-4">
-                              Lorem ipsum dolor sit amet
+                              Statistics according to occupational profile of
+                              all participants
                             </p>
                           </div>
                         </div>
-                        <div className="box-body pt-0">
-                          <div className="row">
-                            <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0">
-                              <ul className="box-list mt-25 pr-60">
-                                <OccupationPercent />
-                              </ul>
-                            </div>
-                            {/* <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0"> */}
-                            <DoughnutChart />
-                            {/* </div> */}
-                          </div>
+                        <div class="box-body pt-0">
+                          <OccupationPercent />
                         </div>
                       </div>
                     </div>

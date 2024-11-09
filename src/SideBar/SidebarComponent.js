@@ -1,64 +1,80 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import CurrentPerson from "../Dashboard/CurrentUser";
+import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 
-function SidebarComponent()
-{
-const themeCookieName = "theme";
-const themeDark = "dark";
-const themeLight = "light";
-const themeElkan = "elkan";
-const body = document.getElementsByTagName("body")[0];
+function SidebarComponent() {
+  const themeCookieName = "theme";
+  const themeDark = "dark";
+  const themeLight = "light";
+  const themeElkan = "elkan";
+  const body = document.getElementsByTagName("body")[0];
+  let sidebar_expand = document.querySelector(".sidebar-expand");
+  let overlay = document.querySelector(".overlay");
 
-function setCookie(cname, cvalue, exdays) {
-  var d = new Date();
-  d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
-  var expires = "expires=" + d.toUTCString();
-  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-// Switch between light, dark, and elkan mode, changing background color
-function switchTheme() {
-  if (body.classList.contains(themeLight)) {
-    body.classList.remove(themeLight);
-    body.classList.add(themeDark);
-    body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
-    setCookie(themeCookieName, themeDark);
-  } else if (body.classList.contains(themeDark)) {
-    body.classList.remove(themeDark);
-    body.classList.add(themeElkan);
-    body.style.backgroundColor = "#ffffff"; // Elkan Mode background (purple)
-    setCookie(themeCookieName, themeElkan);
-  } else if (body.classList.contains(themeElkan)) {
-    body.classList.remove(themeElkan);
-    body.classList.add(themeLight);
-    body.style.backgroundColor = "#ffffff"; // Light Mode background
-    setCookie(themeCookieName, themeLight);
+  function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
-}
 
-// Apply saved theme on load and set corresponding background color
-useEffect(() => {
-  const savedTheme = document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(`${themeCookieName}=`))
-    ?.split("=")[1];
-
-  if (savedTheme) {
-    body.classList.add(savedTheme);
-    if (savedTheme === themeDark) {
+  // Switch between light, dark, and elkan mode, changing background color
+  function switchTheme() {
+    if (body.classList.contains(themeLight)) {
+      body.classList.remove(themeLight);
+      body.classList.add(themeDark);
       body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
-    } else {
+      setCookie(themeCookieName, themeDark);
+    } else if (body.classList.contains(themeDark)) {
+      body.classList.remove(themeDark);
+      body.classList.add(themeElkan);
+      body.style.backgroundColor = "#ffffff"; // Elkan Mode background (purple)
+      setCookie(themeCookieName, themeElkan);
+    } else if (body.classList.contains(themeElkan)) {
+      body.classList.remove(themeElkan);
+      body.classList.add(themeLight);
       body.style.backgroundColor = "#ffffff"; // Light Mode background
+      setCookie(themeCookieName, themeLight);
     }
-  } else {
-    body.classList.add(themeLight); // Default to light theme
-    body.style.backgroundColor = "#ffffff"; // Default light mode background
   }
-}, [body]);
+
+  // Apply saved theme on load and set corresponding background color
+  useEffect(() => {
+    const savedTheme = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith(`${themeCookieName}=`))
+      ?.split("=")[1];
+
+    if (savedTheme) {
+      body.classList.add(savedTheme);
+      if (savedTheme === themeDark) {
+        body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
+      } else {
+        body.style.backgroundColor = "#ffffff"; // Light Mode background
+      }
+    } else {
+      body.classList.add(themeLight); // Default to light theme
+      body.style.backgroundColor = "#ffffff"; // Default light mode background
+    }
+  }, [body]);
+
+ document.addEventListener("DOMContentLoaded", () => {
+   const sidebarCloseButton = document.querySelector("#sidebar-close");
+   const sidebarExpand = document.querySelector(".sidebar_expand"); // doğru selector əlavə edin
+   const overlay = document.querySelector(".overlay"); // doğru selector əlavə edin
+
+   if (sidebarCloseButton && sidebarExpand && overlay) {
+     sidebarCloseButton.onclick = () => {
+       sidebarExpand.classList.toggle("active");
+       overlay.classList.toggle("active");
+     };
+   }
+ });
 
 
-    return (
+  return (
+    <>
       <div>
         <Helmet>
           <meta charSet="UTF-8" />
@@ -104,7 +120,6 @@ useEffect(() => {
           <div className="sidebar-logo">
             <a>
               <h1 className="classH1">TaskFlow</h1>
-              {/* <img src="./images/logo.png" alt="Protend logo" /> */}
             </a>
 
             <div className="sidebar-close" id="sidebar-close">
@@ -122,20 +137,7 @@ useEffect(() => {
                     <i className="bx bx-chevron-down"></i>
                   </div>
                 </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="index.html"> Dashboard </a>
-                  </li>
-                  {/* <li>
-                      <a href="user-profile.html"> User Profile </a>
-                    </li>
-                    <li>
-                      <a href="user-login.html"> User Login </a>
-                    </li>
-                    <li>
-                      <a href="new-account.html"> New Account </a>
-                    </li> */}
-                </ul>
+             
               </li>
               <li className="sidebar-submenu">
                 {/* /////////////////////////////// */}
@@ -148,36 +150,18 @@ useEffect(() => {
                     <i className="bx bx-chevron-down"></i>
                   </div>
                 </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="/quiz"> Project </a>
-                  </li>
-                  <li>
-                    <a href="project-details.html"> Project Details </a>
-                  </li>
-                  <li>
-                    <a href="new-project.html"> New Project </a>
-                  </li>
-                </ul>
+              </li>
+              <li className="sidebar-submenu">
+                {/* /////////////////////////////// */}
+                {/* /////////////////////////////// */}
+                {/* /////////////////////////////// */}
+                <a href="/friends" className="sidebar-menu-dropdown">
+                  <i className="bx bxs-user"></i>
+                  <span>Friends</span>
+                </a>
               </li>
               {/* Other Sidebar Menu Items */}
-              <li className="sidebar-submenu">
-                <a href="clients.html" className="sidebar-menu-dropdown">
-                  <i className="bx bxs-user"></i>
-                  <span>Client</span>
-                  <div className="dropdown-icon">
-                    <i className="bx bx-chevron-down"></i>
-                  </div>
-                </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="clients.html"> Manager Client </a>
-                  </li>
-                  <li>
-                    <a href="client-details.html"> Client Details </a>
-                  </li>
-                </ul>
-              </li>
+
               <li>
                 <a href="board.html">
                   <i className="bx bxs-dashboard"></i>
@@ -185,13 +169,13 @@ useEffect(() => {
                 </a>
               </li>
               <li>
-                <a href="calendar.html">
+                <a href="/calendar">
                   <i className="bx bx-calendar"></i>
                   <span>Calendar</span>
                 </a>
               </li>
               <li>
-                <a href="message.html">
+                <a href="/message">
                   <i className="bx bxs-message-rounded-detail"></i>
                   <span>Message</span>
                 </a>
@@ -227,12 +211,9 @@ useEffect(() => {
           </div>
         </div>
         {/* End Sidebar */}
-
-       
-
-        
       </div>
-    );
+    </>
+  );
 }
- 
+
 export default SidebarComponent;

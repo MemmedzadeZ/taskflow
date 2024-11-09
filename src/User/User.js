@@ -1,5 +1,5 @@
-import React from 'react';
-import "./User.css"
+import React from "react";
+import "./User.css";
 const UserProfile = () => {
   return (
     <div className="container">

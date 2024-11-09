@@ -1,21 +1,18 @@
 import React, { useEffect, useState } from "react";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 function OccupationPercent() {
   const [percent, setPercent] = useState([]);
 
   const fetchData = async () => {
-    console.log("inside occupation percent");
-
     const response = await fetch(
       "https://localhost:7157/api/Quiz/OccupationStatistic",
-      {
-        method: "GET",
-      }
+      { method: "GET" }
     );
-
     const data = await response.json();
-    console.log(data);
-
     setPercent(data);
   };
 
@@ -30,38 +27,60 @@ function OccupationPercent() {
     "#00ECCC",
     "#EF7F5A",
     "#5D45FB",
+    "#6c757d",
   ];
+  const data = {
+    labels: percent.map((item) => item.occupationName),
+    datasets: [
+      {
+        data: percent.map((item) => item.percentage),
+        backgroundColor: colors,
+        hoverBackgroundColor: colors,
+      },
+    ],
+  };
 
   return (
-    <div className="row">
-      <div className="col-6 col-xl-12 w-sm-100 mb-0">
+    <div className="row d-flex align-items-center" style={{ width: "800px" }}>
+      <div className="col-6">
         <ul className="box-list mt-26 pr-67">
           {percent.map((item, index) => (
-            <li key={index}>
+            <li
+              key={index}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
               <span
                 className="square"
-                style={{ backgroundColor: colors[index % colors.length] }}
+                style={{
+                  backgroundColor: colors[index % colors.length],
+                  width: "15px",
+                  height: "15px",
+                  marginRight: "8px",
+                }}
               />
-              {item.occupationName}
-              <span>{item.percentage}%</span>
+              <span>{item.occupationName}</span>
+              <span style={{ marginLeft: "auto" }}>{item.percentage}%</span>
             </li>
           ))}
         </ul>
       </div>
-      <div className="col-6 col-xl-12 w-sm-100 mb-0">
-        <div className="canvas-container">
-          <canvas id="chartjs-4" className="chartjs" width={100} height={100} />
-          <div className="chart-data">
-            {percent.map((item, index) => (
-              <div
-                key={index}
-                data-percent={item.percentage}
-                data-color={colors[index % colors.length]}
-                data-label={item.occupationName}
-                style={{ color: colors[index % colors.length] }}
-              />
-            ))}
-          </div>
+
+      <div className="col-6 d-flex justify-content-end">
+        <div style={{ width: "250px", height: "250px" }}>
+          <Doughnut
+            data={data}
+            options={{
+              plugins: {
+                legend: {
+                  display: false,
+                },
+              },
+            }}
+          />
         </div>
       </div>
     </div>

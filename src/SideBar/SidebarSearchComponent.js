@@ -6,9 +6,9 @@ const SidebarSearchComponent = () => {
   const [isFocused, setIsFocused] = useState(false);
   const handleSearch = async (e) => {
     if (e.target.value.trim()) {
-      await Search(e, e.target.value); // Call the Search function with the search term
+      await Search(e, e.target.value);
     } else {
-      $("#searched-users").remove(); // Remove search results if input is cleared
+      $("#searched-users").remove();
     }
   };
   return (
@@ -27,5 +27,3 @@ const SidebarSearchComponent = () => {
     </form>
   );
 };
-
-export default SidebarSearchComponent;
