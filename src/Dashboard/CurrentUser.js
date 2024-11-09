@@ -69,8 +69,8 @@ function CurrentPerson() {
           >
             <i className="bx bx-edit me-2"></i>Profile
           </Dropdown.Item>
-          <Dropdown.Item href="#" onClick={() => console.log("Delete clicked")}>
-            <i className="bx bx-trash me-2"></i> Delete
+          <Dropdown.Item href="#" onClick={() => console.log("LogOut clicked")}>
+            <i className="bx bx-trash me-2"></i> Logout
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>

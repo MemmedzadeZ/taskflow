@@ -13,6 +13,8 @@ import Project from "./Project/Project";
 import Profile from "./Profile/Profile";
 import AboutPage from "./Components/AboutPage";
 import Message from "./Message/Message";
+import Friends from "./Friends/Friends"
+import Calendar from "./Calendar/Calendar";
 
 function App() {
   return (
@@ -31,7 +33,9 @@ function App() {
         <Route path="/project" element={<Project />} />
 
         <Route path="/profile" element={<Profile />} />
-        <Route path="/message" element={<Message/>} />
+        <Route path="/message" element={<Message />} />
+        <Route path="/friends" element={<Friends />} />
+        <Route path="/calendar" element={ <Calendar/>} />
         {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
         {/* <Route
           path="/"
