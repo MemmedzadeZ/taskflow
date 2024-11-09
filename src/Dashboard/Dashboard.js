@@ -19,6 +19,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import DoughnutChart from "../Chart/DoughnutChart ";
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
+import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 
 function DashboardTemplate() {
   const themeCookieName = "theme";
@@ -253,17 +254,22 @@ function DashboardTemplate() {
 
             <div className="d-flex align-items-center">
               {/* App Search */}
-              <form className="app-search d-none d-lg-block">
+              {/* <form
+                className="app-search d-none d-lg-block"
+                id="user-search-form"
+              >
                 <div className="position-relative">
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="Search"
+                    placeholder="Search users..."
+                    onChange={(e) => Search(e, e.target.value)}
                   />
                   <span className="bx bx-search-alt"></span>
                 </div>
-              </form>
-
+                <div className="search-result-div" id="searched-users"></div>
+              </form> */}
+              <SidebarSearchComponent></SidebarSearchComponent>
               <div className="dropdown d-inline-block mt-12">
                 <CurrentPerson />
               </div>

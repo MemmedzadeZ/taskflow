@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import "./Auth.css";
 import { registerUser, loginUser } from "../Functions/UserEntryFunctions";
 import { Link } from "react-router-dom";
 import welcomejson from "../animations/welcome.json";
 import Lottie from "lottie-react";
 import ErrorSpan from "../StyledComponent/ErrorComponents";
+import OTPInput from "./OTP";
 
 function Auth() {
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const [email, setEmail] = useState("");
@@ -18,34 +19,82 @@ function Auth() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
   const [confirmcode, setConfirmcode] = useState("");
-  const [step, setStep] = useState(1); // Track the step in forgot password flow
+  const [step, setStep] = useState(1);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
+
+  const handleOtpMatch = (isMatch) => {
+    if (isMatch) {
+      alert("OTP Verified Successfully!");
+    } else {
+      console.error("OTP did not match.");
+    }
+    handleSkipStep();
+  };
 
   const handleLoginClick = () => {
     setIsLogin(true);
     setIsForgotPassword(false);
-    setStep(1); // Reset step
+    setStep(1);
   };
 
   const handleSignupClick = () => {
     setIsLogin(false);
     setIsForgotPassword(false);
-    setStep(1); // Reset step
+    setStep(1);
   };
 
   const handleForgotPasswordClick = () => {
     setIsForgotPassword(true);
-    setStep(1); // Start from step 1
+    setStep(1);
   };
 
   const handleSkipStep = () => {
     setStep((prevStep) => prevStep + 1);
   };
 
-  const handleResetPassword = (e) => {
+  const handleResetPassword = async (e) => {
     e.preventDefault();
-
     setIsForgotPassword(false);
+
+    var response = await fetch(
+      "https://localhost:7157/api/Profile/ChangePassword",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newPassword, confirmNewPassword),
+      }
+    );
+    var data = await response.json();
+    if (data.code) {
+      alert(data.message);
+    } else {
+      alert(data.message);
+    }
     setIsLogin(true);
+  };
+
+  const handleEmailCheck = async (e) => {
+    e.preventDefault();
+    console.log(email);
+    var response = await fetch(
+      "https://localhost:7157/api/Profile/CheckEmail",
+      {
+        method: "Post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(email),
+      }
+    );
+    var data = await response.json();
+    if (!data.code) {
+      alert(data.message);
+    }
+    console.log(data.code);
+
+    handleSkipStep();
   };
 
   return (
@@ -143,8 +192,7 @@ function Auth() {
             {isForgotPassword && step === 1 && (
               <form
                 onSubmit={(e) => {
-                  e.preventDefault();
-                  handleSkipStep();
+                  handleEmailCheck(e);
                 }}
               >
                 <div className="field">
@@ -168,7 +216,7 @@ function Auth() {
 
             {isForgotPassword && step === 2 && (
               <div className="confirmation-message">
-                <p>
+                {/* <p>
                   Skip to password reset Email sent with confirmation code.
                   Please check your inbox.
                 </p>
@@ -188,7 +236,11 @@ function Auth() {
                     value="Skip"
                     onClick={handleSkipStep}
                   />
-                </div>
+                </div> */}
+                <OTPInput
+                  varificationCode={verificationCode}
+                  onMatch={handleOtpMatch}
+                ></OTPInput>
               </div>
             )}
 
@@ -199,13 +251,21 @@ function Auth() {
                 onSubmit={handleResetPassword}
               >
                 <div className="field">
-                  <input type="password" placeholder="New Password" required />
+                  <input
+                    type="password"
+                    placeholder="New Password"
+                    required
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  />
                 </div>
                 <div className="field">
                   <input
                     type="password"
                     placeholder="Confirm New Password"
                     required
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
                   />
                 </div>
                 <div className="field btn">
@@ -242,6 +302,7 @@ function Auth() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  <ErrorSpan id="email-span"></ErrorSpan>
                 </div>
 
                 <div id="firstname-div" className="field">
@@ -251,6 +312,7 @@ function Auth() {
                     value={firstname}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
+                  <ErrorSpan id="firstname-span"></ErrorSpan>
                 </div>
 
                 <div id="lastname-div" className="field">
@@ -260,6 +322,7 @@ function Auth() {
                     value={lastname}
                     onChange={(e) => setLastName(e.target.value)}
                   />
+                  <ErrorSpan id="lastname-span"></ErrorSpan>
                 </div>
 
                 <div id="username-div" className="field">
@@ -269,6 +332,7 @@ function Auth() {
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
+                  <ErrorSpan id="username-span"></ErrorSpan>
                 </div>
 
                 <div id="password-div" className="field">
@@ -278,6 +342,7 @@ function Auth() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                   />
+                  <ErrorSpan id="password-span"></ErrorSpan>
                 </div>
                 <div id="confirmPassword-div" className="field">
                   <input
@@ -286,6 +351,7 @@ function Auth() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
+                  <ErrorSpan id="confirmPassword-span"></ErrorSpan>
                 </div>
 
                 <div className="field btn">

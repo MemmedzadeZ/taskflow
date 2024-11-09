@@ -17,6 +17,7 @@ function CreateProjectModel({ closeModal }) {
     fetch("https://localhost:7157/api/Project", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(projectData),

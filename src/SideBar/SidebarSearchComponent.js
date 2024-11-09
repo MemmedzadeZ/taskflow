@@ -1,21 +1,31 @@
-// import CurrentPerson from "../Dashboard/CurrentUser";
+import { useState } from "react";
+import $ from "jquery";
+import { Search } from "../SideBar/SearchFunction";
 
-// function SidebarSearchComponent() {
-//   <div className="d-flex align-items-center">
-//     {/* App Search */}
-//     <form className="app-search d-none d-lg-block">
-//       <div className="position-relative">
-//         <input type="text" className="form-control" placeholder="Search" />
-//         <span className="bx bx-search-alt"></span>
-//       </div>
-//     </form>
+const SidebarSearchComponent = () => {
+  const [isFocused, setIsFocused] = useState(false);
+  const handleSearch = async (e) => {
+    if (e.target.value.trim()) {
+      await Search(e, e.target.value); // Call the Search function with the search term
+    } else {
+      $("#searched-users").remove(); // Remove search results if input is cleared
+    }
+  };
+  return (
+    <form className="app-search d-none d-lg-block" id="user-search-form">
+      <div className="position-relative">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search users..."
+          onChange={handleSearch}
+          onFocus={() => setIsFocused(true)}
+        />
+        <span className="bx bx-search-alt"></span>
+      </div>
+      {/* <div className="search-result-div" id="searched-users"></div> */}
+    </form>
+  );
+};
 
-//     <div className="dropdown d-inline-block mt-12">
-     
-//       <CurrentPerson />
-      
-//     </div>
-//   </div>;
-// }
-
-// export default SidebarSearchComponent;
+export default SidebarSearchComponent;
