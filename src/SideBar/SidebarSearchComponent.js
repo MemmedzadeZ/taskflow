@@ -27,3 +27,4 @@ const SidebarSearchComponent = () => {
     </form>
   );
 };
+export default SidebarSearchComponent;
