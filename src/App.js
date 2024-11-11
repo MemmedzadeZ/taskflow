@@ -13,6 +13,8 @@ import Project from "./Project/Project";
 import Profile from "./Profile/Profile";
 import AboutPage from "./Components/AboutPage";
 import Message from "./Message/Message";
+import Friends from "./Friends/Friends";
+import Calendar from "./Calendar/Calendar";
 
 function App() {
   return (

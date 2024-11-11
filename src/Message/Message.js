@@ -15,7 +15,7 @@ const Message = () => {
               <div className="mobile-toggle" id="mobile-toggle">
                 <i className="bx bx-menu"></i>
               </div>
-              <div className="main-title">Projects</div>
+              <div className="main-title">Message</div>
             </div>
 
             <div className="d-flex align-items-center">

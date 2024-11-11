@@ -7,6 +7,8 @@ function SidebarComponent() {
   const themeLight = "light";
   const themeElkan = "elkan";
   const body = document.getElementsByTagName("body")[0];
+  let sidebar_expand = document.querySelector(".sidebar-expand");
+  let overlay = document.querySelector(".overlay");
 
   function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -55,6 +57,20 @@ function SidebarComponent() {
     }
   }, [body]);
 
+ document.addEventListener("DOMContentLoaded", () => {
+   const sidebarCloseButton = document.querySelector("#sidebar-close");
+   const sidebarExpand = document.querySelector(".sidebar_expand"); // doğru selector əlavə edin
+   const overlay = document.querySelector(".overlay"); // doğru selector əlavə edin
+
+   if (sidebarCloseButton && sidebarExpand && overlay) {
+     sidebarCloseButton.onclick = () => {
+       sidebarExpand.classList.toggle("active");
+       overlay.classList.toggle("active");
+     };
+   }
+ });
+
+
   return (
     <>
       <div>
@@ -100,7 +116,6 @@ function SidebarComponent() {
           <div className="sidebar-logo">
             <a>
               <h1 className="classH1">TaskFlow</h1>
-              {/* <img src="./images/logo.png" alt="Protend logo" /> */}
             </a>
 
             <div className="sidebar-close" id="sidebar-close">
@@ -118,20 +133,7 @@ function SidebarComponent() {
                     <i className="bx bx-chevron-down"></i>
                   </div>
                 </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="index.html"> Dashboard </a>
-                  </li>
-                  {/* <li>
-                      <a href="user-profile.html"> User Profile </a>
-                    </li>
-                    <li>
-                      <a href="user-login.html"> User Login </a>
-                    </li>
-                    <li>
-                      <a href="new-account.html"> New Account </a>
-                    </li> */}
-                </ul>
+             
               </li>
               <li className="sidebar-submenu">
                 {/* /////////////////////////////// */}
@@ -144,36 +146,18 @@ function SidebarComponent() {
                     <i className="bx bx-chevron-down"></i>
                   </div>
                 </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="/quiz"> Project </a>
-                  </li>
-                  <li>
-                    <a href="project-details.html"> Project Details </a>
-                  </li>
-                  <li>
-                    <a href="new-project.html"> New Project </a>
-                  </li>
-                </ul>
+              </li>
+              <li className="sidebar-submenu">
+                {/* /////////////////////////////// */}
+                {/* /////////////////////////////// */}
+                {/* /////////////////////////////// */}
+                <a href="/friends" className="sidebar-menu-dropdown">
+                  <i className="bx bxs-user"></i>
+                  <span>Friends</span>
+                </a>
               </li>
               {/* Other Sidebar Menu Items */}
-              <li className="sidebar-submenu">
-                <a href="clients.html" className="sidebar-menu-dropdown">
-                  <i className="bx bxs-user"></i>
-                  <span>Client</span>
-                  <div className="dropdown-icon">
-                    <i className="bx bx-chevron-down"></i>
-                  </div>
-                </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="clients.html"> Manager Client </a>
-                  </li>
-                  <li>
-                    <a href="client-details.html"> Client Details </a>
-                  </li>
-                </ul>
-              </li>
+
               <li>
                 <a href="board.html">
                   <i className="bx bxs-dashboard"></i>
@@ -181,7 +165,7 @@ function SidebarComponent() {
                 </a>
               </li>
               <li>
-                <a href="calendar.html">
+                <a href="/calendar">
                   <i className="bx bx-calendar"></i>
                   <span>Calendar</span>
                 </a>

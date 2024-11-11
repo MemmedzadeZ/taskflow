@@ -10,9 +10,21 @@
   list-style: none;
   padding: 0;
   margin: 0;
- 
+
   height: 100%;
   border-radius: 10px;
+}
+
+.search-result-div {
+  padding: 3vh 2vw;
+  background-color: white;
+  position: absolute;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 33vw;
+  /*height: 30vh; */
+  left: 42%;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
 .sidebar-submenu a {
