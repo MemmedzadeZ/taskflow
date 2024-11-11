@@ -11,7 +11,7 @@ const UserProfile = () => {
               <a href="index.html">Home</a>
             </li>
             <li className="breadcrumb-item">
-              <a href="javascript:void(0)">User</a>
+              <a href=" ">User</a>
             </li>
             <li className="breadcrumb-item active" aria-current="page">
               User Profile

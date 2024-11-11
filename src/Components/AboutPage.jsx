@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 function AboutPage() {
   return (
-    <>z
+    <>
       {/* Site made with Mobirise Online Website Builder v5.9.13, https://a.mobirise.com */}
       <meta charSet="UTF-8" />
       <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./Components/HomePage";
@@ -21,7 +21,6 @@ function App() {
 
       {/* head */}
       <Routes>
-        {/* Only render Auth for /signin or /aboutUs */}
         <Route path="/auth" element={<Auth />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<User />} />
@@ -31,25 +30,7 @@ function App() {
         <Route path="/project" element={<Project />} />
 
         <Route path="/profile" element={<Profile />} />
-        <Route path="/message" element={<Message/>} />
-        {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
-        {/* <Route
-          path="/"
-          element={
-            <>
-              <HeaderSection />
-              <MenuSection />
-              <AboutSection />
-              <MetricsSection />
-              <FaqSection />
-              <VideoSection />
-              <FeaturesSection />
-              <Testimonials />
-              <ContactFormSection />
-              <FooterSection />
-            </>
-          }
-        /> */}
+        <Route path="/message" element={<Message />} />
 
         <Route path="/" element={<HomePage />} />
       </Routes>
