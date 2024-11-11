@@ -7,7 +7,7 @@
 }
 
 .leftSection {
-  width: 30%;
+  width: 35%;
   padding: 20px;
   text-align: center;
 }
@@ -51,7 +51,7 @@
 }
 
 .rightSection {
-  width: 70%;
+  width: 65%;
   padding: 20px;
 }
 
@@ -404,4 +404,103 @@ body.elkan {
 
 .fileUpload button:hover {
   background-color: #0056b3;
+}
+/* - */
+.card-body {
+  color: var(--bs-card-color);
+  flex: 1 1 auto;
+  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+}
+.card {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.card-title,
+.table th {
+  font-weight: 500;
+}
+.card-title {
+  margin-bottom: var(--bs-card-title-spacer-y);
+}
+.h4,
+h4 {
+  font-size: 1.125rem;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  color: var(--bs-heading-color);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+.text-muted {
+  --bs-text-opacity: 1;
+  color: #6c757d !important;
+}
+.card-subtitle,
+.card-text:last-child {
+  margin-bottom: 0;
+}
+.card-subtitle {
+  margin-top: calc(var(--bs-card-title-spacer-y) * -0.5);
+}
+.rtl .ms-auto {
+  margin-left: 0 !important;
+  margin-right: auto;
+}
+.rtl .ms-auto {
+  margin-right: auto !important;
+}
+.mt-3 {
+  margin-top: 1rem !important;
+}
+.rtl .steamline {
+  border-left: 0;
+  border-right: 1px solid #dee2e6;
+  margin-left: 0;
+  margin-right: 20px;
+}
+
+.steamline {
+  border-left: 1px solid #dee2e6;
+  margin-left: 20px;
+  position: relative;
+}
+.mt-5 {
+  margin-top: 3rem !important;
+}
+.steamline .sl-item {
+  border-bottom: 1px solid #dee2e6;
+  margin: 20px 0;
+}
+.rtl .steamline .sl-left {
+  float: right;
+  margin-left: 0;
+  margin-right: -20px;
+}
+
+.steamline .sl-left {
+  border-radius: 100%;
+  color: #fff;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  margin-left: -20px;
+  margin-right: 15px;
+  text-align: center;
+  width: 40px;
+  z-index: 1;
 }

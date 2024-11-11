@@ -5,6 +5,8 @@ import PersonalInfo from "./PersonalInfo";
 import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import NotificationSetting from "./NotificationSetting";
+import RecentActivity from "./RecentActivity";
+import TaskList from "./TaskList";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({});
@@ -83,6 +85,10 @@ const Profile = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div style={{ display: "flex" }}>
+        <RecentActivity />
+        <TaskList />
       </div>
     </>
   );

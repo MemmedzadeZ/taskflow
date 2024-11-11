@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 function EditProfile() {
   const [profileData, setProfileData] = useState({
     fullname: null,
@@ -57,6 +56,22 @@ function EditProfile() {
       if (response.ok) {
         setAlertMessage("Profil başarıyla güncellendi!");
         setTimeout(() => setAlertMessage(""), 5000);
+        const activityData = {
+          text: "Updated profile information",
+          type: "Profile",
+        };
+
+        await fetch(
+          "https://localhost:7157/api/Notification/NewRecentActivity",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }
+        );
       } else {
         console.error("Profil güncellenemedi");
         setAlertMessage("Profil güncellenemedi.");
