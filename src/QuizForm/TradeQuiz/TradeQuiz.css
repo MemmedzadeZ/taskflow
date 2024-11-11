@@ -32,7 +32,7 @@ h2 {
 
 .option-label:hover {
   background-color: #e9ecef; /* Hover zamanı arxa fon */
-  border-color: #007bff; /* Hover zamanı sərhədin rəngi */
+  border-color: #6852ff; /* Hover zamanı sərhədin rəngi */
 }
 
 input[type="radio"] {
@@ -43,7 +43,7 @@ input[type="radio"] {
   margin-top: 20px;
   padding: 10px 15px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #6852ff;
   color: white;
   border: none;
   border-radius: 5px;
@@ -52,5 +52,5 @@ input[type="radio"] {
 }
 
 .submit-button:hover {
-  background-color: #0056b3; /* Düğme hover edərkən */
+  background-color: #6852ff; /* Düğme hover edərkən */
 }

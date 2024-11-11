@@ -64,7 +64,7 @@ function InfoQuiz() {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       {/* <Link to="/quiztrade"> */}
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="submit-button">
         Submit
       </button>
       {/* </Link> */}
