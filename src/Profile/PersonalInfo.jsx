@@ -11,7 +11,7 @@ function PersonalInfo() {
   const [gender, setGender] = useState(null);
   const [birthday, setBirthday] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null); // For previewing the selected image
+  const [imagePreview, setImagePreview] = useState(null);
 
   const fetchData = async () => {
     var response = await fetch("https://localhost:7157/api/Auth/currentUser", {
@@ -67,7 +67,7 @@ function PersonalInfo() {
 
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Profile/EditedProfile",
+        "https://localhost:7157/api/Profile/EditedProfileImage",
         {
           method: "POST",
           headers: {
@@ -80,13 +80,13 @@ function PersonalInfo() {
       if (response.ok) {
         const data = await response.json();
         setPath(data.path); // Update the profile image path
-        alert("Profil resmi başarıyla yüklendi.");
+        alert("Update profile image successful.");
       } else {
-        alert("Resim yükleme başarısız oldu.");
+        alert("Update profile image failed.");
       }
     } catch (error) {
-      console.error("Resim yükleme hatası:", error);
-      alert("Resim yüklenirken bir hata oluştu.");
+      console.error("Error uploading file: ", error);
+      alert("Upload failed. Please try again later.");
     }
   };
 
@@ -111,7 +111,7 @@ function PersonalInfo() {
               id="fileInput"
               className="fileInput"
               onChange={handleFileChange}
-              style={{ display: "none" }} // Hide the file input
+              // style={{ display: "none" }} // Hide the file input
             />
             <label htmlFor="fileInput" className="fileInputLabel">
               <span>+</span>

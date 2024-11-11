@@ -50,21 +50,21 @@ function EditProfile() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(profileData),
+          body: JSON.stringify(profileData), // JSON formatında gönder
         }
       );
 
       if (response.ok) {
-        setAlertMessage("Profile updated successfully!");
+        setAlertMessage("Profil başarıyla güncellendi!");
         setTimeout(() => setAlertMessage(""), 5000);
       } else {
-        console.error("Failed to update profile");
-        setAlertMessage("Failed to update profile.");
+        console.error("Profil güncellenemedi");
+        setAlertMessage("Profil güncellenemedi.");
         setTimeout(() => setAlertMessage(""), 5000);
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
-      setAlertMessage("Error updating profile.");
+      console.error("Profil güncellenirken hata oluştu:", error);
+      setAlertMessage("Profil güncellenirken hata oluştu.");
       setTimeout(() => setAlertMessage(""), 5000);
     }
   };
