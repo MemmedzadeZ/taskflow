@@ -15,6 +15,8 @@ import AboutPage from "./Components/AboutPage";
 import Message from "./Message/Message";
 import Friends from "./Friends/Friends";
 import Calendar from "./Calendar/Calendar";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
+import Error  from "./Error/Error";
 
 function App() {
   return (
@@ -24,17 +26,21 @@ function App() {
       {/* head */}
       <Routes>
         <Route path="/auth" element={<Auth />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/user" element={<User />} />
-        <Route path="/quiz" element={<InfoQuiz />} />
-        <Route path="/quiztrade" element={<TradeQuiz />} />
-        <Route path="/dashboard" element={<DashboardTemplate />} />
-        <Route path="/project" element={<Project />} />
-
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/message" element={<Message />} />
 
         <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<Error/>} />
+
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/user" element={<User />} />
+          <Route path="/quiz" element={<InfoQuiz />} />
+          <Route path="/quiztrade" element={<TradeQuiz />} />
+          <Route path="/dashboard" element={<DashboardTemplate />} />
+          <Route path="/project" element={<Project />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/message" element={<Message />} />
+          <Route path="/friends" element={<Friends />} />
+        </Route>
       </Routes>
     </div>
   );
