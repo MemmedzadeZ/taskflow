@@ -33,6 +33,7 @@ function App() {
 
         <Route path="/profile" element={<Profile />} />
         <Route path="/message" element={<Message />} />
+        <Route path="/friends" element={ <Friends/>} />
 
         <Route path="/" element={<HomePage />} />
       </Routes>
