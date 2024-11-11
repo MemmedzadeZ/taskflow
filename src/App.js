@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import HomePage from "./Components/HomePage";
@@ -13,7 +13,7 @@ import Project from "./Project/Project";
 import Profile from "./Profile/Profile";
 import AboutPage from "./Components/AboutPage";
 import Message from "./Message/Message";
-import Friends from "./Friends/Friends"
+import Friends from "./Friends/Friends";
 import Calendar from "./Calendar/Calendar";
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
 
       {/* head */}
       <Routes>
-        {/* Only render Auth for /signin or /aboutUs */}
         <Route path="/auth" element={<Auth />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<User />} />
@@ -34,26 +33,6 @@ function App() {
 
         <Route path="/profile" element={<Profile />} />
         <Route path="/message" element={<Message />} />
-        <Route path="/friends" element={<Friends />} />
-        <Route path="/calendar" element={ <Calendar/>} />
-        {/* Render the main layout (Header, Menu, Sections, etc.) for other routes */}
-        {/* <Route
-          path="/"
-          element={
-            <>
-              <HeaderSection />
-              <MenuSection />
-              <AboutSection />
-              <MetricsSection />
-              <FaqSection />
-              <VideoSection />
-              <FeaturesSection />
-              <Testimonials />
-              <ContactFormSection />
-              <FooterSection />
-            </>
-          }
-        /> */}
 
         <Route path="/" element={<HomePage />} />
       </Routes>

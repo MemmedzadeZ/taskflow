@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet"; // For head configurations
-import CurrentPerson from "../Dashboard/CurrentUser";
-import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
+import { Helmet } from "react-helmet"; // For head configurationsm
 
 function SidebarComponent() {
   const themeCookieName = "theme";
@@ -83,9 +81,7 @@ function SidebarComponent() {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <title>
-            Protend - Project Management Admin Dashboard HTML Template
-          </title>
+          <title>TaskFlow - Project and Task Management</title>
           <link
             rel="shortcut icon"
             href="./images/favicon.png"
@@ -196,6 +192,7 @@ function SidebarComponent() {
               </li>
               <li>
                 <a
+                  href=" "
                   className="darkmode-toggle"
                   id="darkmode-toggle"
                   onClick={switchTheme} // Here we call the switchTheme function

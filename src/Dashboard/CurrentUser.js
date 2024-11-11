@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import LogoutButton from "../Components/Logout";
 
 function CurrentPerson() {
   const [username, setUsername] = useState(null);
@@ -69,9 +70,7 @@ function CurrentPerson() {
           >
             <i className="bx bx-edit me-2"></i>Profile
           </Dropdown.Item>
-          <Dropdown.Item href="#" onClick={() => console.log("LogOut clicked")}>
-            <i className="bx bx-trash me-2"></i> Logout
-          </Dropdown.Item>
+          <LogoutButton />
         </Dropdown.Menu>
       </Dropdown>
     </button>
