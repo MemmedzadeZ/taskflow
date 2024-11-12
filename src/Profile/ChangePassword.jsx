@@ -28,6 +28,23 @@ function ChangePassword() {
       if (response.ok) {
         setAlertMessage("Password updated successfully!");
         setTimeout(() => setAlertMessage(""), 5000);
+
+        const activityData = {
+          text: "changed password",
+          type: "Profile",
+        };
+
+        await fetch(
+          "https://localhost:7157/api/Notification/NewRecentActivity",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }
+        );
       } else {
         console.error("Failed to update password");
         setAlertMessage("Failed to update password.");

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./InfoQuiz.css"; // CSS faylını əlavə et
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function InfoQuiz() {
@@ -29,11 +28,32 @@ function InfoQuiz() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(selectedOption),
-    }).then((response) => {
-      if (response.ok) {
-        navigate("/quiztrade");
-      }
-    });
+    })
+      .then((response) => {
+        if (response.ok) {
+          fetch(
+            "https://localhost:7157/api/Profile/AddingOccupationDuringQuiz",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              body: JSON.stringify({
+                occupation: selectedOption,
+              }),
+            }
+          ).then(() => {
+            navigate("/quiztrade");
+          });
+        } else {
+          setErrorMessage("Failed to submit occupation. Please try again.");
+        }
+      })
+      .catch((error) => {
+        console.error("Error submitting occupation:", error);
+        setErrorMessage("An error occurred. Please try again.");
+      });
   };
 
   return (

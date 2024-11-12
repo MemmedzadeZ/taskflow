@@ -20,8 +20,24 @@ function LogoutButton() {
       );
       if (response.status === 200) {
         console.log(response.data);
-        localStorage.removeItem("token");
+        const activityData = {
+          text: "User logged out",
+          type: "logout",
+        };
 
+        await fetch(
+          "https://localhost:7157/api/Notification/NewRecentActivity",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }
+        );
+
+        localStorage.removeItem("token");
         navigate("/auth");
       }
     } catch (error) {

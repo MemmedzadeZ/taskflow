@@ -57,6 +57,19 @@ function NotificationSetting() {
         alert("Settings updated successfully!");
         // deyisiklikleri yadda saxlamaq ucun
         localStorage.setItem("notificationSettings", JSON.stringify(settings));
+        const activityData = {
+          text: "Notification settings updated.",
+          type: "Notification",
+        };
+
+        fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(activityData),
+        });
       })
       .catch((error) => console.error("Error updating settings:", error));
   };
