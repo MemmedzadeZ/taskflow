@@ -57,19 +57,18 @@ function SidebarComponent() {
     }
   }, [body]);
 
- document.addEventListener("DOMContentLoaded", () => {
-   const sidebarCloseButton = document.querySelector("#sidebar-close");
-   const sidebarExpand = document.querySelector(".sidebar_expand"); // doğru selector əlavə edin
-   const overlay = document.querySelector(".overlay"); // doğru selector əlavə edin
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebarCloseButton = document.querySelector("#sidebar-close");
+    const sidebarExpand = document.querySelector(".sidebar_expand"); // doğru selector əlavə edin
+    const overlay = document.querySelector(".overlay"); // doğru selector əlavə edin
 
-   if (sidebarCloseButton && sidebarExpand && overlay) {
-     sidebarCloseButton.onclick = () => {
-       sidebarExpand.classList.toggle("active");
-       overlay.classList.toggle("active");
-     };
-   }
- });
-
+    if (sidebarCloseButton && sidebarExpand && overlay) {
+      sidebarCloseButton.onclick = () => {
+        sidebarExpand.classList.toggle("active");
+        overlay.classList.toggle("active");
+      };
+    }
+  });
 
   return (
     <>
@@ -133,7 +132,6 @@ function SidebarComponent() {
                     <i className="bx bx-chevron-down"></i>
                   </div>
                 </a>
-             
               </li>
               <li className="sidebar-submenu">
                 {/* /////////////////////////////// */}
@@ -159,9 +157,15 @@ function SidebarComponent() {
               {/* Other Sidebar Menu Items */}
 
               <li>
-                <a href="board.html">
+                <a href="/kanban">
                   <i className="bx bxs-dashboard"></i>
-                  <span>Board</span>
+                  <span>Kanban</span>
+                </a>
+              </li>
+              <li>
+                <a href="/tasks">
+                  <i className="bx bxs-dashboard"></i>
+                  <span>Task</span>
                 </a>
               </li>
               <li>

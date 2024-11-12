@@ -16,31 +16,37 @@ import Message from "./Message/Message";
 import Friends from "./Friends/Friends";
 import Calendar from "./Calendar/Calendar";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
-import Error  from "./Error/Error";
+import Error from "./Error/Error";
+import Kanban from "./Kanban/Kanban";
+import UserProfile from "./Profile/UserProfile";
+import Tasks from "./Task/Task";
 
 function App() {
   return (
     <div>
       <SignalRHub />
 
-      {/* head */}
       <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="*" element={<Error />} />
         <Route path="/auth" element={<Auth />} />
 
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<Error/>} />
-
-        <Route element={<ProtectedRoutes />}>
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/user" element={<User />} />
-          <Route path="/quiz" element={<InfoQuiz />} />
-          <Route path="/quiztrade" element={<TradeQuiz />} />
-          <Route path="/dashboard" element={<DashboardTemplate />} />
-          <Route path="/project" element={<Project />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/message" element={<Message />} />
-          <Route path="/friends" element={<Friends />} />
-        </Route>
+        {/* Wrap protected routes inside ProtectedRoutes */}
+        {/* <Route element={<ProtectedRoutes />}> */}
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/user" element={<User />} />
+        <Route path="/dashboard" element={<DashboardTemplate />} />
+        <Route path="/project" element={<Project />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/message" element={<Message />} />
+        <Route path="/friends" element={<Friends />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/quiz" element={<InfoQuiz />} />
+        <Route path="/quiztrade" element={<TradeQuiz />} />
+        <Route path="/kanban" element={<Kanban />} />
+        <Route path="/userprofile" element={<UserProfile />} />
+        <Route path="/tasks" element={ <Tasks/>} />
+        {/* </Route> */}
       </Routes>
     </div>
   );

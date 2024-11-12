@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 function HomePage() {
   return (
     <>
@@ -84,13 +85,11 @@ function HomePage() {
           <div className="container">
             <div className="navbar-brand">
               <span className="navbar-logo">
-                <a href="https://mobiri.se">
-                  <img
-                    src="https://r.mobirisesite.com/827554/assets/images/photo-1590649804407-daf662463c08.jpeg"
-                    alt="Mobirise Website Builder"
-                    style={{ height: "4.3rem" }}
-                  />
-                </a>
+                <img
+                  src="https://r.mobirisesite.com/827554/assets/images/photo-1590649804407-daf662463c08.jpeg"
+                  alt="Mobirise Website Builder"
+                  style={{ height: "4.3rem" }}
+                />
               </span>
               <span className="navbar-caption-wrap">
                 <a className="navbar-caption text-black display-4" href=" ">
@@ -160,11 +159,31 @@ function HomePage() {
         data-bs-version="5.1"
         className="header18 cid-us18fEoaR4 mbr-fullscreen"
         id="hero-16-us18fEoaR4"
+        style={{ position: "relative", overflow: "hidden" }}
       >
         <div
           className="mbr-overlay"
           style={{ opacity: "0.5", backgroundColor: "rgb(0, 0, 0)" }}
         />
+
+        <div className="video-background">
+          <iframe
+            src="https://www.youtube.com/embed/TYB7YTQXwXY?autoplay=1&loop=1&playlist=TYB7YTQXwXY&t=20&mute=1&playsinline=1&controls=0&showinfo=0&autohide=1&allowfullscreen=true"
+            title="background video"
+            frameBorder="0"
+            allow="autoplay; fullscreen; mute"
+            style={{
+              position: "fixed",
+              top: "0",
+              left: "0",
+              width: "100vw",
+              height: "100vh",
+              zIndex: "-1",
+              pointerEvents: "none",
+            }}
+          />
+        </div>
+
         <div className="container-fluid">
           <div className="row">
             <div className="content-wrap col-12 col-md-12">

@@ -362,7 +362,7 @@ const Friends = () => {
                           </a>
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
@@ -431,7 +431,7 @@ const Friends = () => {
                           </a>
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
@@ -505,7 +505,7 @@ const Friends = () => {
 
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
@@ -574,7 +574,7 @@ const Friends = () => {
                           </a>
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
@@ -643,7 +643,7 @@ const Friends = () => {
                           </a>
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
@@ -716,7 +716,7 @@ const Friends = () => {
                           </a>
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
@@ -785,7 +785,7 @@ const Friends = () => {
                           </a>
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
@@ -854,7 +854,7 @@ const Friends = () => {
                           </a>
                           <a
                             className="bg-btn-sec color-main"
-                            href="user-profile.html"
+                            href="/userprofile"
                           >
                             View Profile
                           </a>
