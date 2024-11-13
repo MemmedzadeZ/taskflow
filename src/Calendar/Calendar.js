@@ -1,8 +1,25 @@
 import SidebarComponent from "../SideBar/SidebarComponent";
 import CurrentPerson from "../Dashboard/CurrentUser";
 import React, { useState } from "react";
+// import FullCalendar from "@fullcalendar/react";
+// import dayGridPlugin from "@fullcalendar/daygrid";
+// import "bootstrap/dist/css/bootstrap.min.css";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import "./Calendar.css"; // Custom CSS file
 
 const Calendar = () => {
+  // const [showModal, setShowModal] = useState(false);
+
+  const events = [
+    { title: "Business Lunch", date: "2024-09-02", color: "#91C499" },
+    { title: "Meeting", date: "2024-09-13", color: "#91C499" },
+    { title: "Conference", date: "2024-09-18", color: "#5078F0" },
+    { title: "Party", date: "2024-09-28", color: "#F6B26B" },
+  ];
+
   return (
     <div>
       <div className="sidebar-expand">
@@ -12,115 +29,34 @@ const Calendar = () => {
           {/* Main Header */}
           <div className="main-header">
             <div className="d-flex">
-              <div className="mobile-toggle" id="mobile-toggle">
-                <i className="bx bx-menu"></i>
-              </div>
-              <div className="main-title">Projects</div>
+             
+              <div className="main-title">Calendar</div>
+              {/* <SidebarSearchComponent /> */}
             </div>
 
-            <div className="d-flex align-items-center">
-              {/* App Search */}
-              <form className="app-search d-none d-lg-block">
-                <div className="position-relative">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search"
-                  />
-                  <span className="bx bx-search-alt"></span>
-                </div>
-              </form>
-
-              <div className="dropdown d-inline-block d-lg-none ms-2">
-                <button
-                  type="button"
-                  className="btn header-item noti-icon waves-effect"
-                  id="page-header-search-dropdown"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i className="bx bx-search-alt"></i>
-                </button>
-                <div
-                  className="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
-                  aria-labelledby="page-header-search-dropdown"
-                >
-                  <form className="p-3">
-                    <div className="form-group m-0">
-                      <div className="input-group">
-                        <input
-                          type="text"
-                          className="form-control"
-                          placeholder="Search ..."
-                        />
-                        <div className="input-group-append">
-                          <button
-                            className="btn btn-primary h-100"
-                            type="submit"
-                          >
-                            <i className="bx bx-search-alt"></i>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-
-              <div className="dropdown d-inline-block">
-                <button
-                  type="button"
-                  className="btn header-item"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span className="btn dropdown-toggle" id="header-lang-img">
-                    EN
-                    <i className="bx bx-caret-down"></i>
-                  </span>
-                </button>
-               
-              </div>
-
-              <div className="dropdown d-inline-block mt-12">
-                <CurrentPerson></CurrentPerson>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item" href="#">
-                    <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}
-                    <span>Profile</span>
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    <i className="bx bx-wallet font-size-16 align-middle me-1"></i>{" "}
-                    <span>My Wallet</span>
-                  </a>
-                  <a className="dropdown-item d-block" href="#">
-                    <span className="badge bg-success float-end">11</span>
-                    <i className="bx bx-wrench font-size-16 align-middle me-1"></i>{" "}
-                    <span>Settings</span>
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    <i className="bx bx-lock-open font-size-16 align-middle me-1"></i>{" "}
-                    <span>Lock screen</span>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a
-                    className="dropdown-item text-danger"
-                    href="user-login.html"
-                  >
-                    <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>{" "}
-                    <span>Logout</span>
-                  </a>
-                </div>
-              </div>
-            </div>
+            
           </div>
+          {/* End Main Header */}
+          <div className="calendar-container">
+            <FullCalendar
+              plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+              initialView="dayGridMonth"
+              headerToolbar={{
+                left: "prev,next today",
 
-                  
-                  
+                center: "title",
+
+                right: "dayGridMonth,timeGridWeek,timeGridDay",
+              }}
+              events={events}
+              editable={true}
+              selectable={true}
+              eventColor="#B6A0E6" // Default event color
+            />
+          </div>
         </div>
       </div>
+      <div class="overlay"></div>
     </div>
   );
 };

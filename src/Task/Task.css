@@ -1,0 +1,193 @@
+/* General layout */
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.col-8, .col-md-12 {
+  width: 100%;
+  max-width: 1200vh;
+  padding: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: white;
+}
+
+.box.message-info {
+  margin: 10px 0;
+}
+
+/* Tasks Header */
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.tasks-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.view-switch {
+  display: flex;
+  gap: 10px;
+}
+
+.view-button {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  background: none;
+  cursor: pointer;
+  color: #333;
+  border-radius: 4px;
+}
+
+.view-button.active {
+  background-color: #6852ff;
+  color: white;
+}
+
+.create-task-button {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Status Tabs */
+.status-tabs {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.status-tab {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.status-tab:nth-child(1) {
+  background-color: #d6e9ff; /* To Do */
+}
+
+.status-tab:nth-child(2) {
+  background-color: #fff3cd; /* In Progress */
+}
+
+.status-tab:nth-child(3) {
+  background-color: #d4edda; /* Completed */
+}
+
+/* Tasks Table */
+.tasks-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.tasks-table th, .tasks-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.tasks-table th {
+  background-color: #f1f1f1;
+  font-weight: bold;
+  color: #555;
+}
+
+.tasks-table td {
+  font-size: 14px;
+}
+
+/* Task Status Indicator */
+.status-indicator {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.status-indicator.to-do { background-color: #6852ff; }
+.status-indicator.in-progress { background-color: #ffbf00; }
+.status-indicator.completed { background-color: #4caf50; }
+
+/* Priority Styling */
+.priority {
+  font-weight: bold;
+}
+
+.priority.high-priority {
+  color: #d32f2f;
+}
+
+.priority.medium-priority {
+  color: #f57c00;
+}
+
+.priority.normal-priority {
+  color: #388e3c;
+}
+
+/* Assets and Team Section */
+.assets span {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.team {
+  display: flex;
+  gap: 8px;
+}
+
+.team-member {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 50%;
+  background-color: #6852ff;
+  color: white;
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Action Buttons */
+.edit-button, .delete-button {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  margin-right: 5px;
+}
+
+.edit-button {
+  background-color: #6852ff;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #6852ff;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
