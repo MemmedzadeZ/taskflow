@@ -1,14 +1,21 @@
 import SidebarComponent from "../SideBar/SidebarComponent";
 import CurrentPerson from "../Dashboard/CurrentUser";
-import React, { useState } from "react";
+import React from "react";
 import CountNotification from "../Components/NotificationCount";
 import TwoNotification from "../Components/NotificationList";
-import CountMessage from "../Components/MessageCount";
+import CountMessage from "../Dashboard/MessageCount";
 import TwoMessage from "../Components/MessageList";
 import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
-
-const Message = () => {
+import UserFriend from "./UserFriend";
+import "./css/Friend.css";
+import { useState } from "react";
+import AllUsers from "./AllUser";
+const Friends = () => {
+  const [activeTab, setActiveTab] = useState("Your Friends");
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
   return (
     <div>
       <div className="sidebar-expand">
@@ -21,7 +28,7 @@ const Message = () => {
               <div className="mobile-toggle" id="mobile-toggle">
                 <i className="bx bx-menu"></i>
               </div>
-              <div className="main-title">Message</div>
+              <div className="main-title">Friends</div>
             </div>
 
             <div className="d-flex align-items-center">
@@ -222,7 +229,7 @@ const Message = () => {
                       <div className="icon-box bg-color-4">
                         <a
                           className="create d-flex"
-                          href="#"
+                          href=" "
                           data-toggle="modal"
                           data-target="#add_project"
                         >
@@ -237,226 +244,33 @@ const Message = () => {
                     </div>
                   </div>
                 </div>
-                <div className="row">
-                  <div className="col-4 col-md-12">
-                    <div className="row">
-                      <div className="col-12 mb-0">
-                        <div className="box box-message">
-                          <div className="input-group search-area">
-                            <span className="input-group-text">
-                              <a href="javascript:void(0)">
-                                <i className="bx bx-search" />
-                              </a>
-                            </span>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Search"
-                            />
-                          </div>
-                          <div className="box-header">
-                            <h4 className="card-title">Recent Message</h4>
-                          </div>
-                          <div className="box-content">
-                            <ul className="message-list">
-                              <li className="waves-effect waves-teal active">
-                                <div className="left d-flex">
-                                  <div className="avatar">
-                                    <img
-                                      src="./images/avatar/message-2.png"
-                                      alt=""
-                                    />
-                                    <div className="pulse-css-1" />
-                                  </div>
-                                  <div className="content">
-                                    <div className="username">
-                                      <div className="name h6">
-                                        Elizabeth Holland
-                                      </div>
-                                    </div>
-                                    <div className="text">
-                                      <p>Hi, Did you check the file?</p>
-                                    </div>
-                                  </div>
-                                </div>
-                                {/* /.left */}
-                                <div className="clearfix" />
-                              </li>
-                            </ul>
-                            {/* /.message-list scroll */}
-                          </div>
-                          {/* /.box-content */}
-                        </div>
-                      </div>
-                    </div>
+                <div className="rightSection" style={{ width: "100%" }}>
+                  <div className="tabs">
+                    <button
+                      className={
+                        activeTab === "Your Friends" ? "activeTab" : "tab"
+                      }
+                      onClick={() => handleTabClick("Your Friends")}
+                    >
+                      Your Friends
+                    </button>
+                    <button
+                      className={
+                        activeTab === "All Users" ? "activeTab" : "tab"
+                      }
+                      onClick={() => handleTabClick("All Users")}
+                    >
+                      All Users
+                    </button>
                   </div>
-                  <div className="col-8 col-md-12">
-                    <div className="box message-info">
-                      <div className="box-info-messager">
-                        <div className="message-pic">
-                          <img src="./images/avatar/message-1.png" alt="" />
-                          <div className="pulse-css" />
-                        </div>
-                        <div className="content">
-                          <div className="username">
-                            <h5 className="fs-18">Elizabeth Holland</h5>
-                          </div>
-                          <div className="text">
-                            <p className="fs-14">Hi, Did you check the file?</p>
-                          </div>
-                        </div>
-                      </div>
-                      {/* /.box-info-messager */}
-                      <div className="divider" />
-                      <div className="message-box">
-                        <div className="message-in">
-                          <div className="message-pic">
-                            <img src="./images/avatar/message-1.png" alt="" />
-                            <div className="pulse-css-1" />
-                          </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Proin ac quam et lectus vestibulum blandit. Nunc
-                                maximus nibh at placerat tincidunt. Nam sem
-                                lacus, ornare non ante sed, ultricies fringilla
-                                massa. Ut congue, elit non tempus elementum, sem
-                                risus tincidunt diam.
-                              </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:39 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
-                        </div>
-                        {/* /.message-in */}
-                        <div className="clearfix" />
-                        <div className="message-out">
-                          <div className="message-pic">
-                            <img src="./images/profile/profile.png" alt="" />
-                            <div className="pulse-css-1" />
-                          </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Cras eu elit congue, placerat dui ut, tincidunt
-                                nisl.{" "}
-                              </p>
-                              <p>
-                                Duis mauris augue, efficitur eu arcu sit amet,
-                                posuere dignissim neque. Aenean enim sem,
-                                pharetra et magna sit amet, luctus
-                              </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:45 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
-                        </div>
-                        {/* /.message-out */}
-                        <div className="clearfix" />
-                        <div className="message-in">
-                          <div className="message-pic">
-                            <img src="./images/avatar/message-1.png" alt="" />
-                            <div className="pulse-css-1" />
-                          </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Proin ac quam et lectus vestibulum blandit. Nunc
-                                maximus nibh at placerat tincidunt. Nam sem
-                                lacus, ornare non ante sed.
-                              </p>
-                              <p>Proin ac quam et lectus vestibulum </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:52 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
-                        </div>
-                        <div className="message-in">
-                          <div className="message-pic">
-                            <img src="./images/avatar/message-1.png" alt="" />
-                            <div className="pulse-css-1" />
-                          </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Proin ac quam et lectus vestibulum blandit. Nunc
-                                maximus nibh at placerat tincidunt. Nam sem
-                                lacus, ornare non ante sed.
-                              </p>
-                              <p>Proin ac quam et lectus vestibulum </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:52 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
-                        </div>
-                      </div>
-                      <div className="form-chat">
-                        <form action="#" method="get" acceptCharset="utf-8">
-                          <div className="message-form-chat">
-                            {/* /.pin */}
-                            <span className="message-text">
-                              <textarea
-                                name="message"
-                                placeholder="Type your message..."
-                                required="required"
-                                defaultValue={""}
-                              />
-                            </span>
-                            {/* /.message-text */}
-                            <span className="camera">
-                              <a href="#" title="">
-                                <i className="fas fa-smile" />
-                              </a>
-                            </span>
-                            {/* /.camera */}
-                            <span className="icon-message">
-                              <a href="#" title="">
-                                <i className="fas fa-paperclip" />
-                              </a>
-                            </span>
-                            {/* /.icon-right */}
-                            {/* <div class="icon-mobile">
-                                  <ul>
-                                      <li>
-                                          <a href="#" title=""><i class="fas fa-smile"></i></a>
-                                      </li>
-                                      <li>
-                                          <a href="#" title=""><i class="fas fa-paperclip"></i></a>
-                                      </li>
-                                  </ul>
-                              </div> */}
-                            {/* /.icon-right */}
-                            <span className="btn-send">
-                              <button className="waves-effect" type="submit">
-                                Send <i className="fas fa-paper-plane" />
-                              </button>
-                            </span>
-                            {/* /.btn-send */}
-                          </div>
-                          {/* /.message-form-chat */}
-                          <div className="clearfix" />
-                        </form>
-                        {/* /form */}
-                      </div>
-                    </div>
-                  </div>
+
+                  {/* Conditional Form Rendering */}
+                  {activeTab === "Your Friends" && <UserFriend />}
+
+                  {activeTab === "All Users" && <AllUsers />}
+                  {/* Notification Settings */}
                 </div>
+
                 <div
                   id="add_project"
                   className="modal custom-modal fade"
@@ -468,17 +282,15 @@ const Message = () => {
                   >
                     <div className="modal-content">
                       <div className="modal-header">
-                        <a href="/project">
-                          <h5 className="modal-title">Create Project</h5>
-                          <button
-                            type="button"
-                            className="close"
-                            data-dismiss="modal"
-                            aria-label="Close"
-                          >
-                            <span aria-hidden="true">×</span>
-                          </button>
-                        </a>
+                        <h5 className="modal-title">Create Project</h5>
+                        <button
+                          type="button"
+                          className="close"
+                          data-dismiss="modal"
+                          aria-label="Close"
+                        >
+                          <span aria-hidden="true">×</span>
+                        </button>
                       </div>
                       <div className="modal-body">
                         <form>
@@ -592,4 +404,4 @@ const Message = () => {
   );
 };
 
-export default Message;
+export default Friends;

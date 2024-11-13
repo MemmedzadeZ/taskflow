@@ -24,6 +24,19 @@ function CreateProjectModel({ closeModal }) {
     }).then((response) => {
       if (response.ok) {
         console.log(response.json());
+        const activityData = {
+          text: "New Project Created",
+          type: "Project",
+        };
+
+        fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(activityData),
+        });
       }
     });
   };

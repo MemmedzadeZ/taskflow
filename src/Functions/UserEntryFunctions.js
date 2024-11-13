@@ -158,64 +158,38 @@ export const loginUser = async (e, username, password) => {
     password,
   };
   console.log(userData);
-  var response = await fetch("https://localhost:7157/api/Auth/signin", {
+ 
+  const response = await fetch("https://localhost:7157/api/Auth/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(userData),
   });
-  // if (response.status === 404) {
-  //   alert("User Not Found!");
-  //   return;
-  // }
-
-  var data = await response.json();
-
-  console.log(data.token);
-  localStorage.setItem("token", data.token);
-
-  var isFirstTime = await fetch("https://localhost:7157/api/Auth/RouteToQuiz", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  console.log(isFirstTime);
+ 
   if (response.ok) {
-    // isFirstTime
-    //   ? (window.location.href = "/quiz")
+    const data = await response.json();
+    console.log("Token:", data.token);
+    localStorage.setItem("token", data.token);
+    const activityData = {
+      text: "User logged in.",
+      type: "login",
+    };
+
+    await fetch(
+      "https://localhost:7157/api/Notification/NewRecentActivity",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(activityData),
+      }
+    );
     window.location.href = "/dashboard";
-  } else {
-    console.log(response.json());
+  } else { 
+    const errorData = await response.json();
+    console.error("Error:", errorData);
   }
-
-  //CurrentUserForToken
-
-  // var newResponse = await fetch(
-  //   "https://localhost:7157/api/Auth/FindCurrentUserForToken",
-  //   {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${data.token}`,
-  //     },
-  //   }
-  // );
-  // const newData = await newResponse.json();
-
-  // if (newResponse.ok) {
-  //   console.log("Current user:", newData);
-  // } else {
-  //   console.error("Failed to get current user:", newData);
-  // }
-
-  // .then((response) => {
-  //   console.log(response.json());
-  // })
-  // .then((data) => {
-  //   console.log("Success:", data);
-  // })
-  // .catch((error) => {
-  //   console.error("Error:", error);
-  // });
 };

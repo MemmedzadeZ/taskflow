@@ -40,6 +40,25 @@ export default function DailyTask() {
     return acc;
   }, {});
 
+  // Eğer veriler boşsa, boş task'lar için placeholder verisi oluşturuyoruz
+  const placeholderTasks = [
+    {
+      title: "No tasks for this hour",
+      startTime: new Date(),
+      deadline: new Date(),
+      color: "#6c757d",
+    },
+  ];
+
+  const tasksToDisplay =
+    items.length > 0
+      ? groupedItems
+      : {
+          0: placeholderTasks,
+          1: placeholderTasks,
+          2: placeholderTasks,
+        };
+
   return (
     <div className="col-12">
       <div className="box">
@@ -47,39 +66,43 @@ export default function DailyTask() {
           <h4 className="box-title mb-22">Daily Task</h4>
         </div>
         <div className="box-body">
-          {Object.keys(groupedItems).map((hour) => (
+          {Object.keys(tasksToDisplay).map((hour) => (
             <div className="content-item mb-wrap" key={hour}>
               <div className="left">
                 <h5 className="font-w500">{hour}:00</h5>
               </div>
               <div className="right d-flex flex-wrap">
-                {groupedItems[hour].map((task, index) => (
-                  <div
-                    key={index}
-                    className="content-box mx-2"
-                    style={{
-                      backgroundColor: task.color || "#ffa500",
-                      minWidth: "150px",
-                      padding: "10px",
-                      borderRadius: "8px",
-                    }}
-                  >
-                    <h5 className="font-wb text-white fs-20">
-                      {task.title || "Title"}
-                    </h5>
-                    <h6 className="font-w400 text-w07">
-                      {new Date(task.startTime).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}{" "}
-                      -{" "}
-                      {new Date(task.deadline).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </h6>
-                  </div>
-                ))}
+                {Array.isArray(tasksToDisplay[hour]) ? (
+                  tasksToDisplay[hour].map((task, index) => (
+                    <div
+                      key={index}
+                      className="content-box mx-2"
+                      style={{
+                        backgroundColor: task.color || "#ffa500",
+                        minWidth: "150px",
+                        padding: "10px",
+                        borderRadius: "8px",
+                      }}
+                    >
+                      <h5 className="font-wb text-white fs-20">
+                        {task.title || "Title"}
+                      </h5>
+                      <h6 className="font-w400 text-w07">
+                        {new Date(task.startTime).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}{" "}
+                        -{" "}
+                        {new Date(task.deadline).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </h6>
+                    </div>
+                  ))
+                ) : (
+                  <div>No tasks for this hour</div>
+                )}
               </div>
             </div>
           ))}

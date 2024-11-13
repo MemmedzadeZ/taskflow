@@ -1,14 +1,33 @@
+import React, { useState } from "react";
 import SidebarComponent from "../SideBar/SidebarComponent";
 import CurrentPerson from "../Dashboard/CurrentUser";
-import React, { useState } from "react";
-import CountNotification from "../Components/NotificationCount";
-import TwoNotification from "../Components/NotificationList";
-import CountMessage from "../Components/MessageCount";
-import TwoMessage from "../Components/MessageList";
-import CalendarCount from "../Components/CalendarNotificationCount";
-import TwoCalendarNotification from "../Components/CalendarList";
+import "./Task.css";
 
-const Message = () => {
+const initialTasks = [
+  {
+    id: 1,
+    title: "Test task",
+    priority: "High Priority",
+    createdAt: "9-Feb-2024",
+    assets: { files: 0, comments: 2, links: 0, progress: "0/1" },
+    team: ["CA", "JS", "AJ"],
+    status: "To Do",
+  },
+  {
+    id: 2,
+    title: "Duplicate - Review Code Changes",
+    priority: "Medium Priority",
+    createdAt: "9-Feb-2024",
+    assets: { files: 3, comments: 0, links: 1, progress: "0/1" },
+    team: ["AJ", "EW"],
+    status: "In Progress",
+  },
+  // Add more tasks here as needed
+];
+
+const Tasks = () => {
+  const [tasks, setTasks] = useState(initialTasks);
+
   return (
     <div>
       <div className="sidebar-expand">
@@ -18,10 +37,7 @@ const Message = () => {
           {/* Main Header */}
           <div className="main-header">
             <div className="d-flex">
-              <div className="mobile-toggle" id="mobile-toggle">
-                <i className="bx bx-menu"></i>
-              </div>
-              <div className="main-title">Message</div>
+              <div className="main-title">Task</div>
             </div>
 
             <div className="d-flex align-items-center">
@@ -190,269 +206,164 @@ const Message = () => {
           </div>
 
           <>
-            {/* MAIN CONTENT */}
             <div className="main">
               <div className="main-content message">
                 <div className="row">
                   <div className="col-12">
-                    <div className="box card-box">
-                      <div className="icon-box bg-color-1">
-                        <div className="icon bg-icon-1">
-                          <i className="bx bxs-bell bx-tada" />
+                    <div class="box card-box mb-20">
+                      <div class="icon-box bg-color-1">
+                        <div class="icon bg-icon-1">
+                          <i class="bx bxs-briefcase"></i>
                         </div>
-                        <CountNotification />
-                        <TwoNotification />
-                      </div>
-                      <div className="icon-box bg-color-2">
-                        <div className="icon bg-icon-2">
-                          <i className="bx bxs-message-rounded" />
+                        <div class="content">
+                          <h5 class="title-box fs-15 mt-2">Total Task</h5>
+                          <div class="themesflat-counter fs-14 font-wb color-1">
+                            <span
+                              class="number"
+                              data-from="0"
+                              data-to="1225"
+                              data-speed="2500"
+                              data-inviewport="yes"
+                            >
+                              1225
+                            </span>
+                          </div>
                         </div>
-                        <CountMessage />
-                        <TwoMessage />
                       </div>
-                      <div className="icon-box bg-color-3">
-                        <a className="create d-flex" href="calendar.html">
-                          <div className="icon bg-icon-3">
-                            <i className="bx bx-calendar" />
+                      <div class="icon-box bg-color-2">
+                        <div class="icon bg-icon-2">
+                          <i class="bx bx-task"></i>
+                        </div>
+                        <div class="content click-c">
+                          <h5 class="title-box fs-15 mt-2">Running Task</h5>
+                          <div class="themesflat-counter fs-14 font-wb color-2">
+                            <span
+                              class="number"
+                              data-from="0"
+                              data-to="309"
+                              data-speed="2500"
+                              data-inviewport="yes"
+                            >
+                              154 +
+                            </span>
                           </div>
-                          <CalendarCount />
-                          <TwoCalendarNotification />
-                        </a>
+                        </div>
                       </div>
-                      <div className="icon-box bg-color-4">
-                        <a
-                          className="create d-flex"
-                          href="#"
-                          data-toggle="modal"
-                          data-target="#add_project"
-                        >
-                          <div className="icon bg-white">
-                            <i className="bx bx-plus" />
+                      <div class="icon-box bg-color-3">
+                        <div class="icon bg-icon-3">
+                          <i class="bx bx-block"></i>
+                        </div>
+                        <div class="content click-c">
+                          <h5 class="title-box fs-15 mt-2">On Hold Task</h5>
+                          <div class="themesflat-counter fs-14 font-wb color-3">
+                            <span
+                              class="number"
+                              data-from="0"
+                              data-to="309"
+                              data-speed="2500"
+                              data-inviewport="yes"
+                            >
+                              75 +
+                            </span>
                           </div>
-                          <div className="content d-flex align-items-center">
-                            <h5 className="color-white">Create New Project</h5>
+                        </div>
+                      </div>
+                      <div class="icon-box bg-color-5">
+                        <div class="icon bg-icon-5">
+                          <i class="bx bx-task color-white"></i>
+                        </div>
+                        <div class="content click-c">
+                          <h5 class="title-box fs-15 mt-2">Complete Task</h5>
+                          <div class="themesflat-counter fs-14 font-wb color-4">
+                            <span
+                              class="number"
+                              data-from="0"
+                              data-to="309"
+                              data-speed="2500"
+                              data-inviewport="yes"
+                            >
+                              120 +
+                            </span>
                           </div>
-                        </a>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-4 col-md-12">
-                    <div className="row">
-                      <div className="col-12 mb-0">
-                        <div className="box box-message">
-                          <div className="input-group search-area">
-                            <span className="input-group-text">
-                              <a href="javascript:void(0)">
-                                <i className="bx bx-search" />
-                              </a>
-                            </span>
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Search"
-                            />
-                          </div>
-                          <div className="box-header">
-                            <h4 className="card-title">Recent Message</h4>
-                          </div>
-                          <div className="box-content">
-                            <ul className="message-list">
-                              <li className="waves-effect waves-teal active">
-                                <div className="left d-flex">
-                                  <div className="avatar">
-                                    <img
-                                      src="./images/avatar/message-2.png"
-                                      alt=""
-                                    />
-                                    <div className="pulse-css-1" />
-                                  </div>
-                                  <div className="content">
-                                    <div className="username">
-                                      <div className="name h6">
-                                        Elizabeth Holland
-                                      </div>
-                                    </div>
-                                    <div className="text">
-                                      <p>Hi, Did you check the file?</p>
-                                    </div>
-                                  </div>
-                                </div>
-                                {/* /.left */}
-                                <div className="clearfix" />
-                              </li>
-                            </ul>
-                            {/* /.message-list scroll */}
-                          </div>
-                          {/* /.box-content */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                   <div className="col-8 col-md-12">
                     <div className="box message-info">
-                      <div className="box-info-messager">
-                        <div className="message-pic">
-                          <img src="./images/avatar/message-1.png" alt="" />
-                          <div className="pulse-css" />
-                        </div>
-                        <div className="content">
-                          <div className="username">
-                            <h5 className="fs-18">Elizabeth Holland</h5>
-                          </div>
-                          <div className="text">
-                            <p className="fs-14">Hi, Did you check the file?</p>
-                          </div>
-                        </div>
-                      </div>
                       {/* /.box-info-messager */}
-                      <div className="divider" />
-                      <div className="message-box">
-                        <div className="message-in">
-                          <div className="message-pic">
-                            <img src="./images/avatar/message-1.png" alt="" />
-                            <div className="pulse-css-1" />
+
+                      <div className="tasks-container">
+                        <header className="tasks-header">
+                          <h2>Tasks</h2>
+                          <div className="view-switch">
+                            <button className="view-button">Board View</button>
+                            <button className="view-button active">
+                              List View
+                            </button>
                           </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Proin ac quam et lectus vestibulum blandit. Nunc
-                                maximus nibh at placerat tincidunt. Nam sem
-                                lacus, ornare non ante sed, ultricies fringilla
-                                massa. Ut congue, elit non tempus elementum, sem
-                                risus tincidunt diam.
-                              </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:39 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
+                          <button className="create-task-button">
+                            + Create Task
+                          </button>
+                        </header>
+                        <div className="status-tabs">
+                          <div className="status-tab">To Do</div>
+                          <div className="status-tab">In Progress</div>
+                          <div className="status-tab">Completed</div>
                         </div>
-                        {/* /.message-in */}
-                        <div className="clearfix" />
-                        <div className="message-out">
-                          <div className="message-pic">
-                            <img src="./images/profile/profile.png" alt="" />
-                            <div className="pulse-css-1" />
-                          </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Cras eu elit congue, placerat dui ut, tincidunt
-                                nisl.{" "}
-                              </p>
-                              <p>
-                                Duis mauris augue, efficitur eu arcu sit amet,
-                                posuere dignissim neque. Aenean enim sem,
-                                pharetra et magna sit amet, luctus
-                              </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:45 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
-                        </div>
-                        {/* /.message-out */}
-                        <div className="clearfix" />
-                        <div className="message-in">
-                          <div className="message-pic">
-                            <img src="./images/avatar/message-1.png" alt="" />
-                            <div className="pulse-css-1" />
-                          </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Proin ac quam et lectus vestibulum blandit. Nunc
-                                maximus nibh at placerat tincidunt. Nam sem
-                                lacus, ornare non ante sed.
-                              </p>
-                              <p>Proin ac quam et lectus vestibulum </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:52 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
-                        </div>
-                        <div className="message-in">
-                          <div className="message-pic">
-                            <img src="./images/avatar/message-1.png" alt="" />
-                            <div className="pulse-css-1" />
-                          </div>
-                          <div className="message-body">
-                            <div className="message-text">
-                              <p>
-                                Proin ac quam et lectus vestibulum blandit. Nunc
-                                maximus nibh at placerat tincidunt. Nam sem
-                                lacus, ornare non ante sed.
-                              </p>
-                              <p>Proin ac quam et lectus vestibulum </p>
-                            </div>
-                            <div className="message-meta">
-                              <p className="mt-10">
-                                Sunday, march 17, 2021 at 2:52 PM
-                              </p>
-                            </div>
-                          </div>
-                          <div className="clearfix" />
-                        </div>
-                      </div>
-                      <div className="form-chat">
-                        <form action="#" method="get" acceptCharset="utf-8">
-                          <div className="message-form-chat">
-                            {/* /.pin */}
-                            <span className="message-text">
-                              <textarea
-                                name="message"
-                                placeholder="Type your message..."
-                                required="required"
-                                defaultValue={""}
-                              />
-                            </span>
-                            {/* /.message-text */}
-                            <span className="camera">
-                              <a href="#" title="">
-                                <i className="fas fa-smile" />
-                              </a>
-                            </span>
-                            {/* /.camera */}
-                            <span className="icon-message">
-                              <a href="#" title="">
-                                <i className="fas fa-paperclip" />
-                              </a>
-                            </span>
-                            {/* /.icon-right */}
-                            {/* <div class="icon-mobile">
-                                  <ul>
-                                      <li>
-                                          <a href="#" title=""><i class="fas fa-smile"></i></a>
-                                      </li>
-                                      <li>
-                                          <a href="#" title=""><i class="fas fa-paperclip"></i></a>
-                                      </li>
-                                  </ul>
-                              </div> */}
-                            {/* /.icon-right */}
-                            <span className="btn-send">
-                              <button className="waves-effect" type="submit">
-                                Send <i className="fas fa-paper-plane" />
-                              </button>
-                            </span>
-                            {/* /.btn-send */}
-                          </div>
-                          {/* /.message-form-chat */}
-                          <div className="clearfix" />
-                        </form>
-                        {/* /form */}
+                        <table className="tasks-table">
+                          <thead>
+                            <tr>
+                              <th>Task Title</th>
+                              <th>Priority</th>
+                              <th>Created At</th>
+                              <th>Assets</th>
+                              <th>Team</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {tasks.map((task) => (
+                              <tr key={task.id}>
+                                <td>
+                                  <span
+                                    className={`status-indicator ${task.status.toLowerCase()}`}
+                                  ></span>
+                                  {task.title}
+                                </td>
+                                <td
+                                  className={`priority ${task.priority
+                                    .toLowerCase()
+                                    .replace(" ", "-")}`}
+                                >
+                                  {task.priority}
+                                </td>
+                                <td>{task.createdAt}</td>
+                                <td className="assets">
+                                  <span>📂 {task.assets.files}</span>
+                                  <span>💬 {task.assets.comments}</span>
+                                  <span>🔗 {task.assets.links}</span>
+                                  <span>📊 {task.assets.progress}</span>
+                                </td>
+                                <td className="team">
+                                  {task.team.map((member, index) => (
+                                    <span key={index} className="team-member">
+                                      {member}
+                                    </span>
+                                  ))}
+                                </td>
+                                <td>
+                                  <button className="edit-button">Edit</button>
+                                  <button className="delete-button">
+                                    Delete
+                                  </button>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
                       </div>
                     </div>
                   </div>
@@ -584,7 +495,6 @@ const Message = () => {
                 </div>
               </div>
             </div>
-            {/* END MAIN CONTENT */}
           </>
         </div>
       </div>
@@ -592,4 +502,4 @@ const Message = () => {
   );
 };
 
-export default Message;
+export default Tasks;

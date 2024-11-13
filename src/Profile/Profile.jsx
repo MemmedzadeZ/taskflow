@@ -1,38 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./css/Profile.css";
-import CurrentPerson from "../Dashboard/CurrentUser";
 import SidebarComponent from "../SideBar/SidebarComponent";
 import PersonalInfo from "./PersonalInfo";
 import EditProfile from "./EditProfile";
+import ChangePassword from "./ChangePassword";
+import NotificationSetting from "./NotificationSetting";
+import RecentActivity from "./RecentActivity";
+import TaskList from "./TaskList";
 
 const Profile = () => {
-  const [imagePreview, setImagePreview] = useState(
-    "assets/images/user-grid/user-grid-img13.png"
-  );
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
-
-  // Toggle function for password field
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
-  // Toggle function for confirm password field
-  const toggleConfirmPasswordVisibility = () => {
-    setConfirmPasswordVisible(!confirmPasswordVisible);
-  };
-
-  const readURL = (input) => {
-    if (input.target.files && input.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setImagePreview(e.target.result);
-      };
-      reader.readAsDataURL(input.target.files[0]);
-    }
-  };
-
+  const [profileData, setProfileData] = useState({});
   const [activeTab, setActiveTab] = useState("Edit Profile");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      var response = await fetch(
+        "https://localhost:7157/api/Auth/currentUser",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      var data = await response.json();
+      setProfileData(data);
+    };
+
+    fetchData();
+  }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -48,7 +44,10 @@ const Profile = () => {
 
           <div className="container" style={{ width: 2000 }}>
             {/* Left Section */}
-            <PersonalInfo />
+            <PersonalInfo
+              profileData={profileData}
+              setProfileData={setProfileData}
+            />
 
             {/* Right Section */}
             <div className="rightSection">
@@ -80,108 +79,16 @@ const Profile = () => {
               {/* Conditional Form Rendering */}
               {activeTab === "Edit Profile" && <EditProfile />}
 
-              {activeTab === "Change Password" && (
-                <form className="form">
-                  <div className="formGroup">
-                    <label>New Password</label>
-                    <input
-                      type="password"
-                      placeholder="Enter new password"
-                      className="input"
-                    />
-                  </div>
-                  <div className="formGroup">
-                    <label>Confirm Password</label>
-                    <input
-                      type="password"
-                      placeholder="Confirm new password"
-                      className="input"
-                    />
-                  </div>
-                  <div className="buttonGroup">
-                    <button type="button" className="cancelButton">
-                      Cancel
-                    </button>
-                    <button type="submit" className="saveButton">
-                      Save
-                    </button>
-                  </div>
-                </form>
-              )}
+              {activeTab === "Change Password" && <ChangePassword />}
               {/* Notification Settings */}
-              {activeTab === "Notification Settings" && (
-                <div className="notification-settings">
-                  <div className="custom-switch mb-16">
-                    <div className="switch-label">
-                      <span>Company News</span>
-                    </div>
-                    <input
-                      type="checkbox"
-                      id="companzNew"
-                      className="switch-input"
-                    />
-                  </div>
-
-                  <div className="custom-switch mb-16">
-                    <div className="switch-label">
-                      <span>Push Notification</span>
-                    </div>
-                    <input
-                      type="checkbox"
-                      id="pushNotification"
-                      className="switch-input"
-                      defaultChecked
-                    />
-                  </div>
-
-                  <div className="custom-switch mb-16">
-                    <div className="switch-label">
-                      <span>Weekly News Letters</span>
-                    </div>
-                    <input
-                      type="checkbox"
-                      id="weeklyLetters"
-                      className="switch-input"
-                      defaultChecked
-                    />
-                  </div>
-
-                  <div className="custom-switch mb-16">
-                    <div className="switch-label">
-                      <span>Meetups Near You</span>
-                    </div>
-                    <input
-                      type="checkbox"
-                      id="meetUp"
-                      className="switch-input"
-                    />
-                  </div>
-
-                  <div className="custom-switch mb-16">
-                    <div className="switch-label">
-                      <span>Orders Notifications</span>
-                    </div>
-                    <input
-                      type="checkbox"
-                      id="orderNotification"
-                      className="switch-input"
-                      defaultChecked
-                    />
-                  </div>
-
-                  <div className="buttonGroup">
-                    <button type="button" className="cancelButton">
-                      Cancel
-                    </button>
-                    <button type="submit" className="saveButton">
-                      Save
-                    </button>
-                  </div>
-                </div>
-              )}
+              {activeTab === "Notification Settings" && <NotificationSetting />}
             </div>
           </div>
         </div>
+      </div>
+      <div style={{ display: "flex", width: "1250px" }}>
+        <RecentActivity />
+        <TaskList />
       </div>
     </>
   );

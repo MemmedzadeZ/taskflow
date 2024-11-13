@@ -1,7 +1,5 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet"; // For head configurations
-import CurrentPerson from "../Dashboard/CurrentUser";
-import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
+import { Helmet } from "react-helmet"; // For head configurationsm
 
 function SidebarComponent() {
   const themeCookieName = "theme";
@@ -59,19 +57,18 @@ function SidebarComponent() {
     }
   }, [body]);
 
- document.addEventListener("DOMContentLoaded", () => {
-   const sidebarCloseButton = document.querySelector("#sidebar-close");
-   const sidebarExpand = document.querySelector(".sidebar_expand"); // doğru selector əlavə edin
-   const overlay = document.querySelector(".overlay"); // doğru selector əlavə edin
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebarCloseButton = document.querySelector("#sidebar-close");
+    const sidebarExpand = document.querySelector(".sidebar_expand"); // doğru selector əlavə edin
+    const overlay = document.querySelector(".overlay"); // doğru selector əlavə edin
 
-   if (sidebarCloseButton && sidebarExpand && overlay) {
-     sidebarCloseButton.onclick = () => {
-       sidebarExpand.classList.toggle("active");
-       overlay.classList.toggle("active");
-     };
-   }
- });
-
+    if (sidebarCloseButton && sidebarExpand && overlay) {
+      sidebarCloseButton.onclick = () => {
+        sidebarExpand.classList.toggle("active");
+        overlay.classList.toggle("active");
+      };
+    }
+  });
 
   return (
     <>
@@ -83,9 +80,7 @@ function SidebarComponent() {
             name="viewport"
             content="width=device-width, initial-scale=1.0"
           />
-          <title>
-            Protend - Project Management Admin Dashboard HTML Template
-          </title>
+          <title>TaskFlow - Project and Task Management</title>
           <link
             rel="shortcut icon"
             href="./images/favicon.png"
@@ -137,7 +132,6 @@ function SidebarComponent() {
                     <i className="bx bx-chevron-down"></i>
                   </div>
                 </a>
-             
               </li>
               <li className="sidebar-submenu">
                 {/* /////////////////////////////// */}
@@ -163,9 +157,15 @@ function SidebarComponent() {
               {/* Other Sidebar Menu Items */}
 
               <li>
-                <a href="board.html">
+                <a href="/kanban">
+                  <i className="bx bxs-component"></i>
+                  <span>Kanban</span>
+                </a>
+              </li>
+              <li>
+                <a href="/tasks">
                   <i className="bx bxs-dashboard"></i>
-                  <span>Board</span>
+                  <span>Task</span>
                 </a>
               </li>
               <li>
@@ -180,22 +180,10 @@ function SidebarComponent() {
                   <span>Message</span>
                 </a>
               </li>
-              <li className="sidebar-submenu">
-                <a href="chart-apex.html" className="sidebar-menu-dropdown">
-                  <i className="bx bxs-component"></i>
-                  <span>Components</span>
-                  <div className="dropdown-icon">
-                    <i className="bx bx-chevron-down"></i>
-                  </div>
-                </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="chart-apex.html"> Apex Charts </a>
-                  </li>
-                </ul>
-              </li>
+
               <li>
                 <a
+                  href=" "
                   className="darkmode-toggle"
                   id="darkmode-toggle"
                   onClick={switchTheme} // Here we call the switchTheme function

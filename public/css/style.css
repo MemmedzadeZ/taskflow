@@ -2832,6 +2832,13 @@ button.search i {
   transition: all 0.3s ease;
   margin-bottom: 10px;
 }
+.box.client .group-btn button {
+  padding: 8px 17px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+  border: none;
+}
 
 .bg-btn-pri {
   background: var(--main-color);
