@@ -86,7 +86,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", width: "1250px" }}>
         <RecentActivity />
         <TaskList />
       </div>

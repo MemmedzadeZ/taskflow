@@ -34,17 +34,7 @@ function SignalRHub() {
       connection.stop().then(() => console.log("Connection stopped"));
     };
   }, []);
-
-  return (
-    <div>
-      <h3>Connection Messages:</h3>
-      <ul>
-        {messages.map((msg, index) => (
-          <li key={index}>{msg}</li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <></>;
 }
 
 export default SignalRHub;

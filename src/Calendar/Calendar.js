@@ -29,12 +29,9 @@ const Calendar = () => {
           {/* Main Header */}
           <div className="main-header">
             <div className="d-flex">
-             
               <div className="main-title">Calendar</div>
               {/* <SidebarSearchComponent /> */}
             </div>
-
-            
           </div>
           {/* End Main Header */}
           <div className="calendar-container">

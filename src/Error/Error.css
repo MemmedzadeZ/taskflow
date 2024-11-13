@@ -1,0 +1,82 @@
+.error-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 200vh;
+  text-align: center;
+  background: linear-gradient(120deg, #b8afef, #8473f7, #533de1);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+}
+
+.error-container {
+  z-index: 10;
+  max-width: 400px;
+}
+
+.error-code {
+  font-size: 8rem;
+  margin: 0;
+  font-weight: bold;
+  color: white;
+  animation: shake 1s infinite;
+}
+
+.error-message {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+
+.error-description {
+  margin: 1rem 0 2rem;
+  font-size: 1.1rem;
+  color: #ecf0f1;
+}
+
+.home-link {
+  background: #4a2ff7;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.home-link:hover {
+  background: #ff4757;
+}
+
+.animation-container {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  animation: float 5s infinite;
+}
+
+.floating-image {
+  width: 250px;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

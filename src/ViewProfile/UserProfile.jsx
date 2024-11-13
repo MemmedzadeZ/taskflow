@@ -1,9 +1,40 @@
-import SidebarComponent from "../SideBar/SidebarComponent";
-import CurrentPerson from "../Dashboard/CurrentUser";
 import React from "react";
-
+import SidebarComponent from "../SideBar/SidebarComponent";
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import CurrentPerson from "../Dashboard/CurrentUser";
 
 const UserProfile = () => {
+  const { email } = useParams();
+  const [userProfile, setUserProfile] = useState(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await fetch(
+          `https://localhost:7157/api/Profile/${email}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserProfile(data);
+        } else {
+          console.error("Kullanıcı bilgileri alınamadı.");
+        }
+      } catch (error) {
+        console.error("Hata:", error);
+      }
+    };
+
+    fetchUserProfile();
+  }, [email]); // email değiştiğinde yeniden veri çekilecek
+  console.log(userProfile);
   return (
     <div>
       <div className="sidebar-expand">
