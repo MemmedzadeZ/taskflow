@@ -11,7 +11,7 @@ function EditProfile() {
   });
 
   const [initialProfileData, setInitialProfileData] = useState(null);
-  const [alertMessage, setAlertMessage] = useState(""); // Alert mesajı için state
+  const [alertMessage, setAlertMessage] = useState("");
 
   const fetchData = async () => {
     try {
@@ -54,7 +54,7 @@ function EditProfile() {
       );
 
       if (response.ok) {
-        setAlertMessage("Profil başarıyla güncellendi!");
+        setAlertMessage(" updated successfully!");
         setTimeout(() => setAlertMessage(""), 5000);
         const activityData = {
           text: "Updated profile information",
@@ -73,13 +73,13 @@ function EditProfile() {
           }
         );
       } else {
-        console.error("Profil güncellenemedi");
-        setAlertMessage("Profil güncellenemedi.");
+        console.error("Failed to update profile");
+        setAlertMessage("Failed to update profile.");
         setTimeout(() => setAlertMessage(""), 5000);
       }
     } catch (error) {
-      console.error("Profil güncellenirken hata oluştu:", error);
-      setAlertMessage("Profil güncellenirken hata oluştu.");
+      console.error("Error updating profile:", error);
+      setAlertMessage("Failed to update profile.");
       setTimeout(() => setAlertMessage(""), 5000);
     }
   };

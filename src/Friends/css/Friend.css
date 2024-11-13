@@ -1,0 +1,514 @@
+/* UserProfile.css */
+
+.container {
+  display: flex;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.leftSection {
+  width: 35%;
+  padding: 20px;
+  text-align: center;
+}
+
+.coverImage {
+  width: 100%;
+  height: 120px;
+  background-color: #d3d3d3;
+}
+
+.profileImage {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: -75px auto 10px;
+}
+
+.profileCircle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #333;
+}
+
+.userName {
+  margin: 10px 0 5px;
+}
+
+.userEmail {
+  color: #666;
+}
+
+.personalInfo {
+  text-align: left;
+  margin-top: 20px;
+}
+
+.rightSection {
+  width: 65%;
+  padding: 20px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  background: none;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.activeTab {
+  padding: 10px 20px;
+  background-color: #6852ff;
+  color: #fff;
+  border: 1px solid #6852ff;
+  cursor: pointer;
+}
+
+.form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  resize: vertical;
+  grid-column: span 2;
+}
+
+.buttonGroup {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.notification-settings {
+  padding: 20px;
+}
+
+.custom-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.switch-label {
+  font-weight: 500;
+  color: #666;
+}
+
+.switch-input {
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+}
+.switch-input:checked {
+  background-color: #5cb85c; /* Change this color for the checked state */
+}
+
+/* Optional: Add custom styles for checked state */
+.switch-input:checked::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px; /* Adjust as needed */
+  height: 16px; /* Adjust as needed */
+  background: white;
+  border-radius: 50%;
+}
+
+.DIV {
+  background-color: transparent;
+}
+
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  height: 100%;
+  border-radius: 10px;
+}
+
+body.elkan {
+  font-family: "Arial", sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+/* -------------------- */
+.container {
+  display: flex;
+  gap: 30px;
+  padding: 20px;
+  max-width: 2000px;
+  margin: auto;
+}
+
+.leftSection,
+.rightSection {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+.leftSection {
+  width: 30%;
+}
+
+.rightSection {
+  width: 70%;
+}
+
+.coverImage {
+  background: #cfd8dc;
+  height: 120px;
+  border-radius: 8px 8px 0 0;
+}
+
+.profileImage .profileCircle {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin: -50px auto 10px;
+}
+
+.userName {
+  text-align: center;
+  font-size: 1.4em;
+  color: #333;
+  margin-top: 10px;
+}
+
+.userEmail {
+  text-align: center;
+  font-size: 0.9em;
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.personalInfo {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.personalInfo h3 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  flex: 1;
+  padding: 10px;
+  background: none;
+  border: none;
+  font-weight: bold;
+  color: #555;
+  cursor: pointer;
+}
+
+.tabs .activeTab {
+  color: #333;
+  border-bottom: 3px solid #6852ff;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.formGroup label {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.input,
+.textarea,
+.formGroup select {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.input:focus,
+.textarea:focus,
+.formGroup select:focus {
+  border-color: #6852ff;
+  box-shadow: 0 0 5px #573dff;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.cancelButton {
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid red;
+  color: red;
+  cursor: pointer;
+
+  border-radius: 4px;
+}
+
+.saveButton {
+  padding: 10px 20px;
+  font-size: 0.9em;
+  border-radius: 4px;
+  cursor: pointer;
+  border: none;
+  background-color: #753cf0;
+  color: #fff;
+}
+
+.cancelButton:hover {
+  background-color: red;
+  color: #fff;
+}
+
+.saveButton:hover {
+  background-color: #6852ff;
+}
+/* - */
+
+.leftSection {
+  padding: 20px;
+}
+
+.coverImage {
+  width: 100%;
+  height: 150px;
+  background-color: #f4f4f4;
+  margin-bottom: 20px;
+}
+
+.profileImage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.profileCircle {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.profilePicture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.fileInput {
+  display: none;
+}
+
+.fileInputLabel {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.fileInputLabel span {
+  font-size: 20px;
+}
+
+.userName {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.userEmail {
+  text-align: center;
+  font-size: 16px;
+  color: #555;
+}
+
+.personalInfo {
+  padding: 20px;
+}
+
+.personalInfo p {
+  margin: 10px 0;
+}
+
+.fileUpload {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.fileUpload button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.fileUpload button:hover {
+  background-color: #0056b3;
+}
+/* - */
+.card-body {
+  color: var(--bs-card-color);
+  flex: 1 1 auto;
+  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
+}
+.card {
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.card-title,
+.table th {
+  font-weight: 500;
+}
+.card-title {
+  margin-bottom: var(--bs-card-title-spacer-y);
+}
+.h4,
+h4 {
+  font-size: 1.125rem;
+}
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: inherit;
+  color: var(--bs-heading-color);
+  font-weight: 300;
+  line-height: 1.2;
+  margin-bottom: 8px;
+  margin-top: 0;
+}
+.text-muted {
+  --bs-text-opacity: 1;
+  color: #6c757d !important;
+}
+.card-subtitle,
+.card-text:last-child {
+  margin-bottom: 0;
+}
+.card-subtitle {
+  margin-top: calc(var(--bs-card-title-spacer-y) * -0.5);
+}
+.rtl .ms-auto {
+  margin-left: 0 !important;
+  margin-right: auto;
+}
+.rtl .ms-auto {
+  margin-right: auto !important;
+}
+.mt-3 {
+  margin-top: 1rem !important;
+}
+.rtl .steamline {
+  border-left: 0;
+  border-right: 1px solid #dee2e6;
+  margin-left: 0;
+  margin-right: 20px;
+}
+
+.steamline {
+  border-left: 1px solid #dee2e6;
+  margin-left: 20px;
+  position: relative;
+}
+.mt-5 {
+  margin-top: 3rem !important;
+}
+.steamline .sl-item {
+  border-bottom: 1px solid #dee2e6;
+  margin: 20px 0;
+}
+.rtl .steamline .sl-left {
+  float: right;
+  margin-left: 0;
+  margin-right: -20px;
+}
+
+.steamline .sl-left {
+  border-radius: 100%;
+  color: #fff;
+  float: left;
+  height: 40px;
+  line-height: 40px;
+  margin-left: -20px;
+  margin-right: 15px;
+  text-align: center;
+  width: 40px;
+  z-index: 1;
+}
+.tab-pane.fade-in {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.tab-pane.fade-in.show {
+  opacity: 1;
+}

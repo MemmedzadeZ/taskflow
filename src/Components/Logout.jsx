@@ -8,7 +8,7 @@ function LogoutButton() {
   const handleLogout = async () => {
     try {
       var response = await fetch(
-        "https://localhost:7157/api/Auth/currentUser",
+        "https://localhost:7157/api/Profile/Logout",
 
         {
           method: "GET",

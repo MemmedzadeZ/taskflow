@@ -1,54 +1,50 @@
 import React, { useEffect, useState } from "react";
 import * as signalR from "@microsoft/signalr";
 
-// async function start() {
-//   try {
-//     await connection.start();
-//     console.log("SignalR connected");
-//   } catch (err) {
-//     console.log(err);
-//     // setTimeout(() => {
-//     //   start();
-//     // }, 5000);
-//   }
-// }
-
-// start();
-
-// connection.on("ReceiveConnectInfo", (message) => {
-//   let element = document.querySelector("#status-span");
-// });
-
 function SignalRHub() {
-  const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState([]);
 
   useEffect(() => {
     const connection = new signalR.HubConnectionBuilder()
       .withUrl("https://localhost:7157/connect")
+      .withAutomaticReconnect()
       .configureLogging(signalR.LogLevel.Information)
       .build();
 
-    connection
-      .start()
-      .then(() => {
-        console.log("SignalR connected");
+    const startConnection = async () => {
+      try {
+        await connection.start();
+        console.log("Connection started");
+
         connection.on("ReceiveConnectInfo", (message) => {
-          //
-          setMessage(message);
+          setMessages((prevMessages) => [...prevMessages, message]);
         });
+
         connection.on("DisconnectInfo", (message) => {
-          //DisconnectInfo
-          setMessage(message);
+          setMessages((prevMessages) => [...prevMessages, message]);
         });
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+      } catch (err) {
+        console.error("Error starting connection:", err);
+      }
+    };
+
+    startConnection();
 
     return () => {
-      connection.stop();
+      connection.stop().then(() => console.log("Connection stopped"));
     };
   }, []);
 
-  return <></>;
+  return (
+    <div>
+      <h3>Connection Messages:</h3>
+      <ul>
+        {messages.map((msg, index) => (
+          <li key={index}>{msg}</li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 export default SignalRHub;

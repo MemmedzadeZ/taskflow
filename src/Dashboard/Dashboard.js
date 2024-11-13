@@ -16,9 +16,6 @@ import OccupationPercent from "./OccupationStatistik";
 import AllMessages from "./AllMessagesList";
 import DailyTask from "./DailyTask";
 import "bootstrap/dist/css/bootstrap.min.css";
-import DoughnutChart from "../Chart/DoughnutChart ";
-import { Link } from "react-router-dom";
-import { Dropdown } from "react-bootstrap";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 
 function DashboardTemplate() {
