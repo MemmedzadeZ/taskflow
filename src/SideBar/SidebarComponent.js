@@ -158,7 +158,7 @@ function SidebarComponent() {
 
               <li>
                 <a href="/kanban">
-                  <i className="bx bxs-dashboard"></i>
+                  <i className="bx bxs-component"></i>
                   <span>Kanban</span>
                 </a>
               </li>
@@ -180,20 +180,7 @@ function SidebarComponent() {
                   <span>Message</span>
                 </a>
               </li>
-              <li className="sidebar-submenu">
-                <a href="chart-apex.html" className="sidebar-menu-dropdown">
-                  <i className="bx bxs-component"></i>
-                  <span>Components</span>
-                  <div className="dropdown-icon">
-                    <i className="bx bx-chevron-down"></i>
-                  </div>
-                </a>
-                <ul className="sidebar-menu sidebar-menu-dropdown-content">
-                  <li>
-                    <a href="chart-apex.html"> Apex Charts </a>
-                  </li>
-                </ul>
-              </li>
+
               <li>
                 <a
                   href=" "

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-
 function RecentActivity() {
   const [activities, setActivities] = useState([]);
-
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -14,22 +12,18 @@ function RecentActivity() {
           },
         }
       );
-
       if (!response.ok) {
         throw new Error("Data fetch failed");
       }
-
       const data = await response.json();
       setActivities(data);
     } catch (error) {
       console.error("Error fetching recent activities:", error);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);
-
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getDate().toString().padStart(2, "0")}-${(
@@ -101,5 +95,4 @@ function RecentActivity() {
     </div>
   );
 }
-
 export default RecentActivity;
