@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const OTPInput = ({ length = 4, expectedCode, onMatch }) => {
+const OTPInput = ({ length = 4, onMatch, email }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
   const [error, setError] = useState("");
 
@@ -17,9 +17,21 @@ const OTPInput = ({ length = 4, expectedCode, onMatch }) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const enteredCode = otp.join("");
-    if (enteredCode === expectedCode) {
+
+    var response = await fetch(
+      "https://localhost:7157/api/Profile/verify-code",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ Code: enteredCode, Email: email }),
+      }
+    );
+
+    var data = await response.json();
+
+    if (data.result) {
       setError("");
       onMatch(true);
     } else {

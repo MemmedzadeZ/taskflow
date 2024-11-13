@@ -1,14 +1,14 @@
 import { useState } from "react";
 
 function CreateProjectModel({ closeModal }) {
-  const [projectName, setProjectName] = useState("");
+  const [title, setProjectName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const handleCreateProject = (e) => {
     e.preventDefault();
     const projectData = {
-      projectName,
+      title,
       startDate,
       endDate,
       description,
@@ -41,7 +41,7 @@ function CreateProjectModel({ closeModal }) {
                 type="text"
                 className="form-control"
                 placeholder="Project Name"
-                value={projectName}
+                value={title}
                 onChange={(e) => {
                   setProjectName(e.target.value);
                 }}

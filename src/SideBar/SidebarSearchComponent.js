@@ -20,6 +20,7 @@ const SidebarSearchComponent = () => {
           placeholder="Search users..."
           onChange={handleSearch}
           onFocus={() => setIsFocused(true)}
+          onBlur={() => setTimeout(() => setIsFocused(false), 100)}
         />
         <span className="bx bx-search-alt"></span>
       </div>

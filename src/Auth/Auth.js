@@ -7,6 +7,7 @@ import welcomejson from "../animations/welcome.json";
 import Lottie from "lottie-react";
 import ErrorSpan from "../StyledComponent/ErrorComponents";
 import OTPInput from "./OTP";
+import $ from "jquery";
 
 function Auth() {
   const navigate = useNavigate();
@@ -20,17 +21,17 @@ function Auth() {
   const [username, setUsername] = useState("");
   const [confirmcode, setConfirmcode] = useState("");
   const [step, setStep] = useState(1);
-  const [verificationCode, setVerificationCode] = useState("");
+  // const [verificationCode, setVerificationCode] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
   const handleOtpMatch = (isMatch) => {
     if (isMatch) {
       alert("OTP Verified Successfully!");
+      handleSkipStep();
     } else {
       console.error("OTP did not match.");
     }
-    handleSkipStep();
   };
 
   const handleLoginClick = () => {
@@ -58,12 +59,16 @@ function Auth() {
     e.preventDefault();
     setIsForgotPassword(false);
 
+    if (newPassword !== confirmNewPassword) {
+      $("#new-confirm-password").text("Passwords Should Match!");
+    }
+
     var response = await fetch(
-      "https://localhost:7157/api/Profile/ChangePassword",
+      "https://localhost:7157/api/Profile/reset-password",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newPassword, confirmNewPassword),
+        body: JSON.stringify(email, newPassword),
       }
     );
     var data = await response.json();
@@ -78,23 +83,24 @@ function Auth() {
   const handleEmailCheck = async (e) => {
     e.preventDefault();
     console.log(email);
+    var mail = { email };
     var response = await fetch(
-      "https://localhost:7157/api/Profile/CheckEmail",
+      "https://localhost:7157/api/Profile/ForgotPassword",
       {
-        method: "Post",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(email),
+        body: JSON.stringify({ NameOrEmail: email }),
       }
     );
     var data = await response.json();
-    if (!data.code) {
-      alert(data.message);
-    }
-    console.log(data.code);
 
-    handleSkipStep();
+    if (data.result) {
+      alert(data.message);
+      handleSkipStep();
+    } else alert("Something went wrong. Try again later!");
+    console.log();
   };
 
   return (
@@ -237,10 +243,7 @@ function Auth() {
                     onClick={handleSkipStep}
                   />
                 </div> */}
-                <OTPInput
-                  varificationCode={verificationCode}
-                  onMatch={handleOtpMatch}
-                ></OTPInput>
+                <OTPInput onMatch={handleOtpMatch} email={email}></OTPInput>
               </div>
             )}
 
@@ -267,6 +270,7 @@ function Auth() {
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}
                   />
+                  <ErrorSpan id="new-confirm-password"></ErrorSpan>
                 </div>
                 <div className="field btn">
                   <input

@@ -9,6 +9,9 @@ import PendingProjects from "./ProjectComponents/PendingProjects";
 import OngoingProjects from "./ProjectComponents/OngoingProjects";
 import CreateProjectModel from "./ProjectComponents/CreateProjectModel";
 import DoughnutChart from "../Chart/DoughnutChart ";
+import LinearChart from "../Chart/LinearChart";
+import groupProjectStatistics from "../Chart/ChartDataFunctions";
+import ProjectLinearChart from "./ProjectLinearChart";
 
 const Project = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -201,77 +204,6 @@ const Project = () => {
             </div>
           </div>
 
-          {/* <div className="main">
-            <div className="main-content project">
-              
-              <div className="row">
-                <div className="col-9 col-xl-7 col-md-8 col-sm-12">
-                  <div className="box card-box">
-                    <div className="icon-box bg-color-6 d-block">
-                      <div className="content text-center color-6">
-                        <h5 className="title-box fs-17 font-w500">
-                          Total Project
-                        </h5>
-                        <div className="themesflat-counter fs-18 font-wb">
-                          <span className="number">1225 +</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="icon-box bg-color-7 d-block">
-                      <div className="content text-center color-7">
-                        <h5 className="title-box fs-17 font-w500">
-                          Pending Project
-                        </h5>
-                        <div className="themesflat-counter fs-18 font-wb">
-                          <span className="number">75 +</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="icon-box bg-color-8 d-block">
-                      <div className="content text-center color-8">
-                        <h5 className="title-box fs-17 font-w500">
-                          On Going Project
-                        </h5>
-                        <div className="themesflat-counter fs-18 font-wb">
-                          <span className="number">1225 +</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="icon-box bg-color-9 d-block">
-                      <div className="content text-center color-9">
-                        <h5 className="title-box fs-17 font-w500">
-                          Complete Project
-                        </h5>
-                        <div className="themesflat-counter fs-18 font-wb">
-                          <span className="number">2536 +</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-3 col-xl-5 col-md-4 col-sm-12">
-                  <div className="box h-100 d-flex align-items-center">
-                    <Link
-                      className="create d-flex bg-primary justify-content-center"
-                      to="/new-project"
-                    >
-                      <div className="icon color-white pt-4 pr-8">
-                        <i className="bx bx-plus-circle"></i>
-                      </div>
-                      <div className="content">
-                        <h5 className="color-white">Create New Project</h5>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           <>
             <div className="main">
               <div className="main-content project">
@@ -361,7 +293,6 @@ const Project = () => {
                             <div className="row">
                               <div className="col-12 mb-10">
                                 <div className="mt-0 text-start">
-                                  {" "}
                                   <a
                                     href="project-details.html"
                                     className="box-title mb-0 mt-1 mb-3 font-w600 fs-18"
@@ -828,8 +759,8 @@ const Project = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-6 col-md-12">
-                    {/* CUSTOMERS CHART */}
+                  {/* <div className="col-6 col-md-12">
+                   
                     <div className="box f-height">
                       <div className="box-header d-flex justify-content-between">
                         <h3 className="mt-9 fs-22">Project Statistics</h3>
@@ -848,8 +779,8 @@ const Project = () => {
                         <div id="customer-chart" />
                       </div>
                     </div>
-                    {/* END CUSTOMERS CHART */}
-                  </div>
+                  </div> */}
+                  <ProjectLinearChart></ProjectLinearChart>
                   <div className="col-6 col-md-12">
                     <div className="box">
                       <div className="box-header">
@@ -893,7 +824,7 @@ const Project = () => {
                             </ul>
                           </div>
                           {/* <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0"> */}
-                           <DoughnutChart/>
+                          <DoughnutChart />
                           {/* </div> */}
                         </div>
                       </div>
@@ -1080,7 +1011,6 @@ const Project = () => {
                         </div>
                         <div className="card-options pr-3">
                           <div className="dropdown">
-                            {" "}
                             <a
                               href=" "
                               className="btn ripple btn-outline-light dropdown-toggle fs-12"
@@ -1790,19 +1720,17 @@ const Project = () => {
                               </td>
                               <td>
                                 <div className="d-flex">
-                                  {" "}
                                   <span className="badge badge-success">
                                     Complete
                                   </span>
                                   <div className="mt-1 ms-1">
-                                    {" "}
                                     <span
                                       className="feather feather-info text-danger"
                                       data-bs-toggle="tooltip"
                                       data-bs-placement="top"
                                       title=""
                                       data-bs-original-title="Dealy by 30 days"
-                                    />{" "}
+                                    />
                                   </div>
                                 </div>
                               </td>
@@ -1924,16 +1852,14 @@ const Project = () => {
                         </div>
                         <div className="card-options pr-3">
                           <div className="dropdown">
-                            {" "}
                             <a
                               href=" "
                               className="btn ripple btn-outline-light dropdown-toggle"
                               data-bs-toggle="dropdown"
                               aria-expanded="false"
                             >
-                              {" "}
                               See All{" "}
-                              <i className="feather feather-chevron-down" />{" "}
+                              <i className="feather feather-chevron-down" />
                             </a>
                             <ul
                               className="dropdown-menu dropdown-menu-end"
