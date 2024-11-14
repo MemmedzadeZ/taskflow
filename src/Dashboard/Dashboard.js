@@ -304,7 +304,7 @@ function DashboardTemplate() {
                   </div>
                 </div>
 
-                <div className="col-6 col-sm-12">
+                <div >
                   <div className="box">
                     <div className="box-header pt-0">
                       <div className="me-auto">

@@ -4,7 +4,7 @@
   justify-content: center;
 }
 
-.col-8, .col-md-12 {
+.col-88, .col-md-112 {
   width: 100%;
   max-width: 1200vh;
   padding: 10px;
