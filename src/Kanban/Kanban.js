@@ -301,94 +301,7 @@ const Kanban = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-12">
-                    <div className="box">
-                      <div className="box-header">
-                        <h4 className="box-title">
-                          Here will be full project name
-                        </h4>
-                        <div className="box-right d-flex">
-                          <a className="btn" href="project-details.html">
-                            Project Details
-                          </a>
-                          <div className="icon-ratting">
-                            <i className="bx bxs-star" />
-                          </div>
-                          <div className="dropdown ml-14">
-                            <a
-                              href="javascript:void(0);"
-                              className="btn-link"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              <i className="bx bx-dots-vertical-rounded fs-22" />
-                            </a>
-                            <div className="dropdown-menu dropdown-menu-right">
-                              <a
-                                className="dropdown-item"
-                                href="#"
-                                data-toggle="modal"
-                                data-target="#delete_project"
-                              >
-                                <i className="bx bx-trash" /> Delete
-                              </a>
-                              <a className="dropdown-item" href="#">
-                                <i className="bx bx-edit mr-5" />
-                                Edit
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="divider" />
-                      <div className="box-body d-flex justify-content-between pb-0">
-                        <div className="team-name">
-                          <a href="#" className="team">
-                            <div className="icon">
-                              <i className="fas fa-tags" />
-                            </div>
-                            <h5>Team Name</h5>
-                          </a>
-                        </div>
-                        <div className="action">
-                          <a href="#" className="comment">
-                            32 Comments
-                          </a>
-                          <a href="#" className="edit">
-                            Edit
-                          </a>
-                          <a href="#" className="invite">
-                            <i className="fas fa-user-plus mr-5" />
-                            Invite People
-                          </a>
-                          <a href="#" className="add">
-                            New
-                            <i className="fas fa-caret-down pl-12" />
-                          </a>
-                        </div>
-                        <ul className="user-list s2">
-                          <li>
-                            <img src="./images/avatar/team-1.png" alt="user" />
-                          </li>
-                          <li>
-                            <img src="./images/avatar/team-2.png" alt="user" />
-                          </li>
-                          <li>
-                            <img src="./images/avatar/team-3.png" alt="user" />
-                          </li>
-                          <li>
-                            <img src="./images/avatar/team-4.png" alt="user" />
-                          </li>
-                          <li>
-                            <img src="./images/avatar/team-5.png" alt="user" />
-                          </li>
-                          <li className="total">
-                            <span>+4</span>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
+               
                   <div className="col-12">
                     <div className="kanban-board card mb-0 pd-0">
                       <div className="box-body pd-0">
@@ -1111,7 +1024,7 @@ const Kanban = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>o
             {/* END MAIN CONTENT */}
           </>
         </div>
