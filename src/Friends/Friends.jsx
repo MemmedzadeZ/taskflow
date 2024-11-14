@@ -199,7 +199,7 @@ const Friends = () => {
           <>
             {/* MAIN CONTENT */}
             <div className="main">
-              <div className="main-content message">
+              <div className="main-content">
                 <div className="row">
                   <div className="col-12">
                     <div className="box card-box">

@@ -3,8 +3,8 @@
   display: flex;
   justify-content: center;
 }
-
-.col-8, .col-md-12 {
+.col-88,
+.col-md-112 {
   width: 100%;
   max-width: 1200vh;
   padding: 10px;
@@ -95,7 +95,8 @@
   margin-top: 20px;
 }
 
-.tasks-table th, .tasks-table td {
+.tasks-table th,
+.tasks-table td {
   padding: 12px;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -120,24 +121,30 @@
   margin-right: 8px;
 }
 
-.status-indicator.to-do { background-color: #6852ff; }
-.status-indicator.in-progress { background-color: #ffbf00; }
-.status-indicator.completed { background-color: #4caf50; }
+.status-indicator.to-do {
+  background-color: #6852ff;
+}
+.status-indicator.in-progress {
+  background-color: #ffbf00;
+}
+.status-indicator.completed {
+  background-color: #4caf50;
+}
 
 /* Priority Styling */
 .priority {
   font-weight: bold;
 }
 
-.priority.high-priority {
+.priority.high {
   color: #d32f2f;
 }
 
-.priority.medium-priority {
+.priority.medium {
   color: #f57c00;
 }
 
-.priority.normal-priority {
+.priority.easy {
   color: #388e3c;
 }
 
@@ -165,7 +172,8 @@
 }
 
 /* Action Buttons */
-.edit-button, .delete-button {
+.edit-button,
+.delete-button {
   padding: 6px 12px;
   border: none;
   border-radius: 4px;
