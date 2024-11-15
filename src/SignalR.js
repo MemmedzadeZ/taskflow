@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as signalR from "@microsoft/signalr";
+import { GetAllUsers } from "./HubFunctions/connection";
 
 function SignalRHub() {
   const [messages, setMessages] = useState([]);
@@ -25,6 +26,7 @@ function SignalRHub() {
 
         connection.on("ReceiveConnectInfo", (message) => {
           console.log(message);
+          GetAllUsers();
           setMessages((prevMessages) => [...prevMessages, message]);
         });
 
