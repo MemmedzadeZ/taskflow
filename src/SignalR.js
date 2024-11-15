@@ -5,18 +5,26 @@ function SignalRHub() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      console.error("No JWT token found");
+      return;
+    }
     const connection = new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect")
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
       .withAutomaticReconnect()
       .configureLogging(signalR.LogLevel.Information)
       .build();
-
     const startConnection = async () => {
       try {
         await connection.start();
         console.log("Connection started");
 
         connection.on("ReceiveConnectInfo", (message) => {
+          console.log(message);
           setMessages((prevMessages) => [...prevMessages, message]);
         });
 

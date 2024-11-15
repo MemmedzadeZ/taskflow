@@ -105,8 +105,13 @@ function AllUsers() {
                   alt=""
                 />
                 <div
-                  className="pulse-css"
-                  style={item.isOnline ? null : { backgroundColor: "grey" }}
+                  // className=""
+                  id="online-dot"
+                  style={
+                    item.isOnline
+                      ? { backgroundColor: "green" }
+                      : { backgroundColor: "grey" }
+                  }
                 />
               </div>
               <a href="client-details.html">

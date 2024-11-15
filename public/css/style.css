@@ -1928,6 +1928,14 @@ button#page-header-user-dropdown {
   border-radius: var(--box-border-radius);
 }
 
+.box-current-projects {
+  background-color: var(--box-bg);
+  padding: 25px;
+  box-shadow: var(--shadow2);
+  border-radius: var(--box-border-radius);
+  display: flex;
+}
+
 .counter-title {
   margin-bottom: 20px;
   text-transform: capitalize;
@@ -2401,6 +2409,15 @@ ul.card-list li.custom-label:last-child {
   margin-bottom: 0;
 }
 
+.box-carousel-cp {
+  border-radius: 20px;
+  box-shadow: 0px 0px 50px rgba(42, 89, 152, 0.15);
+  padding-top: 21px !important;
+  padding-left: 17px !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 0;
+}
+
 .dark .box.box-carousel {
   background: #1e1d2b;
 }
@@ -2798,7 +2815,7 @@ button.search i {
 .box.client .img-box .pulse-css {
   left: 79px;
   bottom: 12px;
-  background: #3c21f7;
+  background: green;
   height: 20px;
   width: 20px;
 }

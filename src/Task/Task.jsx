@@ -291,7 +291,7 @@ const Tasks = () => {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-8 col-md-12">
+                  <div className="col-88 col-md-112">
                     <div className="box message-info">
                       {/* /.box-info-messager */}
 
