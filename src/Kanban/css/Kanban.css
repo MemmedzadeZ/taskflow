@@ -1,0 +1,90 @@
+/* Board Layout */
+.board-container {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background-color: #f0f3f7;
+  min-height: 100vh;
+}
+
+/* Column Styling */
+.column {
+  background-color: #ffffff;
+  border-radius: 8px;
+  width: 350px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 10px;
+}
+
+.column-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+/* Task Card */
+.task-card {
+  background-color: #f9fafc;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.task-image-placeholder {
+  background-color: #f0f0f0;
+  height: 100px;
+}
+
+.task-content {
+  padding: 10px;
+}
+
+.task-title {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Progress Bar */
+.progress-barr {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  height: 4px;
+  margin: 5px 0;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 4px;
+}
+
+/* Due Date */
+.due-date {
+  font-size: 0.8rem;
+  color: #777;
+  margin-top: 5px;
+  text-align: right;
+}
+
+/* Add Card Button */
+.add-card-button {
+  background-color: #ffffff;
+  color: #666;
+  font-size: 0.9rem;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+}
+
+.add-card-button:hover {
+  background-color: #f7f7f7;
+}

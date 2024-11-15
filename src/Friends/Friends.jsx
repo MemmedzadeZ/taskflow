@@ -229,7 +229,7 @@ const Friends = () => {
                       <div className="icon-box bg-color-4">
                         <a
                           className="create d-flex"
-                          href=" "
+                          href="/project"
                           data-toggle="modal"
                           data-target="#add_project"
                         >
@@ -243,7 +243,6 @@ const Friends = () => {
                       </div>
                     </div>
                   </div>
-                </div>
                 <div className="rightSection" style={{ width: "100%" }}>
                   <div className="tabs">
                     <button
@@ -269,6 +268,7 @@ const Friends = () => {
 
                   {activeTab === "All Users" && <AllUsers />}
                   {/* Notification Settings */}
+                </div>
                 </div>
 
                 <div

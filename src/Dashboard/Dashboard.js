@@ -204,7 +204,7 @@ function DashboardTemplate() {
                     <div className="icon-box bg-color-4">
                       <a
                         className="create d-flex"
-                        href=" "
+                        href="/project"
                         data-toggle="modal"
                         data-target="#add_project"
                       >

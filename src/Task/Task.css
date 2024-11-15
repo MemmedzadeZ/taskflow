@@ -3,6 +3,7 @@
   display: flex;
   justify-content: center;
 }
+
 .col-88,
 .col-md-112 {
   width: 100%;
@@ -87,6 +88,27 @@
 .status-tab:nth-child(3) {
   background-color: #d4edda; /* Completed */
 }
+
+/* Adjust layout for tablets */
+@media (max-width: 768px) {
+  .col-88,
+  .col-md-112 {
+    max-width: 90%;
+    padding: 1rem;
+  }
+}
+
+/* Adjust layout for mobile */
+@media (max-width: 576px) {
+  .main-title {
+    font-size: 1.5rem;
+  }
+  .create-task-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+}
+
 
 /* Tasks Table */
 .tasks-table {
