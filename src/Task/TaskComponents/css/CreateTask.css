@@ -1,0 +1,116 @@
+/* Background overlay */
+.modal-backgroundd {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal content styling */
+.modal-contentt {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Title */
+.modal-titlee {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+/* Form Group */
+.form-groupp {
+  margin-bottom: 1.5rem;
+}
+
+/* Form Controls */
+.form-control {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+/* Priority tabs */
+.priority-tabss {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.5rem;
+}
+
+.priority-btnn {
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.priority-btnn.high {
+  background-color: #f44336;
+  color: white;
+}
+
+.priority-btnn.medium {
+  background-color: #ff9800;
+  color: white;
+}
+
+.priority-btnn.low {
+  background-color: #4caf50;
+  color: white;
+}
+
+.priority-btnn:hover {
+  opacity: 0.8;
+}
+
+/* Modal buttons */
+.modal-buttonss {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.close-btnn,
+.submit-btnn {
+  padding: 0.5rem 1.2rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.close-btnn {
+  background-color: #f44336;
+  color: white;
+}
+
+.submit-btnn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.close-btnn:hover,
+.submit-btnn:hover {
+  opacity: 0.8;
+}

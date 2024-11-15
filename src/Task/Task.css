@@ -137,15 +137,15 @@
   font-weight: bold;
 }
 
-.priority.high-priority {
+.priority.high {
   color: #d32f2f;
 }
 
-.priority.medium-priority {
+.priority.medium {
   color: #f57c00;
 }
 
-.priority.normal-priority {
+.priority.easy {
   color: #388e3c;
 }
 

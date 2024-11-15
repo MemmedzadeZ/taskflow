@@ -5266,6 +5266,54 @@ fieldset:disabled .btn {
   border-radius: 0.3rem;
   outline: 0;
 }
+
+/* ///////CreateTask */
+.modal-contentt {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 400%; /* Decrease width for smaller modal */
+  max-width: 25%; /* Set max width to make it more compact */
+  pointer-events: auto;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+.roww {
+  --bs-gutter-x: 1rem; /* Reduce horizontal gutter */
+  --bs-gutter-y: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
+}
+
+.coll {
+  flex: 1 0 45%; /* Make each column take less space */
+  margin-right: 10px; /* Add some space between columns */
+}
+
+.form-controll {
+  display: block;
+  width: 100%;
+  padding: 0.25rem 0.5rem; /* Decrease padding */
+  font-size: 0.875rem; /* Smaller font size */
+  font-weight: 400;
+  line-height: 1.3; /* Adjust line height */
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+
 .modal-backdrop {
   position: fixed;
   top: 0;

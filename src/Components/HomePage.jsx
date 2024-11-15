@@ -161,30 +161,38 @@ function HomePage() {
         id="hero-16-us18fEoaR4"
         style={{ position: "relative", overflow: "hidden" }}
       >
-        <div
-          className="mbr-overlay"
-          style={{ opacity: "0.5", backgroundColor: "rgb(0, 0, 0)" }}
-        />
+        {/* Background YouTube Video */}
 
-        <div className="video-background">
+        {/* Overlay for Darkening the Background */}
+        <div
+          className="mbr-overlayy"
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: 0,
+          }}
+        >
           <iframe
-            src="https://www.youtube.com/embed/TYB7YTQXwXY?autoplay=1&loop=1&playlist=TYB7YTQXwXY&t=20&mute=1&playsinline=1&controls=0&showinfo=0&autohide=1&allowfullscreen=true"
+            src="https://www.youtube.com/embed/TYB7YTQXwXY?autoplay=1&loop=1&playlist=TYB7YTQXwXY&mute=1&controls=0&modestbranding=1&rel=0&fs=0&iv_load_policy=3"
             title="background video"
             frameBorder="0"
-            allow="autoplay; fullscreen; mute"
+            allow="autoplay; encrypted-media; fullscreen"
             style={{
-              position: "fixed",
-              top: "0",
-              left: "0",
               width: "100vw",
               height: "100vh",
-              zIndex: "-1",
               pointerEvents: "none",
             }}
           />
         </div>
 
-        <div className="container-fluid">
+        {/* Content in the Foreground */}
+        <div
+          className="container-fluid"
+          style={{ position: "relative", zIndex: 1 }}
+        >
           <div className="row">
             <div className="content-wrap col-12 col-md-12">
               <h1 className="mbr-section-title mbr-fonts-style mbr-white mb-4 display-1">
@@ -203,6 +211,7 @@ function HomePage() {
           </div>
         </div>
       </section>
+
       <section
         data-bs-version="5.1"
         className="article4 cid-us18fEqV2R"
