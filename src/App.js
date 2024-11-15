@@ -29,8 +29,6 @@ function App() {
         <Route path="*" element={<Error />} />
         <Route path="/auth" element={<Auth />} />
 
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<Error />} />
 
         <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<User />} />

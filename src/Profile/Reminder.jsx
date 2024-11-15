@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-function TaskList() {
+function Reminder() {
   const [notifications, setNotifications] = useState([]);
 
   const fetchNotifications = async () => {
     const response = await fetch(
-      "https://localhost:7157/api/Notification/RequestNotification",
+      "https://localhost:7157/api/Notification/CalendarNotifications",
       {
         method: "GET",
         headers: {
@@ -18,67 +18,24 @@ function TaskList() {
     setNotifications(data);
   };
 
-  const handleAccept = async (requestId) => {
-    console.log(`Accepted notification with ID: ${requestId}`);
+  const handleReject = async (id) => {
+    console.log(`Rejected notification with ID: ${id}`);
 
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Notification/AcceptRequestNotification/${requestId}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.ok) {
-        setNotifications((prevTasks) =>
-          prevTasks.filter((task) => task.requestId !== requestId)
-        );
-        alert("Request accepted successfully.");
-        const activityData = {
-          text: "You accepted a request.",
-          type: "Notification",
-        };
-
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
-      } else {
-        alert("Failed to accept request.");
-      }
-    } catch (error) {
-      console.error("Error accepting request:", error);
-      alert("An error occurred while accepting the request.");
-    }
-  };
-
-  const handleReject = async (requestId) => {
-    console.log(`Rejected notification with ID: ${requestId}`);
-
-    try {
-      const response = await fetch(
-        `https://localhost:7157/api/Notification/DeleteRequestNotification/${requestId}`,
+        `https://localhost:7157/api/Notification/DeletedCalendarMessage/${id}`,
         {
           method: "DELETE",
         }
       );
       if (response.ok) {
         setNotifications((prevTasks) =>
-          prevTasks.filter((task) => task.requestId !== requestId)
+          prevTasks.filter((task) => task.id !== id)
         );
         alert("Request deleted successfully.");
         const activityData = {
-          text: "You rejected a request.",
-          type: "Notification",
+          text: "Deleted a calendar reminder",
+          type: "calendar",
         };
 
         await fetch(
@@ -104,6 +61,14 @@ function TaskList() {
   useEffect(() => {
     fetchNotifications();
   }, []);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, "0")}-${(
+      date.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${date.getFullYear()}`;
+  };
 
   return (
     <div className="col-lg-12">
@@ -111,14 +76,14 @@ function TaskList() {
         <div className="card-body">
           <div className="d-md-flex">
             <div>
-              <h4 className="card-title">Your Requests</h4>
+              <h4 className="card-title">Reminders</h4>
             </div>
           </div>
           <div className="table-responsive">
             <table className="table bordered-table mb-0">
               <thead>
                 <tr>
-                  <th scope="col">Users</th>
+                  <th scope="col">Date</th>
                   <th scope="col">Message</th>
                   <th scope="col" className="text-center">
                     Actions
@@ -130,55 +95,16 @@ function TaskList() {
                   <tr key={index}>
                     <td>
                       <div className="d-flex align-items-center">
-                        <img
-                          src={
-                            notification.image
-                              ? notification.image
-                              : "assets/images/users/user1.png"
-                          }
-                          alt=""
-                          className="flex-shrink-0 me-12 radius-8"
-                          style={{
-                            width: "40px",
-                            height: "40px",
-                            borderRadius: "50%",
-                          }}
-                        />
                         <span className="text-lg text-secondary-light fw-semibold flex-grow-1">
-                          {notification.senderName}
+                          {formatDate(notification.date)}
                         </span>
                       </div>
                     </td>
                     <td>{notification.text}</td>
                     <td style={{ display: "flex", justifyContent: "center" }}>
                       <a
-                        className="w-32-px h-32-px me-8 bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center"
-                        onClick={() => handleAccept(notification.requestId)}
-                        style={{ cursor: "pointer" }}
-                      >
-                        <svg
-                          aria-hidden="true"
-                          role="img"
-                          className="iconify iconify--lucide"
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 24 24"
-                        >
-                          <g
-                            fill="none"
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                          >
-                            <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                            <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path>
-                          </g>
-                        </svg>
-                      </a>
-                      <a
                         className="w-32-px h-32-px me-8 bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center"
-                        onClick={() => handleReject(notification.requestId)}
+                        onClick={() => handleReject(notification.id)}
                         style={{ cursor: "pointer" }}
                       >
                         <svg
@@ -210,4 +136,4 @@ function TaskList() {
   );
 }
 
-export default TaskList;
+export default Reminder;

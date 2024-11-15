@@ -1,10 +1,22 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Pagination } from "react-bootstrap";
+import CreateTaskModel from "./TaskComponents/CreateTaskModel";
 
 function UserTasks() {
   const [loading, setLoading] = useState(true);
   const [allTasks, setAllTasks] = useState([]);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const openModel = (taskId) => {
+    console.log(taskId);
+    setSelectedTaskId(taskId);
+    setIsModalOpen(true);
+  };
 
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -79,7 +91,6 @@ function UserTasks() {
   };
 
   const handleDeleteTask = async (taskId, source) => {
-    console.log("Silinecek Görev ID:", taskId); // taskId kontrolü
     try {
       let deleteUrl;
 
@@ -119,16 +130,16 @@ function UserTasks() {
     <>
       <div className="status-tabs">
         <div className="status-tab" onClick={() => setStatusFilter("to do")}>
-          To Do
+          to do
         </div>
         <div
           className="status-tab"
           onClick={() => setStatusFilter("in progress")}
         >
-          In Progress
+          in progress
         </div>
         <div className="status-tab" onClick={() => setStatusFilter("done")}>
-          Completed
+          completed
         </div>
         <div className="status-tab" onClick={() => setStatusFilter("All")}>
           All
@@ -162,10 +173,17 @@ function UserTasks() {
                 )}
               </td>
               <td>
-                <button className="edit-button">Edit</button>
+                <button className="edit-button" onClick={openModel}>
+                  Edit
+                </button>
                 <button
                   className="delete-button"
                   onClick={() => handleDeleteTask(task.id, task.source)}
+                  disabled={task.source !== "user"}
+                  style={{
+                    opacity: task.source !== "user" ? 0.5 : 1,
+                    cursor: task.source !== "user" ? "not-allowed" : "pointer",
+                  }}
                 >
                   Delete
                 </button>
@@ -174,6 +192,9 @@ function UserTasks() {
           ))}
         </tbody>
       </table>
+      {isModalOpen && (
+        <CreateTaskModel closeModal={closeModal} id={selectedTaskId} />
+      )}
 
       <Pagination
         className="mt-3"

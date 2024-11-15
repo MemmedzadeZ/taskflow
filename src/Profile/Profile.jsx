@@ -7,6 +7,7 @@ import ChangePassword from "./ChangePassword";
 import NotificationSetting from "./NotificationSetting";
 import RecentActivity from "./RecentActivity";
 import TaskList from "./TaskList";
+import Reminder from "./Reminder";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({});
@@ -88,7 +89,10 @@ const Profile = () => {
       </div>
       <div style={{ display: "flex", width: "1250px" }}>
         <RecentActivity />
-        <TaskList />
+        <div style={{ display: "flex", flexDirection: "column", width: "85%" }}>
+          <TaskList />
+          <Reminder />
+        </div>
       </div>
     </>
   );
