@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
+
 function EditProfile() {
+  const [path, setPath] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [profileData, setProfileData] = useState({
     fullname: null,
     phone: null,
@@ -9,7 +14,6 @@ function EditProfile() {
     gender: null,
     birthday: null,
   });
-
   const [initialProfileData, setInitialProfileData] = useState(null);
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -28,12 +32,55 @@ function EditProfile() {
       if (response.ok) {
         const data = await response.json();
         setProfileData(data);
-        setInitialProfileData(data); // Store the initial profile data
+        setInitialProfileData(data);
+        setPath(data.image);
       } else {
         console.error("Failed to fetch profile data");
       }
     } catch (error) {
       console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setSelectedFile(file);
+      setPath(URL.createObjectURL(file)); // Select the image preview
+    }
+  };
+
+  const handleFileUpload = async () => {
+    if (!selectedFile) {
+      alert("Lütfen bir dosya seçin.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+
+    try {
+      const response = await fetch(
+        "https://localhost:7157/api/Profile/EditedProfileImage",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setPath(data.image); // Update the profile image path
+        alert("Profile image updated successfully.");
+      } else {
+        alert("Update profile image failed.");
+      }
+    } catch (error) {
+      console.error("Error uploading file: ", error);
+      alert("Upload failed. Please try again later.");
     }
   };
 
@@ -49,15 +96,15 @@ function EditProfile() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(profileData), // JSON formatında gönder
+          body: JSON.stringify(profileData),
         }
       );
 
       if (response.ok) {
-        setAlertMessage(" updated successfully!");
+        setAlertMessage("Profile updated successfully!");
         setTimeout(() => setAlertMessage(""), 5000);
         const activityData = {
-          text: "Updated profile information",
+          text: "Profile updated",
           type: "Profile",
         };
 
@@ -107,7 +154,7 @@ function EditProfile() {
 
   const handleCancel = () => {
     if (initialProfileData) {
-      setProfileData(initialProfileData); //reset profile data to initial state
+      setProfileData(initialProfileData);
     }
   };
 
@@ -132,6 +179,38 @@ function EditProfile() {
       )}
 
       <form className="form" onSubmit={handleEditProfile}>
+        <div className="mb-24 mt-16">
+          <div className="avatar-upload">
+            <div className="avatar-preview">
+              <div
+                id="imagePreview"
+                style={{
+                  backgroundImage: path
+                    ? `url('${path}')`
+                    : "url('https://shorturl.at/jh9kV')",
+                }}
+              ></div>
+            </div>
+            <div className="avatar-edit">
+              <input
+                type="file"
+                id="imageUpload"
+                accept=".png, .jpg, .jpeg"
+                hidden
+                onChange={handleFileSelect}
+              />
+              <button
+                type="button"
+                onClick={() => document.getElementById("imageUpload").click()}
+                className="camera-icon"
+                style={{ backgroundColor: "transparent", border: "none" }}
+              >
+                <FontAwesomeIcon icon={faCamera} />
+              </button>
+            </div>
+          </div>
+        </div>
+
         <div className="formGroup">
           <label>Full Name*</label>
           <input
@@ -210,21 +289,22 @@ function EditProfile() {
           </select>
         </div>
         <div className="formGroup">
-          <label>Birthday</label>
+          <label>Birthday*</label>
           <input
             type="date"
             name="birthday"
-            className="input"
             value={profileData.birthday || ""}
+            className="input"
             onChange={handleDateChange}
           />
         </div>
+
         <div className="buttonGroup">
-          <button type="button" className="cancelButton" onClick={handleCancel}>
-            Cancel
-          </button>
           <button type="submit" className="saveButton">
             Save
+          </button>
+          <button type="button" onClick={handleCancel} className="cancelButton">
+            Cancel
           </button>
         </div>
       </form>

@@ -5,23 +5,34 @@ export default function DailyTask() {
 
   const fetchMessages = async () => {
     console.log("Fetching daily tasks...");
+
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Work/DailyTask",
-        {
+      const [projectTasksResponse, userTasksResponse] = await Promise.all([
+        fetch("https://localhost:7157/api/Work/DailyTask", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-        }
-      );
+        }),
+        fetch(" https://localhost:7157/api/UserTask/DailyTask", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }),
+      ]);
 
-      if (!response.ok) {
-        throw new Error("Failed to fetch tasks");
+      if (projectTasksResponse.ok && userTasksResponse.ok) {
+        const projectTasks = await projectTasksResponse.json();
+        const userTasks = await userTasksResponse.json();
+        const combinedTasks = [
+          ...projectTasks.map((task) => ({ ...task, source: "project" })),
+          ...userTasks.map((task) => ({ ...task, source: "user" })),
+        ];
+        setItems(combinedTasks);
+      } else {
+        console.error("Error fetching tasks");
       }
-
-      const data = await response.json();
-      setItems(data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }

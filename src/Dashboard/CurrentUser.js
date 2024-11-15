@@ -27,7 +27,7 @@ function CurrentPerson() {
 
     setUsername(data.username);
     setEmail(data.email);
-    setPath(data.path);
+    setPath(data.image);
   };
 
   useEffect(() => {
