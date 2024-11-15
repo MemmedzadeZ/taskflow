@@ -46,7 +46,7 @@ export default function DailyTask() {
       title: "No tasks for this hour",
       startTime: new Date(),
       deadline: new Date(),
-      color: "#6c757d",
+      color: "#ed8030",
     },
   ];
 
