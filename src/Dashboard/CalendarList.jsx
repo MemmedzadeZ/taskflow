@@ -45,7 +45,7 @@ function TwoCalendarNotification() {
               </div>
               <div className="info">
                 <a href=" " className="font-w600 mb-0 color-primary">
-                  {item.username}
+                  TaskFlow
                 </a>
                 <p className="pb-0 mb-0 line-h14 mt-6">{item.text}</p>
               </div>

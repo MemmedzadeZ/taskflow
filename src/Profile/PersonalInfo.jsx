@@ -10,8 +10,6 @@ function PersonalInfo() {
   const [country, setCountry] = useState(null);
   const [gender, setGender] = useState(null);
   const [birthday, setBirthday] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [imagePreview, setImagePreview] = useState(null);
 
   const fetchData = async () => {
     var response = await fetch("https://localhost:7157/api/Auth/currentUser", {
@@ -28,10 +26,9 @@ function PersonalInfo() {
     setOccupation(data.occupation);
     setGender(data.gender);
     setEmail(data.email);
-    setPath(data.path);
+    setPath(data.image);
     setCountry(data.country);
 
-    // Format the birthday if it's available
     if (data.birthday) {
       const date = new Date(data.birthday);
       const formattedDate = `${date.getDate().toString().padStart(2, "0")}/${(
@@ -47,75 +44,16 @@ function PersonalInfo() {
     fetchData();
   }, []);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-
-    // Create a preview URL for the selected file
-    const previewUrl = URL.createObjectURL(file);
-    setImagePreview(previewUrl);
-  };
-
-  const handleFileUpload = async () => {
-    if (!selectedFile) {
-      alert("Lütfen bir dosya seçin.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-
-    try {
-      const response = await fetch(
-        "https://localhost:7157/api/Profile/EditedProfileImage",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData, // Use the formData object with the file
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setPath(data.path); // Update the profile image path
-        alert("Update profile image successful.");
-      } else {
-        alert("Update profile image failed.");
-      }
-    } catch (error) {
-      console.error("Error uploading file: ", error);
-      alert("Upload failed. Please try again later.");
-    }
-  };
-
-  useEffect(() => {
-    if (selectedFile) {
-      handleFileUpload(); // Start upload when file is selected
-    }
-  }, [selectedFile]);
-
   return (
     <div className="leftSection">
       <div className="coverImage"></div>
       <div className="profileImage">
-        {imagePreview ? (
-          <img src={imagePreview} alt="Profile" className="profilePicture" /> // Display selected file preview
-        ) : path ? (
-          <img src={path} alt="Profile" className="profilePicture" /> // Display the current profile image from path
+        {path ? (
+          <img src={path} alt="Profile" className="profilePicture" />
         ) : (
           <div className="profileCircle">
-            <input
-              type="file"
-              id="fileInput"
-              className="fileInput"
-              onChange={handleFileChange}
-              // style={{ display: "none" }} // Hide the file input
-            />
-            <label htmlFor="fileInput" className="fileInputLabel">
-              <span>+</span>
-            </label>
+            <span>No image available</span>{" "}
+            {/* Eğer resim yoksa burası görünecek */}
           </div>
         )}
       </div>
