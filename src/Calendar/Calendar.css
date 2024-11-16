@@ -1,6 +1,6 @@
 /* CalendarComponent.css */
-.calendar-container {
-  width: 70vh;
+.calendar-containerr {
+  width: 100vh;
   margin: auto;
   padding: 20px;
   background-color: #f4f5f7;
@@ -8,41 +8,26 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.fc-toolbar {
+.fc-toolbarr {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
 }
 
-.fc-button {
-  background-color: #6852ff;
-  border: none;
-  color: #fff;
-  border-radius: 5px;
-  padding: 5px 10px;
-}
 
-.fc-button:hover {
+.fc-buttonn:hover {
   background-color: #4a42cc;
 }
 
-.fc-daygrid-day {
-  border: 1px solid #ddd;
-}
 
-.fc-daygrid-event {
-  background-color: #5078f0;
-  color: white;
-  border-radius: 4px;
-  padding: 2px 4px;
-}
 
-.fc .fc-daygrid-day-number {
+
+.fc .fc-daygrid-dayy-number {
   color: #333;
 }
 
-.fc-toolbar-title {
+.fc-toolbarr-titlee {
   font-size: 1.25rem;
   font-weight: bold;
 }

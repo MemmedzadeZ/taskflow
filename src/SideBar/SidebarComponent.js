@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 
 function SidebarComponent() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [activeMenuItem, setActiveMenuItem] = useState("dashboard"); // Default active item
   const themeCookieName = "theme";
   const themeDark = "dark";
   const themeLight = "light";
@@ -58,6 +59,10 @@ function SidebarComponent() {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
+  const handleMenuClick = (menuItem) => {
+    setActiveMenuItem(menuItem);
+  };
+
   return (
     <>
       <Helmet>
@@ -93,7 +98,7 @@ function SidebarComponent() {
       {/* Sidebar */}
       <div className={`sidebar ${isSidebarOpen ? "active" : ""}`}>
         <div className="sidebar-logo">
-          <a>
+          <a href="/">
             <h1 className="classH1">TaskFlow</h1>
           </a>
           <div
@@ -106,55 +111,95 @@ function SidebarComponent() {
         </div>
         <div className="simplebar-sc" data-simplebar>
           <ul className="sidebar-menu tf">
-            <li className="sidebar-submenu">
-              <a href="/dashboard" className="sidebar-menu-dropdown">
+            <li
+              className={`sidebar-submenu ${activeMenuItem === "dashboard" ? "active" : ""}`}
+            >
+              <a
+                href="/dashboard"
+                className="sidebar-menu-dropdown"
+                onClick={() => handleMenuClick("dashboard")}
+              >
                 <i className="bx bxs-home"></i>
                 <span>Board</span>
-               
               </a>
             </li>
-            <li className="sidebar-submenu">
-              <a href="/project" className="sidebar-menu-dropdown">
+            <li
+              className={`sidebar-submenu ${activeMenuItem === "project" ? "active" : ""}`}
+            >
+              <a
+                href="/project"
+                className="sidebar-menu-dropdown"
+                onClick={() => handleMenuClick("project")}
+              >
                 <i className="bx bxs-bolt"></i>
                 <span>Project</span>
-               
               </a>
             </li>
-            <li className="sidebar-submenu">
-              <a href="/friends" className="sidebar-menu-dropdown">
+            <li
+              className={`sidebar-submenu ${activeMenuItem === "friends" ? "active" : ""}`}
+            >
+              <a
+                href="/friends"
+                className="sidebar-menu-dropdown"
+                onClick={() => handleMenuClick("friends")}
+              >
                 <i className="bx bxs-user"></i>
                 <span>Friends</span>
               </a>
             </li>
-            <li className="sidebar-submenu">
-              <a href="/kanban" className="sidebar-menu-dropdown">
+            <li
+              className={`sidebar-submenu ${activeMenuItem === "kanban" ? "active" : ""}`}
+            >
+              <a
+                href="/kanban"
+                className="sidebar-menu-dropdown"
+                onClick={() => handleMenuClick("kanban")}
+              >
                 <i className="bx bxs-component"></i>
                 <span>Kanban</span>
               </a>
             </li>
-            <li className="sidebar-submenu">
-              <a href="/tasks" className="sidebar-menu-dropdown">
+            <li
+              className={`sidebar-submenu ${activeMenuItem === "tasks" ? "active" : ""}`}
+            >
+              <a
+                href="/tasks"
+                className="sidebar-menu-dropdown"
+                onClick={() => handleMenuClick("tasks")}
+              >
                 <i className="bx bxs-dashboard"></i>
                 <span>Task</span>
               </a>
             </li>
-            <li className="sidebar-submenu">
-              <a href="/calendar" className="sidebar-menu-dropdown">
+            <li
+              className={`sidebar-submenu ${activeMenuItem === "calendar" ? "active" : ""}`}
+            >
+              <a
+                href="/calendar"
+                className="sidebar-menu-dropdown"
+                onClick={() => handleMenuClick("calendar")}
+              >
                 <i className="bx bx-calendar"></i>
                 <span>Calendar</span>
               </a>
             </li>
-            <li className="sidebar-submenu">
-              <a href="/message" className="sidebar-menu-dropdown">
+            <li
+              className={`sidebar-submenu ${activeMenuItem === "message" ? "active" : ""}`}
+            >
+              <a
+                href="/message"
+                className="sidebar-menu-dropdown"
+                onClick={() => handleMenuClick("message")}
+              >
                 <i className="bx bxs-message-rounded-detail"></i>
                 <span>Message</span>
               </a>
             </li>
             <li>
-              <a href=" " className="darkmode-toggle" onClick={switchTheme}>
+              <a href="#" className="darkmode-toggle" onClick={switchTheme}>
                 <div>
                   <i className="bx bx-cog mr-10"></i>
-                  <span>darkmode</span>
+                  <span>Darkmode</span>
                 </div>
                 <span className="darkmode-switch"></span>
               </a>
