@@ -40,6 +40,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/kanban" element={<Kanban />} />
+        <Route path="/kanban/:projectId" element={<Kanban />} />
 
         <Route path="/viewProfile/:email" element={<UserProfile />} />
       </Routes>

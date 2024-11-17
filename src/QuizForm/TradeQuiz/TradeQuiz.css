@@ -1,15 +1,8 @@
-.quiz-form {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: #f8f9fa; /* Arxa fonun rəngi */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
 
 h2 {
   text-align: center;
-  color: #333;
+  color: #6852ff;
+  font-size: 30px;
   margin-bottom: 20px;
 }
 
@@ -24,7 +17,7 @@ h2 {
   align-items: center;
   background-color: #ffffff;
   border: 1px solid #dee2e6;
-  border-radius: 5px;
+  border-radius: 40px;
   padding: 10px;
   cursor: pointer;
   transition: background-color 0.2s, border-color 0.2s;

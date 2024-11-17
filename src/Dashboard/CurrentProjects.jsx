@@ -2,10 +2,10 @@ import "../Dashboard/Dashboard.css";
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { useNavigate } from "react-router-dom";
 function CurrentProjects() {
   const [projects, setProjects] = useState([]);
-
+  const navigate = useNavigate();
   const fetchData = async () => {
     try {
       console.log("Fetching project data");
@@ -32,6 +32,10 @@ function CurrentProjects() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  const goToProjectKanban = (projectId) => {
+    navigate(`/kanban/${projectId}`);
+  };
 
   return (
     <div className="col-12">
@@ -66,7 +70,7 @@ function CurrentProjects() {
                           {project.title.charAt(0).toUpperCase()}
                         </h5>
                         <a
-                          href="project-details.html"
+                          onClick={() => goToProjectKanban(project.id)}
                           className="h5 t-title ms-2"
                         >
                           {project.title}
@@ -138,11 +142,6 @@ function CurrentProjects() {
                           <li>
                             <a href=" ">
                               <i className="bx bx-calendar"></i>
-                            </a>
-                          </li>
-                          <li>
-                            <a href=" ">
-                              <i className="bx bxs-star"></i>
                             </a>
                           </li>
                         </ul>

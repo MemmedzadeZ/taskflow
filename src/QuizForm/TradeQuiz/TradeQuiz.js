@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import "./TradeQuiz.css"; // CSS faylını əlavə et
 import { useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import tradejson from "../../animations/tradequiz.json";
+
 
 function TradeQuiz() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -34,34 +37,39 @@ function TradeQuiz() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="quiz-form">
-      <h2>Which field are you currently working in?</h2>
-      <div className="options-grid">
-        {[
-          "Programming",
-          "Marketing",
-          "Accounting",
-          "Education",
-          "Other (please specify)",
-        ].map((option) => (
-          <label key={option} className="option-label">
-            <input
-              type="radio"
-              value={option}
-              checked={selectedOption === option}
-              onChange={handleOptionChange}
-            />
-            {option}
-          </label>
-        ))}
+    <div className="quiz-container">
+      <form onSubmit={handleSubmit} className="quiz-form">
+        <h2>Which field are you currently working in?</h2>
+        <div className="options-grid">
+          {[
+            "Programming",
+            "Marketing",
+            "Accounting",
+            "Education",
+            "Other (please specify)",
+          ].map((option) => (
+            <label key={option} className="option-label">
+              <input
+                type="radio"
+                value={option}
+                checked={selectedOption === option}
+                onChange={handleOptionChange}
+              />
+              {option}
+            </label>
+          ))}
+        </div>
+
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+        <button type="submit" className="submit-button">
+          Submit
+        </button>
+      </form>
+      <div className="lottie-welcomee">
+        <Lottie animationData={tradejson} loop={true} />
       </div>
-
-      {errorMessage && <p className="error-message">{errorMessage}</p>}
-
-      <button type="submit" className="btn btn-primary">
-        Submit
-      </button>
-    </form>
+    </div>
   );
 }
 

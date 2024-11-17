@@ -57,7 +57,6 @@ function Auth() {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-
     if (newPassword !== confirmNewPassword) {
       $("#new-confirm-password").text("Passwords Should Match!");
     }
@@ -65,7 +64,6 @@ function Auth() {
       email: email,
       newPassword: newPassword,
     };
-
     var response = await fetch(
       "https://localhost:7157/api/Profile/reset-password",
       {

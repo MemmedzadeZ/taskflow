@@ -50,44 +50,36 @@ function EditProfile() {
     }
   };
 
-  const handleFileUpload = async () => {
-    if (!selectedFile) {
-      alert("Lütfen bir dosya seçin.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-
-    try {
-      const response = await fetch(
-        "https://localhost:7157/api/Profile/EditedProfileImage",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData,
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setPath(data.image); // Update the profile image path
-        alert("Profile image updated successfully.");
-      } else {
-        alert("Update profile image failed.");
-      }
-    } catch (error) {
-      console.error("Error uploading file: ", error);
-      alert("Upload failed. Please try again later.");
-    }
-  };
-
   const handleEditProfile = async (e) => {
     e.preventDefault();
 
     try {
+      // Eğer bir dosya seçilmişse önce resmi yükle
+      if (selectedFile) {
+        const formData = new FormData();
+        formData.append("file", selectedFile);
+
+        const uploadResponse = await fetch(
+          "https://localhost:7157/api/Profile/EditedProfileImage",
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: formData,
+          }
+        );
+
+        if (uploadResponse.ok) {
+          const uploadData = await uploadResponse.json();
+          setPath(uploadData.image); // Yeni resmi güncelle
+        } else {
+          alert("Resim yükleme başarısız oldu.");
+          return; // Eğer yükleme başarısız olursa profil düzenleme işlemini durdur
+        }
+      }
+
+      // Profil düzenleme işlemini devam ettir
       const response = await fetch(
         "https://localhost:7157/api/Profile/EditedProfile",
         {
@@ -101,10 +93,12 @@ function EditProfile() {
       );
 
       if (response.ok) {
-        setAlertMessage("Profile updated successfully!");
+        setAlertMessage("Profil başarıyla güncellendi!");
         setTimeout(() => setAlertMessage(""), 5000);
+
+        // Aktivite bildirimini gönder
         const activityData = {
-          text: "Profile updated",
+          text: "Profil güncellendi",
           type: "Profile",
         };
 
@@ -120,13 +114,13 @@ function EditProfile() {
           }
         );
       } else {
-        console.error("Failed to update profile");
-        setAlertMessage("Failed to update profile.");
+        console.error("Profil güncelleme başarısız oldu.");
+        setAlertMessage("Profil güncelleme başarısız oldu.");
         setTimeout(() => setAlertMessage(""), 5000);
       }
     } catch (error) {
-      console.error("Error updating profile:", error);
-      setAlertMessage("Failed to update profile.");
+      console.error("Profil güncelleme sırasında hata oluştu:", error);
+      setAlertMessage("Profil güncelleme başarısız oldu.");
       setTimeout(() => setAlertMessage(""), 5000);
     }
   };

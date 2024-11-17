@@ -1,12 +1,26 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { GetAllUsers } from "../HubFunctions/connection";
-
 function AllUsers() {
   const [friends, setFriends] = useState([]);
   const [followStatus, setFollowStatus] = useState({}); // Store follow request status by email
   const navigate = useNavigate();
-  const fetchFriends = async () => {};
+  const fetchFriends = async () => {
+    try {
+      const response = await fetch(
+        "https://localhost:7157/api/Friend/AllUser",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      const data = await response.json();
+      setFriends(data);
+    } catch (error) {
+      console.error("Error fetching friend list:", error);
+    }
+  };
 
   const handleFollow = async (friendEmail) => {
     console.log(friendEmail);
@@ -71,7 +85,7 @@ function AllUsers() {
     navigate(`/viewProfile/${friendEmail}`);
   };
   useEffect(() => {
-    GetAllUsers();
+    fetchFriends();
   }, []);
 
   return (
