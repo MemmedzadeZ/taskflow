@@ -98,6 +98,13 @@ onClick={() => goToUserProfile(item.friendEmail)}
 > */
 }
 export async function GetAllUsers() {
+  console.log("in getall");
+  if (window.location.pathname !== "/friends") {
+    console.log("in first if getall");
+    return;
+  }
+  console.log("out first if getall");
+
   const response = await fetch("https://localhost:7157/api/Friend/AllUser", {
     method: "GET",
     headers: {
@@ -119,7 +126,7 @@ export async function GetAllUsers() {
       ? "background: springgreen"
       : "background: red";
     let subContent = `
-        <button class="btn btn-outline-primary" onclick="SendFollow('${data[i].id}')">Follow</button>
+        <button class="btn btn-outline-primary" style="border:solid 2px lightblue" onclick="SendFollow('${data[i].id}')">Follow</button>
       `;
 
     content += `
@@ -155,8 +162,15 @@ export async function GetAllUsers() {
               ${data[i].friendEmail}
             </li>
           </ul>
-          <div class="group-btn d-flex justify-content-between">
+          <div class="group-btn d-flex justify-content-between" style="display:flex">
             ${subContent}
+              <a
+                  class="bg-btn-sec color-main"
+                  style="background-color:lightblue"
+                  onClick="goToUserProfile(${data[i].friendEmail})"
+                >
+                  View Profile
+                </a>
           </div>
         </div>
       `;

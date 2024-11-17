@@ -22,13 +22,10 @@ import Calendar from "./Calendar/Calendar";
 function App() {
   return (
     <div>
-      <SignalRHub />
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="*" element={<Error />} />
         <Route path="/auth" element={<Auth />} />
-
 
         <Route path="/about" element={<AboutPage />} />
         <Route path="/user" element={<User />} />

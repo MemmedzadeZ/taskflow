@@ -1,12 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Notifier from "../../Error/Notifier";
+import "../css/ProjectStyles.css";
+
+import $, { data } from "jquery";
+import { SearchMember } from "../SearchMember";
 
 function CreateProjectModel({ closeModal }) {
   const [title, setProjectName] = useState("");
+  const [progressText, setProgressText] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const handleCreateProject = (e) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const handleMembers = async (e) => {
+    if (e.target.value.trim()) {
+      await SearchMember(e, e.target.value);
+    } else $("#searched-members").remove();
+  };
+
+  const handleCreateProject = async (e) => {
     e.preventDefault();
+    setProgressText(null);
     const projectData = {
       title,
       startDate,
@@ -28,7 +42,7 @@ function CreateProjectModel({ closeModal }) {
           text: "New Project Created",
           type: "Project",
         };
-
+        setProgressText("Project Created!");
         fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
           method: "POST",
           headers: {
@@ -37,12 +51,94 @@ function CreateProjectModel({ closeModal }) {
           },
           body: JSON.stringify(activityData),
         });
+        handleMemberAdding();
       }
     });
+    // setTimeout(() => {}, 1000);
   };
+  const handleMemberAdding = async () => {
+    try {
+      console.log("Inside member handler");
+      const container = document.getElementById("team-member-box");
+
+      // Extract usernames from the DOM
+      const usernames = Array.from(
+        container.querySelectorAll(".selected-tm")
+      ).map((div) => div.textContent.trim());
+
+      // Ensure the title variable is defined correctly
+      if (!title) {
+        console.error("Title is undefined or empty.");
+        return;
+      }
+      var newTitle = title.trim();
+
+      // Fetch project ID by title
+      const projectResponse = await fetch(
+        "https://localhost:7157/api/Project/ProjectWithTitle",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(newTitle),
+        }
+      );
+
+      if (!projectResponse.ok) {
+        console.error(
+          "Failed to fetch project ID:",
+          projectResponse.statusText
+        );
+        return;
+      }
+
+      const projectData = await projectResponse.json();
+      const projectId = projectData.id;
+
+      if (!projectId) {
+        console.error("Project ID not found.");
+        return;
+      }
+
+      // Payload with project ID and usernames
+      const payload = {
+        projectId,
+        Members: usernames,
+      };
+
+      // Add team members to the project
+      const response = await fetch(
+        "https://localhost:7157/api/TeamMember/TeamMemberCollections",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      if (response.ok) {
+        const text = await response.json();
+        setProgressText(text.message);
+      } else {
+        console.error("Failed to add team members:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error in handleMemberAdding:", error);
+    }
+  };
+
+  useEffect(() => {
+    setProgressText(null);
+  }, []);
+
   return (
-    <div className="modal-background">
-      <div className="modal-content">
+    <div className="modal-backgroundd">
+      {progressText !== null && <Notifier message={progressText}></Notifier>}
+      <div className="modal-content-project">
         <form onSubmit={(e) => handleCreateProject(e)}>
           <h2>Create Project</h2>
 
@@ -61,10 +157,11 @@ function CreateProjectModel({ closeModal }) {
               />
             </div>
             <div className="col">
-              <label>Client:</label>
+              <label>Priority:</label>
               <select className="form-control">
-                <option>Client 1</option>
-                <option>Client 2</option>
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
               </select>
             </div>
           </div>
@@ -96,22 +193,6 @@ function CreateProjectModel({ closeModal }) {
             </div>
           </div>
 
-          {/* Rate and Priority */}
-          <div className="row">
-            <div className="col">
-              <label>Rate:</label>
-              <input type="text" className="form-control" placeholder="$50" />
-            </div>
-            <div className="col">
-              <label>Priority:</label>
-              <select className="form-control">
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
-              </select>
-            </div>
-          </div>
-
           {/* Description */}
           <div className="form-group">
             <label>Description:</label>
@@ -126,10 +207,28 @@ function CreateProjectModel({ closeModal }) {
             ></textarea>
           </div>
 
-          {/* File Upload */}
-          <div className="form-group">
-            <label>Upload Files:</label>
-            <input type="file" className="form-control-file" />
+          {/* Search and Team Members */}
+          <div style={{ display: "flex" }}>
+            <div
+              className="app-search d-none d-lg-block"
+              style={{ width: "45%", position: "relative" }}
+              id="member-search-container"
+            >
+              <div className="position-relative">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Search users..."
+                  onChange={handleMembers}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => setTimeout(() => setIsFocused(false), 100)}
+                />
+              </div>
+            </div>
+            <div
+              id="team-member-box"
+              style={{ border: "1px solid gray", width: "45%" }}
+            ></div>
           </div>
 
           {/* Modal Buttons */}
@@ -146,4 +245,5 @@ function CreateProjectModel({ closeModal }) {
     </div>
   );
 }
+
 export default CreateProjectModel;

@@ -57,18 +57,21 @@ function Auth() {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    setIsForgotPassword(false);
 
     if (newPassword !== confirmNewPassword) {
       $("#new-confirm-password").text("Passwords Should Match!");
     }
+    const payload = {
+      email: email,
+      newPassword: newPassword,
+    };
 
     var response = await fetch(
       "https://localhost:7157/api/Profile/reset-password",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(email, newPassword),
+        body: JSON.stringify(payload),
       }
     );
     var data = await response.json();
@@ -77,11 +80,14 @@ function Auth() {
     } else {
       alert(data.message);
     }
+    setIsForgotPassword(false);
     setIsLogin(true);
   };
 
   const handleEmailCheck = async (e) => {
     e.preventDefault();
+    document.getElementById("email-input-fp").disabled = true;
+
     console.log(email);
     var mail = { email };
     var response = await fetch(
@@ -99,7 +105,10 @@ function Auth() {
     if (data.result) {
       alert(data.message);
       handleSkipStep();
-    } else alert("Something went wrong. Try again later!");
+    } else {
+      alert("Something went wrong. Try again later!");
+      document.getElementById("email-input-fp").disabled = false;
+    }
     console.log();
   };
 
@@ -178,7 +187,12 @@ function Auth() {
                   />
                 </div>
                 <div className="pass-link">
-                  <a onClick={handleForgotPasswordClick}>Forgot password?</a>
+                  <a
+                    onClick={handleForgotPasswordClick}
+                    style={{ cursor: "pointer" }}
+                  >
+                    Forgot password?
+                  </a>
                 </div>
                 <div className="field btn">
                   <input
@@ -212,9 +226,10 @@ function Auth() {
                 </div>
                 <div className="field btn">
                   <input
+                    id="email-input-fp"
                     className="btn btn-primary"
                     type="submit"
-                    value="Skip"
+                    value="Next"
                   />
                 </div>
               </form>

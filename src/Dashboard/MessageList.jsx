@@ -79,7 +79,7 @@ function TwoMessage() {
                   <a href=" " className="font-w600 mb-0 color-primary">
                     {item.senderName}
                   </a>
-                  <span class="msg-time float-right">
+                  <span className="msg-time float-right">
                     {formatDate(item.date)}
                   </span>
                   <p className="pb-0 mb-0 line-h14 mt-6">{item.text}</p>

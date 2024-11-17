@@ -80,7 +80,7 @@ function AllUsers() {
         <div
           className="box client"
           id="all-users-div"
-          style={{ display: "flex", gap: "4vw", width: "7vw" }}
+          style={{ display: "flex", gap: "4vw", width: "16vw" }}
         ></div>
       </div>
     </div>

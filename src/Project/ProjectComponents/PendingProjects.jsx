@@ -1,4 +1,28 @@
+import { useState, useEffect } from "react";
+
 function PendingProjects() {
+  const [count, setCount] = useState();
+  const fetchCount = async () => {
+    var response = await fetch(
+      "https://localhost:7157/api/Project/PendingProjectCount",
+
+      {
+        method: "GET",
+
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) {
+      setCount(await response.json());
+    }
+  };
+
+  useEffect(() => {
+    fetchCount();
+  }, []);
+
   return (
     <div className="icon-box bg-color-7 d-block">
       <div className="content text-center color-7">
@@ -11,7 +35,7 @@ function PendingProjects() {
             data-speed={2500}
             data-inviewport="yes"
           >
-            75 +
+            {count}
           </span>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+// // import emptyBoxImage from "../../public/images/icon/empty-box.png";
 
 const RecentActivity = () => {
   const [activityList, setActivityList] = useState([]);
@@ -66,47 +67,72 @@ const RecentActivity = () => {
             </div> */}
           </div>
         </div>
-        {activityList ? (
-          activityList.map((item, index) => (
-            <div className="box-body pb-0" key={index}>
-              <ul className="message mb-2">
-                <li className="dlab-chat-user">
-                  <div className="d-flex bd-highlight">
-                    <div className="img_cont">
-                      <img
-                        src="./images/avatar/message-01.png"
-                        className="rounded-circle user_img"
-                        alt=""
-                      />
-                    </div>
-                    <div className="user_info">
-                      <div>
-                        <a
-                          className="font-w500 mt-5 mb-5"
-                          href="message.html"
-                          style={{ fontSize: "20px" }}
-                        >
-                          {item.username}
-                        </a>
-                        <span style={{ color: "gray", marginLeft: "5px" }}>
-                          {item.createDate}
-                        </span>
+        <div
+          style={{
+            overflowY: "auto",
+            overflowX: "hidden",
+            maxHeight: "50vh",
+          }}
+        >
+          <div className="vertical-scroll" style={{ padding: "20px" }}>
+            {activityList.length ? (
+              activityList.map((item, index) => (
+                <div className="box-body pb-0" key={index}>
+                  <ul className="message mb-2">
+                    <li className="dlab-chat-user">
+                      <div className="d-flex bd-highlight">
+                        <div className="img_cont">
+                          <img
+                            src="./images/avatar/message-01.png"
+                            className="rounded-circle user_img"
+                            alt=""
+                          />
+                        </div>
+                        <div className="user_info">
+                          <div>
+                            <a
+                              className="font-w500 mt-5 mb-5"
+                              href="message.html"
+                              style={{ fontSize: "20px" }}
+                            >
+                              {item.username}
+                            </a>
+                            <span style={{ color: "gray", marginLeft: "5px" }}>
+                              {item.createDate}
+                            </span>
+                          </div>
+                          <p className="mb-0">{item.text}</p>
+                        </div>
                       </div>
-                      <p className="mb-0">{item.text}</p>
-                    </div>
-                  </div>
-                  <div className="card-options me-0 d-flex align-items-center">
-                    <a href=" " className="text-primary fs-14">
-                      Add New Task
-                    </a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-          ))
-        ) : (
-          <p>No Data Exists!</p>
-        )}
+                      <div className="card-options me-0 d-flex align-items-center">
+                        <a href=" " className="text-primary fs-14">
+                          Add New Task
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              ))
+            ) : (
+              <div
+                style={{
+                  width: "33vw",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  gap: "3vh",
+                }}
+              >
+                <img
+                  src="/assets/images/empty-box.png"
+                  alt="img"
+                  style={{ width: "11vw", height: "14vh" }}
+                />
+                <h3 style={{ fontWeight: "600" }}>No Data Found!</h3>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

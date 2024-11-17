@@ -142,16 +142,16 @@ function HeaderTaskInfo() {
   return (
     <div className="row">
       <div className="col-12">
-        <div class="box card-box mb-20">
-          <div class="icon-box bg-color-1">
-            <div class="icon bg-icon-1">
-              <i class="bx bxs-briefcase"></i>
+        <div className="box card-box mb-20">
+          <div className="icon-box bg-color-1">
+            <div className="icon bg-icon-1">
+              <i className="bx bxs-briefcase"></i>
             </div>
-            <div class="content">
-              <h5 class="title-box fs-15 mt-2">Total Task</h5>
-              <div class="themesflat-counter fs-14 font-wb color-1">
+            <div className="content">
+              <h5 className="title-box fs-15 mt-2">Total Task</h5>
+              <div className="themesflat-counter fs-14 font-wb color-1">
                 <span
-                  class="number"
+                  className="number"
                   data-from="0"
                   data-to="1225"
                   data-speed="2500"
@@ -162,15 +162,15 @@ function HeaderTaskInfo() {
               </div>
             </div>
           </div>
-          <div class="icon-box bg-color-2">
-            <div class="icon bg-icon-2">
-              <i class="bx bx-task"></i>
+          <div className="icon-box bg-color-2">
+            <div className="icon bg-icon-2">
+              <i className="bx bx-task"></i>
             </div>
-            <div class="content click-c">
-              <h5 class="title-box fs-15 mt-2">Running Task</h5>
-              <div class="themesflat-counter fs-14 font-wb color-2">
+            <div className="content click-c">
+              <h5 className="title-box fs-15 mt-2">Running Task</h5>
+              <div className="themesflat-counter fs-14 font-wb color-2">
                 <span
-                  class="number"
+                  className="number"
                   data-from="0"
                   data-to="309"
                   data-speed="2500"
@@ -181,15 +181,15 @@ function HeaderTaskInfo() {
               </div>
             </div>
           </div>
-          <div class="icon-box bg-color-3">
-            <div class="icon bg-icon-3">
-              <i class="bx bx-block"></i>
+          <div className="icon-box bg-color-3">
+            <div className="icon bg-icon-3">
+              <i className="bx bx-block"></i>
             </div>
-            <div class="content click-c">
-              <h5 class="title-box fs-15 mt-2">On Hold Task</h5>
-              <div class="themesflat-counter fs-14 font-wb color-3">
+            <div className="content click-c">
+              <h5 className="title-box fs-15 mt-2">On Hold Task</h5>
+              <div className="themesflat-counter fs-14 font-wb color-3">
                 <span
-                  class="number"
+                  className="number"
                   data-from="0"
                   data-to="309"
                   data-speed="2500"
@@ -200,15 +200,15 @@ function HeaderTaskInfo() {
               </div>
             </div>
           </div>
-          <div class="icon-box bg-color-5">
-            <div class="icon bg-icon-5">
-              <i class="bx bx-task color-white"></i>
+          <div className="icon-box bg-color-5">
+            <div className="icon bg-icon-5">
+              <i className="bx bx-task color-white"></i>
             </div>
-            <div class="content click-c">
-              <h5 class="title-box fs-15 mt-2">Complete Task</h5>
-              <div class="themesflat-counter fs-14 font-wb color-4">
+            <div className="content click-c">
+              <h5 className="title-box fs-15 mt-2">Complete Task</h5>
+              <div className="themesflat-counter fs-14 font-wb color-4">
                 <span
-                  class="number"
+                  className="number"
                   data-from="0"
                   data-to="309"
                   data-speed="2500"

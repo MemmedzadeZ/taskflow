@@ -112,10 +112,10 @@ const LinearChart = () => {
           id="project-chart-div"
         >
           {selectedProject && projectNames ? (
-            <div class="col-6 col-md-6 col-sm-12" style={{ width: "35vw" }}>
-              <div class="box left-dot h-100">
-                <div class="box-title">{selectedProject}</div>
-                <div class="box-body">
+            <div className="col-6 col-md-6 col-sm-12" style={{ width: "35vw" }}>
+              <div className="box left-dot h-100">
+                <div className="box-title">{selectedProject}</div>
+                <div className="box-body">
                   <div id="line-chart"></div>
                 </div>
               </div>

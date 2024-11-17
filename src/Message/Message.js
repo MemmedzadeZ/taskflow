@@ -431,13 +431,13 @@ const Message = () => {
                               </a>
                             </span>
                             {/* /.icon-right */}
-                            {/* <div class="icon-mobile">
+                            {/* <div className="icon-mobile">
                                   <ul>
                                       <li>
-                                          <a href="#" title=""><i class="fas fa-smile"></i></a>
+                                          <a href="#" title=""><i className="fas fa-smile"></i></a>
                                       </li>
                                       <li>
-                                          <a href="#" title=""><i class="fas fa-paperclip"></i></a>
+                                          <a href="#" title=""><i className="fas fa-paperclip"></i></a>
                                       </li>
                                   </ul>
                               </div> */}

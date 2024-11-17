@@ -34,7 +34,7 @@ function TwoCalendarNotification() {
       <div className="box-body">
         <ul className="list">
           {items.map((item, index) => (
-            <li key={index} class="d-flex">
+            <li key={index} className="d-flex">
               <div className="img-mess">
                 <img
                   className="mr-14"

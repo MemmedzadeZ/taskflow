@@ -1,0 +1,21 @@
+@keyframes slideUpAndDisappear {
+  from {
+    opacity: 0;
+    top: 400px;
+    left: 0px;
+    scale: 0;
+  }
+  50% {
+    opacity: 1;
+    top: 150px;
+    left: 150px;
+    scale: 2;
+  }
+
+  to {
+    opacity: 0;
+    top: 400px;
+    left: 400px;
+    scale: 0;
+  }
+}
