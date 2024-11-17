@@ -57,18 +57,19 @@ function Auth() {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    setIsForgotPassword(false);
-
     if (newPassword !== confirmNewPassword) {
       $("#new-confirm-password").text("Passwords Should Match!");
     }
-
+    const payload = {
+      email: email,
+      newPassword: newPassword,
+    };
     var response = await fetch(
       "https://localhost:7157/api/Profile/reset-password",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(email, newPassword),
+        body: JSON.stringify(payload),
       }
     );
     var data = await response.json();
@@ -77,6 +78,7 @@ function Auth() {
     } else {
       alert(data.message);
     }
+    setIsForgotPassword(false);
     setIsLogin(true);
   };
 

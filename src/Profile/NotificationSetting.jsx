@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
-
+/**
+            item.InnovationNewProject = dto.InnovationNewProject;
+            item.FriendshipOffers = dto.FriendshipOffers;
+            item.TaskDueDate = dto.TaskDueDate;
+            item.ProjectCompletationDate = dto.ProjectCompletationDate;
+            item.NewTaskWithInProject = dto.NewTaskWithInProject;
+        */
 function NotificationSetting() {
   const [settings, setSettings] = useState({
-    friendshipOffers: false,
-    deadlineReminders: false,
-    incomingComments: false,
-    internalTeamMessages: false,
-    newProjectProposals: false,
+    FriendshipOffers: false,
+    NewTaskWithInProject: false,
+    TaskDueDate: false,
+    ProjectCompletationDate: false,
+    InnovationNewProject: false,
   });
 
   useEffect(() => {
@@ -27,11 +33,11 @@ function NotificationSetting() {
         })
         .then((data) => {
           setSettings({
-            friendshipOffers: data.friendshipOffers,
-            deadlineReminders: data.deadlineReminders,
-            incomingComments: data.incomingComments,
-            internalTeamMessages: data.internalTeamMessages,
-            newProjectProposals: data.newProjectProposals,
+            FriendshipOffers: data.friendshipOffers,
+            NewTaskWithInProject: data.newTaskWithInProject,
+            TaskDueDate: data.taskDueDate,
+            ProjectCompletationDate: data.projectCompletationDate,
+            InnovationNewProject: data.innovationNewProject,
           });
           localStorage.setItem("notificationSettings", JSON.stringify(data));
         })
@@ -99,39 +105,26 @@ function NotificationSetting() {
 
       <div className="custom-switch mb-16">
         <div className="switch-label">
-          <span>Deadline Reminders</span>
+          <span>Task Due Date Reminders</span>
         </div>
         <input
           type="checkbox"
-          id="deadlineReminders"
+          id="taskDueDate"
           className="switch-input"
-          checked={settings.deadlineReminders}
+          checked={settings.taskDueDate}
           onChange={handleChange}
         />
       </div>
 
       <div className="custom-switch mb-16">
         <div className="switch-label">
-          <span>Incoming Comments</span>
+          <span>Project Completed Date Reminders</span>
         </div>
         <input
           type="checkbox"
-          id="incomingComments"
+          id="projectCompletationDate"
           className="switch-input"
-          checked={settings.incomingComments}
-          onChange={handleChange}
-        />
-      </div>
-
-      <div className="custom-switch mb-16">
-        <div className="switch-label">
-          <span>Internal Team Messages</span>
-        </div>
-        <input
-          type="checkbox"
-          id="internalTeamMessages"
-          className="switch-input"
-          checked={settings.internalTeamMessages}
+          checked={settings.projectCompletationDate}
           onChange={handleChange}
         />
       </div>
@@ -142,9 +135,21 @@ function NotificationSetting() {
         </div>
         <input
           type="checkbox"
-          id="newProjectProposals"
+          id="innovationNewProject"
           className="switch-input"
-          checked={settings.newProjectProposals}
+          checked={settings.innovationNewProject}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="custom-switch mb-16">
+        <div className="switch-label">
+          <span>New Task Assignments Within the Project</span>
+        </div>
+        <input
+          type="checkbox"
+          id="newTaskWithInProject"
+          className="switch-input"
+          checked={settings.newTaskWithInProject}
           onChange={handleChange}
         />
       </div>
