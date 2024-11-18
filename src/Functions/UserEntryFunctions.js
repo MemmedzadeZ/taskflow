@@ -158,7 +158,7 @@ export const loginUser = async (e, username, password) => {
     password,
   };
   console.log(userData);
- 
+
   const response = await fetch("https://localhost:7157/api/Auth/signin", {
     method: "POST",
     headers: {
@@ -166,29 +166,25 @@ export const loginUser = async (e, username, password) => {
     },
     body: JSON.stringify(userData),
   });
- 
+
   if (response.ok) {
     const data = await response.json();
-    console.log("Token:", data.token);
     localStorage.setItem("token", data.token);
     const activityData = {
       text: "User logged in.",
       type: "login",
     };
 
-    await fetch(
-      "https://localhost:7157/api/Notification/NewRecentActivity",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(activityData),
-      }
-    );
+    await fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(activityData),
+    });
     window.location.href = "/dashboard";
-  } else { 
+  } else {
     const errorData = await response.json();
     console.error("Error:", errorData);
   }

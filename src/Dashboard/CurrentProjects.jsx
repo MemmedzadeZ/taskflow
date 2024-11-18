@@ -3,14 +3,17 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+
 function CurrentProjects() {
   const [projects, setProjects] = useState([]);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
+
   const fetchData = async () => {
     try {
       console.log("Fetching project data");
       const response = await fetch(
-        "https://localhost:7157/api/Project/ExtendedProjectList",
+        "https://localhost:7157/api/Project/ProjectInvolved",
         {
           method: "GET",
           headers: {
@@ -18,20 +21,27 @@ function CurrentProjects() {
           },
         }
       );
+
       if (!response.ok) {
         throw new Error("Data fetch failed");
       }
+
       const data = await response.json();
       console.log(data);
       setProjects(data);
     } catch (error) {
       console.error("Error fetching project data:", error);
+      setError(error);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   const goToProjectKanban = (projectId) => {
     navigate(`/kanban/${projectId}`);
@@ -43,7 +53,7 @@ function CurrentProjects() {
         <div className="box-header">
           <div className="me-auto">
             <h4 className="card-title mb-6">Current Projects</h4>
-            <p className="mb-0 fs-14 mt-9">Your Projects</p>
+            <p className="mb-0 fs-14 mt-9">Projects you have participated in</p>
           </div>
         </div>
 

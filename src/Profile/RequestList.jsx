@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function TaskList() {
+function RequestList() {
   const [notifications, setNotifications] = useState([]);
 
   const fetchNotifications = async () => {
@@ -210,4 +210,4 @@ function TaskList() {
   );
 }
 
-export default TaskList;
+export default RequestList;

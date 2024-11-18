@@ -3,7 +3,7 @@ import CurrentPerson from "../Dashboard/CurrentUser";
 import React from "react";
 import CountNotification from "../Components/NotificationCount";
 import TwoNotification from "../Components/NotificationList";
-import CountMessage from "../Dashboard/MessageCount";
+import CountMessage from "../Components/MessageCount";
 import TwoMessage from "../Components/MessageList";
 import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
@@ -81,117 +81,8 @@ const Friends = () => {
                 </div>
               </div>
 
-              <div className="dropdown d-inline-block">
-                <button
-                  type="button"
-                  className="btn header-item"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span className="btn dropdown-toggle" id="header-lang-img">
-                    EN
-                    <i className="bx bx-caret-down"></i>
-                  </span>
-                </button>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a
-                    href="javascript:void(0);"
-                    className="dropdown-item notify-item language"
-                    data-lang="en"
-                  >
-                    <img
-                      src="/images/flags/us.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">English</span>
-                  </a>
-                  <a
-                    href="javascript:void(0);"
-                    className="dropdown-item notify-item language"
-                    data-lang="sp"
-                  >
-                    <img
-                      src="/images/flags/spain.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">Spanish</span>
-                  </a>
-                  <a
-                    href="javascript:void(0);"
-                    className="dropdown-item notify-item language"
-                    data-lang="gr"
-                  >
-                    <img
-                      src="/images/flags/germany.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">German</span>
-                  </a>
-                  <a
-                    href="javascript:void(0);"
-                    className="dropdown-item notify-item language"
-                    data-lang="it"
-                  >
-                    <img
-                      src="/images/flags/italy.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">Italian</span>
-                  </a>
-                  <a
-                    href="javascript:void(0);"
-                    className="dropdown-item notify-item language"
-                    data-lang="ru"
-                  >
-                    <img
-                      src="/images/flags/russia.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">Russian</span>
-                  </a>
-                </div>
-              </div>
-
               <div className="dropdown d-inline-block mt-12">
                 <CurrentPerson></CurrentPerson>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item" href="#">
-                    <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}
-                    <span>Profile</span>
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    <i className="bx bx-wallet font-size-16 align-middle me-1"></i>{" "}
-                    <span>My Wallet</span>
-                  </a>
-                  <a className="dropdown-item d-block" href="#">
-                    <span className="badge bg-success float-end">11</span>
-                    <i className="bx bx-wrench font-size-16 align-middle me-1"></i>{" "}
-                    <span>Settings</span>
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    <i className="bx bx-lock-open font-size-16 align-middle me-1"></i>{" "}
-                    <span>Lock screen</span>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a
-                    className="dropdown-item text-danger"
-                    href="user-login.html"
-                  >
-                    <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>{" "}
-                    <span>Logout</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
@@ -243,32 +134,32 @@ const Friends = () => {
                       </div>
                     </div>
                   </div>
-                <div className="rightSection" style={{ width: "100%" }}>
-                  <div className="tabs">
-                    <button
-                      className={
-                        activeTab === "Your Friends" ? "activeTab" : "tab"
-                      }
-                      onClick={() => handleTabClick("Your Friends")}
-                    >
-                      Your Friends
-                    </button>
-                    <button
-                      className={
-                        activeTab === "All Users" ? "activeTab" : "tab"
-                      }
-                      onClick={() => handleTabClick("All Users")}
-                    >
-                      All Users
-                    </button>
+                  <div className="rightSection" style={{ width: "100%" }}>
+                    <div className="tabs">
+                      <button
+                        className={
+                          activeTab === "Your Friends" ? "activeTab" : "tab"
+                        }
+                        onClick={() => handleTabClick("Your Friends")}
+                      >
+                        Your Friends
+                      </button>
+                      <button
+                        className={
+                          activeTab === "All Users" ? "activeTab" : "tab"
+                        }
+                        onClick={() => handleTabClick("All Users")}
+                      >
+                        All Users
+                      </button>
+                    </div>
+
+                    {/* Conditional Form Rendering */}
+                    {activeTab === "Your Friends" && <UserFriend />}
+
+                    {activeTab === "All Users" && <AllUsers />}
+                    {/* Notification Settings */}
                   </div>
-
-                  {/* Conditional Form Rendering */}
-                  {activeTab === "Your Friends" && <UserFriend />}
-
-                  {activeTab === "All Users" && <AllUsers />}
-                  {/* Notification Settings */}
-                </div>
                 </div>
 
                 <div
