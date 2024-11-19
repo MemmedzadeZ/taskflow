@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Notifier from "../../Error/Notifier";
 import ProjectPagination from "../ProjectPegenation";
+import Lottie from "lottie-react";
+import noproject from "../../animations/noproject.json";
 
 const AllProjects = () => {
   const [allProjects, setAllProjects] = useState([]);
@@ -31,39 +33,28 @@ const AllProjects = () => {
   };
 
   const fetchProjects = async () => {
-    const endpoints = [
-      "https://localhost:7157/api/Project/AllProjectsUserOwn",
-      "https://localhost:7157/api/Project/UserAddedProjects",
-    ];
-
     try {
-      const responses = await Promise.all(
-        endpoints.map((url) =>
-          fetch(url, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          })
-        )
+      var response = await fetch(
+        "https://localhost:7157/api/Project/ExtendedProjectList",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
 
-      if (responses.every((res) => res.ok)) {
-        const [ownedProjects, addedProjects] = await Promise.all(
-          responses.map((res) => res.json())
-        );
+      if (response.ok) {
+        const addedProjects = await response.json(); // Read the JSON once
+        console.log("data:", addedProjects);
 
         const addSource = (projects, source) =>
           projects.map((project) => ({ ...project, source }));
-
-        const combinedProjects = [
-          ...addSource(ownedProjects, "owned"),
-          ...addSource(addedProjects, "added"),
-        ];
+        const combinedProjects = addSource(addedProjects, "added");
 
         setAllProjects(combinedProjects);
       } else {
-        console.error("Error fetching projects");
+        console.error("Error fetching projects:", response.statusText);
       }
     } catch (error) {
       console.error("Error:", error.message);
@@ -76,7 +67,6 @@ const AllProjects = () => {
 
   return (
     <div className="row">
-      {progressText !== null && <Notifier message={progressText}></Notifier>}
       <div className="box-header pt-0 pl-0 ms-0 mb-4 mt-4 border-bottom-0 responsive-header">
         <h4 className="box-title fs-22">Recent Project Updates</h4>
         <div className="status-tabs">
@@ -91,10 +81,31 @@ const AllProjects = () => {
           ))}
         </div>
       </div>
-      <ProjectPagination
-        posts={filteredProjects}
-        handle={handleProjectDelete}
-      ></ProjectPagination>
+      {filteredProjects.length == 0 ? (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            marginBottom: "5vh",
+          }}
+        >
+          <Lottie
+            style={{ width: "25vw", height: "25vh" }}
+            animationData={noproject}
+            loop={true}
+          ></Lottie>
+          <h3>
+            No projects available to display. Please create or add a project to
+            view its statistics.
+          </h3>
+        </div>
+      ) : (
+        <ProjectPagination
+          posts={filteredProjects}
+          handle={handleProjectDelete}
+        ></ProjectPagination>
+      )}
     </div>
   );
 };

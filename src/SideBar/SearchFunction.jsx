@@ -11,8 +11,8 @@ export const Search = async (e, key) => {
   var response = await fetch("https://localhost:7157/api/Auth/searchedUser", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("token")}`,
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(key),
   });

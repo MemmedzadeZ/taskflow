@@ -156,7 +156,7 @@ const LinearChart = () => {
         <div className="box-body pt-20">
           <input
             type="text"
-            value={selectedProject}
+            value={selectedProject || ""}
             readOnly
             style={{
               //   width: "100%",

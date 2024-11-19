@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import UpdateProjectModel from "./ProjectComponents/UpdateProjectModel";
 
 const ProjectPagination = ({ posts, handle }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4; // Adjust the number of items per page as needed
+  const itemsPerPage = 4;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentProjectId, setCurrentProjectId] = useState(null);
 
-  // Calculate start and end index for the current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPosts = posts.slice(startIndex, endIndex);
@@ -19,7 +21,16 @@ const ProjectPagination = ({ posts, handle }) => {
   const handleNextPage = () => {
     if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
+  const openModal = (e, id) => {
+    e.preventDefault();
+    setCurrentProjectId(id); // Set the specific project ID
+    setIsModalOpen(true);
+  };
 
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentProjectId(null); // Clear the project ID when closing the modal
+  };
   return (
     <div>
       {/* <div className=""> */}
@@ -33,7 +44,8 @@ const ProjectPagination = ({ posts, handle }) => {
             <div className="box left-dot">
               <div className="box-body">
                 <a
-                  href="project-details.html"
+                  href=" "
+                  onClick={(e) => openModal(e, item.id)}
                   className="box-title mb-0 mt-1 mb-3 font-w600 fs-18"
                 >
                   {item.title}
@@ -45,6 +57,13 @@ const ProjectPagination = ({ posts, handle }) => {
                   Deadline: {item.endDate ? item.endDate : "No deadline set"}
                 </span>
               </div>
+              {isModalOpen && (
+                <UpdateProjectModel
+                  closeModal={closeModal}
+                  projectId={currentProjectId}
+                />
+              )}
+
               <div className="box-footer">
                 <div className="d-flex align-items-center">
                   <div className="d-flex mb-3 mb-md-0">
@@ -77,14 +96,14 @@ const ProjectPagination = ({ posts, handle }) => {
                   </div>
                   <div className="ms-auto mt-3 mt-sm-0">
                     <div className="d-flex">
-                      <div
+                      {/* <div
                         className="task-btn bg-danger-1 text-danger btn-link fs-14"
                         data-bs-toggle="tooltip"
                         data-bs-placement="top"
                         title="Project Priority"
                       >
                         {item.status}
-                      </div>
+                      </div> */}
                       <a
                         className="btn btn-outline-light text-muted pd-0 fs-34"
                         href="#"

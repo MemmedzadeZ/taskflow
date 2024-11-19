@@ -3,16 +3,21 @@ import Notifier from "../../Error/Notifier";
 import "../css/ProjectStyles.css";
 
 import $, { data } from "jquery";
-import { SearchMember } from "../SearchMember";
+import {
+  SearchMember,
+  handleUserSelection,
+  generatePastelColor,
+} from "../SearchMember";
 
-function CreateProjectModel({ closeModal }) {
+function UpdateProjectModel({ closeModal, projectId }) {
   const [title, setProjectName] = useState("");
   const [progressText, setProgressText] = useState(null);
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
   const [color, setColor] = useState("");
+  const [isDisplay, setDisplay] = useState(false);
+  const [members, setTeamMembers] = useState([]);
   const getSelectedColorClass = (currentColor) => {
     return color === currentColor ? "selected" : "";
   };
@@ -22,7 +27,7 @@ function CreateProjectModel({ closeModal }) {
     } else $("#searched-members").remove();
   };
 
-  const handleCreateProject = async (e) => {
+  const handleUpdateProject = async (e) => {
     e.preventDefault();
     setProgressText(null);
     const projectData = {
@@ -131,15 +136,38 @@ function CreateProjectModel({ closeModal }) {
     }
   };
 
+  const fetchData = async (projectId) => {
+    var response = await fetch(
+      `https://localhost:7157/api/Project/${projectId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    var data = await response.json();
+    console.log(data);
+    console.log(data.color);
+    setColor(data.color);
+    setDescription(data.description);
+    setProjectName(data.title);
+    setStartDate(data.startDate.slice(0, 10));
+    setEndDate(data.endDate.slice(0, 10));
+  };
+
   useEffect(() => {
+    fetchData(projectId);
     setProgressText(null);
-  }, []);
+  }, [projectId]);
   return (
     <div className="modal-backgroundd">
       {progressText !== "" && <Notifier message={progressText}></Notifier>}
       <div className="modal-content-project">
-        <form onSubmit={(e) => handleCreateProject(e)}>
-          <h2>Create Project</h2>
+        <form onSubmit={(e) => handleUpdateProject(e)}>
+          <h2>Update Project</h2>
 
           {/* Project Name and Client */}
           <div className="row">
@@ -204,6 +232,38 @@ function CreateProjectModel({ closeModal }) {
               }}
             ></textarea>
           </div>
+          {/* <button className="btn btn-primary" onClick={setDisplay(!isDisplay)}>
+            Members
+          </button> */}
+          {/* {isDisplay ? (
+            (<div style={{ display: "flex" }}>
+              <div
+                className="app-search d-none d-lg-block"
+                style={{ width: "45%", position: "relative" }}
+                id="member-search-form"
+              >
+                <div className="position-relative">
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Search users..."
+                    onChange={handleMembers}
+                  />
+                </div>
+              </div>
+              <div
+                id="team-member-box"
+                style={{
+                  border: "1px solid gray",
+                  width: "45%",
+                  height: "auto",
+                }}
+              ></div>
+            </div>)(addTeamMembers(teamMembers))
+          ) : (
+            <></>
+          )} */}
+
           <div style={{ display: "flex" }}>
             <div
               className="app-search d-none d-lg-block"
@@ -218,17 +278,30 @@ function CreateProjectModel({ closeModal }) {
                   onChange={handleMembers}
                 />
               </div>
-              {/* <div
-                className="search-result-div"
-                style={{ width: "80%", left: "15%" }}
-                id="searched-users"
-              ></div> */}
             </div>
             <div
               id="team-member-box"
-              style={{ border: "1px solid gray", width: "45%", height: "auto" }}
-            ></div>
+              style={{
+                border: "1px solid gray",
+                width: "45%",
+                height: "auto",
+              }}
+            >
+              {members.map((member, index) => (
+                <div
+                  key={index}
+                  className="selected-tm"
+                  style={{
+                    backgroundColor: generatePastelColor(),
+                    cursor: "pointer",
+                  }}
+                >
+                  {member}
+                </div>
+              ))}
+            </div>
           </div>
+
           <div className="form-groupp">
             <label htmlFor="priority">Color</label>
             <div className="priority-tabss">
@@ -321,4 +394,4 @@ function CreateProjectModel({ closeModal }) {
     </div>
   );
 }
-export default CreateProjectModel;
+export default UpdateProjectModel;
