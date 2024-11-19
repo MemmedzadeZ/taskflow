@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function ChangePassword() {
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
@@ -26,7 +27,7 @@ function ChangePassword() {
       );
 
       if (response.ok) {
-        setAlertMessage("Password updated successfully!");
+        toast.success("Password updated successfully!");
         setTimeout(() => setAlertMessage(""), 5000);
 
         const activityData = {
@@ -47,13 +48,13 @@ function ChangePassword() {
         );
       } else {
         console.error("Failed to update password");
-        setAlertMessage("Failed to update password.");
-        setTimeout(() => setAlertMessage(""), 5000);
+        toast.error("Failed to update password.");
+        // setTimeout(() => setAlertMessage(""), 5000);
       }
     } catch (error) {
       console.error("Error updating password:", error);
-      setAlertMessage("Error updating password.");
-      setTimeout(() => setAlertMessage(""), 5000);
+      toast.error("Error updating password.");
+      // setTimeout(() => setAlertMessage(""), 5000);
     }
   };
 
@@ -67,6 +68,7 @@ function ChangePassword() {
 
   return (
     <div>
+      <ToastContainer />
       {alertMessage && (
         <div className="alert alert-success alert-dismissable fade show">
           <button

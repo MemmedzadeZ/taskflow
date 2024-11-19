@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-/**
-            item.InnovationNewProject = dto.InnovationNewProject;
-            item.FriendshipOffers = dto.FriendshipOffers;
-            item.TaskDueDate = dto.TaskDueDate;
-            item.ProjectCompletationDate = dto.ProjectCompletationDate;
-            item.NewTaskWithInProject = dto.NewTaskWithInProject;
-        */
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function NotificationSetting() {
   const [settings, setSettings] = useState({
     FriendshipOffers: false,
@@ -60,7 +55,7 @@ function NotificationSetting() {
       .then((response) => response.json())
       .then((data) => {
         console.log("Settings updated:", data);
-        alert("Settings updated successfully!");
+        toast.success("Settings updated successfully!");
         // deyisiklikleri yadda saxlamaq ucun
         localStorage.setItem("notificationSettings", JSON.stringify(settings));
         const activityData = {
@@ -77,7 +72,7 @@ function NotificationSetting() {
           body: JSON.stringify(activityData),
         });
       })
-      .catch((error) => console.error("Error updating settings:", error));
+      .catch((error) => toast.error("Error updating settings:", error));
   };
 
   const handleChange = (e) => {
@@ -90,6 +85,7 @@ function NotificationSetting() {
 
   return (
     <div className="notification-settings">
+      <ToastContainer />
       <div className="custom-switch mb-16">
         <div className="switch-label">
           <span>Friendship Offers</span>

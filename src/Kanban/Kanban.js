@@ -36,33 +36,60 @@ const initialData = {
 };
 
 const Kanban = () => {
-  const { projectId } = useParams(); // Proje ID'sini URL parametresinden al
-  const [data, setData] = useState(initialData); // Kanban verisi
-  const [loading, setLoading] = useState(true); // Yükleniyor durumu
-  const [error, setError] = useState(null); // Hata durumu
+  const { projectId } = useParams();
+  const [data, setData] = useState(initialData);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // API'den görevleri almak için useEffect
   useEffect(() => {
     const getTasks = async () => {
       try {
-        const response = await fetch(
-          `https://localhost:7157/api/Project/ProjectTaskCanban/${projectId}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
+        if (!projectId) {
+          // Kullanıcının projelerini getir
+          const projectResponse = await fetch(
+            `https://localhost:7157/api/Project/AllProjectsUserOwn`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+
+          if (!projectResponse.ok) {
+            throw new Error("not fetch data");
           }
-        );
 
-        if (!response.ok) {
-          throw new Error("Failed to fetch tasks");
+          const userProjects = await projectResponse.json();
+
+          if (userProjects.length > 0) {
+            const latestProjectId = userProjects[userProjects.length - 1].id;
+
+            window.location.href = `/kanban/${latestProjectId}`;
+          } else {
+            setLoading(false);
+            setData(initialData);
+          }
+        } else {
+          const response = await fetch(
+            `https://localhost:7157/api/Project/ProjectTaskCanban/${projectId}`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch tasks");
+          }
+
+          const tasks = await response.json();
+          setData({ columns: organizeTasksIntoColumns(tasks) });
+          setLoading(false);
         }
-
-        const tasks = await response.json();
-        setData({ columns: organizeTasksIntoColumns(tasks) });
-        setLoading(false);
       } catch (error) {
         setError(error.message);
         setLoading(false);

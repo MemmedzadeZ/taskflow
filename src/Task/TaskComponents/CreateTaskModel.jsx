@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./css/CreateTask.css";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function CreateTaskModel({ closeModal, id }) {
   const [title, setTaskName] = useState("");
   const [description, setDescription] = useState("");
@@ -8,38 +9,6 @@ function CreateTaskModel({ closeModal, id }) {
   const [status, setStatus] = useState("");
   const [deadline, setEndDate] = useState("");
   const [color, setColor] = useState("");
-
-  const fetchData = async () => {
-    try {
-      const response = await fetch(
-        `https://localhost:7157/api/UserTask/${id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setUserTask(data);
-      } else {
-        console.error("Failed to fetch user task");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
-
-  const [userTask, setUserTask] = useState({
-    title: "",
-    description: "",
-    startDate: "",
-    deadline: "",
-    status: "",
-    color: "",
-  });
 
   const saveTask = async (e) => {
     e.preventDefault();
@@ -50,7 +19,7 @@ function CreateTaskModel({ closeModal, id }) {
       Deadline: deadline,
       Priority: status,
       Color: color,
-      StartTime: startDate,
+      StartDate: startDate,
     };
 
     try {
@@ -67,14 +36,13 @@ function CreateTaskModel({ closeModal, id }) {
       );
 
       if (response.ok) {
-        const newTask = await response.json();
-        console.log("Append new task successfully", newTask);
+        toast.success("Append new task successfully");
         closeModal();
       } else {
-        console.error("Error while creating new task");
+        toast.error("Error while creating new task");
       }
     } catch (error) {
-      console.error("Error:", error);
+      toast.error("Error:" + error);
     }
   };
 
@@ -86,12 +54,11 @@ function CreateTaskModel({ closeModal, id }) {
     return status === currentPriority ? "selected" : "";
   };
 
-  useEffect(() => {
-    fetchData();
-  }, [id]);
+  useEffect(() => {}, []);
 
   return (
     <div className="modal-backgroundd">
+      <ToastContainer position="top-right" />
       <div className="modal-contentt">
         <form onSubmit={saveTask}>
           <h2 className="modal-titlee">Create Task</h2>
@@ -103,7 +70,7 @@ function CreateTaskModel({ closeModal, id }) {
               type="text"
               className="form-controll"
               placeholder="Enter task name"
-              value={userTask.title || title} // handle default value
+              value={title} // handle default value
               onChange={(e) => setTaskName(e.target.value)}
             />
           </div>
@@ -115,7 +82,7 @@ function CreateTaskModel({ closeModal, id }) {
               className="form-controll"
               rows="3"
               placeholder=" Enter task description"
-              value={userTask.description || description} // handle default value
+              value={description} // handle default value
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
@@ -126,7 +93,7 @@ function CreateTaskModel({ closeModal, id }) {
               id="start-date"
               type="date"
               className="form-controll"
-              value={userTask.startDate || startDate} // handle default value
+              value={startDate} // handle default value
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
@@ -137,7 +104,7 @@ function CreateTaskModel({ closeModal, id }) {
               id="end-date"
               type="date"
               className="form-controll"
-              value={userTask.deadline || deadline} // handle default value
+              value={deadline} // handle default value
               onChange={(e) => setEndDate(e.target.value)}
             />
           </div>
