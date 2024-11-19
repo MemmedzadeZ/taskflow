@@ -6,7 +6,7 @@ import EditProfile from "./EditProfile";
 import ChangePassword from "./ChangePassword";
 import NotificationSetting from "./NotificationSetting";
 import RecentActivity from "./RecentActivity";
-import TaskList from "./TaskList";
+import RequestList from "./RequestList";
 import Reminder from "./Reminder";
 
 const Profile = () => {
@@ -90,7 +90,7 @@ const Profile = () => {
       <div style={{ display: "flex", width: "1250px" }}>
         <RecentActivity />
         <div style={{ display: "flex", flexDirection: "column", width: "85%" }}>
-          <TaskList />
+          <RequestList />
           <Reminder />
         </div>
       </div>

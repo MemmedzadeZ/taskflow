@@ -32,31 +32,49 @@ function TwoCalendarNotification() {
         <div className="divider"></div>
       </div>
       <div className="box-body">
-        <ul className="list">
-          {items.map((item, index) => (
-            <li key={index} className="d-flex">
-              <div className="img-mess">
-                <img
-                  className="mr-14"
-                  src="https://images.freeimages.com/fic/images/icons/2794/metro_ui/512/tasks.png"
-                  style={{ width: "40px", height: "40px" }}
-                  alt="avt"
-                />
-              </div>
-              <div className="info">
-                <a href=" " className="font-w600 mb-0 color-primary">
-                  TaskFlow
-                </a>
-                <p className="pb-0 mb-0 line-h14 mt-6">{item.text}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <div className="btn-view">
-          <a className="font-w600 h5" href="message.html">
-            View All
-          </a>
-        </div>
+        {items.length === 0 ? (
+          <div className="no-messages">
+            <p
+              style={{
+                textAlign: "center",
+                color: "#6c757d",
+                fontSize: "1.2rem",
+                fontStyle: "italic",
+                marginTop: "20px",
+              }}
+            >
+              You have no messages yet
+            </p>
+          </div>
+        ) : (
+          <ul className="list">
+            {items.map((item, index) => (
+              <li key={index} className="d-flex">
+                <div className="img-mess">
+                  <img
+                    className="mr-14"
+                    src="https://images.freeimages.com/fic/images/icons/2794/metro_ui/512/tasks.png"
+                    style={{ width: "40px", height: "40px" }}
+                    alt="avt"
+                  />
+                </div>
+                <div className="info">
+                  <a href=" " className="font-w600 mb-0 color-primary">
+                    TaskFlow
+                  </a>
+                  <p className="pb-0 mb-0 line-h14 mt-6">{item.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+        {items.length > 0 && (
+          <div className="btn-view">
+            <a className="font-w600 h5" href="message.html">
+              View All
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
