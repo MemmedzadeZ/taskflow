@@ -51,7 +51,7 @@ const ProjectPagination = ({ posts, handle }) => {
                   {item.title}
                 </a>
                 <p className="fs-14 font-w500 text-muted mb-6">
-                  {item.source === "owned" ? "Owned by You" : "Added by You"}
+                  {"Owned by You"}
                 </p>
                 <span className="fs-13 mt-2 text-muted">
                   Deadline: {item.endDate ? item.endDate : "No deadline set"}
@@ -120,25 +120,22 @@ const ProjectPagination = ({ posts, handle }) => {
                             View
                           </a>
                         </li>
-                        {item.source === "owned" && (
-                          <>
-                            <li>
-                              <a href="#">
-                                <i className="bx bx-plus-circle" />
-                                Edit
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                onClick={(e) => handle(item.id)}
-                                style={{ cursor: "pointer" }}
-                              >
-                                <i className="bx bx-trash" />
-                                Remove
-                              </a>
-                            </li>
-                          </>
-                        )}
+
+                        <li>
+                          <a href="#">
+                            <i className="bx bx-plus-circle" />
+                            Edit
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            onClick={(e) => handle(item.id)}
+                            style={{ cursor: "pointer" }}
+                          >
+                            <i className="bx bx-trash" />
+                            Remove
+                          </a>
+                        </li>
                       </ul>
                     </div>
                   </div>

@@ -25,11 +25,7 @@ const AllProjects = () => {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
-
-    setProgressText("Project Deleted!");
-    if (response.ok) {
-      window.location.reload();
-    }
+    setAllProjects((prev) => prev.filter((project) => project.id !== id));
   };
 
   const fetchProjects = async () => {
