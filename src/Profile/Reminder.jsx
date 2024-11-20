@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function Reminder() {
   const [notifications, setNotifications] = useState([]);
 
@@ -32,7 +34,7 @@ function Reminder() {
         setNotifications((prevTasks) =>
           prevTasks.filter((task) => task.id !== id)
         );
-        alert("Request deleted successfully.");
+        toast.info("Request deleted successfully.");
         const activityData = {
           text: "Deleted a calendar reminder",
           type: "calendar",
@@ -50,11 +52,11 @@ function Reminder() {
           }
         );
       } else {
-        alert("Failed to delete request.");
+        toast.error("Failed to delete request.");
       }
     } catch (error) {
       console.error("Error deleting request:", error);
-      alert("An error occurred while deleting the request.");
+      toast.error("An error occurred while deleting the request.");
     }
   };
 
@@ -72,6 +74,7 @@ function Reminder() {
 
   return (
     <div className="col-lg-12">
+      <ToastContainer />
       <div className="card">
         <div className="card-body">
           <div className="d-md-flex">

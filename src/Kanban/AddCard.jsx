@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./css/CreateTask.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function CreateTaskModel({ closeModal, id }) {
+function AddTaskModel({ closeModal, id }) {
   const [title, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -234,4 +234,4 @@ function CreateTaskModel({ closeModal, id }) {
   );
 }
 
-export default CreateTaskModel;
+export default AddTaskModel;

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function EditProfile() {
   const [path, setPath] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -54,7 +56,6 @@ function EditProfile() {
     e.preventDefault();
 
     try {
-      // Eğer bir dosya seçilmişse önce resmi yükle
       if (selectedFile) {
         const formData = new FormData();
         formData.append("file", selectedFile);
@@ -72,10 +73,13 @@ function EditProfile() {
 
         if (uploadResponse.ok) {
           const uploadData = await uploadResponse.json();
-          setPath(uploadData.image); // Yeni resmi güncelle
+          setPath(uploadData.image);
+          toast.success("Profile image uploaded successfully!");
         } else {
-          alert("Resim yükleme başarısız oldu.");
-          return; // Eğer yükleme başarısız olursa profil düzenleme işlemini durdur
+          toast.error(
+            "Not a valid image file. Please select a jpg, jpeg or png file."
+          );
+          return;
         }
       }
 
@@ -93,10 +97,9 @@ function EditProfile() {
       );
 
       if (response.ok) {
-        setAlertMessage("Profil başarıyla güncellendi!");
-        setTimeout(() => setAlertMessage(""), 5000);
+        toast.success("Profile edited successfully!");
+        //  setTimeout(() => setAlertMessage(""), 5000);
 
-        // Aktivite bildirimini gönder
         const activityData = {
           text: "Profil güncellendi",
           type: "Profile",
@@ -114,14 +117,14 @@ function EditProfile() {
           }
         );
       } else {
-        console.error("Profil güncelleme başarısız oldu.");
-        setAlertMessage("Profil güncelleme başarısız oldu.");
-        setTimeout(() => setAlertMessage(""), 5000);
+        console.error(" Failed to edit profile.");
+        toast.error(" failed to edit profile.");
+        //  setTimeout(() => setAlertMessage(""), 5000);
       }
     } catch (error) {
-      console.error("Profil güncelleme sırasında hata oluştu:", error);
-      setAlertMessage("Profil güncelleme başarısız oldu.");
-      setTimeout(() => setAlertMessage(""), 5000);
+      console.error("Error editing profile:", error);
+      toast.error("Failed to edit profile.");
+      //   setTimeout(() => setAlertMessage(""), 5000);
     }
   };
 
@@ -158,6 +161,7 @@ function EditProfile() {
 
   return (
     <div>
+      <ToastContainer />
       {alertMessage && (
         <div className="alert alert-success alert-dismissable fade show">
           <a

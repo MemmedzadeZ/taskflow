@@ -1,20 +1,25 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Pagination } from "react-bootstrap";
 import CreateTaskModel from "./TaskComponents/CreateTaskModel";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import EditTaskModel from "./TaskComponents/EditTaskModel";
+import EditProjectTaskModel from "./TaskComponents/EditProjectTaskModel";
 function UserTasks() {
   const [loading, setLoading] = useState(true);
   const [allTasks, setAllTasks] = useState([]);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const openModel = (taskId) => {
+  const openModel = (taskId, projectId) => {
     console.log(taskId);
     setSelectedTaskId(taskId);
+    setSelectedProjectId(projectId);
     setIsModalOpen(true);
   };
 
@@ -113,13 +118,13 @@ function UserTasks() {
         setAllTasks((prevTasks) =>
           prevTasks.filter((task) => task.id !== taskId)
         );
-        alert("Task deleted successfully.");
+        toast.success("Task deleted successfully.");
       } else {
-        alert("Failed to delete task.");
+        toast.error("Failed to delete task.");
       }
     } catch (error) {
       console.error("Error deleting task:", error);
-      alert("An error occurred while deleting the task.");
+      toast.error("An error occurred while deleting the task.");
     }
   };
 
@@ -128,6 +133,7 @@ function UserTasks() {
 
   return (
     <>
+      <ToastContainer />
       <div className="status-tabs">
         <div className="status-tab" onClick={() => setStatusFilter("to do")}>
           to do
@@ -159,12 +165,38 @@ function UserTasks() {
         <tbody>
           {currentPosts.map((task, index) => (
             <tr key={index}>
-              <td>{task.title}</td>
+              <td>
+                <b
+                  style={{
+                    textDecoration:
+                      new Date(task.deadline) < new Date()
+                        ? "line-through"
+                        : "none",
+                    color:
+                      new Date(task.deadline) < new Date()
+                        ? "#dc3545"
+                        : "inherit",
+                  }}
+                >
+                  {task.title}
+                </b>
+              </td>
               <td className={`priority ${task.priority.toLowerCase()}`}>
                 {task.priority}
               </td>
               <td>{formatDate(task.startDate)}</td>
-              <td>{formatDate(task.deadline)}</td>
+              <td>
+                <span
+                  style={{
+                    color:
+                      new Date(task.deadline) < new Date()
+                        ? "#dc3545"
+                        : "inherit",
+                  }}
+                >
+                  {formatDate(task.deadline)}
+                </span>
+              </td>
               <td>
                 {task.projectId ? (
                   <span className="team-member">{task.projectId}</span>
@@ -173,7 +205,10 @@ function UserTasks() {
                 )}
               </td>
               <td>
-                <button className="edit-button" onClick={openModel}>
+                <button
+                  className="edit-button"
+                  onClick={() => openModel(task.id, task.projectId)}
+                >
                   Edit
                 </button>
                 <button
@@ -192,9 +227,12 @@ function UserTasks() {
           ))}
         </tbody>
       </table>
-      {isModalOpen && (
-        <CreateTaskModel closeModal={closeModal} id={selectedTaskId} />
-      )}
+      {isModalOpen &&
+        (selectedProjectId ? (
+          <EditProjectTaskModel closeModal={closeModal} id={selectedTaskId} />
+        ) : (
+          <EditTaskModel closeModal={closeModal} id={selectedTaskId} />
+        ))}
 
       <Pagination
         className="mt-3"

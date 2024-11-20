@@ -70,7 +70,7 @@ function TwoCalendarNotification() {
         )}
         {items.length > 0 && (
           <div className="btn-view">
-            <a className="font-w600 h5" href="message.html">
+            <a className="font-w600 h5" href="/profile">
               View All
             </a>
           </div>

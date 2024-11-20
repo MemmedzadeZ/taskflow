@@ -1,20 +1,33 @@
 import { useEffect, useState } from "react";
 import "./css/CreateTaskForMember.css";
-
-function CreateTaskForMemberModel({ closeModal, id }) {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useParams } from "react-router-dom";
+function AddTaskModel({ closeModal, id, columnId }) {
+  const { projectId } = useParams();
+  const [proId, setProId] = useState(projectId); // Proje ID'sini state'e atama
   const [title, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
   const [status, setStatus] = useState("");
+  const [priority, setPriority] = useState("");
   const [deadline, setEndDate] = useState("");
   const [color, setColor] = useState("");
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
 
-  const fetchData = async () => {
+  const statusMap = {
+    "column-1": "to do",
+    "column-2": "in progress",
+    "column-3": "done",
+    "column-4": "approved",
+  };
+
+  const fetchUsersByProject = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/UserTask/${id}`,
+        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
         {
-          method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -23,58 +36,59 @@ function CreateTaskForMemberModel({ closeModal, id }) {
 
       if (response.ok) {
         const data = await response.json();
-        setUserTask(data);
+        setUsers(data);
+        setProId(projectId);
       } else {
-        console.error("Failed to fetch user task");
+        console.error("Failed to fetch users");
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching users:", error);
     }
   };
+  useEffect(() => {
+    fetchUsersByProject(id);
+  }, [id]);
 
-  const [userTask, setUserTask] = useState({
-    title: "",
-    description: "",
-    startDate: "",
-    deadline: "",
-    status: "",
-    color: "",
-  });
-
+  useEffect(() => {
+    if (users.length > 0 && !selectedUserId) {
+      setSelectedUserId(users[0].id);
+    }
+  }, [users, selectedUserId]);
   const saveTask = async (e) => {
     e.preventDefault();
 
     const taskData = {
+      ProjectId: proId,
+      CreatedById: selectedUserId, // handle default value
       Title: title,
       Description: description,
       Deadline: deadline,
-      Priority: status,
+      Priority: priority,
       Color: color,
-      StartTime: startDate,
+      StartDate: startDate,
+      Status: statusMap[columnId], // handle default value
     };
 
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/UserTask/NewTask",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(taskData),
-        }
-      );
+      const response = await fetch("https://localhost:7157/api/Work/NewTask", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(taskData),
+      });
 
       if (response.ok) {
-        const newTask = await response.json();
-        console.log("Append new task successfully", newTask);
+        toast.success("Append new task successfully");
         closeModal();
       } else {
-        console.error("Error while creating new task");
+        toast.error(
+          "Only authorized users can create tasks. Please contact your administrator."
+        );
       }
     } catch (error) {
-      console.error("Error:", error);
+      toast.error("Error:" + error);
     }
   };
 
@@ -83,19 +97,15 @@ function CreateTaskForMemberModel({ closeModal, id }) {
   };
 
   const getSelectedPriorityClass = (currentPriority) => {
-    return status === currentPriority ? "selected" : "";
+    return priority === currentPriority ? "selected" : "";
   };
-
-  useEffect(() => {
-    fetchData();
-  }, [id]);
 
   return (
     <div className="modal-backgroundd">
+      <ToastContainer position="top-right" />
       <div className="modal-contentt">
         <form onSubmit={saveTask}>
           <h2 className="modal-titlee">Create Task</h2>
-
           <div className="form-groupp">
             <label htmlFor="task-name">Task Name</label>
             <input
@@ -103,11 +113,10 @@ function CreateTaskForMemberModel({ closeModal, id }) {
               type="text"
               className="form-controll"
               placeholder="Enter task name"
-              value={userTask.title || title} // handle default value
+              value={title} // handle default value
               onChange={(e) => setTaskName(e.target.value)}
             />
           </div>
-
           <div className="form-groupp">
             <label htmlFor="task-name">Description</label>
             <textarea
@@ -115,66 +124,78 @@ function CreateTaskForMemberModel({ closeModal, id }) {
               className="form-controll"
               rows="3"
               placeholder=" Enter task description"
-              value={userTask.description || description} // handle default value
+              value={description} // handle default value
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
           </div>
-
           <div className="form-groupp">
             <label htmlFor="start-date">Start Date</label>
             <input
               id="start-date"
               type="date"
               className="form-controll"
-              value={userTask.startDate || startDate} // handle default value
+              value={startDate} // handle default value
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
-
           <div className="form-groupp">
             <label htmlFor="end-date">End Date</label>
             <input
               id="end-date"
               type="date"
               className="form-controll"
-              value={userTask.deadline || deadline} // handle default value
+              value={deadline} // handle default value
               onChange={(e) => setEndDate(e.target.value)}
             />
           </div>
-
+          <div className="form-groupp">
+            <label htmlFor="user-select">Assign to User</label>
+            <select
+              id="user-select"
+              className="form-controll"
+              value={selectedUserId}
+              onChange={(e) => setSelectedUserId(e.target.value)}
+            >
+              <option value="">Select a user</option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="form-groupp">
             <label htmlFor="status">Priority</label>
             <div className="status-tabs">
               <div
                 className={`status-tab ${getSelectedPriorityClass("high")}`}
-                onClick={() => setStatus("high")}
+                onClick={() => setPriority("high")}
               >
                 High
-                {status === "high" && (
-                  <span className="priority-selected">✖</span>
+                {priority === "high" && (
+                  <span className="status-selected">✖</span>
                 )}
               </div>
               <div
                 className={`status-tab ${getSelectedPriorityClass("medium")}`}
-                onClick={() => setStatus("medium")}
+                onClick={() => setPriority("medium")}
               >
                 Medium
-                {status === "medium" && (
-                  <span className="priority-selected">✖</span>
+                {priority === "medium" && (
+                  <span className="status-selected">✖</span>
                 )}
               </div>
               <div
                 className={`status-tab ${getSelectedPriorityClass("easy")}`}
-                onClick={() => setStatus("easy")}
+                onClick={() => setPriority("easy")}
               >
                 Easy
-                {status === "easy" && (
-                  <span className="priority-selected">✖</span>
+                {priority === "easy" && (
+                  <span className="status-selected">✖</span>
                 )}
               </div>
             </div>
           </div>
-
           <div className="form-groupp">
             <label htmlFor="priority">Color</label>
             <div className="priority-tabss">
@@ -252,7 +273,6 @@ function CreateTaskForMemberModel({ closeModal, id }) {
               </button>
             </div>
           </div>
-
           <div className="modal-buttonss">
             <button type="button" className="close-btnn" onClick={closeModal}>
               Close
@@ -267,4 +287,4 @@ function CreateTaskForMemberModel({ closeModal, id }) {
   );
 }
 
-export default CreateTaskForMemberModel;
+export default AddTaskModel;

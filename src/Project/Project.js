@@ -15,6 +15,7 @@ import groupProjectStatistics from "../Chart/ChartDataFunctions";
 import ProjectLinearChart from "./ProjectLinearChart";
 import RecentActivity from "./RecentActivity";
 import InProgress from "./InProgress";
+import ProjectStatistik from "./ProjectStatistik";
 
 const Project = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -92,117 +93,8 @@ const Project = () => {
                 </div>
               </div>
 
-              <div className="dropdown d-inline-block">
-                <button
-                  type="button"
-                  className="btn header-item"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span className="btn dropdown-toggle" id="header-lang-img">
-                    EN
-                    <i className="bx bx-caret-down"></i>
-                  </span>
-                </button>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a
-                    href=" "
-                    className="dropdown-item notify-item language"
-                    data-lang="en"
-                  >
-                    <img
-                      src="/images/flags/us.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">English</span>
-                  </a>
-                  <a
-                    href=" "
-                    className="dropdown-item notify-item language"
-                    data-lang="sp"
-                  >
-                    <img
-                      src="/images/flags/spain.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">Spanish</span>
-                  </a>
-                  <a
-                    href=" "
-                    className="dropdown-item notify-item language"
-                    data-lang="gr"
-                  >
-                    <img
-                      src="/images/flags/germany.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">German</span>
-                  </a>
-                  <a
-                    href=" "
-                    className="dropdown-item notify-item language"
-                    data-lang="it"
-                  >
-                    <img
-                      src="/images/flags/italy.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">Italian</span>
-                  </a>
-                  <a
-                    href=" "
-                    className="dropdown-item notify-item language"
-                    data-lang="ru"
-                  >
-                    <img
-                      src="/images/flags/russia.jpg"
-                      alt="user-image"
-                      className="me-1"
-                      height="12"
-                    />{" "}
-                    <span className="align-middle">Russian</span>
-                  </a>
-                </div>
-              </div>
-
               <div className="dropdown d-inline-block mt-12">
                 <CurrentPerson></CurrentPerson>
-                <div className="dropdown-menu dropdown-menu-end">
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-user font-size-16 align-middle me-1"></i>{" "}
-                    <span>Profile</span>
-                  </a>
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-wallet font-size-16 align-middle me-1"></i>{" "}
-                    <span>My Wallet</span>
-                  </a>
-                  <a className="dropdown-item d-block" href=" ">
-                    <span className="badge bg-success float-end">11</span>
-                    <i className="bx bx-wrench font-size-16 align-middle me-1"></i>{" "}
-                    <span>Settings</span>
-                  </a>
-                  <a className="dropdown-item" href=" ">
-                    <i className="bx bx-lock-open font-size-16 align-middle me-1"></i>{" "}
-                    <span>Lock screen</span>
-                  </a>
-                  <div className="dropdown-divider"></div>
-                  <a
-                    className="dropdown-item text-danger"
-                    href="user-login.html"
-                  >
-                    <i className="bx bx-power-off font-size-16 align-middle me-1 text-danger"></i>{" "}
-                    <span>Logout</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>
@@ -263,60 +155,11 @@ const Project = () => {
                         <div id="customer-chart" />
                       </div>
                     </div>
-                  </div> */}
+                  </div> */}{" "}
+                  <RecentActivity></RecentActivity> <ProjectStatistik />
                   <ProjectLinearChart></ProjectLinearChart>
-                  <div className="col-6 col-md-12">
-                    <div className="box">
-                      <div className="box-header">
-                        <div className="me-auto">
-                          <h4 className="card-title fs-22">
-                            Employee Category
-                          </h4>
-                          <p className="fs-14 mt-4">
-                            Lorem ipsum dolor sit amet
-                          </p>
-                        </div>
-                      </div>
-                      <div className="box-body pt-0">
-                        <div className="row">
-                          <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0">
-                            <ul className="box-list mt-25 pr-60">
-                              <li>
-                                <span className="bg-blue square" />
-                                Web Design<span>25%</span>
-                              </li>
-                              <li>
-                                <span className="bg-success square" />
-                                UX/UI Design<span>18%</span>
-                              </li>
-                              <li>
-                                <span className="bg-warning square" />
-                                Graphics Design<span>17%</span>
-                              </li>
-                              <li>
-                                <span className="bg-blue square" />
-                                Motion Design<span>12.50%</span>
-                              </li>
-                              <li>
-                                <span className="bg-success square" />
-                                Brand Identity<span>12.50%</span>
-                              </li>
-                              <li>
-                                <span className="bg-warning square" />
-                                Others<span>12.50%</span>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0"> */}
-                          <DoughnutChart />
-                          {/* </div> */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <RecentActivity></RecentActivity>
                   <InProgress></InProgress>
-                  <div className="col-8 col-md-12">
+                  <div className="col-12 col-md-12">
                     <div className="box ">
                       <div className="box-header  pt-0">
                         <div className="me-auto">
@@ -970,46 +813,6 @@ const Project = () => {
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-4 col-md-12">
-                    <div className="box">
-                      <div className="box-header  pt-0">
-                        <div className="me-auto">
-                          <h4 className="card-title mb-0 fs-22">Calendar</h4>
-                        </div>
-                        <div className="card-options pr-3">
-                          <div className="dropdown">
-                            <a
-                              href=" "
-                              className="btn ripple btn-outline-light dropdown-toggle"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              See All{" "}
-                              <i className="feather feather-chevron-down" />
-                            </a>
-                            <ul
-                              className="dropdown-menu dropdown-menu-end"
-                              role="menu"
-                              style={{}}
-                            >
-                              <li>
-                                <a href=" ">Monthly</a>
-                              </li>
-                              <li>
-                                <a href=" ">Yearly</a>
-                              </li>
-                              <li>
-                                <a href=" ">Weekly</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="box-body pb-0">
-                        <div className="custom-calendar" />
                       </div>
                     </div>
                   </div>
