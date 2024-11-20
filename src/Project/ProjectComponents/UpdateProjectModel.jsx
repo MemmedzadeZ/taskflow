@@ -1,22 +1,34 @@
 import { useState, useEffect } from "react";
 import Notifier from "../../Error/Notifier";
 import "../css/ProjectStyles.css";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import $, { data } from "jquery";
 import {
   SearchMember,
   handleUserSelection,
   generatePastelColor,
+  handleMemberRemoval,
 } from "../SearchMember";
+import Select from "react-select";
 
 function UpdateProjectModel({ closeModal, projectId }) {
+  const options = [
+    { value: "Pending", label: "Pending" },
+    { value: "On Going", label: "On Going" },
+    { value: "Completed", label: "Completed" },
+  ];
+
   const [title, setProjectName] = useState("");
   const [progressText, setProgressText] = useState(null);
   const [description, setDescription] = useState("");
+  const [status, setProjectState] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [color, setColor] = useState("");
+
   const [isDisplay, setDisplay] = useState(false);
+  const [isModalClose, setModalClose] = useState(false);
   const [members, setTeamMembers] = useState([]);
   const getSelectedColorClass = (currentColor) => {
     return color === currentColor ? "selected" : "";
@@ -27,114 +39,120 @@ function UpdateProjectModel({ closeModal, projectId }) {
     } else $("#searched-members").remove();
   };
 
-  const handleUpdateProject = async (e) => {
+  const handleUpdateProject = (e) => {
     e.preventDefault();
-    setProgressText(null);
     const projectData = {
-      title,
-      startDate,
-      endDate,
-      description,
+      title: title.trim(),
+      description: description.trim(),
+      startDate: startDate,
+      status: status,
+      endDate: endDate,
       isCompleted: false,
-      color,
+      color: color.trim(),
     };
-    fetch("https://localhost:7157/api/Project", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(projectData),
-    }).then((response) => {
-      if (response.ok) {
-        console.log(response.json());
-        const activityData = {
-          text: "New Project Created",
-          type: "Project",
-        };
-        setProgressText("Project Created!");
-        fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(activityData),
-        });
-        handleMemberAdding();
-      }
-    });
-    // setTimeout(() => {}, 1000);
+
+    try {
+      fetch(`https://localhost:7157/api/Project/Put/${projectId}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projectData),
+      }).then((res) => {
+        if (res.ok) {
+          const activityData = {
+            text: "Project updated",
+            type: "Project",
+          };
+          fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }).then((res) => {
+            if (res.ok) {
+              console.log("Notification sent successfully.");
+              handleMemberAdding();
+            } else {
+              console.error("Failed to send notification:", res.statusText);
+            }
+          });
+        }
+      });
+
+      /////
+    } catch {}
   };
+
   const handleMemberAdding = async () => {
     try {
-      console.log("Inside member handler");
       const container = document.getElementById("team-member-box");
-
+      if (!container) {
+        console.error("Element with ID 'team-member-box' not found.");
+        return;
+      }
       const usernames = Array.from(
         container.querySelectorAll(".selected-tm")
       ).map((div) => div.textContent.trim());
 
-      if (!title) {
-        console.error("Title is undefined or empty.");
+      const token = localStorage.getItem("token");
+      if (!token) {
+        console.error("Authorization token not found.");
         return;
       }
-      var newTitle = title.trim();
 
-      const projectResponse = await fetch(
+      const newTitle = title.trim();
+
+      const res = await fetch(
         "https://localhost:7157/api/Project/ProjectWithTitle",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(newTitle),
         }
       );
 
-      if (!projectResponse.ok) {
-        console.error(
-          "Failed to fetch project ID:",
-          projectResponse.statusText
-        );
-        return;
-      }
-
-      const projectData = await projectResponse.json();
-      const projectId = projectData.id;
-
-      if (!projectId) {
-        console.error("Project ID not found.");
-        return;
-      }
-
-      const payload = {
-        projectId,
-        Members: usernames,
-      };
-
-      const response = await fetch(
-        "https://localhost:7157/api/TeamMember/TeamMemberCollections",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      if (response.ok) {
-        const text = await response.json();
-        setProgressText(text.message);
+      if (!res.ok) {
+        console.error("Failed to fetch project ID:", res.statusText);
       } else {
-        console.error("Failed to add team members:", response.statusText);
+        const data = await res.json();
+        const projectId = data.id;
+        if (!projectId) {
+          console.error("Project ID not found.");
+          return;
+        }
+
+        const payload = {
+          projectId,
+          Members: usernames,
+        };
+        fetch(
+          "https://localhost:7157/api/TeamMember/UpdateTeamMemberCollections",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          }
+        ).then((res) => {
+          if (res.ok) {
+            closeModal();
+          }
+        });
       }
     } catch (error) {
       console.error("Error in handleMemberAdding:", error);
     }
   };
+
+  // useEffect(() => {}, []);
 
   const fetchData = async (projectId) => {
     var response = await fetch(
@@ -153,18 +171,20 @@ function UpdateProjectModel({ closeModal, projectId }) {
     console.log(data.color);
     setColor(data.color);
     setDescription(data.description);
+    setProjectState(data.status);
     setProjectName(data.title);
     setStartDate(data.startDate.slice(0, 10));
+    setTeamMembers(data.members);
     setEndDate(data.endDate.slice(0, 10));
   };
 
   useEffect(() => {
     fetchData(projectId);
-    setProgressText(null);
   }, [projectId]);
+  const handleInputChange = (e) => setProjectName(e.target.value);
+
   return (
     <div className="modal-backgroundd">
-      {progressText !== "" && <Notifier message={progressText}></Notifier>}
       <div className="modal-content-project">
         <form onSubmit={(e) => handleUpdateProject(e)}>
           <h2>Update Project</h2>
@@ -179,33 +199,33 @@ function UpdateProjectModel({ closeModal, projectId }) {
                 placeholder="Project Name"
                 value={title}
                 onChange={(e) => {
-                  setProjectName(e.target.value);
+                  handleInputChange(e);
                 }}
               />
             </div>
             <div className="col">
-              <label>Priority:</label>
-              <select className="form-control">
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
-              </select>
+              <Select
+                value={options.find((option) => option.value === status)}
+                onChange={(e) => setProjectState(e.value)}
+                options={options}
+              />
             </div>
           </div>
           {/* Start and End Dates */}
           <div className="row">
-            <div className="col">
-              <label>Start Date:</label>
-              <input
-                type="date"
+            {/* <div className="col">
+              <label>State:</label>
+               <select
                 className="form-control"
-                required
-                value={startDate}
-                onChange={(e) => {
-                  setStartDate(e.target.value);
-                }}
-              />
-            </div>
+                value={status}
+                onChange={(e) => setProjectState(e.target.value)}
+              >
+                <option>Pending</option>
+                <option>On Going</option>
+                <option>Completed</option>
+              </select> 
+             
+            </div> */}
             <div className="col">
               <label>End Date:</label>
               <input
@@ -295,6 +315,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
                     backgroundColor: generatePastelColor(),
                     cursor: "pointer",
                   }}
+                  onClick={() => handleMemberRemoval(member)}
                 >
                   {member}
                 </div>

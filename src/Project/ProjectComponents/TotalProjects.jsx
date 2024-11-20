@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 function TotalProjects() {
   const [projectCount, setProjectCount] = useState(0);
@@ -21,6 +22,35 @@ function TotalProjects() {
 
     setProjectCount(data);
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("UpdateTotalProjects", () => {
+      fetchData();
+    });
+
+    // setConnection(conn);
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetchData();

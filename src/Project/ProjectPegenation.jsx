@@ -6,6 +6,8 @@ const ProjectPagination = ({ posts, handle }) => {
   const itemsPerPage = 4;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProjectId, setCurrentProjectId] = useState(null);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [hoveredItemId, setHoveredItemId] = useState(null);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -13,6 +15,11 @@ const ProjectPagination = ({ posts, handle }) => {
 
   const totalPages = Math.ceil(posts.length / itemsPerPage);
   console.log(posts);
+
+  const getHover = (id) => {
+    setHoveredItemId(id);
+    fetchMembers(id);
+  };
 
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
@@ -23,16 +30,55 @@ const ProjectPagination = ({ posts, handle }) => {
   };
   const openModal = (e, id) => {
     e.preventDefault();
-    setCurrentProjectId(id); // Set the specific project ID
+    setCurrentProjectId(id);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCurrentProjectId(null); // Clear the project ID when closing the modal
+    setCurrentProjectId(null);
   };
+
+  const fetchMembers = (id) => {
+    console.log("inside fetch");
+    fetch(`https://localhost:7157/api/TeamMember/get/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            "Something went wrong while fetching team members: " +
+              res.statusText
+          );
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.list) {
+          setTeamMembers(data.list);
+          console.log(data.list);
+        } else {
+          setTeamMembers([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching team members:", error.message);
+        setTeamMembers([]);
+      });
+  };
+
   return (
     <div>
+      {isModalOpen && (
+        <UpdateProjectModel
+          closeModal={closeModal}
+          projectId={currentProjectId}
+        />
+      )}
       {/* <div className=""> */}
       <div className="row" style={{ display: "flex", gap: "10px" }}>
         {currentPosts.map((item, index) => (
@@ -57,12 +103,6 @@ const ProjectPagination = ({ posts, handle }) => {
                   Deadline: {item.endDate ? item.endDate : "No deadline set"}
                 </span>
               </div>
-              {isModalOpen && (
-                <UpdateProjectModel
-                  closeModal={closeModal}
-                  projectId={currentProjectId}
-                />
-              )}
 
               <div className="box-footer">
                 <div className="d-flex align-items-center">
@@ -79,31 +119,159 @@ const ProjectPagination = ({ posts, handle }) => {
                         <div className="chart-circle-value">75%</div>
                       </div>
                     </div>
-                    <ul
-                      className="user-list mb-0"
-                      style={{ marginRight: "1vw" }}
+                    <div
+                      className="ul-container"
+                      onMouseEnter={() => getHover(item.id)}
+                      onMouseLeave={() => setHoveredItemId(null)}
+                      style={{ position: "relative" }}
                     >
-                      <li>
-                        <img src="./images/avatar/user-1.png" alt="User 1" />
-                      </li>
-                      <li>
-                        <img src="./images/avatar/user-2.png" alt="User 2" />
-                      </li>
-                      <li>
-                        <img src="./images/avatar/user-3.png" alt="User 3" />
-                      </li>
-                    </ul>
+                      <ul
+                        className="user-list mb-0"
+                        style={{ marginRight: "1vw" }}
+                      >
+                        {posts.participantsPath?.length > 0 ? (
+                          posts.participants
+                            .slice(0, 3)
+                            .map((imagePath, index) => (
+                              <li key={index}>
+                                <img
+                                  src={
+                                    imagePath ||
+                                    "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                                  }
+                                  alt={`User ${index + 1}`}
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                  }}
+                                />
+                              </li>
+                            ))
+                        ) : (
+                          <li>-</li>
+                        )}
+                        {hoveredItemId === item.id && (
+                          <div
+                            className="hidden-div"
+                            style={{
+                              position: "absolute",
+                              top: "100%",
+                              left: "1%",
+                              backgroundColor: "white",
+                              border: "1px solid #ccc",
+                              padding: "14px",
+                              zIndex: "1000",
+                              width: "auto",
+                            }}
+                          >
+                            {teamMembers.length === 0 ? (
+                              <ul
+                                style={{
+                                  width: "auto",
+                                }}
+                              >
+                                <li>No Participants!</li>
+                              </ul>
+                            ) : (
+                              <ul
+                                style={{
+                                  width: "auto",
+                                  height: "auto",
+                                  padding: "5px",
+                                }}
+                              >
+                                {teamMembers.map((member, idx) => (
+                                  <li
+                                    style={{
+                                      width: "auto",
+                                      height: "auto",
+                                      borderRadius: "5px",
+                                      border: "4px solid #EF7F5A",
+                                      background: " #f9b8a2",
+                                      padding: "3px",
+                                    }}
+                                    key={idx}
+                                  >
+                                    <div
+                                      style={{
+                                        width: "auto",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "10px",
+                                      }}
+                                    >
+                                      <div style={{ flexShrink: 0 }}>
+                                        <img
+                                          src={
+                                            member.profilePicture
+                                              ? member.profilePicture
+                                              : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                                          }
+                                          alt={`${member.username}'s profile`}
+                                          style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            borderRadius: "50%",
+                                            objectFit: "cover",
+                                          }}
+                                          onError={(e) => {
+                                            e.target.onerror = null;
+                                            e.target.src =
+                                              "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png";
+                                          }}
+                                        />
+                                      </div>
+                                      <div style={{ width: "auto" }}>
+                                        <span
+                                          style={{
+                                            margin: "0",
+                                            fontSize: "16px",
+                                            fontWeight: "bold",
+                                          }}
+                                        >
+                                          {member.username}
+                                        </span>
+                                        <span
+                                          style={{
+                                            // margin: "0 0 0 5px",
+                                            fontSize: "14px",
+                                            color: "#555",
+                                            // display: "flex",
+                                          }}
+                                        >
+                                          {member.fullname}
+                                        </span>
+                                        {/* <h4
+                                          style={{
+                                            margin: "0",
+                                            fontSize: "16px",
+                                            fontWeight: "bold",
+                                          }}
+                                        >
+                                          {member.username}
+                                        </h4>
+                                        <h6
+                                          style={{
+                                            margin: "0",
+                                            width: "auto",
+                                            // fontSize: "14px",
+                                            color: "#555",
+                                          }}
+                                        >
+                                          {member.fullname}
+                                        </h6> */}
+                                      </div>
+                                    </div>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </div>
+                        )}
+                      </ul>
+                    </div>
                   </div>
                   <div className="ms-auto mt-3 mt-sm-0">
                     <div className="d-flex">
-                      {/* <div
-                        className="task-btn bg-danger-1 text-danger btn-link fs-14"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="Project Priority"
-                      >
-                        {item.status}
-                      </div> */}
                       <a
                         className="btn btn-outline-light text-muted pd-0 fs-34"
                         href="#"
