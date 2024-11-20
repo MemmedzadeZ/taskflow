@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function PersonalInfo() {
   const [username, setUserName] = useState(null);
   const [fullname, setFullname] = useState(null);
@@ -10,6 +12,68 @@ function PersonalInfo() {
   const [country, setCountry] = useState(null);
   const [gender, setGender] = useState(null);
   const [birthday, setBirthday] = useState(null);
+  const navigate = useNavigate();
+
+  const handleDeleteAccount = async () => {
+    try {
+      var response = await fetch("https://localhost:7157/api/Auth", {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.status === 200) {
+        console.log(response.data);
+
+        localStorage.removeItem("token");
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Delete account failed:", error);
+      toast.error("Delete account  failed");
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      var response = await fetch(
+        "https://localhost:7157/api/Profile/Logout",
+
+        {
+          method: "GET",
+
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        const activityData = {
+          text: "User logged out",
+          type: "logout",
+        };
+
+        await fetch(
+          "https://localhost:7157/api/Notification/NewRecentActivity",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }
+        );
+
+        localStorage.removeItem("token");
+        navigate("/auth");
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+      toast.error("Logout failed");
+    }
+  };
 
   const fetchData = async () => {
     var response = await fetch("https://localhost:7157/api/Auth/currentUser", {
@@ -83,6 +147,19 @@ function PersonalInfo() {
         <p>
           <strong>Birthday:</strong> {birthday}
         </p>
+      </div>
+
+      <div className="buttonGroup" style={{ justifyContent: "center" }}>
+        <button type="submit" className="saveButton" onClick={handleLogout}>
+          Log Out
+        </button>
+        <button
+          type="button"
+          className="cancelButton"
+          onClick={handleDeleteAccount}
+        >
+          Delete Account
+        </button>
       </div>
     </div>
   );

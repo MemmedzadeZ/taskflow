@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function RequestList() {
   const [notifications, setNotifications] = useState([]);
 
@@ -35,7 +37,7 @@ function RequestList() {
         setNotifications((prevTasks) =>
           prevTasks.filter((task) => task.requestId !== requestId)
         );
-        alert("Request accepted successfully.");
+        toast.success("Request accepted successfully.");
         const activityData = {
           text: "You accepted a request.",
           type: "Notification",
@@ -53,11 +55,11 @@ function RequestList() {
           }
         );
       } else {
-        alert("Failed to accept request.");
+        toast.error("Failed to accept request.");
       }
     } catch (error) {
       console.error("Error accepting request:", error);
-      alert("An error occurred while accepting the request.");
+      toast.error("An error occurred while accepting the request.");
     }
   };
 
@@ -75,7 +77,7 @@ function RequestList() {
         setNotifications((prevTasks) =>
           prevTasks.filter((task) => task.requestId !== requestId)
         );
-        alert("Request deleted successfully.");
+        toast.info("Request deleted successfully.");
         const activityData = {
           text: "You rejected a request.",
           type: "Notification",
@@ -93,11 +95,11 @@ function RequestList() {
           }
         );
       } else {
-        alert("Failed to delete request.");
+        toast.error("Failed to delete request.");
       }
     } catch (error) {
       console.error("Error deleting request:", error);
-      alert("An error occurred while deleting the request.");
+      toast.error("An error occurred while deleting the request.");
     }
   };
 
@@ -107,6 +109,7 @@ function RequestList() {
 
   return (
     <div className="col-lg-12">
+      <ToastContainer />
       <div className="card">
         <div className="card-body">
           <div className="d-md-flex">

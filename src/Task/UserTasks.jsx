@@ -165,12 +165,38 @@ function UserTasks() {
         <tbody>
           {currentPosts.map((task, index) => (
             <tr key={index}>
-              <td>{task.title}</td>
+              <td>
+                <b
+                  style={{
+                    textDecoration:
+                      new Date(task.deadline) < new Date()
+                        ? "line-through"
+                        : "none",
+                    color:
+                      new Date(task.deadline) < new Date()
+                        ? "#dc3545"
+                        : "inherit",
+                  }}
+                >
+                  {task.title}
+                </b>
+              </td>
               <td className={`priority ${task.priority.toLowerCase()}`}>
                 {task.priority}
               </td>
               <td>{formatDate(task.startDate)}</td>
-              <td>{formatDate(task.deadline)}</td>
+              <td>
+                <span
+                  style={{
+                    color:
+                      new Date(task.deadline) < new Date()
+                        ? "#dc3545"
+                        : "inherit",
+                  }}
+                >
+                  {formatDate(task.deadline)}
+                </span>
+              </td>
               <td>
                 {task.projectId ? (
                   <span className="team-member">{task.projectId}</span>

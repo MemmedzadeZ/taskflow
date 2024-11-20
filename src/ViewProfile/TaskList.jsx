@@ -90,8 +90,21 @@ function TaskList() {
                   {index + 1 + (currentPage - 1) * postsPerPage}
                 </td>
                 <td>
-                  <a href="#" className="d-flex">
-                    <span>{task.title}</span>
+                  <a href=" " className="d-flex">
+                    <span
+                      style={{
+                        textDecoration:
+                          new Date(task.deadline) < new Date()
+                            ? "line-through"
+                            : "none",
+                        color:
+                          new Date(task.deadline) < new Date()
+                            ? "#dc3545"
+                            : "inherit",
+                      }}
+                    >
+                      {task.title}
+                    </span>
                   </a>
                 </td>
                 <td>
@@ -108,7 +121,19 @@ function TaskList() {
                   </span>
                 </td>
                 <td>{formatDate(task.startDate)}</td>
-                <td>{formatDate(task.deadline)}</td>
+                <td>
+                  {" "}
+                  <span
+                    style={{
+                      color:
+                        new Date(task.deadline) < new Date()
+                          ? "#dc3545"
+                          : "inherit",
+                    }}
+                  >
+                    {formatDate(task.deadline)}
+                  </span>
+                </td>
                 <td>
                   <div className="progress progress-sm">
                     <div

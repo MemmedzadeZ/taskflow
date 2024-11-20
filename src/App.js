@@ -19,6 +19,7 @@ import UserProfile from "./ViewProfile/UserProfile";
 import Kanban from "./Kanban/Kanban";
 import Tasks from "./Task/Task";
 import Calendar from "./Calendar/Calendar";
+import AddTaskModel from "./Kanban/CreateTaskForMember";
 function App() {
   return (
     <div>
@@ -36,6 +37,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/message" element={<Message />} />
         <Route path="/friends" element={<Friends />} />
+        <Route path="/project/:projectId/addTask" component={AddTaskModel} />
 
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/tasks" element={<Tasks />} />

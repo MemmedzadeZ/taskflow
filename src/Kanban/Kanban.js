@@ -1,6 +1,6 @@
 import SidebarComponent from "../SideBar/SidebarComponent";
 import CurrentPerson from "../Dashboard/CurrentUser";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./css/Kanban.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import TwoMessage from "../Components/MessageList";
@@ -13,6 +13,8 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateTaskForMemberModel from "./CreateTaskForMember";
+import EditTaskForMemberModel from "./EditTaskForMember";
+import { move } from "formik";
 
 const initialData = {
   columns: {
@@ -41,12 +43,14 @@ const Kanban = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedColumnId, setSelectedColumnId] = useState(null);
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const modalRef = useRef();
   useEffect(() => {
     const getTasks = async () => {
       try {
         if (!projectId) {
-          // Kullanıcının projelerini getir
           const projectResponse = await fetch(
             `https://localhost:7157/api/Project/AllProjectsUserOwn`,
             {
@@ -121,18 +125,23 @@ const Kanban = () => {
   };
 
   if (loading) {
-    return <div>Yükleniyor...</div>;
+    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>Hata: {error}</div>;
+    return <div> Error loading data: {error}</div>;
   }
 
   const onDragEnd = async (result) => {
-    const { source, destination } = result;
+    const { source, destination, draggableId } = result;
 
     if (!destination) return;
 
+    if (destination.droppableId === "column-4") {
+      setTimeout(() => {
+        handleDeleteTask(draggableId);
+      }, 24 * 60 * 60 * 1000); //24 saat sonra avtomatik silinir
+    }
     const sourceColumn = data.columns[source.droppableId];
     const destColumn = data.columns[destination.droppableId];
 
@@ -190,6 +199,40 @@ const Kanban = () => {
     }
   };
 
+  const handleDeleteTask = async (taskId) => {
+    try {
+      const response = await fetch(
+        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        setData((prevData) => {
+          const updatedColumns = { ...prevData.columns };
+
+          for (const columnId in updatedColumns) {
+            updatedColumns[columnId].tasks = updatedColumns[
+              columnId
+            ].tasks.filter((task) => task.id !== taskId);
+          }
+
+          return { ...prevData, columns: updatedColumns };
+        });
+        toast.success("Task deleted successfully.");
+      } else {
+        toast.error("Failed to delete task.");
+      }
+    } catch (error) {
+      console.error("Error deleting task:", error);
+      toast.error("An error occurred while deleting the task.");
+    }
+  };
+
   const calculateProgress = (startDate, deadline) => {
     const currentDate = new Date();
     const start = new Date(startDate);
@@ -219,13 +262,21 @@ const Kanban = () => {
       .padStart(2, "0")}-${date.getFullYear()}`;
   };
 
-  const openModel = (e) => {
+  const openModel = (e, columnId) => {
+    setSelectedColumnId(columnId);
     e.preventDefault();
     setIsModalOpen(true);
   };
 
+  const openModelEdit = (e, taskId) => {
+    setSelectedTaskId(taskId);
+    e.preventDefault();
+    setIsEditModalOpen(true);
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
+    setIsEditModalOpen(false);
   };
   return (
     <div>
@@ -345,10 +396,21 @@ const Kanban = () => {
                                               new Date()
                                                 ? "line-through"
                                                 : "none",
-                                            color: "#dc3545",
+                                            color:
+                                              new Date(task.deadline) <
+                                              new Date()
+                                                ? "#dc3545"
+                                                : "black",
                                           }}
                                         >
-                                          {task.title}
+                                          <div
+                                            key={task.id}
+                                            onClick={(e) =>
+                                              openModelEdit(e, task.id)
+                                            }
+                                          >
+                                            <p>{task.title}</p>
+                                          </div>
                                         </span>
 
                                         <div className="sm-f-wrap d-flex justify-content-start">
@@ -409,12 +471,42 @@ const Kanban = () => {
                                         </span>
                                       </div>
 
-                                      {/* Task Description - if available */}
-                                      {task.description && (
-                                        <div className="task-description">
-                                          <p>{task.description}</p>
-                                        </div>
-                                      )}
+                                      <div
+                                        style={{
+                                          display: "flex",
+                                          justifyContent: "space-between",
+                                        }}
+                                      >
+                                        {task.description && (
+                                          <div className="task-description">
+                                            <p>{task.description}</p>
+                                          </div>
+                                        )}
+                                        <a
+                                          onClick={() =>
+                                            handleDeleteTask(task.id)
+                                          }
+                                          className="w-32-px h-32-px me-8 bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center"
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <svg
+                                            aria-hidden="true"
+                                            role="img"
+                                            className="iconify iconify--mingcute"
+                                            width="1em"
+                                            height="1em"
+                                            viewBox="0 0 24 24"
+                                          >
+                                            <g fill="none">
+                                              <path d="m12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.018-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"></path>
+                                              <path
+                                                fill="currentColor"
+                                                d="M14.28 2a2 2 0 0 1 1.897 1.368L16.72 5H20a1 1 0 1 1 0 2l-.003.071l-.867 12.143A3 3 0 0 1 16.138 22H7.862a3 3 0 0 1-2.992-2.786L4.003 7.07L4 7a1 1 0 0 1 0-2h3.28l.543-1.632A2 2 0 0 1 9.721 2zm3.717 5H6.003l.862 12.071a1 1 0 0 0 .997.929h8.276a1 1 0 0 0 .997-.929zM10 10a1 1 0 0 1 .993.883L11 11v5a1 1 0 0 1-1.993.117L9 16v-5a1 1 0 0 1 1-1m4 0a1 1 0 0 1 1 1v5a1 1 0 1 1-2 0v-5a1 1 0 0 1 1-1m.28-6H9.72l-.333 1h5.226z"
+                                              ></path>
+                                            </g>
+                                          </svg>
+                                        </a>
+                                      </div>
                                     </div>
                                   </div>
                                 )}
@@ -423,7 +515,11 @@ const Kanban = () => {
                             {provided.placeholder}
                             <button
                               className="add-card-button"
-                              onClick={openModel}
+                              onClick={(e) => openModel(e, columnId)}
+                              style={{
+                                display:
+                                  columnId === "column-4" ? "none" : "block",
+                              }}
                             >
                               Add Card
                             </button>
@@ -435,7 +531,17 @@ const Kanban = () => {
                 </DragDropContext>
               </div>
               {isModalOpen && (
-                <CreateTaskForMemberModel closeModal={closeModal} />
+                <CreateTaskForMemberModel
+                  closeModal={closeModal}
+                  columnId={selectedColumnId}
+                />
+              )}
+
+              {isEditModalOpen && (
+                <EditTaskForMemberModel
+                  closeModal={closeModal}
+                  taskId={selectedTaskId}
+                />
               )}
             </div>
           </div>
