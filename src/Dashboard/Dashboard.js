@@ -219,7 +219,7 @@ function DashboardTemplate() {
                             </p>
                           </div>
                           <div className="btn-now">
-                            <a className="h6 font-w500" href=" ">
+                            <a className="h6 font-w500" href="/project">
                               <span>Try For Free Now</span>
                             </a>
                           </div>

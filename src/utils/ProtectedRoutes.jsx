@@ -1,8 +1,8 @@
-import { Outlet, Navigate } from "react-router-dom";
+// ProtectedRoute.js
+import { Navigate } from 'react-router-dom';
 
-const ProtectedRoutes = () => {
-  const user = null; // Adjust this to your actual auth logic
-  return user ? <Outlet /> : <Navigate to="/" />;
+const ProtectedRoute = ({ isAuthenticated, children }) => {
+  return isAuthenticated ? children : <Navigate to="/" />;
 };
 
-export default ProtectedRoutes;
+export default ProtectedRoute;
