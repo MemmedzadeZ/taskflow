@@ -94,58 +94,8 @@ const Project = () => {
                 <div className="row">
                  
                   <ProjectLinearChart></ProjectLinearChart>
-                  <div className="col-6 col-md-12">
-                    <div className="box">
-                      <div className="box-header">
-                        <div className="me-auto">
-                          <h4 className="card-title fs-22">
-                            Employee Category
-                          </h4>
-                          <p className="fs-14 mt-4">
-                            Lorem ipsum dolor sit amet
-                          </p>
-                        </div>
-                      </div>
-                      <div className="box-body pt-0">
-                        <div className="row">
-                          <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0">
-                            <ul className="box-list mt-25 pr-60">
-                              <li>
-                                <span className="bg-blue square" />
-                                Web Design<span>25%</span>
-                              </li>
-                              <li>
-                                <span className="bg-success square" />
-                                UX/UI Design<span>18%</span>
-                              </li>
-                              <li>
-                                <span className="bg-warning square" />
-                                Graphics Design<span>17%</span>
-                              </li>
-                              <li>
-                                <span className="bg-blue square" />
-                                Motion Design<span>12.50%</span>
-                              </li>
-                              <li>
-                                <span className="bg-success square" />
-                                Brand Identity<span>12.50%</span>
-                              </li>
-                              <li>
-                                <span className="bg-warning square" />
-                                Others<span>12.50%</span>
-                              </li>
-                            </ul>
-                          </div>
-                          {/* <div className="col-6 col-xl-12 col-md-6 col-sm-12 w-sm-100 mb-0"> */}
-                          <DoughnutChart />
-                          {/* </div> */}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <RecentActivity></RecentActivity>
                   <InProgress></InProgress>
-                  <div className="col-8 col-md-12">
+                  <div className="col-12 col-md-12">
                     <div className="box ">
                       <div className="box-header  pt-0">
                         <div className="me-auto">
@@ -799,46 +749,6 @@ const Project = () => {
                             </tr>
                           </tbody>
                         </table>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-4 col-md-12">
-                    <div className="box">
-                      <div className="box-header  pt-0">
-                        <div className="me-auto">
-                          <h4 className="card-title mb-0 fs-22">Calendar</h4>
-                        </div>
-                        <div className="card-options pr-3">
-                          <div className="dropdown">
-                            <a
-                              href=" "
-                              className="btn ripple btn-outline-light dropdown-toggle"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              See All{" "}
-                              <i className="feather feather-chevron-down" />
-                            </a>
-                            <ul
-                              className="dropdown-menu dropdown-menu-end"
-                              role="menu"
-                              style={{}}
-                            >
-                              <li>
-                                <a href=" ">Monthly</a>
-                              </li>
-                              <li>
-                                <a href=" ">Yearly</a>
-                              </li>
-                              <li>
-                                <a href=" ">Weekly</a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="box-body pb-0">
-                        <div className="custom-calendar" />
                       </div>
                     </div>
                   </div>

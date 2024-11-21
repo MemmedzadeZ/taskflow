@@ -10,6 +10,7 @@ function CreateProjectModel({ closeModal }) {
   const [progressText, setProgressText] = useState(null);
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");
+  const [status, setProjectState] = useState("Pending");
   const [endDate, setEndDate] = useState("");
   const [isFocused, setIsFocused] = useState(false);
   const [color, setColor] = useState("");
@@ -29,6 +30,7 @@ function CreateProjectModel({ closeModal }) {
       title,
       startDate,
       endDate,
+      status,
       description,
       isCompleted: false,
       color,
@@ -136,7 +138,6 @@ function CreateProjectModel({ closeModal }) {
   }, []);
   return (
     <div className="modal-backgroundd">
-      {progressText !== "" && <Notifier message={progressText}></Notifier>}
       <div className="modal-content-project">
         <form onSubmit={(e) => handleCreateProject(e)}>
           <h2>Create Project</h2>
@@ -156,11 +157,15 @@ function CreateProjectModel({ closeModal }) {
               />
             </div>
             <div className="col">
-              <label>Priority:</label>
-              <select className="form-control">
-                <option>High</option>
-                <option>Medium</option>
-                <option>Low</option>
+              <label>State:</label>
+              <select
+                className="form-control"
+                value={status}
+                onChange={(e) => setProjectState(e.target.value)}
+              >
+                <option>Pending</option>
+                <option>On Going</option>
+                <option>Completed</option>
               </select>
             </div>
           </div>
@@ -218,11 +223,6 @@ function CreateProjectModel({ closeModal }) {
                   onChange={handleMembers}
                 />
               </div>
-              {/* <div
-                className="search-result-div"
-                style={{ width: "80%", left: "15%" }}
-                id="searched-users"
-              ></div> */}
             </div>
             <div
               id="team-member-box"

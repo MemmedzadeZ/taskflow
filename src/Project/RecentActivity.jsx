@@ -1,29 +1,60 @@
 import { useState, useEffect } from "react";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 // // import emptyBoxImage from "../../public/images/icon/empty-box.png";
 
 const RecentActivity = () => {
   const [activityList, setActivityList] = useState([]);
   const fetchData = async () => {
-    console.log("recent activity");
-    var response = await fetch(
-      "https://localhost:7157/api/ProjectActivity/TeamMemberActivities",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+    try {
+      console.log("Fetching recent activity...");
+      const response = await fetch(
+        "https://localhost:7157/api/ProjectActivity/TeamMemberActivities",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status} ${response.statusText}`);
       }
-    );
-    var data = await response.json();
-    console.log(data);
-    if (data) {
-      setActivityList(data.list);
-    } else {
-      console.log("empty");
+
+      const data = await response.json();
+      setActivityList(data.list || []);
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+      setActivityList([]);
     }
-    // console.log(data.list);
   };
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   const conn = new HubConnectionBuilder()
+  //     .withUrl("https://localhost:7157/connect", {
+  //       accessTokenFactory: () => token,
+  //     })
+  //     .configureLogging("information")
+  //     .build();
+
+  //   conn
+  //     .start()
+  //     .then(() => {
+  //       console.log("SignalR connected.");
+  //     })
+  //     .catch((err) => console.error("SignalR connection error:", err));
+
+  //   conn.on("UpdateRecentTeamActivities", () => {
+  //     fetchData();
+  //   });
+  //   return () => {
+  //     if (conn) {
+  //       conn.stop();
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     fetchData();
