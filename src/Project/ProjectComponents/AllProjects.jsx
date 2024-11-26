@@ -5,13 +5,14 @@ import Notifier from "../../Error/Notifier";
 import ProjectPagination from "../ProjectPegenation";
 import Lottie from "lottie-react";
 import noproject from "../../animations/noproject.json";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const AllProjects = () => {
   const [allProjects, setAllProjects] = useState([]);
   const [statusFilter, setStatusFilter] = useState("All");
   const [progressText, setProgressText] = useState("");
+  const [connection, setConnection] = useState(null);
 
-  // Filter projects based on status
   const filteredProjects = useMemo(() => {
     return allProjects.filter((project) =>
       statusFilter === "All" ? true : project.status === statusFilter
@@ -41,7 +42,7 @@ const AllProjects = () => {
       );
 
       if (response.ok) {
-        const addedProjects = await response.json(); // Read the JSON once
+        const addedProjects = await response.json();
         console.log("data:", addedProjects);
 
         const addSource = (projects, source) =>
@@ -56,6 +57,56 @@ const AllProjects = () => {
       console.error("Error:", error.message);
     }
   };
+
+  // const realTimeUpdate = () => {
+  //   const token = localStorage.getItem("token");
+  //   const connection = new HubConnectionBuilder()
+  //     .withUrl("https://localhost:7157/connect", {
+  //       accessTokenFactory: () => token,
+  //     })
+  //     .withAutomaticReconnect()
+  //     .build();
+  //   connection.on("UpdateAllProjects");
+  // };
+
+  // SignalR !!!!!!
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("ReceiveProjectUpdate", () => {
+      fetchProjects();
+    });
+
+    // setConnection(conn);
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
+
+  // const updateProjectList = (projectId) => {
+  //   const updatedPosts = allProjects.map((project) =>
+  //     project.id === projectId ? { ...project, updated: true } : project
+  //   );
+  //   setAllProjects(updatedPosts);
+  // };
+
+  ///////////////
 
   useEffect(() => {
     fetchProjects();

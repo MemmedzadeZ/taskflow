@@ -1,7 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Lottie from "lottie-react";
+import loaderjson from "../animations/loader.json"
 
-function HomePage() {
+function HomePage({ setIsAuthenticated }) {
+  const navigate = useNavigate();
+
+  const handleButtonClick = () => {
+    setIsAuthenticated(true); // Yalnız button klikləndikdə auth aktivləşsin
+    navigate("/auth");
+  };
+
   return (
     <>
       <meta charSet="UTF-8" />
@@ -84,13 +93,11 @@ function HomePage() {
         <nav className="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
           <div className="container">
             <div className="navbar-brand">
-              <span className="navbar-logo">
-                <img
-                  src="https://r.mobirisesite.com/827554/assets/images/photo-1590649804407-daf662463c08.jpeg"
-                  alt="Mobirise Website Builder"
-                  style={{ height: "4.3rem" }}
-                />
-              </span>
+              {/* <span className="navbar-logo">
+                <div className="lottie-welcomee">
+                  <Lottie animationData={loaderjson} loop={true} />
+                </div>
+              </span> */}
               <span className="navbar-caption-wrap">
                 <a className="navbar-caption text-black display-4" href=" ">
                   TaskFlow
@@ -147,9 +154,12 @@ function HomePage() {
                 </li>
               </ul>
               <div className="navbar-buttons mbr-section-btn">
-                <a className="btn btn-primary display-4" href="/auth">
+                <button
+                  className="btn btn-primary display-4"
+                  onClick={handleButtonClick}
+                >
                   Get Started
-                </a>
+                </button>
               </div>
             </div>
           </div>

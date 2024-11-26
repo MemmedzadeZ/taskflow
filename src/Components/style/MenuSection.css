@@ -3,3 +3,10 @@
   height: 100px; /* istədiyiniz hündürlük */
   overflow: hidden; /* artıq olan hissələri gizlətmək üçün */
 }
+
+
+.lottie-welcomee
+{
+  height: 50vh;
+  width: 50vh;
+}

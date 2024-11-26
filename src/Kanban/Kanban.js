@@ -13,8 +13,8 @@ import { useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CreateTaskForMemberModel from "./CreateTaskForMember";
-import EditTaskForMemberModel from "./EditTaskForMember";
-import { move } from "formik";
+import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
+import EditTaskModel from "./EditTaskForMember";
 
 const initialData = {
   columns: {
@@ -296,20 +296,11 @@ const Kanban = () => {
             </div>
 
             <div className="d-flex align-items-center">
-              <form className="app-search d-none d-lg-block">
-                <div className="position-relative">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Ara"
-                  />
-                  <span className="bx bx-search-alt"></span>
-                </div>
-              </form>
+              {/* App Search */}
 
-              <div className="dropdown d-inline-block mt-12">
-                <CurrentPerson></CurrentPerson>
-              </div>
+              <SidebarSearchComponent></SidebarSearchComponent>
+
+              <CurrentPerson />
             </div>
           </div>
 
@@ -540,7 +531,7 @@ const Kanban = () => {
               )}
 
               {isEditModalOpen && (
-                <EditTaskForMemberModel
+                <EditTaskModel
                   closeModal={closeModal}
                   taskId={selectedTaskId}
                 />

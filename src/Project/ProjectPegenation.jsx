@@ -15,6 +15,11 @@ const ProjectPagination = ({ posts, handle }) => {
   const totalPages = Math.ceil(posts.length / itemsPerPage);
   console.log(posts);
 
+  // const getHover = (id) => {
+  //   setHoveredItemId(id);
+  //   fetchMembers(id);
+  // };
+
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
@@ -24,13 +29,13 @@ const ProjectPagination = ({ posts, handle }) => {
   };
   const openModal = (e, id) => {
     e.preventDefault();
-    setCurrentProjectId(id); // Set the specific project ID
+    setCurrentProjectId(id);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setCurrentProjectId(null); // Clear the project ID when closing the modal
+    setCurrentProjectId(null);
   };
 
   const formatDate = (dateString) => {
@@ -46,6 +51,12 @@ const ProjectPagination = ({ posts, handle }) => {
   };
   return (
     <div>
+      {isModalOpen && (
+        <UpdateProjectModel
+          closeModal={closeModal}
+          projectId={currentProjectId}
+        />
+      )}
       {/* <div className=""> */}
       <div className="row" style={{ display: "flex", gap: "10px" }}>
         {currentPosts.map((item, index) => (
@@ -76,12 +87,6 @@ const ProjectPagination = ({ posts, handle }) => {
                     : "No deadline set"}
                 </span>
               </div>
-              {isModalOpen && (
-                <UpdateProjectModel
-                  closeModal={closeModal}
-                  projectId={currentProjectId}
-                />
-              )}
 
               <div className="box-footer">
                 <div className="d-flex align-items-center">
@@ -106,14 +111,6 @@ const ProjectPagination = ({ posts, handle }) => {
 
                   <div className="ms-auto mt-3 mt-sm-0">
                     <div className="d-flex">
-                      {/* <div
-                        className="task-btn bg-danger-1 text-danger btn-link fs-14"
-                        data-bs-toggle="tooltip"
-                        data-bs-placement="top"
-                        title="Project Priority"
-                      >
-                        {item.status}
-                      </div> */}
                       <a
                         className="btn btn-outline-light text-muted pd-0 fs-34"
                         href="#"
