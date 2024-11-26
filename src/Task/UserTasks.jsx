@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditTaskModel from "./TaskComponents/EditTaskModel";
 import EditProjectTaskModel from "./TaskComponents/EditProjectTaskModel";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 function UserTasks() {
   const [loading, setLoading] = useState(true);
   const [allTasks, setAllTasks] = useState([]);
@@ -64,6 +65,31 @@ function UserTasks() {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("UserTaskList", (message) => {
+      fetchTasks();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetchTasks();
@@ -99,14 +125,12 @@ function UserTasks() {
     try {
       let deleteUrl;
 
-      // Determine the correct endpoint based on the source
       if (source === "project") {
         deleteUrl = `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}`;
       } else if (source === "user") {
         deleteUrl = `https://localhost:7157/api/UserTask/DeleteUserTask/${taskId}`;
       }
 
-      // Make DELETE request to the chosen endpoint
       const response = await fetch(deleteUrl, {
         method: "DELETE",
         headers: {

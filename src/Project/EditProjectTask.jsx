@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
-import "./css/CreateTask.css";
+//import "..//css/CreateTaskForMember.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function EditTaskModel({ closeModal, id }) {
+
+function EditTaskInProject({ closeModal, taskId, projectId }) {
+  console.log("id:" + taskId);
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [selectedProjectId, setSelectedProjectId] = useState(null);
   const [userTask, setUserTask] = useState({
     title: "",
     description: "",
@@ -11,16 +16,38 @@ function EditTaskModel({ closeModal, id }) {
     status: "",
     priority: "",
     color: "",
+    createdId: "",
+    projectId: "",
   });
-
   const [isLoading, setIsLoading] = useState(false);
 
-  // userin taskini fetch etmek
-  const fetchTaskData = async () => {
+  const fetchUsersByProject = async () => {
+    try {
+      const response = await fetch(
+        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setUsers(data);
+      } else {
+        console.error("Failed to fetch users");
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
+  const fetchEditTaskData = async () => {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://localhost:7157/api/UserTask/${id}`,
+        `https://localhost:7157/api/Work/${taskId}`,
         {
           method: "GET",
           headers: {
@@ -44,7 +71,7 @@ function EditTaskModel({ closeModal, id }) {
           deadline: formattedDeadline,
         });
       } else {
-        toast.error(" Failed to fetch task data.");
+        toast.error("Failed to fetch task data.");
       }
     } catch (error) {
       toast.error("Error: " + error.message);
@@ -53,70 +80,67 @@ function EditTaskModel({ closeModal, id }) {
     }
   };
 
-  // userin taskini edit etmek
-  const saveTask = async (e) => {
+  // Form submit handler
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     try {
       const response = await fetch(
-        `https://localhost:7157/api/UserTask/EditedTask/${id}`,
+        `https://localhost:7157/api/Work/EditedProjectForPmTask/${taskId}`,
         {
-          method: "PUT",
+          method: "PUT", // PUT method to update
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          body: JSON.stringify(userTask),
+          body: JSON.stringify({
+            ...userTask,
+            createdById: selectedUserId,
+            projectId: projectId,
+          }), // Send updated task data
         }
       );
 
       if (response.ok) {
-        toast.success("Updated task successfully.");
-        closeModal();
-        const activityData = {
-          text: "Task updated successfully!",
-          type: "Task",
-        };
-
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        toast.success("Task successfully updated!");
+        fetchEditTaskData(); // Refresh task data after update
+        closeModal(); // Close modal after successful update
       } else {
-        toast.error("Failed to update task.");
+        toast.error(
+          "Only Project Manager can update this task. Please contact the Project Manager."
+        );
       }
     } catch (error) {
       toast.error("Error: " + error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    if (id) {
-      fetchTaskData();
+    fetchUsersByProject(); // Fetch users based on projectId
+    fetchEditTaskData(); // Fetch task data on modal open
+  }, [taskId]);
+
+  useEffect(() => {
+    if (users.length > 0 && !selectedUserId) {
+      setSelectedUserId(users[0].id);
     }
-  }, [id]);
+  }, [users, selectedUserId]);
 
   const getSelectedClass = (currentValue, valueToCheck) =>
     currentValue === valueToCheck ? "selected" : "";
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>loading...</div>;
   }
 
   return (
     <div className="modal-backgroundd">
       <ToastContainer position="top-right" />
       <div className="modal-contentt">
-        <form onSubmit={saveTask}>
+        <form onSubmit={handleSubmit}>
           <h2 className="modal-titlee">Edit Task</h2>
-
           <div className="form-groupp">
             <label htmlFor="task-name">Task Name</label>
             <input
@@ -130,7 +154,6 @@ function EditTaskModel({ closeModal, id }) {
               }
             />
           </div>
-
           <div className="form-groupp">
             <label htmlFor="description">Description</label>
             <textarea
@@ -144,7 +167,6 @@ function EditTaskModel({ closeModal, id }) {
               }
             ></textarea>
           </div>
-
           <div className="form-groupp">
             <label htmlFor="start-date">Start Date</label>
             <input
@@ -157,7 +179,6 @@ function EditTaskModel({ closeModal, id }) {
               }
             />
           </div>
-
           <div className="form-groupp">
             <label htmlFor="end-date">End Date</label>
             <input
@@ -170,7 +191,22 @@ function EditTaskModel({ closeModal, id }) {
               }
             />
           </div>
-
+          <div className="form-groupp">
+            <label htmlFor="user-select">Assign to User</label>
+            <select
+              id="user-select"
+              className="form-controll"
+              value={selectedUserId}
+              onChange={(e) => setSelectedUserId(e.target.value)}
+            >
+              <option value="">Select a user</option>
+              {users.map((user) => (
+                <option key={user.id} value={user.id}>
+                  {user.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="form-groupp">
             <label htmlFor="priority">Priority</label>
             <div className="status-tabs">
@@ -192,7 +228,6 @@ function EditTaskModel({ closeModal, id }) {
               ))}
             </div>
           </div>
-
           <div className="form-groupp">
             <label htmlFor="priority">Status</label>
             <div className="status-tabs">
@@ -260,4 +295,4 @@ function EditTaskModel({ closeModal, id }) {
   );
 }
 
-export default EditTaskModel;
+export default EditTaskInProject;

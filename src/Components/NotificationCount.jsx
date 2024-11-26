@@ -33,7 +33,6 @@ function CountNotification() {
       })
       .configureLogging("information")
       .build();
-
     conn
       .start()
       .then(() => {
@@ -41,8 +40,7 @@ function CountNotification() {
       })
       .catch((err) => console.error("SignalR connection error:", err));
 
-    conn.on("DashboardNotificationCount", () => {
-      console.log("inside signalr");
+    conn.on("ReceiveFriendRequest4", (message) => {
       fetchNotifications();
     });
 

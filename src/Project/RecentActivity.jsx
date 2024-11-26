@@ -1,32 +1,36 @@
-import { useState, useEffect } from "react";
-// // import emptyBoxImage from "../../public/images/icon/empty-box.png";
+import React, { useState, useEffect } from "react";
 
 const RecentActivity = () => {
-  const [activityList, setActivityList] = useState([]);
-  const fetchData = async () => {
-    console.log("recent activity");
-    var response = await fetch(
-      "https://localhost:7157/api/ProjectActivity/TeamMemberActivities",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
+  const [activityList, setActivities] = useState([]);
+
+  // Fetch data from the backend
+  const fetchActivities = async () => {
+    try {
+      const response = await fetch(
+        "https://localhost:7157/api/ProjectActivity/TeamMemberActivities",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+
+      const data = await response.json();
+      if (response.ok) {
+        setActivities(data);
+      } else {
+        console.error("Error fetching activities", data);
       }
-    );
-    var data = await response.json();
-    console.log(data);
-    if (data) {
-      setActivityList(data.list);
-    } else {
-      console.log("empty");
+    } catch (error) {
+      console.error("Error during API call", error);
     }
-    // console.log(data.list);
   };
 
+  // Fetch the activities when the component is mounted
   useEffect(() => {
-    fetchData();
+    fetchActivities();
   }, []);
 
   return (
@@ -39,98 +43,69 @@ const RecentActivity = () => {
               {new Date().toLocaleDateString()}
             </p>
           </div>
-          <div className="card-options pr-3">
-            {/* <div className="dropdown">
-              <a
-                href=" "
-                className="btn ripple btn-outline-light dropdown-toggle fs-12"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Select Date <i className="feather feather-chevron-down" />{" "}
-              </a>
-              <ul
-                className="dropdown-menu dropdown-menu-end"
-                role="menu"
-                style={{}}
-              >
-                <li>
-                  <a href=" ">Monthly</a>
-                </li>
-                <li>
-                  <a href=" ">Yearly</a>
-                </li>
-                <li>
-                  <a href=" ">Weekly</a>
-                </li>
-              </ul>
-            </div> */}
-          </div>
+          <div className="card-options pr-3"></div>
         </div>
         <div
           style={{
             overflowY: "auto",
             overflowX: "hidden",
-            maxHeight: "50vh",
+            maxHeight: "32vh",
           }}
         >
           <div className="vertical-scroll" style={{ padding: "20px" }}>
-            {activityList.length ? (
-              activityList.map((item, index) => (
-                <div className="box-body pb-0" key={index}>
-                  <ul className="message mb-2">
-                    <li className="dlab-chat-user">
+            <div className="box-body pb-0">
+              {" "}
+              {activityList.length ? (
+                activityList.map((activity, index) => (
+                  <ul className="message mb-2" key={index}>
+                    <li className="dlab-chat-user" key={index}>
                       <div className="d-flex bd-highlight">
                         <div className="img_cont">
                           <img
-                            src="./images/avatar/message-01.png"
+                            src={activity.path}
                             className="rounded-circle user_img"
-                            alt=""
+                            alt="User Avatar"
                           />
                         </div>
                         <div className="user_info">
-                          <div>
-                            <a
-                              className="font-w500 mt-5 mb-5"
-                              href="message.html"
-                              style={{ fontSize: "20px" }}
-                            >
-                              {item.username}
-                            </a>
-                            <span style={{ color: "gray", marginLeft: "5px" }}>
-                              {item.createDate}
-                            </span>
-                          </div>
-                          <p className="mb-0">{item.text}</p>
+                          <a
+                            className="fs-15 font-w500 mt-5 mb-5"
+                            href="message.html"
+                          >
+                            {activity.username}
+                          </a>
+                          <p className="fs-13 mb-0">
+                            {new Date(activity.createDate).toLocaleTimeString()}{" "}
+                          </p>
                         </div>
                       </div>
                       <div className="card-options me-0 d-flex align-items-center">
-                        <a href=" " className="text-primary fs-14">
-                          Add New Task
+                        <a href="#" className="text-primary fs-14">
+                          {activity.text}
                         </a>
                       </div>
                     </li>
                   </ul>
+                ))
+              ) : (
+                <div
+                  style={{
+                    width: "33vw",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "3vh",
+                  }}
+                >
+                  <img
+                    src="/assets/images/empty-box.png"
+                    alt="img"
+                    style={{ width: "11vw", height: "14vh" }}
+                  />
+                  <h3 style={{ fontWeight: "600" }}>No Data Found!</h3>
                 </div>
-              ))
-            ) : (
-              <div
-                style={{
-                  width: "33vw",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  gap: "3vh",
-                }}
-              >
-                <img
-                  src="/assets/images/empty-box.png"
-                  alt="img"
-                  style={{ width: "11vw", height: "14vh" }}
-                />
-                <h3 style={{ fontWeight: "600" }}>No Data Found!</h3>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

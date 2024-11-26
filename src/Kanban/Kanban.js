@@ -202,7 +202,7 @@ const Kanban = () => {
   const handleDeleteTask = async (taskId) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}`,
+        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
         {
           method: "DELETE",
           headers: {
@@ -225,7 +225,9 @@ const Kanban = () => {
         });
         toast.success("Task deleted successfully.");
       } else {
-        toast.error("Failed to delete task.");
+        toast.error(
+          "You have no permission to delete this task. Only PM can delete tasks!"
+        );
       }
     } catch (error) {
       console.error("Error deleting task:", error);

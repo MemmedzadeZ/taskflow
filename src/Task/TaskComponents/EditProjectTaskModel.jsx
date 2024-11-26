@@ -15,7 +15,7 @@ function EditProjectTaskModel({ closeModal, id }) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  // Fetch the existing task data by ID
+  //  proyekt daxili taski fetch etmek
   const fetchTaskData = async () => {
     setIsLoading(true);
     try {
@@ -50,7 +50,7 @@ function EditProjectTaskModel({ closeModal, id }) {
     }
   };
 
-  // Update the task with new data
+  //proyekt daxili taski edit etmek
   const saveTask = async (e) => {
     e.preventDefault();
 
@@ -70,6 +70,38 @@ function EditProjectTaskModel({ closeModal, id }) {
       if (response.ok) {
         toast.success("Updated task successfully.");
         closeModal();
+        const activityData = {
+          text: "Updated project task successfully.",
+          type: "Project Task Update",
+        };
+
+        await fetch(
+          "https://localhost:7157/api/Notification/NewRecentActivity",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }
+        );
+        //proyekt daxilinde recent activity-e yazilacaq
+        const projectActivityData = {
+          text: "Updated project task successfully.",
+        };
+
+        await fetch(
+          "https://localhost:7157/api/ProjectActivity/AddTeamMemberActivities",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(projectActivityData),
+          }
+        );
       } else {
         toast.error("Failed to update task.");
       }

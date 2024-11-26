@@ -28,7 +28,22 @@ const InProgress = () => {
 
     return daysLeft;
   };
+  const calculateProgress = (startTime, deadline) => {
+    const startDate = new Date(startTime);
+    const endDate = new Date(deadline);
+    const today = new Date();
 
+    const totalDuration = Math.max(
+      (endDate - startDate) / (1000 * 60 * 60 * 24),
+      1
+    );
+    const elapsedDuration = Math.max(
+      (today - startDate) / (1000 * 60 * 60 * 24),
+      0
+    );
+
+    return Math.min(Math.round((elapsedDuration / totalDuration) * 100), 100);
+  };
   useEffect(() => {
     fetchData();
   }, []);
@@ -40,34 +55,7 @@ const InProgress = () => {
           <div className="me-auto">
             <h4 className="card-title mb-0 fs-22">In Progress Project</h4>
           </div>
-          <div className="card-options pr-3">
-            <div className="dropdown">
-              {/* <a
-                href=" "
-                className="btn ripple btn-outline-light dropdown-toggle fs-12"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {" "}
-                See All <i className="feather feather-chevron-down" />{" "}
-              </a> */}
-              {/* <ul
-                className="dropdown-menu dropdown-menu-end"
-                role="menu"
-                style={{}}
-              >
-                <li>
-                  <a href=" ">Monthly</a>
-                </li>
-                <li>
-                  <a href=" ">Yearly</a>
-                </li>
-                <li>
-                  <a href=" ">Weekly</a>
-                </li>
-              </ul> */}
-            </div>
-          </div>
+          <div className="card-options pr-3"></div>
         </div>
         <div
           className="box-body pb-0"
@@ -79,52 +67,76 @@ const InProgress = () => {
         >
           <div className="vertical-scroll">
             {projects.length > 0 ? (
-              projects.map((item, index) => (
-                <div
-                  className="project-progress-content mt-21 mb-26"
-                  key={index}
-                >
+              projects.map((item, index) => {
+                const progress = calculateProgress(
+                  item.startDate,
+                  item.endDate
+                );
+                console.log(new Date(item.startDate), new Date(item.endDate));
+                return (
                   <div
-                    className="list-group-item d-sm-flex  align-items-center border-0 pd-0"
-                    style={{ width: "33vw" }}
+                    className="project-progress-content mt-21 mb-26"
+                    key={index}
                   >
-                    <div className="d-flex w-10">
-                      <div className="task-img bg-primary-transparent">
-                        <img
-                          src="./images/icon/html-2.png"
-                          alt="img"
-                          className=""
-                        />
-                      </div>
-                    </div>
-                    <div className="w-90 mt-4 mt-md-0 pl-13">
-                      <p className="fs-16 font-w500 ms-auto mb-13">
-                        {item.title}
-                      </p>
-                      <div className="progress progress-sm w-100">
-                        <div className="progress-bar bg-green-1 w-90" />
-                      </div>
-                      <div className="d-flex justify-content-between mt-17">
-                        <div className="deadline fs-14 font-w500 me-auto d-flex align-items-center">
-                          <i className="bx bxs-time-five fs-20 mr-9" />
-                          Deadline : {calculateDeadline(item.endDate)} days left
+                    <div
+                      className="list-group-item d-sm-flex  align-items-center border-0 pd-0"
+                      style={{ width: "33vw" }}
+                    >
+                      <div className="d-flex w-10">
+                        <div
+                          className="task-img bg-primary-transparent"
+                          style={{
+                            backgroundColor: item.color,
+                            borderColor: item.color,
+                          }}
+                        >
+                          <h5 className="icon-gold text-white ">
+                            {item.title.charAt(0).toUpperCase()}
+                          </h5>
                         </div>
-                        <ul className="user-list mb-0">
-                          <li>
-                            <img src="./images/avatar/user-1.png" alt="user" />
-                          </li>
-                          <li>
-                            <img src="./images/avatar/user-2.png" alt="user" />
-                          </li>
-                          <li>
-                            <img src="./images/avatar/user-3.png" alt="user" />
-                          </li>
-                        </ul>
+                      </div>
+                      <div className="w-90 mt-4 mt-md-0 pl-13">
+                        <p className="fs-16 font-w500 ms-auto mb-13">
+                          {item.title}
+                        </p>
+                        <div className="progress progress-sm w-100">
+                          <div
+                            className="progress-bar bg-green-1"
+                            style={{ width: `${progress}%` }}
+                          />
+                        </div>
+
+                        <div className="d-flex justify-content-between mt-17">
+                          <div className="deadline fs-14 font-w500 me-auto d-flex align-items-center">
+                            <i className="bx bxs-time-five fs-20 mr-9" />
+                            Deadline : {calculateDeadline(item.endDate)} days
+                            left
+                          </div>
+
+                          <ul className="user-list mb-0">
+                            {item.membersPath?.length > 0 ? (
+                              item.membersPath.map((participant, i) => (
+                                <li key={i}>
+                                  <img
+                                    src={
+                                      participant
+                                        ? participant
+                                        : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                                    }
+                                    alt="user"
+                                  />
+                                </li>
+                              ))
+                            ) : (
+                              <li>No Participants</li>
+                            )}
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))
+                );
+              })
             ) : (
               <div
                 style={{

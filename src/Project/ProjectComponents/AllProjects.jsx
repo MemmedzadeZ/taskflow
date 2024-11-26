@@ -66,7 +66,7 @@ const AllProjects = () => {
       <div className="box-header pt-0 pl-0 ms-0 mb-4 mt-4 border-bottom-0 responsive-header">
         <h4 className="box-title fs-22">Recent Project Updates</h4>
         <div className="status-tabs">
-          {["Pending", "On Going", "Completed", "All"].map((status) => (
+          {["Pending", "OnGoing", "Completed", "All"].map((status) => (
             <div
               key={status}
               className="status-tab"
@@ -77,7 +77,7 @@ const AllProjects = () => {
           ))}
         </div>
       </div>
-      {filteredProjects.length == 0 ? (
+      {filteredProjects.length === 0 ? (
         <div
           style={{
             display: "flex",

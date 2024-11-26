@@ -47,6 +47,9 @@ function CurrentProjects() {
     navigate(`/kanban/${projectId}`);
   };
 
+  const goToProjectViewDetail = (projectId) => {
+    navigate(`/projectDetail/${projectId}`);
+  };
   return (
     <div className="col-12">
       <div className="box">
@@ -76,7 +79,10 @@ function CurrentProjects() {
                   <div className="box box-carousel" key={index}>
                     <div className="card-top d-flex justify-content-between align-items-center">
                       <div className="sm-f-wrap d-flex align-items-center">
-                        <h5 className="icon-gold text-white bg-green">
+                        <h5
+                          className="icon-gold text-white "
+                          style={{ backgroundColor: project.color }}
+                        >
                           {project.title.charAt(0).toUpperCase()}
                         </h5>
                         <a
@@ -95,13 +101,13 @@ function CurrentProjects() {
                             href="#"
                             onClick={() => console.log("Edit clicked")}
                           >
-                            <i className="bx bx-edit me-2"></i> Edit
-                          </Dropdown.Item>
-                          <Dropdown.Item
-                            href="#"
-                            onClick={() => console.log("Delete clicked")}
-                          >
-                            <i className="bx bx-trash me-2"></i> Delete
+                            <a
+                              className="bx bx-edit me-2"
+                              onClick={() => goToProjectViewDetail(project.id)}
+                            >
+                              {" "}
+                              View Detail
+                            </a>
                           </Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown>
@@ -148,13 +154,7 @@ function CurrentProjects() {
                           )}
                         </ul>
 
-                        <ul className="tf-icon-list">
-                          <li>
-                            <a href=" ">
-                              <i className="bx bx-calendar"></i>
-                            </a>
-                          </li>
-                        </ul>
+                        <ul className="tf-icon-list"></ul>
                       </div>
                     </div>
                   </div>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import UpdateProjectModel from "./ProjectComponents/UpdateProjectModel";
-
+import { useNavigate } from "react-router-dom";
 const ProjectPagination = ({ posts, handle }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProjectId, setCurrentProjectId] = useState(null);
+  const navigate = useNavigate();
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -31,6 +32,18 @@ const ProjectPagination = ({ posts, handle }) => {
     setIsModalOpen(false);
     setCurrentProjectId(null); // Clear the project ID when closing the modal
   };
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, "0")}-${(
+      date.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${date.getFullYear()}`;
+  };
+  const goToProjectViewDetail = (projectId) => {
+    navigate(`/projectDetail/${projectId}`);
+  };
   return (
     <div>
       {/* <div className=""> */}
@@ -41,7 +54,10 @@ const ProjectPagination = ({ posts, handle }) => {
             style={{ width: "auto" }}
             key={index}
           >
-            <div className="box left-dot">
+            <div
+              className="box left-dot"
+              style={{ padding: "30px", gap: "6px" }}
+            >
               <div className="box-body">
                 <a
                   href=" "
@@ -54,7 +70,10 @@ const ProjectPagination = ({ posts, handle }) => {
                   {"Owned by You"}
                 </p>
                 <span className="fs-13 mt-2 text-muted">
-                  Deadline: {item.endDate ? item.endDate : "No deadline set"}
+                  Deadline:{" "}
+                  {item.deadline
+                    ? formatDate(item.deadline)
+                    : "No deadline set"}
                 </span>
               </div>
               {isModalOpen && (
@@ -66,34 +85,25 @@ const ProjectPagination = ({ posts, handle }) => {
 
               <div className="box-footer">
                 <div className="d-flex align-items-center">
-                  <div className="d-flex mb-3 mb-md-0">
-                    <div className="mr-10">
-                      <div
-                        style={{ marginRight: "2vw" }}
-                        className="chart-circle chart-circle-xs"
-                        data-value="0.75"
-                        data-thickness={3}
-                        data-color="#3C21F7"
-                      >
-                        <canvas width={40} height={40} />
-                        <div className="chart-circle-value">75%</div>
-                      </div>
-                    </div>
-                    <ul
-                      className="user-list mb-0"
-                      style={{ marginRight: "1vw" }}
-                    >
-                      <li>
-                        <img src="./images/avatar/user-1.png" alt="User 1" />
-                      </li>
-                      <li>
-                        <img src="./images/avatar/user-2.png" alt="User 2" />
-                      </li>
-                      <li>
-                        <img src="./images/avatar/user-3.png" alt="User 3" />
-                      </li>
-                    </ul>
-                  </div>
+                  <ul className="user-list mb-0">
+                    {item.participantsPath?.length > 0 ? (
+                      item.participantsPath.map((participant, i) => (
+                        <li key={i}>
+                          <img
+                            src={
+                              participant
+                                ? participant
+                                : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                            }
+                            alt="user"
+                          />
+                        </li>
+                      ))
+                    ) : (
+                      <li>No Participants</li>
+                    )}
+                  </ul>
+
                   <div className="ms-auto mt-3 mt-sm-0">
                     <div className="d-flex">
                       {/* <div
@@ -115,9 +125,12 @@ const ProjectPagination = ({ posts, handle }) => {
                       </a>
                       <ul className="dropdown-menu" role="menu">
                         <li>
-                          <a href="#">
+                          <a
+                            href=" "
+                            onClick={() => goToProjectViewDetail(item.id)}
+                          >
                             <i className="far fa-eye" />
-                            View
+                            View Detail
                           </a>
                         </li>
 

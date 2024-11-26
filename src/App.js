@@ -20,6 +20,7 @@ import Kanban from "./Kanban/Kanban";
 import Tasks from "./Task/Task";
 import Calendar from "./Calendar/Calendar";
 import AddTaskModel from "./Kanban/CreateTaskForMember";
+import ProjectDetail from "./Project/ProjectDetail";
 function App() {
   return (
     <div>
@@ -43,6 +44,7 @@ function App() {
         <Route path="/tasks" element={<Tasks />} />
         <Route path="/kanban" element={<Kanban />} />
         <Route path="/kanban/:projectId" element={<Kanban />} />
+        <Route path="/projectDetail/:projectId" element={<ProjectDetail />} />
 
         <Route path="/viewProfile/:email" element={<UserProfile />} />
       </Routes>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { HubConnectionBuilder } from "@microsoft/signalr";
 function HeaderTaskInfo() {
   const [totalTaskCount, setTotalTaskCount] = useState(0);
   const [onholdTaskCount, setOnHoldTaskCount] = useState(0);
@@ -132,6 +132,47 @@ function HeaderTaskInfo() {
       console.error(" error fetching completed task count:", error);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("TaskTotalCount", () => {
+      console.log("inside signalr");
+      fetchTotalTaskCount();
+    });
+    conn.on("OnHoldTaskCount", () => {
+      console.log("inside signalr");
+      fetchOnHoldTaskCount();
+    });
+    conn.on("RunningTaskCount", () => {
+      console.log("inside signalr");
+      fetchRunningTaskCount();
+    });
+    conn.on("CompletedTaskCount", () => {
+      console.log("inside signalr");
+      fetchCompletedTaskCount();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
+
   useEffect(() => {
     fetchTotalTaskCount();
     fetchOnHoldTaskCount();
