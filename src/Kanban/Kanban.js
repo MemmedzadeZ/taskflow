@@ -352,6 +352,7 @@ const Kanban = () => {
                     </div>
                   </div>
                 </div>
+                <h4>Project Name: {projectId}</h4>
                 <DragDropContext onDragEnd={onDragEnd}>
                   <div className="board-container">
                     {Object.entries(data.columns).map(([columnId, column]) => (

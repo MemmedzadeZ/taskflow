@@ -6,8 +6,9 @@ const ProjectPagination = ({ posts, handle }) => {
   const itemsPerPage = 4;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProjectId, setCurrentProjectId] = useState(null);
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [hoveredItemId, setHoveredItemId] = useState(null);
   const navigate = useNavigate();
-
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPosts = posts.slice(startIndex, endIndex);
@@ -15,11 +16,21 @@ const ProjectPagination = ({ posts, handle }) => {
   const totalPages = Math.ceil(posts.length / itemsPerPage);
   console.log(posts);
 
-  // const getHover = (id) => {
-  //   setHoveredItemId(id);
-  //   fetchMembers(id);
-  // };
-
+  const getHover = (id) => {
+    setHoveredItemId(id);
+    fetchMembers(id);
+  };
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, "0")}-${(
+      date.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${date.getFullYear()}`;
+  };
+  const goToProjectViewDetail = (projectId) => {
+    navigate(`/projectDetail/${projectId}`);
+  };
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
@@ -38,17 +49,38 @@ const ProjectPagination = ({ posts, handle }) => {
     setCurrentProjectId(null);
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return `${date.getDate().toString().padStart(2, "0")}-${(
-      date.getMonth() + 1
-    )
-      .toString()
-      .padStart(2, "0")}-${date.getFullYear()}`;
+  const fetchMembers = (id) => {
+    console.log("inside fetch");
+    fetch(`https://localhost:7157/api/TeamMember/get/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(
+            "Something went wrong while fetching team members: " +
+              res.statusText
+          );
+        }
+        return res.json();
+      })
+      .then((data) => {
+        if (data.list) {
+          setTeamMembers(data.list);
+          console.log(data.list);
+        } else {
+          setTeamMembers([]);
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching team members:", error.message);
+        setTeamMembers([]);
+      });
   };
-  const goToProjectViewDetail = (projectId) => {
-    navigate(`/projectDetail/${projectId}`);
-  };
+
   return (
     <div>
       {isModalOpen && (
@@ -90,25 +122,44 @@ const ProjectPagination = ({ posts, handle }) => {
 
               <div className="box-footer">
                 <div className="d-flex align-items-center">
-                  <ul className="user-list mb-0">
-                    {item.participantsPath?.length > 0 ? (
-                      item.participantsPath.map((participant, i) => (
-                        <li key={i}>
-                          <img
-                            src={
-                              participant
-                                ? participant
-                                : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
-                            }
-                            alt="user"
-                          />
-                        </li>
-                      ))
-                    ) : (
-                      <li>No Participants</li>
-                    )}
-                  </ul>
-
+                  <div className="d-flex mb-3 mb-md-0">
+                    {/* <div className="mr-10">
+                       <div
+                        style={{ marginRight: "2vw" }}
+                        className="chart-circle chart-circle-xs"
+                        data-value="0.75"
+                        data-thickness={3}
+                        data-color="#3C21F7"
+                      >
+                        <canvas width={40} height={40} />
+                      </div> 
+                    </div>*/}
+                    {/* <div
+                      className="ul-container"
+                      onMouseEnter={() => getHover(item.id)}
+                      onMouseLeave={() => setHoveredItemId(null)}
+                      style={{ position: "relative" }}
+                    > */}
+                    <ul className="user-list mb-0">
+                      {item.participantsPath?.length > 0 ? (
+                        item.participantsPath.map((participant, i) => (
+                          <li key={i}>
+                            <img
+                              src={
+                                participant
+                                  ? participant
+                                  : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                              }
+                              alt="user"
+                            />
+                          </li>
+                        ))
+                      ) : (
+                        <li>No Participants</li>
+                      )}
+                    </ul>
+                    {/* </div> */}
+                  </div>
                   <div className="ms-auto mt-3 mt-sm-0">
                     <div className="d-flex">
                       <a
