@@ -46,7 +46,32 @@ const Kanban = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const modalRef = useRef();
+  const [projectTitle, setProjectTitle] = useState(null);
+
+  const getProjectTitle = async () => {
+    try {
+      const response = await fetch(
+        `https://localhost:7157/api/Project/ProjectTitle/${projectId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (!response.ok) throw new Error(" Failed to fetch project title!");
+      const data = await response.json();
+      console.log(data);
+      setProjectTitle(data);
+    } catch (error) {
+      console.error("Error fetching project title:", error);
+    }
+  };
+  useEffect(() => {
+    getProjectTitle();
+  }, []);
+
   useEffect(() => {
     const getTasks = async () => {
       try {
@@ -352,7 +377,14 @@ const Kanban = () => {
                     </div>
                   </div>
                 </div>
-                <h4>Project Name: {projectId}</h4>
+                <h4
+                  style={{
+                    display: "contents",
+                    alignItems: "center",
+                  }}
+                >
+                  Project Name: {projectTitle?.title}
+                </h4>
                 <DragDropContext onDragEnd={onDragEnd}>
                   <div className="board-container">
                     {Object.entries(data.columns).map(([columnId, column]) => (

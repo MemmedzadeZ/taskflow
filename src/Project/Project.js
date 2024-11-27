@@ -16,7 +16,6 @@ import ProjectStatistik from "./ProjectStatistik";
 import ProjectTasksList from "./ProjectTasksList";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 
-
 const Project = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -91,7 +90,9 @@ const Project = () => {
                 {/* ///// */}
                 <AllProjects></AllProjects>
                 <div className="row">
-                 
+                  {" "}
+                  <RecentActivity />
+                  <ProjectStatistik></ProjectStatistik>
                   <ProjectLinearChart></ProjectLinearChart>
                   <InProgress></InProgress>
                   <ProjectTasksList />

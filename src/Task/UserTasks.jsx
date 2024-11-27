@@ -223,7 +223,11 @@ function UserTasks() {
               </td>
               <td>
                 {task.projectId ? (
-                  <span className="team-member">{task.projectId}</span>
+                  <span className="team-member">
+                    <a href={`/projectDetail/${task.projectId}`}>
+                      {task.projectName}
+                    </a>
+                  </span>
                 ) : (
                   <span>No Team</span>
                 )}
@@ -253,7 +257,11 @@ function UserTasks() {
       </table>
       {isModalOpen &&
         (selectedProjectId ? (
-          <EditProjectTaskModel closeModal={closeModal} id={selectedTaskId} />
+          <EditProjectTaskModel
+            closeModal={closeModal}
+            id={selectedTaskId}
+            projectId={selectedProjectId}
+          />
         ) : (
           <EditTaskModel closeModal={closeModal} id={selectedTaskId} />
         ))}

@@ -6,7 +6,6 @@ import Auth from "./Auth/Auth"; // Auth component
 import { useState } from "react";
 
 import User from "./User/User";
-import SignalRHub from "./SignalR";
 import InfoQuiz from "./QuizForm/InfoQuiz/InfoQuiz";
 import TradeQuiz from "./QuizForm/TradeQuiz/TradeQuiz";
 import DashboardTemplate from "./Dashboard/Dashboard";
@@ -26,7 +25,6 @@ import ProjectDetail from "./Project/ProjectDetail";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import { AuthProvider } from "./utils/AuthProvider";
 import ProtectedRoutes1 from "./utils/ProtectedRoutes1";
-import ProjectDetails from "./Project/ProjectDetails";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   return (
@@ -68,9 +66,6 @@ function App() {
           <Route path="/friends" element={<Friends />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/tasks" element={<Tasks />} />
-          <Route path="/kanban" element={<Kanban />} />
-          <Route path="/kanban/:projectId" element={<Kanban />} />
-          <Route path="projectdetail" element={<ProjectDetails />} />
 
           <Route path="/viewProfile/:email" element={<UserProfile />} />
         </Routes>

@@ -888,7 +888,10 @@ const ProjectDetail = () => {
                                           key={index}
                                         >
                                           <div className="d-flex bd-highlight">
-                                            <div className="img_cont">
+                                            <div
+                                              className="img_cont"
+                                              style={{ marginLeft: "20px" }}
+                                            >
                                               <img
                                                 src={activity.path}
                                                 className="rounded-circle user_img"

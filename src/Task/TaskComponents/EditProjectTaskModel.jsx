@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./css/CreateTask.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-function EditProjectTaskModel({ closeModal, id }) {
+function EditProjectTaskModel({ closeModal, id, projectId }) {
   const [userTask, setUserTask] = useState({
     title: "",
     description: "",
@@ -73,7 +73,7 @@ function EditProjectTaskModel({ closeModal, id }) {
         const activityData = {
           text: "Updated project task successfully.",
           type: "Project Task Update",
-        };
+        }; //proyekt daxilinde recent activity-e yazilacaq
 
         await fetch(
           "https://localhost:7157/api/Notification/NewRecentActivity",
@@ -84,22 +84,6 @@ function EditProjectTaskModel({ closeModal, id }) {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
             body: JSON.stringify(activityData),
-          }
-        );
-        //proyekt daxilinde recent activity-e yazilacaq
-        const projectActivityData = {
-          text: "Updated project task successfully.",
-        };
-
-        await fetch(
-          "https://localhost:7157/api/ProjectActivity/AddTeamMemberActivities",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(projectActivityData),
           }
         );
       } else {
