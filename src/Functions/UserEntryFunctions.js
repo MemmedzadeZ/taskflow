@@ -27,29 +27,33 @@ function inputCheckUp(
   const hasNumber = /\d/;
   const hasSymbol = /[!@#$%^&*(),.?":{}|<>_]/;
 
-  if (email === "") {
+  if (email === "" || email.length < 7 || !email.includes("@")) {
     $("#email-span").css("display", "block");
     $("#email-span").text("Email CANNOT be empty!");
     $("#email-div").css("margin-bottom", "25px");
-    console.log(email);
+
+    console.log("email");
     return false;
   }
-  if (firstname === "") {
+  if (firstname === "" || firstname.length < 2) {
     $("#firstname-span").css("display", "block");
     $("#firstname-span").text("Firstname CANNOT be empty!");
     $("#firstname-div").css("margin-bottom", "25px");
+    console.log("firstname");
     return false;
   }
-  if (lastname === "") {
+  if (lastname === "" || lastname.length < 2) {
     $("#lastname-span").css("display", "block");
     $("#lastname-span").text("Lastname CANNOT be empty!");
     $("#lastname-div").css("margin-bottom", "25px");
+    console.log("lastname");
     return false;
   }
-  if (username === "") {
+  if (username === "" || username.length < 2) {
     $("#username-span").css("display", "block");
     $("#username-span").text("Username CANNOT be empty!");
     $("#username-div").css("margin-bottom", "25px");
+    console.log("username");
     return false;
   }
   if (password === "") {
@@ -57,33 +61,42 @@ function inputCheckUp(
     $("#password-span").css("display", "block");
     $("#password-span").text("Passwords CANNOT be empty!");
     $("#password-div").css("margin-bottom", "25px");
+    console.log("password");
     return false;
   }
   if (!hasLowercase.test(password)) {
     $("#password-span")
       .css("display", "block")
       .text("Password must include a lowercase letter.");
+    console.log("password lowercase");
+    return false;
   }
   if (!hasUppercase.test(password)) {
     $("#password-span")
       .css("display", "block")
       .text("Password must include a uppercase letter.");
+    console.log("password uppercase");
+    return false;
   }
   if (!hasNumber.test(password)) {
     $("#password-span")
       .css("display", "block")
       .text("Password must include a number.");
+    console.log("password number");
+    return false;
   }
   if (!hasSymbol.test(password)) {
     $("#password-span")
       .css("display", "block")
       .text("Password must include a symbol.");
+    console.log("password symbol");
+    return false;
   }
   if (confirmPassword === "") {
     $("#confirmPassword-span").css("display", "block");
     $("#confirmPassword-span").text("Please, re-enter password!");
     $("#confirmPassword-div").css("margin-bottom", "25px");
-
+    console.log("confirm password");
     return false;
   }
 
@@ -92,8 +105,11 @@ function inputCheckUp(
     $("#confirmPassword-span").css("display", "block");
     $("#confirmPassword-span").text("Passwords should match!");
     $("#confirmPassword-div").css("margin-bottom", "25px");
+    console.log("password and confirm password");
     return false;
   }
+
+  return true;
 }
 
 export const registerUser = (
@@ -108,7 +124,7 @@ export const registerUser = (
   e.preventDefault();
   console.log("inside register");
   if (
-    inputCheckUp(
+    !inputCheckUp(
       email,
       firstname,
       lastname,
@@ -116,8 +132,22 @@ export const registerUser = (
       password,
       confirmPassword
     )
-  )
-    return;
+  ) {
+    console.log("inputCheckUp returned false");
+    return false;
+  } else {
+    return true;
+  }
+};
+
+export const createUser = async (
+  firstname,
+  lastname,
+  email,
+  password,
+  username
+) => {
+  console.log("inside create");
   const userData = {
     firstname,
     lastname,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
-
+import { HubConnectionBuilder } from "@microsoft/signalr";
 function RecentActivity() {
   const [activities, setActivities] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,6 +24,32 @@ function RecentActivity() {
       console.error("Error fetching recent activities:", error);
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("RecentActivityUpdate1", (message) => {
+      fetchData();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetchData();

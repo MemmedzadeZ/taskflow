@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 function AddTaskModel({ closeModal, id, columnId }) {
   const { projectId } = useParams();
-  const [proId, setProId] = useState(projectId); // Proje ID'sini state'e atama
+  const [proId, setProId] = useState(projectId);
   const [title, setTaskName] = useState("");
   const [description, setDescription] = useState("");
   const [startDate, setStartDate] = useState("");

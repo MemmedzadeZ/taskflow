@@ -270,28 +270,6 @@ function DashboardTemplate() {
                         </div>
                       </div>
                     </div>
-                    {/* Uncomment if needed */}
-                    {/* 
-        <div className="col-6 col-xl-12 col-md-12 col-sm-12">
-          <div className="box">
-            <div className="box-header">
-              <div className="me-auto">
-                <h6 className="card-title font-w400 mb-20">Current Balance</h6>
-                <div className="count-number d-flex">
-                  <span className="h4 font-w900">$</span>
-                  <h4 className="count font-w900 pl-5">25,456.44</h4>
-                </div>
-                <p className="fs-18 mb-0 mt-6">
-                  <span className="text-primary pr-7">+3.2</span>than last week
-                </p>
-              </div>
-            </div>
-            <div className="box-body">
-              <div id="chartBar2" className="bar-chart "></div>
-            </div>
-          </div>
-        </div> 
-        */}
                   </div>
                 </div>
 

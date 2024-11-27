@@ -48,7 +48,32 @@ const Kanban = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
-  const modalRef = useRef();
+  const [projectTitle, setProjectTitle] = useState(null);
+
+  const getProjectTitle = async () => {
+    try {
+      const response = await fetch(
+        `https://localhost:7157/api/Project/ProjectTitle/${projectId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      if (!response.ok) throw new Error(" Failed to fetch project title!");
+      const data = await response.json();
+      console.log(data);
+      setProjectTitle(data);
+    } catch (error) {
+      console.error("Error fetching project title:", error);
+    }
+  };
+  useEffect(() => {
+    getProjectTitle();
+  }, []);
+
   useEffect(() => {
     const getTasks = async () => {
       try {
@@ -208,7 +233,7 @@ const Kanban = () => {
   const handleDeleteTask = async (taskId) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}`,
+        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
         {
           method: "DELETE",
           headers: {
@@ -231,7 +256,9 @@ const Kanban = () => {
         });
         toast.success("Task deleted successfully.");
       } else {
-        toast.error("Failed to delete task.");
+        toast.error(
+          "You have no permission to delete this task. Only PM can delete tasks!"
+        );
       }
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -356,6 +383,14 @@ const Kanban = () => {
                     </div>
                   </div>
                 </div>
+                <h4
+                  style={{
+                    display: "contents",
+                    alignItems: "center",
+                  }}
+                >
+                  Project Name: {projectTitle?.title}
+                </h4>
                 <DragDropContext onDragEnd={onDragEnd}>
                   <div className="board-container">
                     {Object.entries(data.columns).map(([columnId, column]) => (

@@ -23,7 +23,6 @@ function EditTaskModel({ closeModal, taskId }) {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  // Kullanıcıları projenin ID'sine göre çek
   const fetchUsersByProject = async () => {
     try {
       const response = await fetch(
@@ -91,7 +90,7 @@ function EditTaskModel({ closeModal, taskId }) {
       const response = await fetch(
         `https://localhost:7157/api/Work/EditedProjectForPmTask/${taskId}`,
         {
-          method: "PUT", // PUT method to update
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -106,8 +105,8 @@ function EditTaskModel({ closeModal, taskId }) {
 
       if (response.ok) {
         toast.success("Task successfully updated!");
-        fetchEditTaskData(); // Refresh task data after update
-        closeModal(); // Close modal after successful update
+        fetchEditTaskData();
+        closeModal();
       } else {
         toast.error(
           "Only Project Manager can update this task. Please contact the Project Manager."
@@ -121,8 +120,8 @@ function EditTaskModel({ closeModal, taskId }) {
   };
 
   useEffect(() => {
-    fetchUsersByProject(); // Fetch users based on projectId
-    fetchEditTaskData(); // Fetch task data on modal open
+    fetchUsersByProject();
+    fetchEditTaskData();
   }, [taskId]);
 
   useEffect(() => {

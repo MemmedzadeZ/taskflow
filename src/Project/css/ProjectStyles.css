@@ -54,3 +54,25 @@
   margin: 3px 4px;
   border-radius: 6px;
 }
+/*-----------*/
+.project-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.project-details {
+  line-height: 1.6;
+  color: #555;
+}
+
+.project-description-text {
+  margin-top: 15px;
+  color: #666;
+}
+
+.highlight {
+  color: #000102;
+  font-weight: 500;
+}

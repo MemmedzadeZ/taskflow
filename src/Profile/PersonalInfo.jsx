@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 function PersonalInfo() {
   const [username, setUserName] = useState(null);
   const [fullname, setFullname] = useState(null);
@@ -103,7 +104,31 @@ function PersonalInfo() {
       setBirthday(formattedDate);
     }
   };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
 
+    conn.on("ProfileUpdated", (message) => {
+      fetchData();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
   useEffect(() => {
     fetchData();
   }, []);
