@@ -63,6 +63,9 @@ function UserFriend() {
   const goToUserProfile = (friendEmail) => {
     navigate(`/viewProfile/${friendEmail}`);
   };
+  const goToChat = (friendEmail) => {
+    navigate(`/message`);
+  };
 
   useEffect(() => {
     fetchFriends();
@@ -123,7 +126,12 @@ function UserFriend() {
                   </li>
                 </ul>
                 <div className="group-btn d-flex justify-content-between">
-                  <button className="bg-btn-pri color-white">Message</button>
+                  <button
+                    className="bg-btn-pri color-white"
+                    onClick={() => goToChat()}
+                  >
+                    Message
+                  </button>
                   <button
                     className="bg-btn-sec color-main"
                     style={{ cursor: "pointer" }}

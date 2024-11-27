@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -18,6 +19,41 @@ function RequestList() {
     );
     const data = await response.json();
     setNotifications(data);
+  };
+
+  let conn;
+
+  const initializeSignalRConnection = async () => {
+    if (!conn) {
+      const token = localStorage.getItem("token");
+      conn = new HubConnectionBuilder()
+        .withUrl("https://localhost:7157/connect", {
+          accessTokenFactory: () => token,
+        })
+        .configureLogging("information")
+        .build();
+
+      try {
+        await conn.start();
+        console.log("SignalR connected.");
+      } catch (err) {
+        console.error("SignalR connection error:", err);
+      }
+    }
+  };
+
+  const SendFollowCall = async (id) => {
+    if (!conn || conn.state !== "Connected") {
+      console.warn("Connection not established. Attempting to connect...");
+      await initializeSignalRConnection();
+    }
+
+    try {
+      await conn.invoke("SendFollow", id);
+      console.log(`Follow request sent for ID: ${id}`);
+    } catch (err) {
+      console.error("Error sending follow request:", err);
+    }
   };
 
   const handleAccept = async (requestId) => {
@@ -57,6 +93,7 @@ function RequestList() {
       } else {
         toast.error("Failed to accept request.");
       }
+      SendFollowCall(requestId);
     } catch (error) {
       console.error("Error accepting request:", error);
       toast.error("An error occurred while accepting the request.");
@@ -102,6 +139,20 @@ function RequestList() {
       toast.error("An error occurred while deleting the request.");
     }
   };
+
+  useEffect(() => {
+    initializeSignalRConnection();
+
+    conn.on("UpdateProfileRequestList", () => {
+      fetchNotifications();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
 
   useEffect(() => {
     fetchNotifications();

@@ -128,7 +128,7 @@ const AllProjects = () => {
           ))}
         </div>
       </div>
-      {filteredProjects.length == 0 ? (
+      {filteredProjects.length === 0 ? (
         <div
           style={{
             display: "flex",

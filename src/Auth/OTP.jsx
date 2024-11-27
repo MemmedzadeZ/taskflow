@@ -19,7 +19,7 @@ const OTPInput = ({ length = 4, onMatch, email }) => {
 
   const handleSubmit = async () => {
     const enteredCode = otp.join("");
-
+    console.log("inside otp");
     var response = await fetch(
       "https://localhost:7157/api/Profile/verify-code",
       {

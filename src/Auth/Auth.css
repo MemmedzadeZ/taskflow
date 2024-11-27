@@ -22,6 +22,19 @@ body {
   width: 50vh;
 }
 
+.password-info-details {
+  position: absolute;
+  background-color: white;
+  z-index: 1000;
+  padding: 2vh;
+  border-radius: 15px;
+  border: solid 1px #615b84;
+}
+
+.password-info-details p {
+  color: rgb(174, 152, 152);
+}
+
 ::selection {
   background: #b6a0e6; /* Soft Purple for text selection */
   color: #fff;
@@ -150,6 +163,7 @@ body {
   height: 50px;
   width: 100%;
   margin-top: 20px;
+  /* margin-bottom: 10px; */
   .btn {
     background-color: #6852ff;
   }

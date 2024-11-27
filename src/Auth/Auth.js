@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Auth.css";
-import { registerUser, loginUser } from "../Functions/UserEntryFunctions";
+import {
+  registerUser,
+  loginUser,
+  createUser,
+} from "../Functions/UserEntryFunctions";
 import { Link } from "react-router-dom";
 import welcomejson from "../animations/welcome.json";
 import Lottie from "lottie-react";
@@ -19,6 +23,8 @@ function Auth() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [username, setUsername] = useState("");
+  const [infoDetails, setInfoDetail] = useState(false);
+  const [reqStep, setReqStep] = useState(1);
   const [confirmcode, setConfirmcode] = useState("");
   const [step, setStep] = useState(1);
   // const [verificationCode, setVerificationCode] = useState("");
@@ -34,10 +40,25 @@ function Auth() {
     }
   };
 
+  const handleEmailConfirm = (isMatch) => {
+    if (isMatch) {
+      alert("OTP Verified Successfully!");
+      setIsLogin(true);
+      setReqStep(0);
+      createUser(firstname, lastname, email, password, username);
+    } else {
+      console.error("OTP did not match.");
+    }
+  };
+
   const handleLoginClick = () => {
     setIsLogin(true);
     setIsForgotPassword(false);
     setStep(1);
+  };
+
+  const toggleInfoDetail = () => {
+    setInfoDetail(!infoDetails);
   };
 
   const handleSignupClick = () => {
@@ -53,6 +74,42 @@ function Auth() {
 
   const handleSkipStep = () => {
     setStep((prevStep) => prevStep + 1);
+  };
+  const handleRegister = async (e) => {
+    if (
+      registerUser(
+        e,
+        email,
+        firstname,
+        lastname,
+        username,
+        password,
+        confirmPassword
+      )
+    ) {
+      console.log("step set to 2");
+      var response = await fetch(
+        "https://localhost:7157/api/Profile/email-confirmation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ NameOrEmail: email }),
+        }
+      );
+      var data = await response.json();
+
+      if (data.result) {
+        alert(data.message);
+
+        setReqStep(2);
+      } else {
+        alert("Something went wrong. Try again later!");
+      }
+    } else {
+      console.log("registerUser returned false");
+    }
   };
 
   const handleResetPassword = async (e) => {
@@ -139,7 +196,7 @@ function Auth() {
               id="login"
               checked={isLogin && !isForgotPassword}
               onChange={handleLoginClick}
-              style={{ display: "none" }} // Hide the input
+              style={{ display: "none" }}
             />
             <input
               type="radio"
@@ -147,7 +204,7 @@ function Auth() {
               id="signup"
               checked={!isLogin && !isForgotPassword}
               onChange={handleSignupClick}
-              style={{ display: "none" }} // Hide the input
+              style={{ display: "none" }}
             />
             <label htmlFor="login" className="slide login">
               Login
@@ -296,21 +353,11 @@ function Auth() {
             )}
 
             {/* Signup Form */}
-            {!isLogin && !isForgotPassword && (
+            {!isLogin && !isForgotPassword && reqStep === 1 && (
               <form
                 className="signup"
                 id="signup-form"
-                onSubmit={(e) =>
-                  registerUser(
-                    e,
-                    email,
-                    firstname,
-                    lastname,
-                    username,
-                    password,
-                    confirmPassword
-                  )
-                }
+                onSubmit={(e) => handleRegister(e)}
               >
                 <div id="email-div" className="field">
                   <input
@@ -353,6 +400,31 @@ function Auth() {
                 </div>
 
                 <div id="password-div" className="field">
+                  <button
+                    onClick={() => toggleInfoDetail()}
+                    style={{
+                      backgroundColor: "transparent",
+                      width: "10px",
+                      height: "15px",
+                      borderColor: "transparent",
+                    }}
+                  >
+                    <img
+                      src="./images/icon/info.png"
+                      alt="info"
+                      style={{ width: "15px", height: "15px" }}
+                    />
+                  </button>
+                  {infoDetails ? (
+                    <div className="password-info-details">
+                      <p>
+                        Password MUST include at least one uppercase letter.
+                      </p>
+                      <p>Password MUST be longet than 6 symbols.</p>
+                      <p>Password MUST include at least one symbol.</p>
+                      <p>Password MUST include at least one number.</p>
+                    </div>
+                  ) : null}
                   <input
                     type="password"
                     placeholder="Password"
@@ -361,7 +433,11 @@ function Auth() {
                   />
                   <ErrorSpan id="password-span"></ErrorSpan>
                 </div>
-                <div id="confirmPassword-div" className="field">
+                <div
+                  id="confirmPassword-div"
+                  className="field"
+                  style={{ marginTop: "4vh" }}
+                >
                   <input
                     type="password"
                     placeholder="Confirm password"
@@ -382,6 +458,10 @@ function Auth() {
                   Already a member? <a onClick={handleLoginClick}>Login now</a>
                 </div>
               </form>
+            )}
+            {/* Confirm Email */}
+            {!isLogin && !isForgotPassword && reqStep === 2 && (
+              <OTPInput onMatch={handleEmailConfirm} email={email}></OTPInput>
             )}
           </div>
         </div>
