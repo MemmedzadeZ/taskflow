@@ -193,7 +193,11 @@ const ChatPage = ({ friendEmail = "" }) => {
                 >
                   <div className="message-pic">
                     <img
-                      style={{ borderRadius: "50%" }}
+                      style={{
+                        borderRadius: "50%",
+                        height: "60px",
+                        width: "60px",
+                      }}
                       src={item.photo ? item.photo : "./images/client/1.png"}
                       alt=""
                     />
@@ -311,6 +315,7 @@ const ChatPage = ({ friendEmail = "" }) => {
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                 }}
               >
                 <span className="message-text">
@@ -330,9 +335,15 @@ const ChatPage = ({ friendEmail = "" }) => {
                 <span className="btn-send">
                   <button
                     style={{
-                      height: "8vh",
-                      borderRadius: "100%",
+                      width: "50px", // Buton genişliği
+                      height: "50px", // Buton yüksekliği
+                      borderRadius: "100%", // Daire şeklinde yapmak için
                       marginRight: "1vw",
+                      display: "flex", // İçeriği hizalamak için flexbox
+                      alignItems: "center",
+                      justifyContent: "center",
+                      backgroundColor: "#3c21f7", // Arka plan rengi
+                      border: "1px solid #3c21f7", // Sınır (isteğe bağlı)
                     }}
                     className="waves-effect"
                     type="submit"
