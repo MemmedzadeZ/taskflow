@@ -15,6 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 import CreateTaskForMemberModel from "./CreateTaskForMember";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 import EditTaskModel from "./EditTaskForMember";
+import Lottie from "lottie-react";
+import loaderjson from "../animations/loader.json";
 
 const initialData = {
   columns: {
@@ -125,7 +127,11 @@ const Kanban = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <section>
+        <Lottie animationData={loaderjson} />
+      </section>
+    );
   }
 
   if (error) {
