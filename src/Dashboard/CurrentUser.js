@@ -45,25 +45,26 @@ function CurrentPerson() {
           style={{ width: "70px", height: "70px" }}
           alt="Header Avatar"
         />
+        
         <span className="info d-xl-inline-block color-span">
           <span className="d-block fs-20 font-w600">{username}</span>
           <span className="d-block mt-7">{email}</span>
         </span>
+        <Dropdown>
+          <Dropdown.Toggle variant="link" className="p-0">
+            <i className="bx bx-dots-vertical-rounded"></i>
+          </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item
+              href="/profile"
+              onClick={() => console.log("Profile clicked")}
+            >
+              <i className="bx bx-edit me-2"></i>Profile
+            </Dropdown.Item>
+            <LogoutButton />
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
-      <Dropdown>
-        <Dropdown.Toggle variant="link" className="p-0">
-          <i className="bx bx-dots-vertical-rounded"></i>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item
-            href="/profile"
-            onClick={() => console.log("Profile clicked")}
-          >
-            <i className="bx bx-edit me-2"></i>Profile
-          </Dropdown.Item>
-          <LogoutButton />
-        </Dropdown.Menu>
-      </Dropdown>
     </div>
   );
 }

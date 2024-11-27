@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UpdateProjectModel from "./ProjectComponents/UpdateProjectModel";
-
+import { useNavigate } from "react-router-dom";
 const ProjectPagination = ({ posts, handle }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -8,7 +8,7 @@ const ProjectPagination = ({ posts, handle }) => {
   const [currentProjectId, setCurrentProjectId] = useState(null);
   const [teamMembers, setTeamMembers] = useState([]);
   const [hoveredItemId, setHoveredItemId] = useState(null);
-
+  const navigate = useNavigate();
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentPosts = posts.slice(startIndex, endIndex);
@@ -24,6 +24,17 @@ const ProjectPagination = ({ posts, handle }) => {
   //delte member
   const handleDeleteMember = (id, title) => {};
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getDate().toString().padStart(2, "0")}-${(
+      date.getMonth() + 1
+    )
+      .toString()
+      .padStart(2, "0")}-${date.getFullYear()}`;
+  };
+  const goToProjectViewDetail = (projectId) => {
+    navigate(`/projectDetail/${projectId}`);
+  };
   const handlePrevPage = () => {
     if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
@@ -90,7 +101,10 @@ const ProjectPagination = ({ posts, handle }) => {
             style={{ width: "auto" }}
             key={index}
           >
-            <div className="box left-dot">
+            <div
+              className="box left-dot"
+              style={{ padding: "30px", gap: "6px" }}
+            >
               <div className="box-body">
                 <a
                   href=" "
@@ -103,7 +117,10 @@ const ProjectPagination = ({ posts, handle }) => {
                   {"Owned by You"}
                 </p>
                 <span className="fs-13 mt-2 text-muted">
-                  Deadline: {item.endDate ? item.endDate : "No deadline set"}
+                  Deadline:{" "}
+                  {item.deadline
+                    ? formatDate(item.deadline)
+                    : "No deadline set"}
                 </span>
               </div>
 
@@ -325,9 +342,12 @@ const ProjectPagination = ({ posts, handle }) => {
                       </a>
                       <ul className="dropdown-menu" role="menu">
                         <li>
-                          <a href="#">
+                          <a
+                            href=" "
+                            onClick={() => goToProjectViewDetail(item.id)}
+                          >
                             <i className="far fa-eye" />
-                            View
+                            View Detail
                           </a>
                         </li>
 

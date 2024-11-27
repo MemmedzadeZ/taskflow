@@ -38,6 +38,22 @@ function CreateTaskModel({ closeModal, id }) {
       if (response.ok) {
         toast.success("Append new task successfully");
         closeModal();
+        const activityData = {
+          text: "You have created a new task!",
+          type: "Task",
+        };
+
+        await fetch(
+          "https://localhost:7157/api/Notification/NewRecentActivity",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }
+        );
       } else {
         toast.error("Error while creating new task");
       }

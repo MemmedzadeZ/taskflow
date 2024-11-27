@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { HubConnectionBuilder } from "@microsoft/signalr";
 function CalendarCount() {
   const [count, setCount] = useState(0);
 
@@ -24,7 +24,31 @@ function CalendarCount() {
 
     setCount(data);
   };
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
 
+    conn.on("CalendarNotificationCount", (message) => {
+      fetchData();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
   useEffect(() => {
     fetchData();
   }, []);
