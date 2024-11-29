@@ -175,7 +175,8 @@ function RequestList() {
                         <td
                           style={{ display: "flex", justifyContent: "center" }}
                         >
-                          {notification.typee === "FriendRequest" ? (
+                          {notification.typee === "FriendRequest" ||
+                          notification.typee === "ProjectRequest" ? (
                             <a
                               className="w-32-px h-32-px me-8 bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center"
                               onClick={() =>
