@@ -9,7 +9,7 @@ import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
 import ChatPage from "./ChatPage";
 
-const Message = ({ friendMail }) => {
+const Message = () => {
   const [friends, setFriends] = useState([]);
   const [userEmail, setUserEmail] = useState("");
   const fetchFriendsList = async () => {
@@ -39,9 +39,6 @@ const Message = ({ friendMail }) => {
   useEffect(() => {
     fetchFriendsList();
   }, []);
-  useEffect(() => {
-    if (friendMail != null) setUserEmail(friendMail);
-  }, [friendMail]);
 
   const handleChatSelection = (email) => {
     setUserEmail(email);
@@ -335,7 +332,14 @@ const Message = ({ friendMail }) => {
                                             }
                                             alt=""
                                           />
-                                          <div className="pulse-css-1" />
+                                          <div
+                                            className="pulse-css-1"
+                                            style={
+                                              item.isOnline
+                                                ? null
+                                                : { background: "gray" }
+                                            }
+                                          />
                                         </div>
                                         <div className="content">
                                           <div className="username">

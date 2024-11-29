@@ -253,6 +253,7 @@ function DashboardTemplate() {
                       <div className="me-auto">
                         <h4 className="card-title mb-0">Message</h4>
                       </div>
+                      <a href="/message">View Messages</a>
                     </div>
                     <AllMessages />
                   </div>

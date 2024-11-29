@@ -20,6 +20,7 @@ const ChatPage = ({ friendEmail = "" }) => {
   };
   const fetchChat = async (mail) => {
     if (mail !== "") {
+      console.log("fetch" + mail);
       var response = await fetch(
         `https://localhost:7157/api/ChatMessage/AllMessages/${mail}`,
         {
@@ -32,8 +33,9 @@ const ChatPage = ({ friendEmail = "" }) => {
       );
       if (response.ok) {
         var data = await response.json();
+
         setMessages(data.list);
-        console.log(data);
+        console.log("datalist; " + data.list);
       } else {
         console.log("failed to fetch messages!");
       }
@@ -136,7 +138,8 @@ const ChatPage = ({ friendEmail = "" }) => {
       await initializeSignalRConnection();
 
       if (conn.state === "Connected") {
-        conn.on("ReceiveMessages", (mail) => {
+        conn.on("ReceiveMessages2", (mail) => {
+          console.log("mailll: " + mail);
           fetchChat(mail);
         });
         console.log("ReceiveMessages listener added.");
@@ -197,12 +200,12 @@ const ChatPage = ({ friendEmail = "" }) => {
                       src={item.photo ? item.photo : "./images/client/1.png"}
                       alt=""
                     />
-                    <div
+                    {/* <div
                       className="pulse-css"
                       style={
                         item.isSender ? null : { backgroundColor: " green" }
                       }
-                    />
+                    /> */}
                   </div>
                   <div
                     className={
