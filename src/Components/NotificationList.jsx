@@ -33,7 +33,7 @@ function TwoNotification() {
       })
       .catch((err) => console.error("SignalR connection error:", err));
 
-    conn.on("ReceiveFriendRequestList2", (message) => {
+    conn.on("RequestList2", (message) => {
       fetchData();
     });
 

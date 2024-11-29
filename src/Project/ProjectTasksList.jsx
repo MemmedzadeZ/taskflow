@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditTaskInProject from "./EditProjectTask";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 const ProjectTasksList = () => {
   const [workList, setWorkList] = useState([]);
   const [error, setError] = useState("");
@@ -20,30 +21,56 @@ const ProjectTasksList = () => {
   const closeModal = () => {
     setIsEditModalOpen(false);
   };
-  useEffect(() => {
-    const fetchUserWorks = async () => {
-      try {
-        const response = await fetch(
-          "https://localhost:7157/api/Work/UserWorks",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch user works");
+  const fetchUserWorks = async () => {
+    try {
+      const response = await fetch(
+        "https://localhost:7157/api/Work/UserWorks",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
         }
-        const data = await response.json();
-        setWorkList(data);
-      } catch (error) {
-        console.error(error);
-        setError("There are no tasks within the projects yet");
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch user works");
+      }
+      const data = await response.json();
+      setWorkList(data);
+    } catch (error) {
+      console.error(error);
+      setError("There are no tasks within the projects yet");
+    }
+  };
+
+  //SIGNALRR
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("ProjectsTaskList", (message) => {
+      fetchUserWorks();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
       }
     };
-
+  }, []);
+  useEffect(() => {
     fetchUserWorks();
   }, []);
 
@@ -60,9 +87,10 @@ const ProjectTasksList = () => {
       );
 
       if (response.ok) {
-        setWorkList((prevData) =>
-          prevData.filter((task) => task.taskId !== taskId)
-        );
+        setWorkList((prevData) => {
+          const updatedList = prevData.filter((task) => task.taskId !== taskId);
+          return updatedList;
+        });
 
         toast.success("Task deleted successfully.");
       } else {

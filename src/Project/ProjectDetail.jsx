@@ -10,6 +10,7 @@ import TwoNotification from "../Components/NotificationList";
 import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
 import { useNavigate, useParams } from "react-router-dom";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect } from "react";
 
 const ProjectDetail = () => {
@@ -115,6 +116,37 @@ const ProjectDetail = () => {
       setError("There are no tasks within the projects yet");
     }
   };
+
+  //SIGNALRR
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("ProjectDetailTaskList", (message) => {
+      fetchUserWorks();
+    });
+    conn.on("ProjectRecentActivityInDetail", (message) => {
+      fetchActivities();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, [projectId]);
+
   const fetchUserProfile = async () => {
     try {
       const response = await fetch(

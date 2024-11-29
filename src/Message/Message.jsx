@@ -74,7 +74,6 @@ const Message = ({ friendMail }) => {
                   <span className="bx bx-search-alt"></span>
                 </div>
               </form>
-
               <div className="dropdown d-inline-block d-lg-none ms-2">
                 <button
                   type="button"
@@ -110,6 +109,9 @@ const Message = ({ friendMail }) => {
                     </div>
                   </form>
                 </div>
+              </div>{" "}
+              <div className="dropdown d-inline-block mt-12">
+                <CurrentPerson></CurrentPerson>
               </div>
             </div>
           </div>

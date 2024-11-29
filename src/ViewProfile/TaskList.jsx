@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-
+import { HubConnectionBuilder } from "@microsoft/signalr";
 function TaskList() {
   const { email } = useParams();
   const [tasks, setTasks] = useState([]);
@@ -11,27 +11,52 @@ function TaskList() {
   // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 5;
+  const fetchUserProfile = async () => {
+    try {
+      const response = await fetch(
+        `https://localhost:7157/api/Work/UserProfileTask/${email}`
+      );
 
+      if (response.ok) {
+        const data = await response.json();
+        setTasks(data);
+      } else {
+        setError("Error fetching user profile");
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  //SIGNALRR
   useEffect(() => {
-    const fetchUserProfile = async () => {
-      try {
-        const response = await fetch(
-          `https://localhost:7157/api/Work/UserProfileTask/${email}`
-        );
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
 
-        if (response.ok) {
-          const data = await response.json();
-          setTasks(data);
-        } else {
-          setError("Error fetching user profile");
-        }
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
+    conn.on("UserProfileTask", (message) => {
+      fetchUserProfile();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
       }
     };
-
+  }, []);
+  useEffect(() => {
     fetchUserProfile();
   }, [email]);
 

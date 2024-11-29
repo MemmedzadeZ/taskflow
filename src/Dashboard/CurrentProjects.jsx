@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 function CurrentProjects() {
   const [projects, setProjects] = useState([]);
@@ -34,7 +35,32 @@ function CurrentProjects() {
       setError(error);
     }
   };
+  //SIGNALRR
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
 
+    conn.on("DashboardReceiveProject", (message) => {
+      fetchData();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
   useEffect(() => {
     fetchData();
   }, []);

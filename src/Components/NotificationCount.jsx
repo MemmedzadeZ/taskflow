@@ -40,7 +40,7 @@ function CountNotification() {
       })
       .catch((err) => console.error("SignalR connection error:", err));
 
-    conn.on("ReceiveFriendRequest4", (message) => {
+    conn.on("RequestCount", (message) => {
       fetchNotifications();
     });
 
