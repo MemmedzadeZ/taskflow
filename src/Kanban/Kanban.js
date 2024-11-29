@@ -15,6 +15,10 @@ import "react-toastify/dist/ReactToastify.css";
 import CreateTaskForMemberModel from "./CreateTaskForMember";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 import EditTaskModel from "./EditTaskForMember";
+import Lottie from "lottie-react";
+import loaderjson from "../animations/loader.json";
+import noproject from "../animations/noproject.json";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const initialData = {
   columns: {
@@ -47,6 +51,7 @@ const Kanban = () => {
   const [selectedColumnId, setSelectedColumnId] = useState(null);
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [projectTitle, setProjectTitle] = useState(null);
+  const [check, setCheck] = useState(true);
 
   const getProjectTitle = async () => {
     try {
@@ -68,63 +73,87 @@ const Kanban = () => {
       console.error("Error fetching project title:", error);
     }
   };
-  useEffect(() => {
-    getProjectTitle();
-  }, []);
-
-  useEffect(() => {
-    const getTasks = async () => {
-      try {
-        if (!projectId) {
-          const projectResponse = await fetch(
-            `https://localhost:7157/api/Project/AllProjectsUserOwn`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          );
-
-          if (!projectResponse.ok) {
-            throw new Error("not fetch data");
+  const getTasks = async () => {
+    try {
+      if (!projectId) {
+        const projectResponse = await fetch(
+          `https://localhost:7157/api/Project/AllProjectsUserOwn`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
+        );
 
-          const userProjects = await projectResponse.json();
-
-          if (userProjects.length > 0) {
-            const latestProjectId = userProjects[userProjects.length - 1].id;
-
-            window.location.href = `/kanban/${latestProjectId}`;
-          } else {
-            setLoading(false);
-            setData(initialData);
-          }
-        } else {
-          const response = await fetch(
-            `https://localhost:7157/api/Project/ProjectTaskCanban/${projectId}`,
-            {
-              method: "GET",
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch tasks");
-          }
-
-          const tasks = await response.json();
-          setData({ columns: organizeTasksIntoColumns(tasks) });
-          setLoading(false);
+        if (!projectResponse.ok) {
+          throw new Error("not fetch data");
         }
-      } catch (error) {
-        setError(error.message);
+
+        const userProjects = await projectResponse.json();
+
+        if (userProjects.length > 0) {
+          const latestProjectId = userProjects[userProjects.length - 1].id;
+
+          window.location.href = `/kanban/${latestProjectId}`;
+        } else {
+          toast.info("You have no projects yet. Create a new one!");
+          setLoading(false);
+          setCheck(false);
+          //  setData(initialData);
+        }
+      } else {
+        const response = await fetch(
+          `https://localhost:7157/api/Project/ProjectTaskCanban/${projectId}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch tasks");
+        }
+
+        const tasks = await response.json();
+        setData({ columns: organizeTasksIntoColumns(tasks) });
         setLoading(false);
       }
-    };
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+    }
+  };
+  //SIGNALRR
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
 
+    conn.on("CanbanTaskUpdated", (message) => {
+      getTasks();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, [projectId]);
+  useEffect(() => {
+    getProjectTitle();
     getTasks();
   }, [projectId]);
 
@@ -150,7 +179,11 @@ const Kanban = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <section>
+        <Lottie animationData={loaderjson} />
+      </section>
+    );
   }
 
   if (error) {
@@ -237,16 +270,19 @@ const Kanban = () => {
       );
 
       if (response.ok) {
-        setData((prevData) => {
-          const updatedColumns = { ...prevData.columns };
+        // setData((prevData) => {
+        //   const updatedColumns = { ...prevData.columns };
 
-          for (const columnId in updatedColumns) {
-            updatedColumns[columnId].tasks = updatedColumns[
-              columnId
-            ].tasks.filter((task) => task.id !== taskId);
-          }
+        //   for (const columnId in updatedColumns) {
+        //     updatedColumns[columnId].tasks = updatedColumns[
+        //       columnId
+        //     ].tasks.filter((task) => task.id !== taskId);
+        //   }
 
-          return { ...prevData, columns: updatedColumns };
+        //   return { ...prevData, columns: updatedColumns };
+        // });
+        setData({
+          ...data,
         });
         toast.success("Task deleted successfully.");
       } else {
@@ -305,6 +341,116 @@ const Kanban = () => {
     setIsModalOpen(false);
     setIsEditModalOpen(false);
   };
+  if (check === false) {
+    return (
+      <div>
+        <ToastContainer />
+        <div className="sidebar-expand">
+          <div className="DIV">
+            <SidebarComponent />
+
+            <div className="main-header">
+              <div className="d-flex">
+                <div className="mobile-toggle" id="mobile-toggle">
+                  <i className="bx bx-menu"></i>
+                </div>
+                <div className="main-title">Kanban</div>
+              </div>
+
+              <div className="d-flex align-items-center">
+                {/* App Search */}
+
+                <SidebarSearchComponent></SidebarSearchComponent>
+
+                <CurrentPerson />
+              </div>
+            </div>
+
+            <div className="main">
+              <div className="main-content board">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="box card-box">
+                      <div className="icon-box bg-color-1">
+                        <div className="icon bg-icon-1">
+                          <i className="bx bxs-bell bx-tada"></i>
+                        </div>
+                        <CountNotification />
+                        <TwoNotification />
+                      </div>
+
+                      <div className="icon-box bg-color-2">
+                        <div className="icon bg-icon-2">
+                          <i className="bx bxs-message-rounded"></i>
+                        </div>
+                        <CountMessage />
+                        <TwoMessage />
+                      </div>
+
+                      <div className="icon-box bg-color-3">
+                        <a className="create d-flex" href="calendar.html">
+                          <div className="icon bg-icon-3">
+                            <i className="bx bx-calendar"></i>
+                          </div>
+                        </a>
+                        <CalendarCount />
+                        <TwoCalendarNotification />
+                      </div>
+
+                      <div className="icon-box bg-color-4">
+                        <a
+                          className="create d-flex"
+                          href="/project"
+                          data-toggle="modal"
+                          data-target="#add_project"
+                        >
+                          <div className="icon bg-white">
+                            <i className="bx bx-plus"></i>
+                          </div>
+                          <div className="content d-flex align-items-center">
+                            <h5 className="color-white">Create New Project</h5>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      marginBottom: "5vh",
+                    }}
+                  >
+                    <ToastContainer />
+                    <Lottie
+                      style={{ width: "25vw", height: "25vh" }}
+                      animationData={noproject}
+                      loop={true}
+                    ></Lottie>
+                    <h3>
+                      No projects available to display. Please create or add a
+                      project to view its statistics.
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  function convertToLighterColor(color, opacity) {
+    if (color.startsWith("#")) {
+      const bigint = parseInt(color.slice(1), 16);
+      const r = (bigint >> 16) & 255;
+      const g = (bigint >> 8) & 255;
+      const b = bigint & 255;
+      return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+    }
+    return color;
+  }
   return (
     <div>
       <ToastContainer />
@@ -377,14 +523,29 @@ const Kanban = () => {
                     </div>
                   </div>
                 </div>
-                <h4
+                <div
+                  className="col-3 team-name"
                   style={{
-                    display: "contents",
-                    alignItems: "center",
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+                    alignContent: "flex-start",
+                    backgroundColor: projectTitle?.color
+                      ? convertToLighterColor(projectTitle.color, 0.5)
+                      : "#000",
                   }}
                 >
-                  Project Name: {projectTitle?.title}
-                </h4>
+                  <a href={`/projectDetail/${projectId}`} className="team">
+                    <div
+                      className="icon"
+                      style={{
+                        backgroundColor: projectTitle?.color ?? "#000",
+                      }}
+                    ></div>
+
+                    <h4>{projectTitle?.title}</h4>
+                  </a>
+                </div>
+
                 <DragDropContext onDragEnd={onDragEnd}>
                   <div className="board-container">
                     {Object.entries(data.columns).map(([columnId, column]) => (

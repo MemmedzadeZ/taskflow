@@ -2,23 +2,80 @@ import React, { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRef } from "react";
 function Reminder() {
   const [notifications, setNotifications] = useState([]);
+  const connectionRef = useRef(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   const fetchNotifications = async () => {
-    const response = await fetch(
-      "https://localhost:7157/api/Notification/CalendarNotifications",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    setNotifications(data);
+    if (isFetching) return;
+    setIsFetching(true);
+    try {
+      const response = await fetch(
+        "https://localhost:7157/api/Notification/CalendarNotifications",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      console.log("Fetched notifications:", data);
+      setNotifications(data);
+    } catch (error) {
+      toast.warning("Error fetching notifications:", error);
+    } finally {
+      setIsFetching(false);
+    }
   };
+
+  useEffect(() => {
+    const initializeSignalR = async () => {
+      if (connectionRef.current) {
+        console.log(
+          "SignalR connection already exists. Skipping initialization."
+        );
+        return;
+      }
+
+      const token = localStorage.getItem("token");
+      const conn = new HubConnectionBuilder()
+        .withUrl("https://localhost:7157/connect", {
+          accessTokenFactory: () => token,
+        })
+        .configureLogging("information")
+        .build();
+
+      connectionRef.current = conn;
+
+      try {
+        await conn.start();
+        console.log("SignalR connected.");
+
+        conn.on("ReminderRequestList", () => {
+          console.log("SignalR message received: ReminderRequestList");
+          fetchNotifications();
+        });
+      } catch (error) {
+        console.error("SignalR connection error:", error);
+      }
+    };
+
+    initializeSignalR();
+    fetchNotifications();
+
+    return () => {
+      if (connectionRef.current) {
+        connectionRef.current.stop().then(() => {
+          console.log("SignalR connection stopped.");
+        });
+        connectionRef.current = null;
+      }
+    };
+  }, []);
 
   const handleReject = async (id) => {
     console.log(`Rejected notification with ID: ${id}`);
@@ -28,12 +85,12 @@ function Reminder() {
         `https://localhost:7157/api/Notification/DeletedCalendarMessage/${id}`,
         {
           method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
       if (response.ok) {
-        // setNotifications((prevTasks) =>
-        //   prevTasks.filter((task) => task.id !== id)
-        // );
         toast.info("Request deleted successfully.");
         const activityData = {
           text: "Deleted a calendar reminder",
@@ -59,34 +116,7 @@ function Reminder() {
       toast.error("An error occurred while deleting the request.");
     }
   };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
 
-    conn.on("ReminderRequestList", (message) => {
-      fetchNotifications();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
-    };
-  }, []);
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return `${date.getDate().toString().padStart(2, "0")}-${(

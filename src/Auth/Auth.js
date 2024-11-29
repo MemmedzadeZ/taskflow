@@ -170,6 +170,8 @@ function Auth() {
   return (
     <div className="div">
       <grid>
+        
+        
         <div className="titlE">
           <h1 className="titleH2">
             {isLogin ? "Log In to TaskFlow" : "Sign Up to TaskFlow"}
@@ -292,27 +294,7 @@ function Auth() {
 
             {isForgotPassword && step === 2 && (
               <div className="confirmation-message">
-                {/* <p>
-                  Skip to password reset Email sent with confirmation code.
-                  Please check your inbox.
-                </p>
-                <div className="field">
-                  <input
-                    type="code"
-                    placeholder="Confirmation code"
-                    value={confirmcode}
-                    onChange={(e) => setConfirmcode(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="field btn">
-                  <input
-                    className="btn btn-primary"
-                    type="button"
-                    value="Skip"
-                    onClick={handleSkipStep}
-                  />
-                </div> */}
+              
                 <OTPInput onMatch={handleOtpMatch} email={email}></OTPInput>
               </div>
             )}

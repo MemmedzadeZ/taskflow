@@ -1,7 +1,9 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
-import loaderjson from "../animations/loader.json"
+import loaderjson from "../animations/loader.json";
+
+// import image from "../../public/images/";
 
 function HomePage({ setIsAuthenticated }) {
   const navigate = useNavigate();
@@ -158,7 +160,7 @@ function HomePage({ setIsAuthenticated }) {
                   className="btn btn-primary display-4"
                   onClick={handleButtonClick}
                 >
-                  Get Started
+                  Join Now
                 </button>
               </div>
             </div>
@@ -185,14 +187,15 @@ function HomePage({ setIsAuthenticated }) {
             zIndex: 0,
           }}
         >
-          <iframe
-            src="https://www.youtube.com/embed/TYB7YTQXwXY?autoplay=1&loop=1&playlist=TYB7YTQXwXY&mute=1&controls=0&modestbranding=1&rel=0&fs=0&iv_load_policy=3"
-            title="background video"
-            frameBorder="0"
-            allow="autoplay; encrypted-media; fullscreen"
+          <video
+            src="/images/videoHomepage.mp4"
+            autoPlay
+            loop
+            muted
             style={{
               width: "100vw",
               height: "100vh",
+              objectFit: "cover",
               pointerEvents: "none",
             }}
           />
@@ -213,7 +216,10 @@ function HomePage({ setIsAuthenticated }) {
                 tools!
               </p>
               <div className="mbr-section-btn">
-                <a className="btn btn-white-outline display-7" href="/auth">
+                <a
+                  className="btn btn-white-outline display-7"
+                  onClick={handleButtonClick}
+                >
                   Join Now
                 </a>
               </div>

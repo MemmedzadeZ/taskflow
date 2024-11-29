@@ -24,6 +24,7 @@ function RecentActivity() {
       console.error("Error fetching recent activities:", error);
     }
   };
+  //SIGNALRR
 
   useEffect(() => {
     const token = localStorage.getItem("token");

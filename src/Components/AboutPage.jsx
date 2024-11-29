@@ -333,7 +333,8 @@ function AboutPage() {
             <h3 className="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
               <strong>Project Management Hub</strong>
             </h3>
-          </div>
+
+            <div></div>
           <div className="row justify-content-center">
             <div className="col-12 col-lg-8">
               <div className="item features-without-image col-12 active">
@@ -413,6 +414,7 @@ function AboutPage() {
             </div>
           </div>
         </div>
+          </div>
       </section>
     </>
   );

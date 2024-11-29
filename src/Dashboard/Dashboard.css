@@ -103,10 +103,13 @@
   border-radius: 8px; /* Added rounding for buttons */
 }
 
+/* //////////// */
 .sidebar-submenu a:hover {
-  background-color: #b6a0e6; /* Soft Purple for hover */
+  background-color: white; /* Soft Purple for hover */
   color: #ffffff; /* Text stays white */
 }
+
+/* //////////// */
 
 .sidebar-menu-dropdown-content {
   background-color: red; /* Slightly lighter background for dropdowns */

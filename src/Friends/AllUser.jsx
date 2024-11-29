@@ -206,7 +206,7 @@ function AllUsers() {
                       src={
                         item.friendPhoto
                           ? item.friendPhoto
-                          : "./images/client/1.png"
+                          : "/images/default-user.png"
                       }
                       style={{ height: "100px", width: "100px" }}
                       alt=""

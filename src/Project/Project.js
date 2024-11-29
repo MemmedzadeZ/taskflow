@@ -16,17 +16,26 @@ import ProjectStatistik from "./ProjectStatistik";
 import ProjectTasksList from "./ProjectTasksList";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 
+// import Lottie from "lottie-react";
+// import loaderjson from "../animations/loader.json";
+
 const Project = () => {
+  // const [loading, setLoading] = useState(true);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModel = (e) => {
     e.preventDefault();
     setIsModalOpen(true);
+    // setLoading(false);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
+    // setLoading(false);
   };
+
+  
   return (
     <div>
       <div className="sidebar-expand">
@@ -90,9 +99,6 @@ const Project = () => {
                 {/* ///// */}
                 <AllProjects></AllProjects>
                 <div className="row">
-                  {" "}
-                  <RecentActivity />
-                  <ProjectStatistik></ProjectStatistik>
                   <ProjectLinearChart></ProjectLinearChart>
                   <InProgress></InProgress>
                   <ProjectTasksList />

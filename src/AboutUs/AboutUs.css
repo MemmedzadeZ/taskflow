@@ -1,17 +1,20 @@
 /* Main container for the About Us page */
 .about-page {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #000000;
-  background-color: wheat;
+  background: linear-gradient(to bottom, #ffffff, #f6b26b, #91c499);
   padding: 40px;
+  line-height: 1.6;
 }
 
-/* Header section styling */
+/* Header Section Styling */
 .about-header {
-  background-color: transparent;
+  background-color: #6852ff;
+  color: white;
   padding: 50px;
   text-align: center;
   border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .about-header h1 {
@@ -21,23 +24,22 @@
 
 .about-header p {
   font-size: 1.5em;
+  max-width: 800px;
+  margin: auto;
 }
 
-/* General section styling */
+/* General Section Styling */
 .about-section {
   margin-top: 40px;
   padding: 40px;
   border-radius: 10px;
   background-color: white;
   color: #000000;
-}
-
-.mission-section {
-  background-color: #6852ff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .values-section ul {
-  list-style-type: none;
+  list-style: none;
   padding-left: 0;
 }
 
@@ -46,15 +48,25 @@
   font-size: 1.3em;
 }
 
+/* Mission Section */
+.mission-section {
+  background-color: #91c499;
+  color: white;
+}
+
 /* Team Section */
 .team-grid {
-  display: flex;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 20px;
 }
 
 .team-member {
   text-align: center;
+  background: #f6b26b;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .team-member img {
@@ -62,6 +74,7 @@
   height: 150px;
   border-radius: 50%;
   border: 4px solid white;
+  object-fit: cover;
 }
 
 .team-member h3 {
@@ -69,10 +82,16 @@
   font-size: 1.5em;
 }
 
+.team-member p {
+  color: #ffffff;
+  font-size: 1.2em;
+}
+
 /* Call to Action Section */
 .call-to-action {
   text-align: center;
   background-color: #6852ff;
+  color: white;
 }
 
 .call-to-action p {
@@ -81,14 +100,14 @@
 }
 
 .cta-button {
-  padding: 10px 20px;
+  padding: 15px 30px;
   background-color: white;
-  color: #000000;
+  color: #6852ff;
   border: none;
   font-size: 1.2em;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
 }
 
 .cta-button:hover {

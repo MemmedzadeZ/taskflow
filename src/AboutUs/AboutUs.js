@@ -13,22 +13,21 @@ const AboutUs = () => {
         </p>
       </header>
 
-
       {/* Values Section */}
       <section className="about-section values-section">
         <h2>Our Values</h2>
         <ul>
           <li>
-            Innovation: Continuously improving our platform with cutting-edge
-            technology.
+            <strong>Innovation:</strong> Continuously improving our platform
+            with cutting-edge technology.
           </li>
           <li>
-            Integrity: We believe in transparency and ethical practices in
-            everything we do.
+            <strong>Integrity:</strong> We believe in transparency and ethical
+            practices in everything we do.
           </li>
           <li>
-            Customer Success: Our success is measured by how much we help our
-            clients achieve.
+            <strong>Customer Success:</strong> Our success is measured by how
+            much we help our clients achieve.
           </li>
         </ul>
       </section>
@@ -43,22 +42,23 @@ const AboutUs = () => {
           of modern businesses.
         </p>
       </section>
+
       {/* Team Section */}
       <section className="about-section team-section">
         <h2>Meet the Team</h2>
         <div className="team-grid">
           <div className="team-member">
-            <img src="/assets/images/team1.jpg" alt="Team Member 1" />
+            <img src="/assets/images/team1.jpg" alt="Jane Doe" />
             <h3>Jane Doe</h3>
             <p>Chief Executive Officer</p>
           </div>
           <div className="team-member">
-            <img src="/assets/images/team2.jpg" alt="Team Member 2" />
+            <img src="/assets/images/team2.jpg" alt="John Smith" />
             <h3>John Smith</h3>
             <p>Lead Project Manager</p>
           </div>
           <div className="team-member">
-            <img src="/assets/images/team3.jpg" alt="Team Member 3" />
+            <img src="/assets/images/team3.jpg" alt="Emily Johnson" />
             <h3>Emily Johnson</h3>
             <p>UX/UI Designer</p>
           </div>

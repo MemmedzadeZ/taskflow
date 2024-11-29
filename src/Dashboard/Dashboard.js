@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet"; // For head configurations
 import "../Dashboard/Dashboard.css";
 import CurrentProjects from "./CurrentProjects";
@@ -18,8 +18,12 @@ import AllMessages from "./AllMessagesList";
 import DailyTask from "./DailyTask";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
+import Lottie from "lottie-react";
+import loaderjson from "../animations/loader.json";
 
 function DashboardTemplate() {
+  // const [loading, setLoading] = useState(true);
+
   const themeCookieName = "theme";
   const themeDark = "dark";
   const themeLight = "light";
@@ -31,6 +35,7 @@ function DashboardTemplate() {
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
+    
 
   // Switch between light, dark, and elkan mode, changing background color
   function switchTheme() {
@@ -40,6 +45,7 @@ function DashboardTemplate() {
       body.style.backgroundColor = "var(--box-bg)"; // Dark Mode background
       setCookie(themeCookieName, themeDark);
     } else if (body.classList.contains(themeDark)) {
+      
       body.classList.remove(themeDark);
       body.classList.add(themeElkan);
       body.style.backgroundColor = "#ffffff"; // Elkan Mode background (purple)
@@ -48,9 +54,11 @@ function DashboardTemplate() {
       body.classList.remove(themeElkan);
       body.classList.add(themeLight);
       body.style.backgroundColor = "#ffffff"; // Light Mode background
+      
       setCookie(themeCookieName, themeLight);
     }
   }
+  
 
   // Apply saved theme on load and set corresponding background color
   useEffect(() => {
@@ -70,8 +78,14 @@ function DashboardTemplate() {
       body.classList.add(themeLight); // Default to light theme
       body.style.backgroundColor = "#ffffff"; // Default light mode background
     }
+    
+
     startSignalRConnection();
+
+    
   }, [body]);
+
+
 
   return (
     <div>

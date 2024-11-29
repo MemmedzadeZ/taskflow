@@ -4,60 +4,66 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 function RequestList() {
   const [notifications, setNotifications] = useState([]);
+  const [conn, setConn] = useState(null);
 
   const fetchNotifications = async () => {
-    const response = await fetch(
-      "https://localhost:7157/api/Notification/RequestNotification",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    const data = await response.json();
-    setNotifications(data);
+    try {
+      const response = await fetch(
+        "https://localhost:7157/api/Notification/RequestNotification",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      setNotifications(data);
+    } catch (error) {
+      console.error("Failed to fetch notifications:", error);
+    }
   };
-
-  let conn;
 
   const initializeSignalRConnection = async () => {
     if (!conn) {
       const token = localStorage.getItem("token");
-      conn = new HubConnectionBuilder()
+      const connection = new HubConnectionBuilder()
         .withUrl("https://localhost:7157/connect", {
           accessTokenFactory: () => token,
         })
         .configureLogging("information")
         .build();
 
+      connection.on("RequestList", fetchNotifications);
+      connection.on("UpdateProfileRequestList", fetchNotifications);
+
       try {
-        await conn.start();
+        await connection.start();
         console.log("SignalR connected.");
+        setConn(connection);
       } catch (err) {
         console.error("SignalR connection error:", err);
       }
     }
   };
 
-  const SendFollowCall = async (id) => {
-    if (!conn || conn.state !== "Connected") {
-      console.warn("Connection not established. Attempting to connect...");
-      await initializeSignalRConnection();
-    }
+  useEffect(() => {
+    initializeSignalRConnection();
 
-    try {
-      await conn.invoke("SendFollow", id);
-      console.log(`Follow request sent for ID: ${id}`);
-    } catch (err) {
-      console.error("Error sending follow request:", err);
-    }
-  };
+    return () => {
+      if (conn) {
+        conn.stop();
+        console.log("SignalR disconnected.");
+      }
+    };
+  }, [conn]);
+
+  useEffect(() => {
+    fetchNotifications();
+  }, []);
 
   const handleAccept = async (requestId) => {
-    console.log(`Accepted notification with ID: ${requestId}`);
-
     try {
       const response = await fetch(
         `https://localhost:7157/api/Notification/AcceptRequestNotification/${requestId}`,
@@ -69,30 +75,15 @@ function RequestList() {
         }
       );
       if (response.ok) {
-        setNotifications((prevTasks) =>
-          prevTasks.filter((task) => task.requestId !== requestId)
-        );
         toast.success("Request accepted successfully.");
-        const activityData = {
-          text: "You accepted a request.",
-          type: "Notification",
-        };
-
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        // setNotifications((prevNotifications) =>
+        //   prevNotifications.filter(
+        //     (notification) => notification.requestId !== requestId
+        //   )
+        // );
       } else {
         toast.error("Failed to accept request.");
       }
-      SendFollowCall(requestId);
     } catch (error) {
       console.error("Error accepting request:", error);
       toast.error("An error occurred while accepting the request.");
@@ -100,8 +91,6 @@ function RequestList() {
   };
 
   const handleReject = async (requestId) => {
-    console.log(`Rejected notification with ID: ${requestId}`);
-
     try {
       const response = await fetch(
         `https://localhost:7157/api/Notification/DeleteRequestNotification/${requestId}`,
@@ -114,26 +103,12 @@ function RequestList() {
         }
       );
       if (response.ok) {
-        // setNotifications((prevTasks) =>
-        //   prevTasks.filter((task) => task.requestId !== requestId)
-        // );
         toast.info("Request deleted successfully.");
-        const activityData = {
-          text: "You rejected a request.",
-          type: "Notification",
-        };
-
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        // setNotifications((prevNotifications) =>
+        //   prevNotifications.filter(
+        //     (notification) => notification.requestId !== requestId
+        //   )
+        // );
       } else {
         toast.error("Failed to delete request.");
       }
@@ -142,48 +117,6 @@ function RequestList() {
       toast.error("An error occurred while deleting the request.");
     }
   };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
-
-    conn.on("ReceiveFriendRequestList", (message) => {
-      fetchNotifications();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
-    };
-  }, []);
-  useEffect(() => {
-    initializeSignalRConnection();
-
-    conn.on("UpdateProfileRequestList", () => {
-      fetchNotifications();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    fetchNotifications();
-  }, []);
 
   return (
     <div className="col-lg-12">
@@ -223,7 +156,7 @@ function RequestList() {
                               src={
                                 notification.image
                                   ? notification.image
-                                  : "assets/images/users/user1.png"
+                                  : "/images/default-user.png"
                               }
                               alt=""
                               className="flex-shrink-0 me-12 radius-8"
@@ -242,31 +175,45 @@ function RequestList() {
                         <td
                           style={{ display: "flex", justifyContent: "center" }}
                         >
-                          <a
-                            className="w-32-px h-32-px me-8 bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center"
-                            onClick={() => handleAccept(notification.requestId)}
-                            style={{ cursor: "pointer" }}
-                          >
-                            <svg
-                              aria-hidden="true"
-                              role="img"
-                              className="iconify iconify--lucide"
-                              width="1em"
-                              height="1em"
-                              viewBox="0 0 24 24"
+                          {notification.typee === "FriendRequest" ? (
+                            <a
+                              className="w-32-px h-32-px me-8 bg-success-focus text-success-main rounded-circle d-inline-flex align-items-center justify-content-center"
+                              onClick={() =>
+                                handleAccept(notification.requestId)
+                              }
+                              style={{
+                                cursor: "pointer",
+                                display:
+                                  notification.typee === "ProjectRequest" ||
+                                  notification.typee === null
+                                    ? "none"
+                                    : "block",
+                              }}
+                              href=" "
+                              disabled={notification.typee === "FriendRequest"}
                             >
-                              <g
-                                fill="none"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
+                              <svg
+                                aria-hidden="true"
+                                role="img"
+                                className="iconify iconify--lucide"
+                                width="1em"
+                                height="1em"
+                                viewBox="0 0 24 24"
                               >
-                                <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                                <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path>
-                              </g>
-                            </svg>
-                          </a>
+                                <g
+                                  fill="none"
+                                  stroke="currentColor"
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth="2"
+                                >
+                                  <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                  <path d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path>
+                                </g>
+                              </svg>
+                            </a>
+                          ) : null}
+
                           <a
                             className="w-32-px h-32-px me-8 bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center"
                             onClick={() => handleReject(notification.requestId)}

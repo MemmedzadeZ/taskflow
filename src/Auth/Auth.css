@@ -182,7 +182,7 @@ body {
 }
 
 .form-inner form .field input:focus {
-  border-color: #b6a0e6; /* Focus border with Soft Purple */
+  border-color: white; /* Focus border with Soft Purple */
 }
 
 .form-inner form .field input::placeholder {
