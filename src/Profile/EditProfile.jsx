@@ -91,6 +91,19 @@ const EditProfile = () => {
         body: JSON.stringify(profileData),
       });
       toast.success("Profile updated successfully!");
+      const activityData = {
+        text: "Profile updated",
+        type: "Profile",
+      };
+
+      fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(activityData),
+      });
     } catch {
       toast.error("Failed to update profile data.");
     }
@@ -118,6 +131,19 @@ const EditProfile = () => {
       );
       setPath(data.image);
       toast.success("Profile image updated successfully!");
+      const activityData = {
+        text: "Profile image updated",
+        type: "Profile",
+      };
+
+      fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(activityData),
+      });
     } catch {
       toast.error("Failed to update profile image.");
     }
