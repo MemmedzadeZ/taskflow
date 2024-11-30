@@ -36,7 +36,7 @@ function RequestList() {
         .build();
 
       connection.on("RequestList", fetchNotifications);
-      connection.on("UpdateProfileRequestList", fetchNotifications);
+      // connection.on("UpdateProfileRequestList", fetchNotifications);
 
       try {
         await connection.start();

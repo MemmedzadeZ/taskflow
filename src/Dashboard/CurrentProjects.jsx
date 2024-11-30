@@ -62,6 +62,32 @@ function CurrentProjects() {
     };
   }, []);
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const conn = new HubConnectionBuilder()
+      .withUrl("https://localhost:7157/connect", {
+        accessTokenFactory: () => token,
+      })
+      .configureLogging("information")
+      .build();
+    conn
+      .start()
+      .then(() => {
+        console.log("SignalR connected.");
+      })
+      .catch((err) => console.error("SignalR connection error:", err));
+
+    conn.on("ReceiveProjectUpdateDashboard", () => {
+      fetchData();
+    });
+
+    return () => {
+      if (conn) {
+        conn.stop();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     fetchData();
   }, []);
 

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UpdateProjectModel from "./ProjectComponents/UpdateProjectModel";
 import { useNavigate } from "react-router-dom";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 const ProjectPagination = ({ posts, handle }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentProjectId, setCurrentProjectId] = useState(null);
   const [teamMembers, setTeamMembers] = useState([]);
+  const [requestedMember, setRequestedMembers] = useState([]);
   const [hoveredItemId, setHoveredItemId] = useState(null);
   const navigate = useNavigate();
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -21,8 +23,18 @@ const ProjectPagination = ({ posts, handle }) => {
     fetchMembers(id);
   };
 
-  //delte member
-  const handleDeleteMember = (id, title) => {};
+  //delte member MemberRemove
+  const handleDeleteMember = (username, id) => {
+    var payload = { ProjectId: id, Username: username };
+    fetch(`https://localhost:7157/api/TeamMember/MemberRemove`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  };
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -55,6 +67,7 @@ const ProjectPagination = ({ posts, handle }) => {
 
   const fetchMembers = (id) => {
     console.log("inside fetch");
+    console.log(id);
     fetch(`https://localhost:7157/api/TeamMember/get/${id}`, {
       method: "GET",
       headers: {
@@ -73,10 +86,26 @@ const ProjectPagination = ({ posts, handle }) => {
       })
       .then((data) => {
         if (data.list) {
-          setTeamMembers(data.list);
-          console.log(data.list);
+          console.log("datalist: " + data.list);
+          const allMembers = data.list;
+
+          const acceptedMembers = allMembers.filter(
+            (member) => member.isAccepted && !member.isRequest
+          );
+
+          const pendingRequests = allMembers.filter(
+            (member) => member.isRequest && !member.isAccepted
+          );
+
+          setTeamMembers({
+            accepted: acceptedMembers,
+            pending: pendingRequests,
+          });
+
+          console.log("Accepted Members:", acceptedMembers);
+          console.log("Pending Requests:", pendingRequests);
         } else {
-          setTeamMembers([]);
+          setTeamMembers({ accepted: [], pending: [] });
         }
       })
       .catch((error) => {
@@ -107,8 +136,7 @@ const ProjectPagination = ({ posts, handle }) => {
             >
               <div className="box-body">
                 <a
-                  href=" "
-                  onClick={(e) => openModal(e, item.id)}
+                  href={`/kanban/${item.id}`}
                   className="box-title mb-0 mt-1 mb-3 font-w600 fs-18"
                 >
                   {item.title}
@@ -164,7 +192,10 @@ const ProjectPagination = ({ posts, handle }) => {
                               width: "auto",
                             }}
                           >
-                            {teamMembers.length === 0 ? (
+                            {teamMembers.accepted &&
+                            teamMembers.accepted.length === 0 &&
+                            teamMembers.pending &&
+                            teamMembers.pending.length === 0 ? (
                               <div
                                 style={{
                                   width: "auto",
@@ -190,115 +221,101 @@ const ProjectPagination = ({ posts, handle }) => {
                                   padding: "5px",
                                 }}
                               >
-                                {teamMembers.map((member, idx) => (
-                                  <li
-                                    style={{
-                                      width: "auto",
-                                      height: "auto",
-                                      borderRadius: "5px",
-                                      marginBottom: "3vh",
-                                      border: member.isRequest
-                                        ? "4px solid #4939f9"
-                                        : "4px solid #008dbc",
-                                      background: member.isRequest
-                                        ? "#d6c2fb"
-                                        : " #a9d6f5",
-                                      padding: "6px",
-                                    }}
-                                    key={idx}
-                                  >
-                                    <div
+                                {teamMembers.accepted &&
+                                  teamMembers.accepted.length !== 0 &&
+                                  teamMembers.accepted.map((member, idx) => (
+                                    <li
                                       style={{
                                         width: "auto",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        gap: "1vw",
+                                        height: "auto",
+                                        borderRadius: "5px",
+                                        marginBottom: "3vh",
+                                        border: "4px solid #008dbc",
+                                        background: " #a9d6f5",
+                                        padding: "6px",
                                       }}
+                                      key={idx}
                                     >
-                                      <div style={{ flexShrink: 0 }}>
-                                        <img
-                                          src={
-                                            member.profilePicture
-                                              ? member.profilePicture
-                                              : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
-                                          }
-                                          alt={`${member.username}'s profile`}
-                                          style={{
-                                            width: "40px",
-                                            height: "40px",
-                                            borderRadius: "50%",
-                                            objectFit: "cover",
-                                          }}
-                                          onError={(e) => {
-                                            e.target.onerror = null;
-                                            e.target.src =
-                                              "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png";
-                                          }}
-                                        />
-                                      </div>
                                       <div
                                         style={{
                                           width: "auto",
                                           display: "flex",
-                                          flexDirection: "column",
+                                          alignItems: "center",
+                                          gap: "1vw",
                                         }}
                                       >
-                                        <span
-                                          style={{
-                                            margin: "0",
-                                            fontSize: "16px",
-                                            fontWeight: "bold",
-                                          }}
-                                        >
-                                          {member.username}
-                                        </span>
+                                        <div style={{ flexShrink: 0 }}>
+                                          <img
+                                            src={
+                                              member.profilePicture
+                                                ? member.profilePicture
+                                                : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                                            }
+                                            alt={`${member.username}'s profile`}
+                                            style={{
+                                              width: "40px",
+                                              height: "40px",
+                                              borderRadius: "50%",
+                                              objectFit: "cover",
+                                            }}
+                                            onError={(e) => {
+                                              e.target.onerror = null;
+                                              e.target.src =
+                                                "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png";
+                                            }}
+                                          />
+                                        </div>
                                         <div
                                           style={{
+                                            width: "auto",
                                             display: "flex",
-                                            flexDirection: "row",
-                                            gap: "7px",
+                                            flexDirection: "column",
                                           }}
                                         >
                                           <span
                                             style={{
-                                              // margin: "0 0 0 5px",
-                                              fontSize: "14px",
-                                              color: "#555",
-
-                                              // display: "flex",
+                                              margin: "0",
+                                              fontSize: "16px",
+                                              fontWeight: "bold",
                                             }}
                                           >
-                                            {member.firstname}
+                                            {member.username}
                                           </span>
-
-                                          <span
+                                          <div
                                             style={{
-                                              fontSize: "14px",
-                                              color: "#555",
+                                              display: "flex",
+                                              flexDirection: "row",
+                                              gap: "7px",
                                             }}
                                           >
-                                            {member.lastname}
-                                          </span>
-                                        </div>
-                                      </div>
-                                      <div>
-                                        {member.isRequest ? (
-                                          <div>
-                                            <img
+                                            <span
                                               style={{
-                                                width: "20px",
-                                                height: "20px",
+                                                // margin: "0 0 0 5px",
+                                                fontSize: "14px",
+                                                color: "#555",
+
+                                                // display: "flex",
                                               }}
-                                              src="/images/time.png"
-                                              alt="waiting"
-                                            />
+                                            >
+                                              {member.firstname}
+                                            </span>
+
+                                            <span
+                                              style={{
+                                                fontSize: "14px",
+                                                color: "#555",
+                                              }}
+                                            >
+                                              {member.lastname}
+                                            </span>
                                           </div>
-                                        ) : (
+                                        </div>
+                                        <div>
                                           <a
                                             onClick={() =>
                                               handleDeleteMember(
-                                                member.id,
-                                                item.title
+                                                member.username,
+                                                item.id
                                               )
                                             }
                                             className="w-32-px h-32-px me-8 bg-danger-focus text-danger-main rounded-circle d-inline-flex align-items-center justify-content-center"
@@ -321,11 +338,112 @@ const ProjectPagination = ({ posts, handle }) => {
                                               </g>
                                             </svg>
                                           </a>
-                                        )}
+                                        </div>
                                       </div>
-                                    </div>
-                                  </li>
-                                ))}
+                                    </li>
+                                  ))}
+                                {teamMembers.pending &&
+                                  teamMembers.pending.length !== 0 &&
+                                  teamMembers.pending.map((member, idx) => (
+                                    <li
+                                      style={{
+                                        width: "auto",
+                                        height: "auto",
+                                        borderRadius: "5px",
+                                        marginBottom: "3vh",
+                                        border: "4px solid #4939f9",
+
+                                        background: "#d6c2fb",
+
+                                        padding: "6px",
+                                      }}
+                                      key={idx}
+                                    >
+                                      <div
+                                        style={{
+                                          width: "auto",
+                                          display: "flex",
+                                          alignItems: "center",
+                                          gap: "1vw",
+                                        }}
+                                      >
+                                        <div style={{ flexShrink: 0 }}>
+                                          <img
+                                            src={
+                                              member.profilePicture
+                                                ? member.profilePicture
+                                                : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                                            }
+                                            alt={`${member.username}'s profile`}
+                                            style={{
+                                              width: "40px",
+                                              height: "40px",
+                                              borderRadius: "50%",
+                                              objectFit: "cover",
+                                            }}
+                                            onError={(e) => {
+                                              e.target.onerror = null;
+                                              e.target.src =
+                                                "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png";
+                                            }}
+                                          />
+                                        </div>
+                                        <div
+                                          style={{
+                                            width: "auto",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                          }}
+                                        >
+                                          <span
+                                            style={{
+                                              margin: "0",
+                                              fontSize: "16px",
+                                              fontWeight: "bold",
+                                            }}
+                                          >
+                                            {member.username}
+                                          </span>
+                                          <div
+                                            style={{
+                                              display: "flex",
+                                              flexDirection: "row",
+                                              gap: "7px",
+                                            }}
+                                          >
+                                            <span
+                                              style={{
+                                                // margin: "0 0 0 5px",
+                                                fontSize: "14px",
+                                                color: "#555",
+
+                                                // display: "flex",
+                                              }}
+                                            >
+                                              {member.firstname}
+                                            </span>
+
+                                            <span
+                                              style={{
+                                                fontSize: "14px",
+                                                color: "#555",
+                                              }}
+                                            >
+                                              {member.lastname}
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div>
+                                          <div>
+                                            <img
+                                              src="projectImg/time.png"
+                                              alt="waiting"
+                                            />
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  ))}
                               </ul>
                             )}
                           </div>
@@ -356,7 +474,7 @@ const ProjectPagination = ({ posts, handle }) => {
                         </li>
 
                         <li>
-                          <a href="#">
+                          <a href=" " onClick={(e) => openModal(e, item.id)}>
                             <i className="bx bx-plus-circle" />
                             Edit
                           </a>

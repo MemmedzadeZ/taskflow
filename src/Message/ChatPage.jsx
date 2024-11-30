@@ -20,6 +20,7 @@ const ChatPage = ({ friendEmail = "" }) => {
   };
   const fetchChat = async (mail) => {
     if (mail !== "") {
+      console.log("fetch" + mail);
       var response = await fetch(
         `https://localhost:7157/api/ChatMessage/AllMessages/${mail}`,
         {
@@ -32,8 +33,9 @@ const ChatPage = ({ friendEmail = "" }) => {
       );
       if (response.ok) {
         var data = await response.json();
+
         setMessages(data.list);
-        console.log(data);
+        console.log("datalist; " + data.list);
       } else {
         console.log("failed to fetch messages!");
       }
@@ -88,7 +90,7 @@ const ChatPage = ({ friendEmail = "" }) => {
       var data = await response.json();
       console.log("post method return: " + data);
 
-      GetMessageCall(data.friendId, data.senderId);
+      await GetMessageCall(data.friendId, data.senderId);
     } else {
       console.log("Error occured while seding message!");
     }
@@ -130,14 +132,17 @@ const ChatPage = ({ friendEmail = "" }) => {
       console.error("SignalR connection not in Connected state.");
     }
   }
-
   useEffect(() => {
     const setupSignalR = async () => {
       await initializeSignalRConnection();
 
       if (conn.state === "Connected") {
-        conn.on("ReceiveMessages", (mail) => {
-          fetchChat(mail);
+        // conn.current.off("ReceiveMessages2");
+        conn.on("ReceiveMessages2", (mail) => {
+          console.log("mailll: " + mail);
+          if (mail) {
+            fetchChat(mail);
+          }
         });
         console.log("ReceiveMessages listener added.");
       } else {
@@ -158,6 +163,34 @@ const ChatPage = ({ friendEmail = "" }) => {
       }
     };
   }, []);
+  // useEffect(() => {
+  //   const setupSignalR = async () => {
+  //     await initializeSignalRConnection();
+
+  //     if (conn.state === "Connected") {
+  //       conn.on("ReceiveMessages2", (mail) => {
+  //         console.log("mailll: " + mail);
+  //         fetchChat(mail);
+  //       });
+  //       console.log("ReceiveMessages listener added.");
+  //     } else {
+  //       console.error("SignalR connection not in Connected state.");
+  //     }
+  //   };
+
+  //   setupSignalR();
+
+  //   return () => {
+  //     if (conn) {
+  //       conn
+  //         .stop()
+  //         .then(() => console.log("SignalR connection stopped."))
+  //         .catch((err) =>
+  //           console.error("Error stopping SignalR connection:", err)
+  //         );
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     fetchChat(friendEmail);
@@ -201,12 +234,12 @@ const ChatPage = ({ friendEmail = "" }) => {
                       src={item.photo ? item.photo : "./images/client/1.png"}
                       alt=""
                     />
-                    <div
+                    {/* <div
                       className="pulse-css"
                       style={
                         item.isSender ? null : { backgroundColor: " green" }
                       }
-                    />
+                    /> */}
                   </div>
                   <div
                     className={

@@ -35,7 +35,6 @@ const Project = () => {
     // setLoading(false);
   };
 
-  
   return (
     <div>
       <div className="sidebar-expand">
@@ -100,7 +99,9 @@ const Project = () => {
                 <AllProjects></AllProjects>
                 <div className="row">
                   <ProjectLinearChart></ProjectLinearChart>
+                  <ProjectStatistik></ProjectStatistik>
                   <InProgress></InProgress>
+                  <RecentActivity></RecentActivity>
                   <ProjectTasksList />
                 </div>
                 <div
