@@ -1,5 +1,6 @@
 import $ from "jquery";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function inputCheckUp(
   email,
   firstname,
@@ -216,6 +217,6 @@ export const loginUser = async (e, username, password) => {
     window.location.href = "/dashboard";
   } else {
     const errorData = await response.json();
-    console.error("Error:", errorData);
+    toast.error("Error:", errorData);
   }
 };

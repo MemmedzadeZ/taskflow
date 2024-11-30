@@ -12,6 +12,8 @@ import Lottie from "lottie-react";
 import ErrorSpan from "../StyledComponent/ErrorComponents";
 import OTPInput from "./OTP";
 import $ from "jquery";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Auth() {
   const navigate = useNavigate();
@@ -33,21 +35,21 @@ function Auth() {
 
   const handleOtpMatch = (isMatch) => {
     if (isMatch) {
-      alert("OTP Verified Successfully!");
+      toast.success("OTP Verified Successfully!");
       handleSkipStep();
     } else {
-      console.error("OTP did not match.");
+      toast.error("OTP did not match.");
     }
   };
 
   const handleEmailConfirm = (isMatch) => {
     if (isMatch) {
-      alert("OTP Verified Successfully!");
+      toast.success("OTP Verified Successfully!");
       setIsLogin(true);
       setReqStep(0);
       createUser(firstname, lastname, email, password, username);
     } else {
-      console.error("OTP did not match.");
+      toast.error("OTP did not match.");
     }
   };
 
@@ -101,11 +103,11 @@ function Auth() {
       var data = await response.json();
 
       if (data.result) {
-        alert(data.message);
+        toast.success(data.message);
 
         setReqStep(2);
       } else {
-        alert("Something went wrong. Try again later!");
+        toast.error("Something went wrong. Try again later!");
       }
     } else {
       console.log("registerUser returned false");
@@ -131,9 +133,9 @@ function Auth() {
     );
     var data = await response.json();
     if (data.code) {
-      alert(data.message);
+      toast.success(data.message);
     } else {
-      alert(data.message);
+      toast.error(data.message);
     }
     setIsForgotPassword(false);
     setIsLogin(true);
@@ -158,10 +160,10 @@ function Auth() {
     var data = await response.json();
 
     if (data.result) {
-      alert(data.message);
+      toast.success(data.message);
       handleSkipStep();
     } else {
-      alert("Something went wrong. Try again later!");
+      toast.error("Something went wrong. Try again later!");
       document.getElementById("email-input-fp").disabled = false;
     }
     console.log();
@@ -170,8 +172,8 @@ function Auth() {
   return (
     <div className="div">
       <grid>
-        
-        
+        <ToastContainer />
+
         <div className="titlE">
           <h1 className="titleH2">
             {isLogin ? "Log In to TaskFlow" : "Sign Up to TaskFlow"}
@@ -294,7 +296,6 @@ function Auth() {
 
             {isForgotPassword && step === 2 && (
               <div className="confirmation-message">
-              
                 <OTPInput onMatch={handleOtpMatch} email={email}></OTPInput>
               </div>
             )}

@@ -63,8 +63,15 @@ function UserFriend() {
   const goToUserProfile = (friendEmail) => {
     navigate(`/viewProfile/${friendEmail}`);
   };
-  const goToChat = (friendEmail) => {
-    navigate(`/message`);
+  const goToChat = (checkFriend) => {
+    console.log(checkFriend);
+    if (checkFriend) {
+      navigate(`/message`);
+    } else {
+      toast.warning(
+        "For messaging, both parties need to send a friend request"
+      );
+    }
   };
 
   useEffect(() => {
@@ -128,7 +135,7 @@ function UserFriend() {
                 <div className="group-btn d-flex justify-content-between">
                   <button
                     className="bg-btn-pri color-white"
-                    onClick={() => goToChat()}
+                    onClick={() => goToChat(friend.checkFriend)}
                   >
                     Message
                   </button>

@@ -285,7 +285,11 @@ const ProjectPagination = ({ posts, handle }) => {
                                         {member.isRequest ? (
                                           <div>
                                             <img
-                                              src="projectImg/time.png"
+                                              style={{
+                                                width: "20px",
+                                                height: "20px",
+                                              }}
+                                              src="/images/time.png"
                                               alt="waiting"
                                             />
                                           </div>
