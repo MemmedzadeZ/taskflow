@@ -69,13 +69,13 @@ const EditProfile = () => {
 
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
-    const file = e.target.files[0]; // Seçilen dosya
+    const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setPath(reader.result); // Base64 URL'yi state'e atıyoruz
+        setPath(reader.result);
       };
-      reader.readAsDataURL(file); // Resmi okuyup Base64'e çeviriyoruz
+      reader.readAsDataURL(file);
     }
   };
 
@@ -83,12 +83,12 @@ const EditProfile = () => {
     e.preventDefault();
     try {
       await fetchWrapper("https://localhost:7157/api/Profile/EditedProfile", {
-        method: "PUT", // 'PUT' metodunu kullanıyoruz.
+        method: "PUT",
         headers: {
-          "Content-Type": "application/json", // JSON verisi gönderiyoruz
+          "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(profileData), // Profil verilerini JSON formatında gönderiyoruz
+        body: JSON.stringify(profileData),
       });
       toast.success("Profile updated successfully!");
     } catch {
@@ -102,7 +102,7 @@ const EditProfile = () => {
       return;
     }
 
-    const formData = new FormData(); // FormData kullanıyoruz, çünkü dosya gönderiyoruz
+    const formData = new FormData();
     formData.append("file", selectedFile);
 
     try {
