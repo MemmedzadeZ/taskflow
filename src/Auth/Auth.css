@@ -217,6 +217,11 @@ form .field input:focus::placeholder {
   color: #91c499; /* Subtle Green for links */
   text-decoration: none;
 }
+.form-inner form .pass-link a,
+.form-inner form .login-link a {
+  color: #91c499; /* Subtle Green for links */
+  text-decoration: none;
+}
 
 .form-inner form .pass-link a:hover,
 .form-inner form .signup-link a:hover {

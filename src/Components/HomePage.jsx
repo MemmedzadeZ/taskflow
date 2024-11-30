@@ -245,27 +245,24 @@ function HomePage({ setIsAuthenticated }) {
             <div className="col-12 col-md-12 col-lg">
               <div className="text-wrapper align-left">
                 <h1 className="mbr-section-title mbr-fonts-style mb-4 display-2">
-                  <strong>Meet Your New Sidekick</strong>
+                  <strong>Welcome to TaskFlow</strong>
                 </h1>
                 <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                  Welcome to TaskMaster Pro, where chaos meets clarity! We’re
-                  not just another project management tool; we’re your trusty
-                  sidekick in the wild world of deadlines and deliverables. Our
-                  mission? To turn your to-do list into a to-done list, one task
-                  at a time!
+                  Where your ideas take flight, and collaboration meets
+                  innovation! At TaskFlow, we’ve transformed the way teams
+                  manage projects—making it simple, interactive, and
+                  surprisingly delightful. Whether you’re building the next big
+                  thing or organizing your daily grind, we’re here to keep you
+                  inspired, connected, and in control.
                 </p>
                 <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                  Founded by a group of caffeine-fueled productivity
-                  enthusiasts, we believe that managing tasks should be as fun
-                  as a rollercoaster ride—minus the nausea. Our team is
-                  dedicated to creating a platform that’s not only powerful but
-                  also a joy to use. Say goodbye to boring spreadsheets and
-                  hello to a vibrant, user-friendly interface!
-                </p>
-                <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                  Join us on this adventure, and let’s conquer those projects
-                  together. With TaskMaster Pro, you’ll never feel alone in the
-                  trenches of project management again!
+                  Empower your team with tools designed for seamless
+                  collaboration. From task delegation to real-time updates,
+                  TaskFlow simplifies project management so you can focus on
+                  what truly matters—achieving your goals. TaskFlow isn’t just
+                  about getting things done—it’s about enjoying the process.
+                  With intuitive design and playful elements, we bring joy to
+                  every click, helping you stay motivated and productive.
                 </p>
               </div>
             </div>
@@ -299,14 +296,15 @@ function HomePage({ setIsAuthenticated }) {
                 </div>
                 <div className="item-content align-left">
                   <h5 className="item-title mbr-fonts-style mt-0 mb-2 display-5">
-                    <strong>New Features Launching Soon!</strong>
+                    <strong>Visual Control with AR/VR Support</strong>
                   </h5>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
                     October 20, 2024
                   </p>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                    Get ready for some exciting new features that will blow your
-                    mind! Stay tuned for updates!
+                    Presenting projects and tasks with a 3D/VR interface can be
+                    particularly attractive to users who want a more
+                    technological and interactive environment.
                   </p>
                 </div>
               </div>
@@ -324,14 +322,15 @@ function HomePage({ setIsAuthenticated }) {
                 </div>
                 <div className="item-content align-left">
                   <h5 className="item-title mbr-fonts-style mb-2 mt-0 display-5">
-                    <strong>Webinar: Mastering Task Management</strong>
+                    <strong>Integrated Time Management Module</strong>
                   </h5>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
                     October 15, 2024
                   </p>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                    Join our free webinar to learn tips and tricks for mastering
-                    task management like a pro!
+                    Add features like time allocation and "Pomodoro Timer" for
+                    tasks. Users can track the time spent on each task and plan
+                    their work better.
                   </p>
                 </div>
               </div>
@@ -349,14 +348,16 @@ function HomePage({ setIsAuthenticated }) {
                 </div>
                 <div className="item-content align-left">
                   <h5 className="item-title mbr-fonts-style mb-2 mt-0 display-5">
-                    <strong>User Feedback: We Want You!</strong>
+                    <strong>Motivational Elements: Gamification</strong>
                   </h5>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
                     October 10, 2024
                   </p>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                    Your opinion matters! Help us improve by sharing your
-                    feedback on our platform.
+                    Add game elements to project management to increase
+                    motivation in the workplace. For example: A point system for
+                    users who complete tasks. Weekly or monthly Top Performer
+                    status. Awards such as Achievement Badges.
                   </p>
                 </div>
               </div>
@@ -374,14 +375,16 @@ function HomePage({ setIsAuthenticated }) {
                 </div>
                 <div className="item-content align-left">
                   <h5 className="item-title mbr-fonts-style mb-2 mt-0 display-5">
-                    <strong>TaskMaster Pro: Awards and Recognition</strong>
+                    <strong>Motivational Elements: Gamification</strong>
                   </h5>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
                     October 5, 2024
                   </p>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                    We’re thrilled to announce our recent awards for innovation
-                    in project management software!
+                    Add game elements to project management to increase
+                    motivation in the workplace. For example: A point system for
+                    users who complete tasks. Weekly or monthly Top Performer
+                    status. Awards such as Achievement Badges.
                   </p>
                 </div>
               </div>
@@ -473,11 +476,11 @@ function HomePage({ setIsAuthenticated }) {
         id="testimonials-10-us18fEBKiQ"
       >
         <div className="container">
-          <div className="row mb-5 justify-content-center">
+          <div className="row mb-5 ">
+            <h3 className="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
+              <strong>Cheers! </strong>
+            </h3>
             <div className="col-12 content-head">
-              <h3 className="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
-                <strong>Cheers!</strong>
-              </h3>
               <h5 className="mbr-section-subtitle mbr-fonts-style align-center mb-4 display-7">
                 What Our Users Are Raving About
               </h5>
@@ -539,18 +542,6 @@ function HomePage({ setIsAuthenticated }) {
                     David Smith, Tech Startup Founder
                   </p>
                 </div>
-              </div>
-            </div>
-          </div>
-          <div className="row mt-0 mt-md-5">
-            <div className="col-12 align-center">
-              <div className="mbr-section-btn">
-                <a
-                  className="btn btn-primary display-7"
-                  href="https://mobiri.se"
-                >
-                  Join the Revolution!
-                </a>
               </div>
             </div>
           </div>
@@ -629,8 +620,11 @@ function HomePage({ setIsAuthenticated }) {
                       <strong>What is this tool all about?</strong>
                     </h5>
                     <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                      It’s your new best friend for managing tasks and projects
-                      like a pro!
+                      This tool is your ultimate sidekick for mastering task and
+                      project management like a pro! Whether you're juggling
+                      tight deadlines, coordinating with team members, or
+                      planning long-term goals, our platform is here to simplify
+                      and supercharge your workflow.
                     </p>
                   </div>
                 </div>
@@ -640,8 +634,11 @@ function HomePage({ setIsAuthenticated }) {
                       <strong>Can I use it for free?</strong>
                     </h5>
                     <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                      Absolutely! We have a free version that’s packed with
-                      features!
+                      With the free version, you can create tasks, manage
+                      projects, collaborate with your team, and enjoy a
+                      streamlined, user-friendly experience—all at no cost. It's
+                      the perfect way to get a feel for how our tool can
+                      simplify your life and boost productivity.
                     </p>
                   </div>
                 </div>
@@ -671,7 +668,11 @@ function HomePage({ setIsAuthenticated }) {
                       <strong>Can I customize my dashboard?</strong>
                     </h5>
                     <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                      You bet! Make it as unique as you!
+                      Currently, we do not offer full dashboard customization.
+                      However, you can make changes to project-related tasks and
+                      manage notifications to fit your workflow. Our focus is on
+                      providing tools that help you stay organized while keeping
+                      the interface simple and user-friendly
                     </p>
                   </div>
                 </div>
@@ -681,101 +682,6 @@ function HomePage({ setIsAuthenticated }) {
         </div>
       </section>
 
-      <section
-        data-bs-version="5.1"
-        className="form5 cid-us18fEEKym"
-        id="contact-form-2-us18fEEKym"
-      >
-        <div className="container">
-          <div className="row justify-content-center">
-            <div className="col-12 content-head">
-              <div className="mbr-section-head mb-5">
-                <h3 className="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                  <strong>Get In Touch!</strong>
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div className="row justify-content-center">
-            <div className="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-              <form
-                action="https://mobirise.eu/"
-                method="POST"
-                className="mbr-form form-with-styler"
-                data-form-title="Form Name"
-              >
-                <input
-                  type="hidden"
-                  name="email"
-                  data-form-email="true"
-                  defaultValue="LbWURY/v83+wWO1Np8lmmYOyestFZgFbZZZMU0/Mxi0KHSDkQ5l6zFsY7DR8Mvs+l1W8ryYl8w/EiUsrqOH7wiF9/Q4TfcuTOBN7NbmDSWq2ORd8g0M2Xc4qXW5XIVQ3"
-                />
-                <div className="row">
-                  <div
-                    hidden="hidden"
-                    data-form-alert=""
-                    className="alert alert-success col-12"
-                  >
-                    Thanks for filling out the form!
-                  </div>
-                  <div
-                    hidden="hidden"
-                    data-form-alert-danger=""
-                    className="alert alert-danger col-12"
-                  >
-                    Oops...! some problem!
-                  </div>
-                </div>
-                <div className="dragArea row">
-                  <div
-                    className="col-md col-sm-12 form-group mb-3"
-                    data-for="name"
-                  >
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Name"
-                      data-form-field="name"
-                      className="form-control"
-                      defaultValue=""
-                      id="name-contact-form-2-us18fEEKym"
-                    />
-                  </div>
-                  <div
-                    className="col-md col-sm-12 form-group mb-3"
-                    data-for="email"
-                  >
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      data-form-field="email"
-                      className="form-control"
-                      defaultValue=""
-                      id="email-contact-form-2-us18fEEKym"
-                    />
-                  </div>
-                  <div className="col-12 form-group mb-3" data-for="textarea">
-                    <textarea
-                      name="textarea"
-                      placeholder="Message"
-                      data-form-field="textarea"
-                      className="form-control"
-                      id="textarea-contact-form-2-us18fEEKym"
-                      defaultValue={""}
-                    />
-                  </div>
-                  <div className="col-lg-12 col-md-12 col-sm-12 align-center mbr-section-btn">
-                    <button type="submit" className="btn btn-primary display-7">
-                      Send Message
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
       <section
         data-bs-version="5.1"
         className="contacts02 map1 cid-us18fEE15l"
@@ -790,7 +696,7 @@ function HomePage({ setIsAuthenticated }) {
                 </h3>
               </div>
             </div>
-            <div className="row justify-content-center">
+            <div className="row ">
               <div className="card col-12 col-md-12 col-lg-6">
                 <div className="card-wrapper">
                   <div className="text-wrapper">

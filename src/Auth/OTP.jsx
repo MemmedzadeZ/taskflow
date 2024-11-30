@@ -19,7 +19,6 @@ const OTPInput = ({ length = 4, onMatch, email }) => {
 
   const handleSubmit = async () => {
     const enteredCode = otp.join("");
-    console.log("inside otp");
     var response = await fetch(
       "https://localhost:7157/api/Profile/verify-code",
       {
@@ -48,7 +47,7 @@ const OTPInput = ({ length = 4, onMatch, email }) => {
 
   return (
     <div>
-      <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
+      <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
         {otp.map((_, index) => (
           <input
             key={index}
@@ -61,10 +60,14 @@ const OTPInput = ({ length = 4, onMatch, email }) => {
               e.key === "Backspace" && handleBackspace(e.target, index)
             }
             style={{
-              width: "40px",
-              height: "40px",
+              width: "60px",
+              height: "60px",
               textAlign: "center",
-              fontSize: "18px",
+              fontSize: "24px",
+              borderRadius: "40px",
+              border: "1px solid #ccc",
+              outline: "none",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
             }}
           />
         ))}
@@ -75,7 +78,14 @@ const OTPInput = ({ length = 4, onMatch, email }) => {
         disabled={otp.includes("")}
         className="btn btn-primary"
         style={{
+          marginTop: "16px",
+          padding: "10px 20px",
+          borderRadius: "40px",
+          backgroundColor: otp.includes("") ? "#ddd" : "#6852ff",
+          color: otp.includes("") ? "#aaa" : "#fff",
+          border: "none",
           cursor: otp.includes("") ? "not-allowed" : "pointer",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
         }}
       >
         Submit

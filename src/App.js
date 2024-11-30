@@ -47,9 +47,9 @@ function App() {
           <Route
             path="/auth"
             element={
-              <ProtectedRoutes isAuthenticated={isAuthenticated}>
+              // <ProtectedRoutes isAuthenticated={isAuthenticated}>
                 <Auth />
-              </ProtectedRoutes>
+              // </ProtectedRoutes>
             }
           />
           <Route path="/quiztrade" element={<TradeQuiz />} />

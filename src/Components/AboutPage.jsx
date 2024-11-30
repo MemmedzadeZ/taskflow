@@ -84,21 +84,12 @@ function AboutPage() {
         <nav className="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
           <div className="container">
             <div className="navbar-brand">
-              <span className="navbar-logo">
-                <a href="https://mobiri.se">
-                  <img
-                    src="https://r.mobirisesite.com/827554/assets/images/photo-1590649804407-daf662463c08.jpeg"
-                    alt="Mobirise Website Builder"
-                    style={{ height: "4.3rem" }}
-                  />
-                </a>
-              </span>
               <span className="navbar-caption-wrap">
                 <a
                   className="navbar-caption text-black display-4"
                   href="https://mobiri.se"
                 >
-                  Taskify
+                  TaskFlow
                 </a>
               </span>
             </div>
@@ -143,8 +134,8 @@ function AboutPage() {
                 </li>
               </ul>
               <div className="navbar-buttons mbr-section-btn">
-                <Link className="btn btn-primary display-4" to="/login">
-                  Get Started
+                <Link className="btn btn-primary display-4" to="/auth">
+                  Join Now
                 </Link>
               </div>
             </div>
@@ -173,24 +164,22 @@ function AboutPage() {
                 </h1>
                 <div>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                    Pariatur ratione fugiat qui accusamus reiciendis dolore rem
-                    odio voluptas iusto optio voluptatum ut sunt tempora
-                    explicabo sint doloribus magni dolorum aliquam quidem
-                    occaecati aperiam voluptates quisquam ducimus quidem cumque
-                    ratione nam quam eaque praesentium numquam autem.
+                    At TaskFlow, we don't just build tools; we craft
+                    experiences. Our mission is simple—empower teams to achieve
+                    greatness by providing a platform that sparks creativity and
+                    fosters seamless collaboration.
                   </p>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                    Similique doloremque quos repellat sit natus animi provident
-                    exercitationem excepturi assumenda recusandae debitis
-                    architecto possimus et aut explicabo voluptates sequi
-                    molestiae sunt quasi repellendus perferendis sed
-                    praesentium.
+                    From inviting team members to customizing your tasks with
+                    vibrant colors, every feature is designed to ignite
+                    positivity and productivity. TaskFlow is more than just a
+                    project management tool—it’s a companion that grows with
+                    you, supporting your team every step of the way.
                   </p>
                   <p className="mbr-text mbr-fonts-style mb-3 display-7">
-                    Aliquam facilis sint amet error qui adipisci vitae dolore
-                    quod minima itaque a aspernatur deserunt neque ullam
-                    expedita dicta perspiciatis ipsum quo explicabo quisquam
-                    consequatur odio aut exercitationem tenetur quaerat magnam.
+                    Together, let’s create, innovate, and celebrate success.
+                    TaskFlow: where your vision meets execution, wrapped in joy
+                    and inspiration.
                   </p>
                 </div>
               </div>
@@ -322,99 +311,6 @@ function AboutPage() {
             </div>
           </div>
         </div>
-      </section>
-      <section
-        data-bs-version="5.1"
-        className="list05 cid-us18fEHYEE"
-        id="faq-3-us18fEHYEE"
-      >
-        <div className="container">
-          <div className="col-12 mb-5 content-head">
-            <h3 className="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-              <strong>Project Management Hub</strong>
-            </h3>
-
-            <div></div>
-          <div className="row justify-content-center">
-            <div className="col-12 col-lg-8">
-              <div className="item features-without-image col-12 active">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>
-                      Repellendus dolor quia et necessitatibus consequuntur
-                      nesciunt?
-                    </strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    Adipisci omnis beatae asperiores nobis veniam reiciendis
-                    tenetur provident maxime iure voluptatem tenetur voluptatem
-                    modi voluptatum quia odio esse amet voluptatibus aliquid
-                    eveniet ratione temporibus tempora porro cum ad eius
-                    assumenda non voluptates illum est accusamus aliquam.
-                  </p>
-                </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>
-                      Accusantium molestias vero sunt eos delectus qui?
-                    </strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    Quaerat eveniet perspiciatis porro odio ducimus enim quos
-                    atque optio omnis odit facere dolor unde libero quidem
-                    voluptatum magni explicabo quisquam cumque cupiditate ipsam
-                    a explicabo eligendi ea odit ullam laborum quibusdam.
-                  </p>
-                </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>
-                      Explicabo dolorum distinctio placeat dignissimos
-                      repellendus similique?
-                    </strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    Excepturi exercitationem ipsam provident consectetur
-                    explicabo dolorem blanditiis vel iusto maiores quis beatae
-                    tempore quidem eveniet iure illo possimus architecto labore
-                    suscipit beatae officiis nam officiis laudantium hic.
-                  </p>
-                </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>Animi quidem voluptate atque iste aliquid?</strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    Nam officia recusandae veritatis perspiciatis iure aperiam
-                    adipisci rem ducimus est aspernatur sit commodi nesciunt
-                    facilis fugiat inventore magni doloribus fugiat aperiam id
-                    tenetur.
-                  </p>
-                </div>
-              </div>
-              <div className="item features-without-image col-12">
-                <div className="item-wrapper">
-                  <h5 className="mbr-card-title mbr-fonts-style mt-0 mb-3 display-5">
-                    <strong>Rerum ex reprehenderit illum?</strong>
-                  </h5>
-                  <p className="mbr-text mbr-fonts-style mt-0 mb-3 display-7">
-                    Aperiam perspiciatis labore minus quidem voluptas nam quo
-                    asperiores at porro qui ipsum eligendi quis cumque adipisci
-                    illum ea doloribus expedita voluptatem totam quae incidunt
-                    optio nam.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-          </div>
       </section>
     </>
   );
