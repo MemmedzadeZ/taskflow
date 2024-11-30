@@ -23,11 +23,23 @@ export const Search = async (e, key) => {
     data.users.forEach((element) => {
       console.log("element: " + element);
       var li = document.createElement("li");
-      li.innerHTML = element.userName;
+      var atag = document.createElement("a");
+      atag.innerHTML = element.userName;
+      atag.style.cursor = "pointer";
+      atag.href = `/viewProfile/${element.email}`;
+      // atag.onclick = () => {
+      //   console.log(element.email);
+      //   window.location.href = `/viewProfile/${element.email}`;
+      // };
+      li.append(atag);
       ul.appendChild(li);
     });
   } else {
-    ul.append($("<li>").text("No users found"));
+    var li = document.createElement("li");
+    var atag = document.createElement("a");
+    li.append(atag);
+    atag.innerHTML = "No users found";
+    ul.append(li);
   }
   div.appendChild(ul);
   $("#user-search-form").append(div);

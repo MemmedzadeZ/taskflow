@@ -136,7 +136,7 @@ const ProjectPagination = ({ posts, handle }) => {
             >
               <div className="box-body">
                 <a
-                  href=" "
+                  href={`/kanban/${item.id}`}
                   className="box-title mb-0 mt-1 mb-3 font-w600 fs-18"
                 >
                   {item.title}

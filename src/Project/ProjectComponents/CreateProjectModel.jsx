@@ -95,6 +95,7 @@ function CreateProjectModel({ closeModal }) {
           "Failed to fetch project ID:",
           projectResponse.statusText
         );
+
         return;
       }
 
@@ -127,6 +128,7 @@ function CreateProjectModel({ closeModal }) {
       if (response.ok) {
         const text = await response.json();
         setProgressText(text.message);
+        closeModal();
       } else {
         console.error("Failed to add team members:", response.statusText);
       }

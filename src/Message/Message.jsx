@@ -8,6 +8,7 @@ import TwoMessage from "../Components/MessageList";
 import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
 import ChatPage from "./ChatPage";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const Message = () => {
   const [friends, setFriends] = useState([]);
@@ -38,6 +39,56 @@ const Message = () => {
 
   useEffect(() => {
     fetchFriendsList();
+  }, []);
+  let conn;
+
+  const initializeSignalRConnection = async () => {
+    if (!conn) {
+      const token = localStorage.getItem("token");
+      conn = new HubConnectionBuilder()
+        .withUrl("https://localhost:7157/connect", {
+          accessTokenFactory: () => token,
+        })
+        .configureLogging("information")
+        .build();
+    }
+
+    if (conn.state !== "Connected") {
+      try {
+        await conn.start();
+        console.log("SignalR connected.");
+      } catch (err) {
+        console.error("Error starting SignalR connection:", err);
+      }
+    }
+  };
+  useEffect(() => {
+    const setupSignalR = async () => {
+      await initializeSignalRConnection();
+
+      if (conn.state === "Connected") {
+        conn.on("UpdateMessageFriendList", () => {
+          console.log("hellllooooo");
+          fetchFriendsList();
+        });
+        console.log("ReceiveMessages listener added.");
+      } else {
+        console.error("SignalR connection not in Connected state.");
+      }
+    };
+
+    setupSignalR();
+
+    return () => {
+      if (conn) {
+        conn
+          .stop()
+          .then(() => console.log("SignalR connection stopped."))
+          .catch((err) =>
+            console.error("Error stopping SignalR connection:", err)
+          );
+      }
+    };
   }, []);
 
   const handleChatSelection = (email) => {
