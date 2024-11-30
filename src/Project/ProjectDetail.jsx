@@ -396,7 +396,7 @@ const ProjectDetail = () => {
                                         src={
                                           basicInfo?.path
                                             ? basicInfo?.path
-                                            : "./images/profile/user-profile.png"
+                                            : "/images/default-user.png"
                                         }
                                         alt=""
                                       />
@@ -637,7 +637,7 @@ const ProjectDetail = () => {
                                         src={
                                           item.photo
                                             ? item.photo
-                                            : "./images/client/1.png"
+                                            : "/images/default-user.png"
                                         }
                                         style={{
                                           height: "100px",
@@ -925,7 +925,11 @@ const ProjectDetail = () => {
                                               style={{ marginLeft: "20px" }}
                                             >
                                               <img
-                                                src={activity.path}
+                                                src={
+                                                  activity.path
+                                                    ? activity.path
+                                                    : "/images/default-user.png"
+                                                }
                                                 className="rounded-circle user_img"
                                                 alt="User Avatar"
                                               />

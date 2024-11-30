@@ -87,7 +87,11 @@ const RecentActivity = () => {
                       <div className="d-flex bd-highlight">
                         <div className="img_cont">
                           <img
-                            src={activity.path}
+                            src={
+                              activity.path
+                                ? activity.path
+                                : "/images/default-user.png"
+                            }
                             className="rounded-circle user_img"
                             alt="User Avatar"
                           />

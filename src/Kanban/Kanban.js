@@ -609,7 +609,7 @@ const Kanban = () => {
                                             src={
                                               task.participantPath
                                                 ? task.participantPath
-                                                : "https://jeffjbutler.com//wp-content/uploads/2018/01/default-user.png"
+                                                : "/images/default-user.png"
                                             }
                                             alt="user"
                                           />

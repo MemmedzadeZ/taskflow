@@ -209,8 +209,7 @@ const ProjectTasksList = () => {
                             >
                               <img
                                 src={
-                                  work.memberImage ||
-                                  "./images/avatar/default.png"
+                                  work.memberImage || "/images/default-user.png"
                                 }
                                 alt={work.memberName || "User"}
                                 className="rounded-circle"
