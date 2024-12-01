@@ -106,6 +106,22 @@ const Calendar = () => {
           throw new Error(" Task update failed!");
         }
         toast.success("Task updated successfully!");
+        const activityData = {
+          text: "You have updated task start and end time!",
+          type: "Task",
+        };
+
+        await fetch(
+          "https://localhost:7157/api/Notification/NewRecentActivity",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify(activityData),
+          }
+        );
       } catch (error) {
         toast.error(`Error: ${error.message}`);
         info.revert();

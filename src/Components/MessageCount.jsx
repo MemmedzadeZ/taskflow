@@ -20,9 +20,9 @@ function CountMessage() {
 
     var data = await response.json();
 
-    console.log(data);
+    console.log("count" + data);
 
-    setCount(data);
+    setCount(data.messCount);
   };
 
   useEffect(() => {

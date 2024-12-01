@@ -8,6 +8,7 @@ import TwoMessage from "../Components/MessageList";
 import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
 import ChatPage from "./ChatPage";
+import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const Message = () => {
@@ -112,16 +113,7 @@ const Message = () => {
 
             <div className="d-flex align-items-center">
               {/* App Search */}
-              <form className="app-search d-none d-lg-block">
-                <div className="position-relative">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Search"
-                  />
-                  <span className="bx bx-search-alt"></span>
-                </div>
-              </form>
+              <SidebarSearchComponent></SidebarSearchComponent>
               <div className="dropdown d-inline-block d-lg-none ms-2">
                 <button
                   type="button"
