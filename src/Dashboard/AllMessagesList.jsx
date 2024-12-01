@@ -2,22 +2,22 @@ import React, { useState, useEffect } from "react";
 function AllMessages() {
   const [items, setItems] = useState([]);
 
-  const fetchMessages = async () => {
-    console.log("inside long message list");
-    var response = await fetch("https://localhost:7157/api/Chat/UserMessages", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
-    var data = await response.json();
-    console.log("allmessages" + data.list);
-    setItems(data.list);
-  };
+  // const fetchMessages = async () => {
+  //   console.log("inside long message list");
+  //   var response = await fetch("https://localhost:7157/api/Chat/UserMessages", {
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     },
+  //   });
+  //   var data = await response.json();
+  //   console.log("allmessages" + data.list);
+  //   setItems(data.list);
+  // };
 
-  useEffect(() => {
-    fetchMessages();
-  }, []);
+  // useEffect(() => {
+  //   fetchMessages();
+  // }, []);
 
   return (
     <div className="box-body pb-0 pt-39" style={{ width: "auto" }}>
