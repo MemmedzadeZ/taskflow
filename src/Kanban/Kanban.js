@@ -196,9 +196,7 @@ const Kanban = () => {
     if (!destination) return;
 
     if (destination.droppableId === "column-4") {
-      setTimeout(() => {
-        handleDeleteTask(draggableId);
-      }, 24 * 60 * 60 * 1000); //24 saat sonra avtomatik silinir
+      handleDeleteTask(draggableId);
     }
     const sourceColumn = data.columns[source.droppableId];
     const destColumn = data.columns[destination.droppableId];
