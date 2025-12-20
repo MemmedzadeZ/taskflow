@@ -1,11 +1,11 @@
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
-const generalUrl = "https://localhost:7157/connect";
+const signalrUrl = process.env.REACT_APP_SIGNALR_URL;
 
 async function startSignalRConnection() {
   const token = localStorage.getItem("token");
   const connection = new HubConnectionBuilder()
-    .withUrl(generalUrl, {
+    .withUrl(signalrUrl, {
       accessTokenFactory: () => token,
     })
     .withAutomaticReconnect()

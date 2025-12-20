@@ -14,6 +14,11 @@ import OTPInput from "./OTP";
 import $ from "jquery";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  fetchConfirmPassword,
+  fetchEmailConfirmation,
+  fetchResetPassword,
+} from "../utils/fetchUtils/authUtils";
 
 function Auth() {
   const navigate = useNavigate();
@@ -90,21 +95,9 @@ function Auth() {
       )
     ) {
       console.log("step set to 2");
-      var response = await fetch(
-        "https://localhost:7157/api/Profile/email-confirmation",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ NameOrEmail: email }),
-        }
-      );
-      var data = await response.json();
-
-      if (data.result) {
-        toast.success(data.message);
-
+      var result = await fetchEmailConfirmation(email);
+      if (result) {
+        toast.success(result.message);
         setReqStep(2);
       } else {
         toast.error("Something went wrong. Try again later!");
@@ -123,16 +116,8 @@ function Auth() {
       email: email,
       newPassword: newPassword,
     };
-    var response = await fetch(
-      "https://localhost:7157/api/Profile/reset-password",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      }
-    );
-    var data = await response.json();
-    if (data.code) {
+    var data = await fetchResetPassword(payload);
+    if (data) {
       toast.success(data.message);
     } else {
       toast.error(data.message);
@@ -146,27 +131,14 @@ function Auth() {
     document.getElementById("email-input-fp").disabled = true;
 
     console.log(email);
-    var mail = { email };
-    var response = await fetch(
-      "https://localhost:7157/api/Profile/ForgotPassword",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ NameOrEmail: email }),
-      }
-    );
-    var data = await response.json();
-
-    if (data.result) {
+    var data = await fetchConfirmPassword(email);
+    if (data) {
       toast.success(data.message);
       handleSkipStep();
     } else {
       toast.error("Something went wrong. Try again later!");
       document.getElementById("email-input-fp").disabled = false;
     }
-    console.log();
   };
 
   return (
