@@ -8,7 +8,7 @@ export const SearchMember = async (e, key) => {
   div.className = "search-member-div";
   div.id = "searched-members";
 
-  var response = await fetch("https://localhost:7157/api/Auth/searchedUser", {
+  var response = await fetch("http://localhost:5204/api/Auth/searchedUser", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,

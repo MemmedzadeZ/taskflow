@@ -12,15 +12,12 @@ function AllUsers() {
 
   const fetchFriends = async () => {
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Friend/AllUser",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5204/api/Friend/AllUser", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       if (response.ok) {
         const data = await response.json();
         setFriends(data);
@@ -40,7 +37,7 @@ function AllUsers() {
 
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Notification/NewRequestNotification",
+        "http://localhost:5204/api/Notification/NewRequestNotification",
         {
           method: "POST",
           headers: {
@@ -74,7 +71,7 @@ function AllUsers() {
         // }));
       }
       //   const userResponse = await fetch(
-      //     "https://localhost:7157/api/Notification/NewRequestNotification",
+      //     "http://localhost:5204/api/Notification/NewRequestNotification",
       //     {
       //       method: "POST",
       //       headers: {
@@ -113,7 +110,7 @@ function AllUsers() {
     if (!conn) {
       const token = localStorage.getItem("token");
       conn = new HubConnectionBuilder()
-        .withUrl("https://localhost:7157/connect", {
+        .withUrl("http://localhost:5204/connect", {
           accessTokenFactory: () => token,
         })
         .configureLogging("information")
@@ -144,7 +141,7 @@ function AllUsers() {
   const unfollowFriend = async (friendEmail) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Friend/UnFollow/${friendEmail}`,
+        `http://localhost:5204/api/Friend/UnFollow/${friendEmail}`,
         {
           method: "DELETE",
           headers: {

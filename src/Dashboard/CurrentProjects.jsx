@@ -14,7 +14,7 @@ function CurrentProjects() {
     try {
       console.log("Fetching project data");
       const response = await fetch(
-        "https://localhost:7157/api/Project/ProjectInvolved",
+        "http://localhost:5204/api/Project/ProjectInvolved",
         {
           method: "GET",
           headers: {
@@ -39,7 +39,7 @@ function CurrentProjects() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
@@ -64,7 +64,7 @@ function CurrentProjects() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

@@ -13,7 +13,7 @@ function Reminder() {
     setIsFetching(true);
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Notification/CalendarNotifications",
+        "http://localhost:5204/api/Notification/CalendarNotifications",
         {
           method: "GET",
           headers: {
@@ -43,7 +43,7 @@ function Reminder() {
 
       const token = localStorage.getItem("token");
       const conn = new HubConnectionBuilder()
-        .withUrl("https://localhost:7157/connect", {
+        .withUrl("http://localhost:5204/connect", {
           accessTokenFactory: () => token,
         })
         .configureLogging("information")
@@ -82,7 +82,7 @@ function Reminder() {
 
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Notification/DeletedCalendarMessage/${id}`,
+        `http://localhost:5204/api/Notification/DeletedCalendarMessage/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -98,7 +98,7 @@ function Reminder() {
         };
 
         await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
+          "http://localhost:5204/api/Notification/NewRecentActivity",
           {
             method: "POST",
             headers: {

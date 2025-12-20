@@ -9,7 +9,7 @@ function OccupationPercent() {
 
   const fetchData = async () => {
     const response = await fetch(
-      "https://localhost:7157/api/Quiz/OccupationStatistic",
+      "http://localhost:5204/api/Quiz/OccupationStatistic",
       { method: "GET" }
     );
     const data = await response.json();

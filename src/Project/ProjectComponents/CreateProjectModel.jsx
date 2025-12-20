@@ -35,7 +35,7 @@ function CreateProjectModel({ closeModal }) {
       isCompleted: false,
       color,
     };
-    fetch("https://localhost:7157/api/Project", {
+    fetch("http://localhost:5204/api/Project", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -50,7 +50,7 @@ function CreateProjectModel({ closeModal }) {
           type: "Project",
         };
         setProgressText("Project Created!");
-        fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+        fetch("http://localhost:5204/api/Notification/NewRecentActivity", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -79,7 +79,7 @@ function CreateProjectModel({ closeModal }) {
       var newTitle = title.trim();
 
       const projectResponse = await fetch(
-        "https://localhost:7157/api/Project/ProjectWithTitle",
+        "http://localhost:5204/api/Project/ProjectWithTitle",
         {
           method: "POST",
           headers: {
@@ -113,7 +113,7 @@ function CreateProjectModel({ closeModal }) {
       };
 
       const response = await fetch(
-        "https://localhost:7157/api/TeamMember/TeamMemberCollections",
+        "http://localhost:5204/api/TeamMember/TeamMemberCollections",
         {
           method: "POST",
           headers: {

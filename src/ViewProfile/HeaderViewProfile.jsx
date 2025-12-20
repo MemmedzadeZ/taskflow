@@ -11,7 +11,7 @@ function HeaderViewProfile() {
     console.log("inside message");
 
     var response = await fetch(
-      `https://localhost:7157/api/Work/UserTasksCountForEmail/${email}`,
+      `http://localhost:5204/api/Work/UserTasksCountForEmail/${email}`,
       {
         method: "GET",
 
@@ -29,7 +29,7 @@ function HeaderViewProfile() {
     console.log("hold task count");
 
     var response = await fetch(
-      `https://localhost:7157/api/Work/ToDoTaskCountForMail/${email}`,
+      `http://localhost:5204/api/Work/ToDoTaskCountForMail/${email}`,
       {
         method: "GET",
         headers: {
@@ -46,7 +46,7 @@ function HeaderViewProfile() {
     console.log("running task count");
 
     var response = await fetch(
-      `https://localhost:7157/api/Work/InProgressTaskCountForEmail/${email}`,
+      `http://localhost:5204/api/Work/InProgressTaskCountForEmail/${email}`,
       {
         method: "GET",
 
@@ -64,7 +64,7 @@ function HeaderViewProfile() {
     console.log("completed task count");
 
     var response = await fetch(
-      `https://localhost:7157/api/Work/DoneTaskCountForEmail/${email}`,
+      `http://localhost:5204/api/Work/DoneTaskCountForEmail/${email}`,
       {
         method: "GET",
         headers: {

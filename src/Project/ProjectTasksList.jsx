@@ -23,16 +23,13 @@ const ProjectTasksList = () => {
   };
   const fetchUserWorks = async () => {
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Work/UserWorks",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetch("http://localhost:5204/api/Work/UserWorks", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
       if (!response.ok) {
         throw new Error("Failed to fetch user works");
       }
@@ -48,7 +45,7 @@ const ProjectTasksList = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
@@ -77,7 +74,7 @@ const ProjectTasksList = () => {
   const handleDeleteTask = async (taskId, projectId) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
+        `http://localhost:5204/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
         {
           method: "DELETE",
           headers: {

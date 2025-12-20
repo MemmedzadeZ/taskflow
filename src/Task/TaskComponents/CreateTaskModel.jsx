@@ -24,7 +24,7 @@ function CreateTaskModel({ closeModal, id }) {
 
     try {
       const response = await fetch(
-        "https://localhost:7157/api/UserTask/NewTask",
+        "http://localhost:5204/api/UserTask/NewTask",
         {
           method: "POST",
           headers: {
@@ -44,7 +44,7 @@ function CreateTaskModel({ closeModal, id }) {
         };
 
         await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
+          "http://localhost:5204/api/Notification/NewRecentActivity",
           {
             method: "POST",
             headers: {

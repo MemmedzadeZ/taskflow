@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import tradejson from "../../animations/tradequiz.json";
 
-
 function TradeQuiz() {
   const [selectedOption, setSelectedOption] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -23,7 +22,7 @@ function TradeQuiz() {
       return;
     }
     console.log("Selected option:", selectedOption);
-    fetch("https://localhost:7157/api/Quiz/Profession", {
+    fetch("http://localhost:5204/api/Quiz/Profession", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -19,7 +19,7 @@ function UserFriend() {
   const fetchFriends = async () => {
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Friend/AllFriends",
+        "http://localhost:5204/api/Friend/AllFriends",
         {
           method: "GET",
           headers: {
@@ -39,7 +39,7 @@ function UserFriend() {
   const unfollowFriend = async (friendEmail) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Friend/UnFollow/${friendEmail}`,
+        `http://localhost:5204/api/Friend/UnFollow/${friendEmail}`,
         {
           method: "DELETE",
           headers: {

@@ -19,15 +19,12 @@ function EditTaskModel({ closeModal, id }) {
   const fetchTaskData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/UserTask/${id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:5204/api/UserTask/${id}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -59,7 +56,7 @@ function EditTaskModel({ closeModal, id }) {
 
     try {
       const response = await fetch(
-        `https://localhost:7157/api/UserTask/EditedTask/${id}`,
+        `http://localhost:5204/api/UserTask/EditedTask/${id}`,
         {
           method: "PUT",
           headers: {
@@ -79,7 +76,7 @@ function EditTaskModel({ closeModal, id }) {
         };
 
         await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
+          "http://localhost:5204/api/Notification/NewRecentActivity",
           {
             method: "POST",
             headers: {

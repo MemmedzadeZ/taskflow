@@ -1,6 +1,6 @@
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
-const generalUrl = "https://localhost:7157/connect";
+const generalUrl = "http://localhost:5204/connect";
 
 async function startSignalRConnection() {
   const token = localStorage.getItem("token");

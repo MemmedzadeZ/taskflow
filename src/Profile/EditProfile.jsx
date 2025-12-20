@@ -46,7 +46,7 @@ const EditProfile = () => {
   const fetchData = async () => {
     try {
       const data = await fetchWrapper(
-        "https://localhost:7157/api/Auth/currentUser",
+        "http://localhost:5204/api/Auth/currentUser",
         {
           method: "GET",
           headers: {
@@ -82,7 +82,7 @@ const EditProfile = () => {
   const handleSaveProfileData = async (e) => {
     e.preventDefault();
     try {
-      await fetchWrapper("https://localhost:7157/api/Profile/EditedProfile", {
+      await fetchWrapper("http://localhost:5204/api/Profile/EditedProfile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -96,7 +96,7 @@ const EditProfile = () => {
         type: "Profile",
       };
 
-      fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+      fetch("http://localhost:5204/api/Notification/NewRecentActivity", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +120,7 @@ const EditProfile = () => {
 
     try {
       const data = await fetchWrapper(
-        "https://localhost:7157/api/Profile/EditedProfileImage",
+        "http://localhost:5204/api/Profile/EditedProfileImage",
         {
           method: "PUT",
           headers: {
@@ -136,7 +136,7 @@ const EditProfile = () => {
         type: "Profile",
       };
 
-      fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+      fetch("http://localhost:5204/api/Notification/NewRecentActivity", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

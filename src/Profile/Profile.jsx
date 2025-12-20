@@ -15,15 +15,12 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      var response = await fetch(
-        "https://localhost:7157/api/Auth/currentUser",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      var response = await fetch("http://localhost:5204/api/Auth/currentUser", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       var data = await response.json();
       setProfileData(data);
     };

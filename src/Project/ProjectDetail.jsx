@@ -26,7 +26,7 @@ const ProjectDetail = () => {
   const fetchActivities = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/ProjectActivity/TeamMemberActivities/${projectId}`,
+        `http://localhost:5204/api/ProjectActivity/TeamMemberActivities/${projectId}`,
         {
           method: "GET",
           headers: {
@@ -50,7 +50,7 @@ const ProjectDetail = () => {
   const fetchUsersByProject = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
+        `http://localhost:5204/api/TeamMember/GetUsersByProject/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -72,7 +72,7 @@ const ProjectDetail = () => {
   const fetchProjectDetails = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Project/${projectId}`,
+        `http://localhost:5204/api/Project/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -97,7 +97,7 @@ const ProjectDetail = () => {
   const fetchUserWorks = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Work/ProjectWorks/${projectId}`,
+        `http://localhost:5204/api/Work/ProjectWorks/${projectId}`,
         {
           method: "GET",
           headers: {
@@ -121,7 +121,7 @@ const ProjectDetail = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
@@ -150,7 +150,7 @@ const ProjectDetail = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Profile/BasicInfoForProfil/${project.ownerMail}`,
+        `http://localhost:5204/api/Profile/BasicInfoForProfil/${project.ownerMail}`,
         {
           method: "GET",
         }

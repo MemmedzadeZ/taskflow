@@ -19,7 +19,7 @@ function EditProjectTaskModel({ closeModal, id, projectId }) {
   const fetchTaskData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`https://localhost:7157/api/Work/${id}`, {
+      const response = await fetch(`http://localhost:5204/api/Work/${id}`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -56,7 +56,7 @@ function EditProjectTaskModel({ closeModal, id, projectId }) {
 
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Work/EditedProjectTask/${id}`,
+        `http://localhost:5204/api/Work/EditedProjectTask/${id}`,
         {
           method: "PUT",
           headers: {
@@ -76,7 +76,7 @@ function EditProjectTaskModel({ closeModal, id, projectId }) {
         }; //proyekt daxilinde recent activity-e yazilacaq
 
         await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
+          "http://localhost:5204/api/Notification/NewRecentActivity",
           {
             method: "POST",
             headers: {

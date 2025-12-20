@@ -7,7 +7,7 @@ function CountMessage() {
     console.log("inside message");
 
     var response = await fetch(
-      "https://localhost:7157/api/Message/UserMessageCount",
+      "http://localhost:5204/api/Message/UserMessageCount",
 
       {
         method: "GET",

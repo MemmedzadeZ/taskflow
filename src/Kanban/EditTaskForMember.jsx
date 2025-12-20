@@ -26,7 +26,7 @@ function EditTaskModel({ closeModal, taskId }) {
   const fetchUsersByProject = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
+        `http://localhost:5204/api/TeamMember/GetUsersByProject/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -48,15 +48,12 @@ function EditTaskModel({ closeModal, taskId }) {
   const fetchEditTaskData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/${taskId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(`http://localhost:5204/api/Work/${taskId}`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
 
       if (response.ok) {
         const data = await response.json();
@@ -88,7 +85,7 @@ function EditTaskModel({ closeModal, taskId }) {
     setIsLoading(true);
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Work/EditedProjectForPmTask/${taskId}`,
+        `http://localhost:5204/api/Work/EditedProjectForPmTask/${taskId}`,
         {
           method: "PUT",
           headers: {

@@ -22,7 +22,7 @@ const ChatPage = ({ friendEmail = "" }) => {
     if (mail !== "") {
       console.log("fetch" + mail);
       var response = await fetch(
-        `https://localhost:7157/api/ChatMessage/AllMessages/${mail}`,
+        `http://localhost:5204/api/ChatMessage/AllMessages/${mail}`,
         {
           method: "GET",
           headers: {
@@ -44,7 +44,7 @@ const ChatPage = ({ friendEmail = "" }) => {
 
   const handleDeleteMessage = async (id) => {
     var response = await fetch(
-      `https://localhost:7157/api/ChatMessage/RemoveMessage/${id}`,
+      `http://localhost:5204/api/ChatMessage/RemoveMessage/${id}`,
       {
         method: "DELETE",
         headers: {
@@ -73,7 +73,7 @@ const ChatPage = ({ friendEmail = "" }) => {
       text,
     };
     var response = await fetch(
-      `https://localhost:7157/api/ChatMessage/NewMessage`,
+      `http://localhost:5204/api/ChatMessage/NewMessage`,
       {
         method: "POST",
         headers: {
@@ -101,7 +101,7 @@ const ChatPage = ({ friendEmail = "" }) => {
     if (!conn) {
       const token = localStorage.getItem("token");
       conn = new HubConnectionBuilder()
-        .withUrl("https://localhost:7157/connect", {
+        .withUrl("http://localhost:5204/connect", {
           accessTokenFactory: () => token,
         })
         .configureLogging("information")

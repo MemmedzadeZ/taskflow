@@ -17,7 +17,7 @@ function PersonalInfo() {
 
   const handleDeleteAccount = async () => {
     try {
-      var response = await fetch("https://localhost:7157/api/Auth", {
+      var response = await fetch("http://localhost:5204/api/Auth", {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -38,7 +38,7 @@ function PersonalInfo() {
   const handleLogout = async () => {
     try {
       var response = await fetch(
-        "https://localhost:7157/api/Profile/Logout",
+        "http://localhost:5204/api/Profile/Logout",
 
         {
           method: "GET",
@@ -56,7 +56,7 @@ function PersonalInfo() {
         };
 
         await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
+          "http://localhost:5204/api/Notification/NewRecentActivity",
           {
             method: "POST",
             headers: {
@@ -77,7 +77,7 @@ function PersonalInfo() {
   };
 
   const fetchData = async () => {
-    var response = await fetch("https://localhost:7157/api/Auth/currentUser", {
+    var response = await fetch("http://localhost:5204/api/Auth/currentUser", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -107,7 +107,7 @@ function PersonalInfo() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

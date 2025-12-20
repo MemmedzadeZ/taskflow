@@ -7,7 +7,7 @@ function CalendarCount() {
     console.log("calendar message count");
 
     var response = await fetch(
-      "https://localhost:7157/api/Notification/CalendarNotificationCount",
+      "http://localhost:5204/api/Notification/CalendarNotificationCount",
 
       {
         method: "GET",
@@ -27,7 +27,7 @@ function CalendarCount() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

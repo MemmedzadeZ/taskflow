@@ -10,15 +10,12 @@ function CurrentPerson() {
   const fetchData = async () => {
     console.log("inside user");
 
-    const response = await fetch(
-      "https://localhost:7157/api/Auth/currentUser",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
+    const response = await fetch("http://localhost:5204/api/Auth/currentUser", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
     const data = await response.json();
     console.log(data);
@@ -34,7 +31,7 @@ function CurrentPerson() {
 
   return (
     <div className="dropdown d-inline-block mt-12">
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center gap-3">
         <img
           className="rounded-circle header-profile-user"
           src={
@@ -45,7 +42,7 @@ function CurrentPerson() {
           style={{ width: "70px", height: "70px" }}
           alt="Header Avatar"
         />
-        
+
         <span className="info d-xl-inline-block color-span">
           <span className="d-block fs-20 font-w600">{username}</span>
           <span className="d-block mt-7">{email}</span>

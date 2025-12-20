@@ -3,7 +3,7 @@ function ProjectsCount() {
   const [projectCount, setProjectCount] = useState(0);
   const fetchData = async () => {
     var response = await fetch(
-      "https://localhost:7157/api/Project/UserProjectCount",
+      "http://localhost:5204/api/Project/UserProjectCount",
 
       {
         method: "GET",

@@ -20,7 +20,7 @@ const OTPInput = ({ length = 4, onMatch, email }) => {
   const handleSubmit = async () => {
     const enteredCode = otp.join("");
     var response = await fetch(
-      "https://localhost:7157/api/Profile/verify-code",
+      "http://localhost:5204/api/Profile/verify-code",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

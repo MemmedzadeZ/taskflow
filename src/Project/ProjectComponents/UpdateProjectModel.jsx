@@ -52,7 +52,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
     };
 
     try {
-      fetch(`https://localhost:7157/api/Project/Put/${projectId}`, {
+      fetch(`http://localhost:5204/api/Project/Put/${projectId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -65,7 +65,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
             text: "Project updated",
             type: "Project",
           };
-          fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+          fetch("http://localhost:5204/api/Notification/NewRecentActivity", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -107,7 +107,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
       const newTitle = title.trim();
 
       const res = await fetch(
-        "https://localhost:7157/api/Project/ProjectWithTitle",
+        "http://localhost:5204/api/Project/ProjectWithTitle",
         {
           method: "POST",
           headers: {
@@ -133,7 +133,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
           Members: usernames,
         };
         fetch(
-          "https://localhost:7157/api/TeamMember/UpdateTeamMemberCollections",
+          "http://localhost:5204/api/TeamMember/UpdateTeamMemberCollections",
           {
             method: "POST",
             headers: {
@@ -157,7 +157,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
 
   const fetchData = async (projectId) => {
     var response = await fetch(
-      `https://localhost:7157/api/Project/${projectId}`,
+      `http://localhost:5204/api/Project/${projectId}`,
       {
         method: "GET",
         headers: {

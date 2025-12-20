@@ -13,7 +13,7 @@ const ProjectStatistik = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        "https://localhost:7157/api/Quiz/OccupationStatisticInProjects",
+        "http://localhost:5204/api/Quiz/OccupationStatisticInProjects",
         {
           method: "GET",
           headers: {

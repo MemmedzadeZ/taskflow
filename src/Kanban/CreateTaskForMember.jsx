@@ -26,7 +26,7 @@ function AddTaskModel({ closeModal, id, columnId }) {
   const fetchUsersByProject = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
+        `http://localhost:5204/api/TeamMember/GetUsersByProject/${projectId}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -70,7 +70,7 @@ function AddTaskModel({ closeModal, id, columnId }) {
     };
 
     try {
-      const response = await fetch("https://localhost:7157/api/Work/NewTask", {
+      const response = await fetch("http://localhost:5204/api/Work/NewTask", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -7,7 +7,7 @@ function ProfessionPercent() {
     console.log("inside occupation percent");
 
     const response = await fetch(
-      "https://localhost:7157/api/Quiz/OccupationStatistic",
+      "http://localhost:5204/api/Quiz/OccupationStatistic",
       {
         method: "GET",
       }

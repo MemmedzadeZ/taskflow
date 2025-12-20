@@ -8,13 +8,13 @@ export default function DailyTask() {
 
     try {
       const [projectTasksResponse, userTasksResponse] = await Promise.all([
-        fetch("https://localhost:7157/api/Work/DailyTask", {
+        fetch("http://localhost:5204/api/Work/DailyTask", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }),
-        fetch(" https://localhost:7157/api/UserTask/DailyTask", {
+        fetch(" http://localhost:5204/api/UserTask/DailyTask", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -51,7 +51,6 @@ export default function DailyTask() {
     return acc;
   }, {});
 
-  // Eğer veriler boşsa, boş task'lar için placeholder verisi oluşturuyoruz
   const placeholderTasks = [
     {
       title: "No tasks for this hour",

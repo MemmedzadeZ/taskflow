@@ -91,7 +91,7 @@ function Auth() {
     ) {
       console.log("step set to 2");
       var response = await fetch(
-        "https://localhost:7157/api/Profile/email-confirmation",
+        "http://localhost:5204/api/Profile/email-confirmation",
         {
           method: "POST",
           headers: {
@@ -124,7 +124,7 @@ function Auth() {
       newPassword: newPassword,
     };
     var response = await fetch(
-      "https://localhost:7157/api/Profile/reset-password",
+      "http://localhost:5204/api/Profile/reset-password",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -148,7 +148,7 @@ function Auth() {
     console.log(email);
     var mail = { email };
     var response = await fetch(
-      "https://localhost:7157/api/Profile/ForgotPassword",
+      "http://localhost:5204/api/Profile/ForgotPassword",
       {
         method: "POST",
         headers: {

@@ -29,13 +29,13 @@ const Calendar = () => {
   const fetchTasks = async () => {
     try {
       const [projectTasksResponse, userTasksResponse] = await Promise.all([
-        fetch("https://localhost:7157/api/Work/UserTasks", {
+        fetch("http://localhost:5204/api/Work/UserTasks", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }),
-        fetch("https://localhost:7157/api/UserTask/UserTasks", {
+        fetch("http://localhost:5204/api/UserTask/UserTasks", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -88,7 +88,7 @@ const Calendar = () => {
     if (event.extendedProps.source === "user") {
       try {
         const response = await fetch(
-          `https://localhost:7157/api/UserTask/EditedTaskForCalendar/${taskId}`,
+          `http://localhost:5204/api/UserTask/EditedTaskForCalendar/${taskId}`,
           {
             method: "PUT",
             headers: {
@@ -112,7 +112,7 @@ const Calendar = () => {
         };
 
         await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
+          "http://localhost:5204/api/Notification/NewRecentActivity",
           {
             method: "POST",
             headers: {

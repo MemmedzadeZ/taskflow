@@ -6,7 +6,7 @@ function TwoMessage() {
   const fetchMessages = async () => {
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Message/TwoMessage",
+        "http://localhost:5204/api/Message/TwoMessage",
         {
           method: "GET",
           headers: {

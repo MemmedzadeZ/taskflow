@@ -9,13 +9,13 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch("https://localhost:7157/api/UserTask/UserTasksCount", {
+          fetch("http://localhost:5204/api/UserTask/UserTasksCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          fetch("https://localhost:7157/api/Work/UserTasksCount", {
+          fetch("http://localhost:5204/api/Work/UserTasksCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -41,13 +41,13 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch("https://localhost:7157/api/Work/ToDoTaskCount", {
+          fetch("http://localhost:5204/api/Work/ToDoTaskCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          fetch("https://localhost:7157/api/UserTask/ToDoTaskCount", {
+          fetch("http://localhost:5204/api/UserTask/ToDoTaskCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -73,13 +73,13 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch("https://localhost:7157/api/Work/InProgressTaskCount", {
+          fetch("http://localhost:5204/api/Work/InProgressTaskCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          fetch("https://localhost:7157/api/UserTask/InProgressTaskCount", {
+          fetch("http://localhost:5204/api/UserTask/InProgressTaskCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -105,13 +105,13 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch(" https://localhost:7157/api/Work/DoneTaskCount", {
+          fetch(" http://localhost:5204/api/Work/DoneTaskCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }),
-          fetch("https://localhost:7157/api/UserTask/DoneTaskCount", {
+          fetch("http://localhost:5204/api/UserTask/DoneTaskCount", {
             method: "GET",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -136,7 +136,7 @@ function HeaderTaskInfo() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

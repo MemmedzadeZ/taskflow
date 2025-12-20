@@ -11,7 +11,7 @@ function RequestList() {
   const fetchNotifications = async () => {
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Notification/RequestNotification",
+        "http://localhost:5204/api/Notification/RequestNotification",
         {
           method: "GET",
           headers: {
@@ -36,7 +36,7 @@ function RequestList() {
     if (!connection) {
       const token = localStorage.getItem("token");
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7157/connect", {
+        .withUrl("http://localhost:5204/connect", {
           accessTokenFactory: () => token,
         })
         .configureLogging("information")
@@ -75,7 +75,7 @@ function RequestList() {
   const handleAccept = async (requestId) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Notification/AcceptRequestNotification/${requestId}`,
+        `http://localhost:5204/api/Notification/AcceptRequestNotification/${requestId}`,
         {
           method: "PUT",
           headers: {
@@ -102,7 +102,7 @@ function RequestList() {
   const handleReject = async (requestId) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Notification/DeleteRequestNotification/${requestId}`,
+        `http://localhost:5204/api/Notification/DeleteRequestNotification/${requestId}`,
         {
           method: "DELETE",
           headers: {

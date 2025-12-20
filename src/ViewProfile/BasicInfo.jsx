@@ -7,7 +7,7 @@ function BasicInfo() {
     const fetchUserProfile = async () => {
       try {
         const response = await fetch(
-          `https://localhost:7157/api/Profile/BasicInfoForProfil/${email}`,
+          `http://localhost:5204/api/Profile/BasicInfoForProfil/${email}`,
           {
             method: "GET",
           }

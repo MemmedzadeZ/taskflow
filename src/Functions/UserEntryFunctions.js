@@ -158,7 +158,7 @@ export const createUser = async (
   };
   console.log(userData);
 
-  fetch("https://localhost:7157/api/Auth/signup", {
+  fetch("http://localhost:5204/api/Auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -190,7 +190,7 @@ export const loginUser = async (e, username, password) => {
   };
   console.log(userData);
 
-  const response = await fetch("https://localhost:7157/api/Auth/signin", {
+  const response = await fetch("http://localhost:5204/api/Auth/signin", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -206,7 +206,7 @@ export const loginUser = async (e, username, password) => {
       type: "login",
     };
 
-    await fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+    await fetch("http://localhost:5204/api/Notification/NewRecentActivity", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

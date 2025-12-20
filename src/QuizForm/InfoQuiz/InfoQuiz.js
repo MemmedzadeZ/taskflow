@@ -24,7 +24,7 @@ function InfoQuiz() {
     }
     console.log(localStorage.getItem("token"));
     console.log("Selected option:", selectedOption); //
-    fetch("https://localhost:7157/api/Quiz/Occupation", {
+    fetch("http://localhost:5204/api/Quiz/Occupation", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -34,7 +34,7 @@ function InfoQuiz() {
       .then((response) => {
         if (response.ok) {
           fetch(
-            "https://localhost:7157/api/Profile/AddingOccupationDuringQuiz",
+            "http://localhost:5204/api/Profile/AddingOccupationDuringQuiz",
             {
               method: "POST",
               headers: {

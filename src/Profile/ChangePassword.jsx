@@ -15,7 +15,7 @@ function ChangePassword() {
 
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Profile/ChangePassword",
+        "http://localhost:5204/api/Profile/ChangePassword",
         {
           method: "POST",
           headers: {
@@ -36,7 +36,7 @@ function ChangePassword() {
         };
 
         await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
+          "http://localhost:5204/api/Notification/NewRecentActivity",
           {
             method: "POST",
             headers: {

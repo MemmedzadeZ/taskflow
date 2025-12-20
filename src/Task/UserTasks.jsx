@@ -34,13 +34,13 @@ function UserTasks() {
   const fetchTasks = async () => {
     try {
       const [projectTasksResponse, userTasksResponse] = await Promise.all([
-        fetch("https://localhost:7157/api/Work/UserTasks", {
+        fetch("http://localhost:5204/api/Work/UserTasks", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }),
-        fetch("https://localhost:7157/api/UserTask/UserTasks", {
+        fetch("http://localhost:5204/api/UserTask/UserTasks", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -68,7 +68,7 @@ function UserTasks() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
@@ -126,9 +126,9 @@ function UserTasks() {
       let deleteUrl;
 
       if (source === "project") {
-        deleteUrl = `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}`;
+        deleteUrl = `http://localhost:5204/api/Work/DeleteProjectTask/${taskId}`;
       } else if (source === "user") {
-        deleteUrl = `https://localhost:7157/api/UserTask/DeleteUserTask/${taskId}`;
+        deleteUrl = `http://localhost:5204/api/UserTask/DeleteUserTask/${taskId}`;
       }
 
       const response = await fetch(deleteUrl, {

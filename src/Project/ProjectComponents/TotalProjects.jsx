@@ -5,7 +5,7 @@ function TotalProjects() {
   const [projectCount, setProjectCount] = useState(0);
   const fetchData = async () => {
     var response = await fetch(
-      "https://localhost:7157/api/Project/UserProjectCount",
+      "http://localhost:5204/api/Project/UserProjectCount",
 
       {
         method: "GET",
@@ -26,7 +26,7 @@ function TotalProjects() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

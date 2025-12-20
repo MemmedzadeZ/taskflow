@@ -16,7 +16,7 @@ const Message = () => {
   const [userEmail, setUserEmail] = useState("");
   const fetchFriendsList = async () => {
     var response = await fetch(
-      "https://localhost:7157/api/Chat/AllChatsWithFriends",
+      "http://localhost:5204/api/Chat/AllChatsWithFriends",
       {
         method: "GET",
         headers: {
@@ -47,7 +47,7 @@ const Message = () => {
     if (!conn) {
       const token = localStorage.getItem("token");
       conn = new HubConnectionBuilder()
-        .withUrl("https://localhost:7157/connect", {
+        .withUrl("http://localhost:5204/connect", {
           accessTokenFactory: () => token,
         })
         .configureLogging("information")

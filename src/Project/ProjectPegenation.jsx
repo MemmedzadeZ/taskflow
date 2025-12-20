@@ -26,7 +26,7 @@ const ProjectPagination = ({ posts, handle }) => {
   //delte member MemberRemove
   const handleDeleteMember = (username, id) => {
     var payload = { ProjectId: id, Username: username };
-    fetch(`https://localhost:7157/api/TeamMember/MemberRemove`, {
+    fetch(`http://localhost:5204/api/TeamMember/MemberRemove`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -68,7 +68,7 @@ const ProjectPagination = ({ posts, handle }) => {
   const fetchMembers = (id) => {
     console.log("inside fetch");
     console.log(id);
-    fetch(`https://localhost:7157/api/TeamMember/get/${id}`, {
+    fetch(`http://localhost:5204/api/TeamMember/get/${id}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

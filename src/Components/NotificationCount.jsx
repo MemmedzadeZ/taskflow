@@ -7,7 +7,7 @@ function CountNotification() {
     console.log("inside notification");
 
     var response = await fetch(
-      "https://localhost:7157/api/Notification/UserNotificationCount",
+      "http://localhost:5204/api/Notification/UserNotificationCount",
 
       {
         method: "GET",
@@ -28,7 +28,7 @@ function CountNotification() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

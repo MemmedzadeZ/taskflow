@@ -6,7 +6,7 @@ function TwoCalendarNotification() {
   const fetchData = async () => {
     console.log("inside short message list");
     var response = await fetch(
-      "https://localhost:7157/api/Notification/TwoCalendarNotification",
+      "http://localhost:5204/api/Notification/TwoCalendarNotification",
       {
         method: "GET",
         headers: {
@@ -21,7 +21,7 @@ function TwoCalendarNotification() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

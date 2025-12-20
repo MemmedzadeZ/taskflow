@@ -56,7 +56,7 @@ const Kanban = () => {
   const getProjectTitle = async () => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Project/ProjectTitle/${projectId}`,
+        `http://localhost:5204/api/Project/ProjectTitle/${projectId}`,
         {
           method: "GET",
           headers: {
@@ -77,7 +77,7 @@ const Kanban = () => {
     try {
       if (!projectId) {
         const projectResponse = await fetch(
-          `https://localhost:7157/api/Project/AllProjectsUserOwn`,
+          `http://localhost:5204/api/Project/AllProjectsUserOwn`,
           {
             method: "GET",
             headers: {
@@ -104,7 +104,7 @@ const Kanban = () => {
         }
       } else {
         const response = await fetch(
-          `https://localhost:7157/api/Project/ProjectTaskCanban/${projectId}`,
+          `http://localhost:5204/api/Project/ProjectTaskCanban/${projectId}`,
           {
             method: "GET",
             headers: {
@@ -130,7 +130,7 @@ const Kanban = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
@@ -227,7 +227,7 @@ const Kanban = () => {
 
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Project/UpdateTaskStatus/${movedTask.id}`,
+        `http://localhost:5204/api/Project/UpdateTaskStatus/${movedTask.id}`,
         {
           method: "PUT",
           headers: {
@@ -258,7 +258,7 @@ const Kanban = () => {
   const handleDeleteTask = async (taskId) => {
     try {
       const response = await fetch(
-        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
+        `http://localhost:5204/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
         {
           method: "DELETE",
           headers: {

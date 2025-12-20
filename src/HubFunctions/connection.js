@@ -2,7 +2,7 @@ import $ from "jquery";
 import styled from "styled-components";
 
 // export async function GetAllUsers() {
-//   const response = await fetch("https://localhost:7157/api/Friend/AllUser", {
+//   const response = await fetch("http://localhost:5204/api/Friend/AllUser", {
 //     method: "GET",
 //     headers: {
 //       Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -105,7 +105,7 @@ export async function GetAllUsers() {
   }
   console.log("out first if getall");
 
-  const response = await fetch("https://localhost:7157/api/Friend/AllUser", {
+  const response = await fetch("http://localhost:5204/api/Friend/AllUser", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,

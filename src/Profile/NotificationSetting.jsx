@@ -15,7 +15,7 @@ function NotificationSetting() {
     if (savedSettings) {
       setSettings(JSON.parse(savedSettings));
     } else {
-      fetch("https://localhost:7157/api/Notification/NotificationSetting", {
+      fetch("http://localhost:5204/api/Notification/NotificationSetting", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -41,17 +41,14 @@ function NotificationSetting() {
   }, []);
 
   const handleSave = () => {
-    fetch(
-      "https://localhost:7157/api/Notification/UpdatedNotificationSetting",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(settings),
-      }
-    )
+    fetch("http://localhost:5204/api/Notification/UpdatedNotificationSetting", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(settings),
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log("Settings updated:", data);
@@ -63,7 +60,7 @@ function NotificationSetting() {
           type: "Notification",
         };
 
-        fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
+        fetch("http://localhost:5204/api/Notification/NewRecentActivity", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

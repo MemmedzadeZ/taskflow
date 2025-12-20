@@ -5,7 +5,7 @@ function AllMessages() {
   const fetchMessages = async () => {
     console.log("inside long message list");
     var response = await fetch(
-      "https://localhost:7157/api/Message/UserMessage",
+      "http://localhost:5204/api/Message/UserMessage",
       {
         method: "GET",
         headers: {

@@ -20,7 +20,7 @@ const AllProjects = () => {
   }, [allProjects, statusFilter]);
 
   const handleProjectDelete = async (id) => {
-    var response = await fetch(`https://localhost:7157/api/Project/${id}`, {
+    var response = await fetch(`http://localhost:5204/api/Project/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -32,7 +32,7 @@ const AllProjects = () => {
   const fetchProjects = async () => {
     try {
       var response = await fetch(
-        "https://localhost:7157/api/Project/ExtendedProjectList",
+        "http://localhost:5204/api/Project/ExtendedProjectList",
         {
           method: "GET",
           headers: {
@@ -61,7 +61,7 @@ const AllProjects = () => {
   // const realTimeUpdate = () => {
   //   const token = localStorage.getItem("token");
   //   const connection = new HubConnectionBuilder()
-  //     .withUrl("https://localhost:7157/connect", {
+  //     .withUrl("http://localhost:5204/connect", {
   //       accessTokenFactory: () => token,
   //     })
   //     .withAutomaticReconnect()
@@ -73,7 +73,7 @@ const AllProjects = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")

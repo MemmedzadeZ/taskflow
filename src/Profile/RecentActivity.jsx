@@ -9,7 +9,7 @@ function RecentActivity() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://localhost:7157/api/Notification/RecentActivity",
+        "http://localhost:5204/api/Notification/RecentActivity",
         {
           method: "GET",
           headers: {
@@ -29,7 +29,7 @@ function RecentActivity() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
