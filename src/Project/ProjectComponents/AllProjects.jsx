@@ -6,6 +6,11 @@ import ProjectPagination from "../ProjectPegenation";
 import Lottie from "lottie-react";
 import noproject from "../../animations/noproject.json";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchDeleteAccount } from "../../utils/fetchUtils/authUtils";
+import {
+  fetchDeleteProject,
+  fetchExtendedProjectList,
+} from "../../utils/fetchUtils/projectUtils";
 
 const AllProjects = () => {
   const [allProjects, setAllProjects] = useState([]);
@@ -20,41 +25,22 @@ const AllProjects = () => {
   }, [allProjects, statusFilter]);
 
   const handleProjectDelete = async (id) => {
-    var response = await fetch(`https://localhost:7157/api/Project/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const response = await fetchDeleteProject(id);
+    // add toast
     setAllProjects((prev) => prev.filter((project) => project.id !== id));
   };
 
   const fetchProjects = async () => {
-    try {
-      var response = await fetch(
-        "https://localhost:7157/api/Project/ExtendedProjectList",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+    var addedProjects = await fetchExtendedProjectList();
 
-      if (response.ok) {
-        const addedProjects = await response.json();
-        console.log("data:", addedProjects);
+    if (addedProjects) {
+      console.log("data:", addedProjects);
 
-        const addSource = (projects, source) =>
-          projects.map((project) => ({ ...project, source }));
-        const combinedProjects = addSource(addedProjects, "added");
+      const addSource = (projects, source) =>
+        projects.map((project) => ({ ...project, source }));
+      const combinedProjects = addSource(addedProjects, "added");
 
-        setAllProjects(combinedProjects);
-      } else {
-        console.error("Error fetching projects:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error:", error.message);
+      setAllProjects(combinedProjects);
     }
   };
 

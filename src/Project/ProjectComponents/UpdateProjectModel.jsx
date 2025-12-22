@@ -11,6 +11,12 @@ import {
   handleMemberRemoval,
 } from "../SearchMember";
 import Select from "react-select";
+import { fetchNewRecentActivity } from "../../utils/fetchUtils/notificationUtils";
+import {
+  fetchGetProject,
+  fetchProjectWithTitle,
+  fetchUpdateProject,
+} from "../../utils/fetchUtils/projectUtils";
 
 function UpdateProjectModel({ closeModal, projectId }) {
   const options = [
@@ -39,7 +45,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
     } else $("#searched-members").remove();
   };
 
-  const handleUpdateProject = (e) => {
+  const handleUpdateProject = async (e) => {
     e.preventDefault();
     const projectData = {
       title: title.trim(),
@@ -51,40 +57,20 @@ function UpdateProjectModel({ closeModal, projectId }) {
       color: color.trim(),
     };
 
-    try {
-      fetch(`https://localhost:7157/api/Project/Put/${projectId}`, {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(projectData),
-      }).then((res) => {
-        if (res.ok) {
-          const activityData = {
-            text: "Project updated",
-            type: "Project",
-          };
-          fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }).then((res) => {
-            if (res.ok) {
-              console.log("Notification sent successfully.");
-              handleMemberAdding();
-            } else {
-              console.error("Failed to send notification:", res.statusText);
-            }
-          });
-        }
-      });
-
-      /////
-    } catch {}
+    const response = await fetchUpdateProject(projectId, projectData);
+    if (response) {
+      const activityData = {
+        text: "Project updated",
+        type: "Project",
+      };
+      const res = await fetchNewRecentActivity(activityData);
+      if (res.ok) {
+        console.log("Notification sent successfully.");
+        handleMemberAdding();
+      } else {
+        console.error("Failed to send notification:", res.statusText);
+      }
+    }
   };
 
   const handleMemberAdding = async () => {
@@ -106,19 +92,9 @@ function UpdateProjectModel({ closeModal, projectId }) {
 
       const newTitle = title.trim();
 
-      const res = await fetch(
-        "https://localhost:7157/api/Project/ProjectWithTitle",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(newTitle),
-        }
-      );
+      const res = await fetchProjectWithTitle(newTitle);
 
-      if (!res.ok) {
+      if (!res) {
         console.error("Failed to fetch project ID:", res.statusText);
       } else {
         const data = await res.json();
@@ -156,18 +132,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
   // useEffect(() => {}, []);
 
   const fetchData = async (projectId) => {
-    var response = await fetch(
-      `https://localhost:7157/api/Project/${projectId}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    var data = await response.json();
+    const data = await fetchGetProject(projectId);
     console.log(data);
     console.log(data.color);
     setColor(data.color);

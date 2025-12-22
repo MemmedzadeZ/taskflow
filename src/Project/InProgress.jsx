@@ -1,25 +1,16 @@
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchOnGoingProject } from "../utils/fetchUtils/projectUtils";
 
 const InProgress = () => {
   const [projects, setProjects] = useState([]);
 
   const fetchData = async () => {
-    var response = await fetch(
-      "https://localhost:7157/api/Project/OnGoingProject",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    var data = await response.json();
+    const data = await fetchOnGoingProject();
     if (data) {
       setProjects(data);
-      console.log(data);
+      console.log("On going projects: " + data);
     }
   };
 

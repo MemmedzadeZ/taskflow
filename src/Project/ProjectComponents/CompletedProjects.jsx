@@ -1,22 +1,13 @@
 import { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchCompletedTaskCount } from "../../utils/fetchUtils/projectUtils";
 
 function CompletedProjects() {
   const [count, setCount] = useState();
   const fetchCount = async () => {
-    var response = await fetch(
-      "https://localhost:7157/api/Project/CompletedTaskCount",
-
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    if (response.ok) {
-      setCount(await response.json());
+    const response = await fetchCompletedTaskCount();
+    if (response) {
+      setCount(response);
     }
   };
 

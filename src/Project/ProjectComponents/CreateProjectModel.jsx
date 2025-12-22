@@ -4,6 +4,11 @@ import "../css/ProjectStyles.css";
 
 import $, { data } from "jquery";
 import { SearchMember } from "../SearchMember";
+import { fetchNewRecentActivity } from "../../utils/fetchUtils/notificationUtils";
+import {
+  fetchCreateProject,
+  fetchProjectWithTitle,
+} from "../../utils/fetchUtils/projectUtils";
 
 function CreateProjectModel({ closeModal }) {
   const [title, setProjectName] = useState("");
@@ -35,32 +40,18 @@ function CreateProjectModel({ closeModal }) {
       isCompleted: false,
       color,
     };
-    fetch("https://localhost:7157/api/Project", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(projectData),
-    }).then((response) => {
-      if (response.ok) {
-        console.log(response.json());
-        const activityData = {
-          text: "New Project Created",
-          type: "Project",
-        };
-        setProgressText("Project Created!");
-        fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(activityData),
-        });
-        handleMemberAdding();
-      }
-    });
+    const response = await fetchCreateProject(projectData);
+    if (response.ok) {
+      console.log(response.json());
+      const activityData = {
+        text: "New Project Created",
+        type: "Project",
+      };
+      setProgressText("Project Created!");
+      await fetchNewRecentActivity(activityData);
+      handleMemberAdding();
+    }
+
     // setTimeout(() => {}, 1000);
   };
   const handleMemberAdding = async () => {
@@ -78,19 +69,9 @@ function CreateProjectModel({ closeModal }) {
       }
       var newTitle = title.trim();
 
-      const projectResponse = await fetch(
-        "https://localhost:7157/api/Project/ProjectWithTitle",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(newTitle),
-        }
-      );
+      const projectResponse = await fetchProjectWithTitle(newTitle);
 
-      if (!projectResponse.ok) {
+      if (!projectResponse) {
         console.error(
           "Failed to fetch project ID:",
           projectResponse.statusText

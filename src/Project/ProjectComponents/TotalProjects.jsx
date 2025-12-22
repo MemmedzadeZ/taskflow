@@ -1,25 +1,11 @@
 import { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchUserProjectCount } from "../../utils/fetchUtils/projectUtils";
 
 function TotalProjects() {
   const [projectCount, setProjectCount] = useState(0);
   const fetchData = async () => {
-    var response = await fetch(
-      "https://localhost:7157/api/Project/UserProjectCount",
-
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
-
-    console.log(data);
-
+    const data = await fetchUserProjectCount();
     setProjectCount(data);
   };
 
