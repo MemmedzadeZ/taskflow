@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  fetchNewRecentActivity,
+  fetchNotificationSetting,
+  fetchUpdatedNotificationSetting,
+} from "../utils/fetchUtils/notificationUtils";
 function NotificationSetting() {
   const [settings, setSettings] = useState({
     FriendshipOffers: false,
@@ -11,68 +16,38 @@ function NotificationSetting() {
   });
 
   useEffect(() => {
-    const savedSettings = localStorage.getItem("notificationSettings");
-    if (savedSettings) {
-      setSettings(JSON.parse(savedSettings));
-    } else {
-      fetch("https://localhost:7157/api/Notification/NotificationSetting", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-        .then((response) => response.text())
-        .then((text) => {
-          console.log("Server Response:", text);
-          return JSON.parse(text);
-        })
-        .then((data) => {
-          setSettings({
-            FriendshipOffers: data.friendshipOffers,
-            NewTaskWithInProject: data.newTaskWithInProject,
-            TaskDueDate: data.taskDueDate,
-            ProjectCompletationDate: data.projectCompletationDate,
-            InnovationNewProject: data.innovationNewProject,
-          });
-          localStorage.setItem("notificationSettings", JSON.stringify(data));
-        })
-        .catch((error) => console.error("Error fetching settings:", error));
-    }
+    const getSettings = async () => {
+      const savedSettings = localStorage.getItem("notificationSettings");
+      if (savedSettings) {
+        setSettings(JSON.parse(savedSettings));
+      } else {
+        const data = await fetchNotificationSetting();
+        setSettings({
+          FriendshipOffers: data.friendshipOffers,
+          NewTaskWithInProject: data.newTaskWithInProject,
+          TaskDueDate: data.taskDueDate,
+          ProjectCompletationDate: data.projectCompletationDate,
+          InnovationNewProject: data.innovationNewProject,
+        });
+        localStorage.setItem("notificationSettings: ", data);
+      }
+    };
+    getSettings();
   }, []);
 
-  const handleSave = () => {
-    fetch(
-      "https://localhost:7157/api/Notification/UpdatedNotificationSetting",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(settings),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Settings updated:", data);
-        toast.success("Settings updated successfully!");
-        // deyisiklikleri yadda saxlamaq ucun
-        localStorage.setItem("notificationSettings", JSON.stringify(settings));
-        const activityData = {
-          text: "Notification settings updated.",
-          type: "Notification",
-        };
+  const handleSave = async () => {
+    const data = await fetchUpdatedNotificationSetting(settings);
 
-        fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(activityData),
-        });
-      })
-      .catch((error) => toast.error("Error updating settings:", error));
+    console.log("Settings updated:", data);
+    toast.success("Settings updated successfully!");
+    // deyisiklikleri yadda saxlamaq ucun
+    localStorage.setItem("notificationSettings", JSON.stringify(settings));
+    const activityData = {
+      text: "Notification settings updated.",
+      type: "Notification",
+    };
+
+    await fetchNewRecentActivity(activityData);
   };
 
   const handleChange = (e) => {

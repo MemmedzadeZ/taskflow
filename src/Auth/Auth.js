@@ -18,7 +18,7 @@ import {
   fetchConfirmPassword,
   fetchEmailConfirmation,
   fetchResetPassword,
-} from "../utils/fetchUtils/authUtils";
+} from "../utils/fetchUtils/profileUtils";
 
 function Auth() {
   const navigate = useNavigate();
@@ -95,7 +95,7 @@ function Auth() {
       )
     ) {
       console.log("step set to 2");
-      var result = await fetchEmailConfirmation(email);
+      const result = await fetchEmailConfirmation(email);
       if (result) {
         toast.success(result.message);
         setReqStep(2);
@@ -116,7 +116,7 @@ function Auth() {
       email: email,
       newPassword: newPassword,
     };
-    var data = await fetchResetPassword(payload);
+    const data = await fetchResetPassword(payload);
     if (data) {
       toast.success(data.message);
     } else {
@@ -131,7 +131,7 @@ function Auth() {
     document.getElementById("email-input-fp").disabled = true;
 
     console.log(email);
-    var data = await fetchConfirmPassword(email);
+    const data = await fetchConfirmPassword(email);
     if (data) {
       toast.success(data.message);
       handleSkipStep();

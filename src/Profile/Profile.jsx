@@ -8,6 +8,7 @@ import NotificationSetting from "./NotificationSetting";
 import RecentActivity from "./RecentActivity";
 import RequestList from "./RequestList";
 import Reminder from "./Reminder";
+import { fetchCurrentUser } from "../utils/fetchUtils/authUtils";
 
 const Profile = () => {
   const [profileData, setProfileData] = useState({});
@@ -15,16 +16,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      var response = await fetch(
-        "https://localhost:7157/api/Auth/currentUser",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      var data = await response.json();
+      const data = await fetchCurrentUser();
       setProfileData(data);
     };
 

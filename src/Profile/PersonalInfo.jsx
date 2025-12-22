@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  fetchCurrentUser,
+  fetchDeleteAccount,
+} from "../utils/fetchUtils/authUtils";
 import "react-toastify/dist/ReactToastify.css";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
+import { fetchLogOut } from "../utils/fetchUtils/profileUtils";
 function PersonalInfo() {
   const [username, setUserName] = useState(null);
   const [fullname, setFullname] = useState(null);
@@ -16,75 +22,28 @@ function PersonalInfo() {
   const navigate = useNavigate();
 
   const handleDeleteAccount = async () => {
-    try {
-      var response = await fetch("https://localhost:7157/api/Auth", {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
-      if (response.status === 200) {
-        console.log(response.data);
-
-        localStorage.removeItem("token");
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Delete account failed:", error);
-      toast.error("Delete account  failed");
-    }
+    const response = await fetchDeleteAccount();
+    if (response) navigate("/");
   };
 
   const handleLogout = async () => {
-    try {
-      var response = await fetch(
-        "https://localhost:7157/api/Profile/Logout",
+    const response = await fetchLogOut();
+    if (response) {
+      const activityData = {
+        text: "User logged out",
+        type: "logout",
+      };
 
-        {
-          method: "GET",
+      await fetchNewRecentActivity(activityData);
 
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        console.log(response.data);
-        const activityData = {
-          text: "User logged out",
-          type: "logout",
-        };
-
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
-
-        localStorage.removeItem("token");
-        navigate("/auth");
-      }
-    } catch (error) {
-      console.error("Logout failed:", error);
-      toast.error("Logout failed");
+      localStorage.removeItem("token");
+      navigate("/auth");
     }
   };
 
   const fetchData = async () => {
-    var response = await fetch("https://localhost:7157/api/Auth/currentUser", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+    const data = await fetchCurrentUser();
 
-    var data = await response.json();
     setUserName(data.username);
     setFullname(data.fullname);
     setPhone(data.phone);

@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  fetchNewRecentActivity,
+  fetchUpdatePassword,
+} from "../utils/fetchUtils/profileUtils";
 function ChangePassword() {
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
@@ -14,19 +18,8 @@ function ChangePassword() {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Profile/ChangePassword",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(passwordData),
-        }
-      );
-
-      if (response.ok) {
+      const response = await fetchUpdatePassword(passwordData);
+      if (response) {
         toast.success("Password updated successfully!");
         setTimeout(() => setAlertMessage(""), 5000);
 
@@ -35,17 +28,7 @@ function ChangePassword() {
           type: "Profile",
         };
 
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        fetchNewRecentActivity(activityData);
       } else {
         console.error("Failed to update password");
         toast.error("Failed to update password.");

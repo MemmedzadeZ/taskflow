@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchRequestNotification } from "../utils/fetchUtils/notificationUtils";
 
 function RequestList() {
   const [notifications, setNotifications] = useState([]);
@@ -9,26 +10,8 @@ function RequestList() {
 
   // Bildirimleri çekmek için API çağrısı
   const fetchNotifications = async () => {
-    try {
-      const response = await fetch(
-        "https://localhost:7157/api/Notification/RequestNotification",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setNotifications(data);
-      } else {
-        console.error("Failed to fetch notifications:", response.status);
-      }
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-    }
+    const response = await fetchRequestNotification();
+    if (response) setNotifications(response);
   };
 
   // SignalR bağlantısını başlatma

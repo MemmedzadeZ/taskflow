@@ -1,62 +1,40 @@
 const URL = process.env.REACT_APP_API_URL;
 
-export const fetchEmailConfirmation = async (email) => {
+export const fetchCurrentUser = async () => {
   try {
-    var response = await fetch(URL + "/Profile/email-confirmation", {
-      method: "POST",
+    var response = await fetch(URL + "/Auth/currentUser", {
+      method: "GET",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({ NameOrEmail: email }),
     });
     if (response.ok) {
       var data = await response.json();
       return data;
     } else {
-      console.log("In fetchEmailConfirmation response is FALSE: ");
+      console.log("In fetchCurrentUser response is FALSE: ");
       return false;
     }
   } catch (error) {
-    console.log("Error in fetchEmailConfirmation: " + error);
+    console.log("Error in fetchCurrentUser: " + error);
   }
 };
 
-export const fetchResetPassword = async (payload) => {
+export const fetchDeleteAccount = async () => {
   try {
-    var response = await fetch(URL + "/Profile/reset-password", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (response.ok) {
-      var data = await response.json();
-      return data;
-    } else {
-      console.log("In fetchResetPassword response is FALSE: ");
-      return false;
-    }
-  } catch (error) {
-    console.log("Error in fetchResetPassword: " + error);
-  }
-};
-
-export const fetchConfirmPassword = async (email) => {
-  try {
-    var response = await fetch(URL + "/Profile/ForgotPassword", {
-      method: "POST",
+    var response = await fetch(URL + "/api/Auth", {
+      method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({ NameOrEmail: email }),
     });
     if (response.ok) {
-      var data = await response.json();
-      return data;
-    } else {
-      console.log("In fetchConfirmPassword response is FALSE: ");
-      return false;
+      console.log(response.data);
+
+      localStorage.removeItem("token");
+      return true;
     }
   } catch (error) {
-    console.log("Error in fetchConfirmPassword: " + error);
+    console.log("Error in fetchCurrentUser: " + error);
   }
 };

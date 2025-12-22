@@ -1,28 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Pagination } from "react-bootstrap";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchRecentActivities } from "../utils/fetchUtils/notificationUtils";
 function RecentActivity() {
   const [activities, setActivities] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 7;
 
   const fetchData = async () => {
-    try {
-      const response = await fetch(
-        "https://localhost:7157/api/Notification/RecentActivity",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (!response.ok) throw new Error("Data fetch failed");
-      const data = await response.json();
-      setActivities(data);
-    } catch (error) {
-      console.error("Error fetching recent activities:", error);
-    }
+    const data = await fetchRecentActivities();
+    setActivities(data);
   };
   //SIGNALRR
 

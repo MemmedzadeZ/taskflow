@@ -3,6 +3,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRef } from "react";
+import { fetchCalendarNotifications } from "../utils/fetchUtils/notificationUtils";
 function Reminder() {
   const [notifications, setNotifications] = useState([]);
   const connectionRef = useRef(null);
@@ -12,18 +13,8 @@ function Reminder() {
     if (isFetching) return;
     setIsFetching(true);
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Notification/CalendarNotifications",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await fetchCalendarNotifications();
       const data = await response.json();
-      console.log("Fetched notifications:", data);
       setNotifications(data);
     } catch (error) {
       toast.warning("Error fetching notifications:", error);

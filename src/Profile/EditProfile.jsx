@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCamera } from "@fortawesome/free-solid-svg-icons";
+import {
+  fetchEditedProfile,
+  fetchEditedProfileImage,
+} from "../utils/fetchUtils/profileUtils";
+import { fetchCurrentUser } from "../utils/fetchUtils/authUtils.js";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils.js";
+
 const EditProfile = () => {
   const [profileData, setProfileData] = useState({});
   const [initialProfileData, setInitialProfileData] = useState({});
@@ -45,15 +52,7 @@ const EditProfile = () => {
 
   const fetchData = async () => {
     try {
-      const data = await fetchWrapper(
-        "https://localhost:7157/api/Auth/currentUser",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const data = fetchCurrentUser();
       setProfileData(data);
       setInitialProfileData(data);
       setPath(data.image);
@@ -82,28 +81,17 @@ const EditProfile = () => {
   const handleSaveProfileData = async (e) => {
     e.preventDefault();
     try {
-      await fetchWrapper("https://localhost:7157/api/Profile/EditedProfile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(profileData),
-      });
-      toast.success("Profile updated successfully!");
-      const activityData = {
-        text: "Profile updated",
-        type: "Profile",
-      };
+      const response = await fetchEditedProfile(profileData);
 
-      fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(activityData),
-      });
+      if (response) {
+        toast.success("Profile updated successfully!");
+        const activityData = {
+          text: "Profile updated",
+          type: "Profile",
+        };
+
+        await fetchNewRecentActivity(activityData);
+      }
     } catch {
       toast.error("Failed to update profile data.");
     }
@@ -119,31 +107,14 @@ const EditProfile = () => {
     formData.append("file", selectedFile);
 
     try {
-      const data = await fetchWrapper(
-        "https://localhost:7157/api/Profile/EditedProfileImage",
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: formData,
-        }
-      );
+      const data = await fetchEditedProfileImage(formData);
       setPath(data.image);
       toast.success("Profile image updated successfully!");
       const activityData = {
         text: "Profile image updated",
         type: "Profile",
       };
-
-      fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(activityData),
-      });
+      await fetchNewRecentActivity(activityData);
     } catch {
       toast.error("Failed to update profile image.");
     }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { fetchVerifyCode } from "../utils/fetchUtils/profileUtils.js";
 
 const OTPInput = ({ length = 4, onMatch, email }) => {
   const [otp, setOtp] = useState(Array(length).fill(""));
@@ -19,18 +20,8 @@ const OTPInput = ({ length = 4, onMatch, email }) => {
 
   const handleSubmit = async () => {
     const enteredCode = otp.join("");
-    var response = await fetch(
-      "https://localhost:7157/api/Profile/verify-code",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ Code: enteredCode, Email: email }),
-      }
-    );
-
-    var data = await response.json();
-
-    if (data.result) {
+    const data = await fetchVerifyCode(enteredCode, email);
+    if (data) {
       setError("");
       onMatch(true);
     } else {
