@@ -3,6 +3,7 @@ import "./css/CreateTaskForMember.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
+import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
 function AddTaskModel({ closeModal, id, columnId }) {
   const { projectId } = useParams();
   const [proId, setProId] = useState(projectId);
@@ -24,25 +25,10 @@ function AddTaskModel({ closeModal, id, columnId }) {
   };
 
   const fetchUsersByProject = async () => {
-    try {
-      const response = await fetch(
-        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
-        setProId(projectId);
-      } else {
-        console.error("Failed to fetch users");
-      }
-    } catch (error) {
-      console.error("Error fetching users:", error);
+    const data = await fetchGetUsersByProject(projectId);
+    if (data) {
+      setUsers(data);
+      setProId(projectId);
     }
   };
   useEffect(() => {

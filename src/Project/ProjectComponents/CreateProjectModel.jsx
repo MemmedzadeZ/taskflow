@@ -9,6 +9,7 @@ import {
   fetchCreateProject,
   fetchProjectWithTitle,
 } from "../../utils/fetchUtils/projectUtils";
+import { fetchPostTeamMemberCollections } from "../../utils/fetchUtils/teammemberUtils";
 
 function CreateProjectModel({ closeModal }) {
   const [title, setProjectName] = useState("");
@@ -55,66 +56,45 @@ function CreateProjectModel({ closeModal }) {
     // setTimeout(() => {}, 1000);
   };
   const handleMemberAdding = async () => {
-    try {
-      console.log("Inside member handler");
-      const container = document.getElementById("team-member-box");
+    console.log("Inside member handler");
+    const container = document.getElementById("team-member-box");
 
-      const usernames = Array.from(
-        container.querySelectorAll(".selected-tm")
-      ).map((div) => div.textContent.trim());
+    const usernames = Array.from(
+      container.querySelectorAll(".selected-tm")
+    ).map((div) => div.textContent.trim());
 
-      if (!title) {
-        console.error("Title is undefined or empty.");
-        return;
-      }
-      var newTitle = title.trim();
+    if (!title) {
+      console.error("Title is undefined or empty.");
+      return;
+    }
+    var newTitle = title.trim();
 
-      const projectResponse = await fetchProjectWithTitle(newTitle);
+    const projectResponse = await fetchProjectWithTitle(newTitle);
 
-      if (!projectResponse) {
-        console.error(
-          "Failed to fetch project ID:",
-          projectResponse.statusText
-        );
+    if (!projectResponse) {
+      console.error("Failed to fetch project ID:", projectResponse.statusText);
 
-        return;
-      }
+      return;
+    }
 
-      const projectData = await projectResponse.json();
-      const projectId = projectData.id;
+    const projectData = await projectResponse.json();
+    const projectId = projectData.id;
 
-      if (!projectId) {
-        console.error("Project ID not found.");
-        return;
-      }
+    if (!projectId) {
+      console.error("Project ID not found.");
+      return;
+    }
 
-      const payload = {
-        projectId,
-        Members: usernames,
-      };
+    const payload = {
+      projectId,
+      Members: usernames,
+    };
 
-      const response = await fetch(
-        "https://localhost:7157/api/TeamMember/TeamMemberCollections",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+    const response = await fetchPostTeamMemberCollections(payload);
 
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      if (response.ok) {
-        const text = await response.json();
-        setProgressText(text.message);
-        closeModal();
-      } else {
-        console.error("Failed to add team members:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error in handleMemberAdding:", error);
+    if (response) {
+      setProgressText(response.message);
+      closeModal();
     }
   };
 

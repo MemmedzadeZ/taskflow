@@ -212,3 +212,23 @@ export const fetchGetProject = async (projectId) => {
     console.log("Error in fetchGetProject: " + error);
   }
 };
+
+export const fetchProjectDetails = async (projectId) => {
+  try {
+    const response = await fetch(URL + `/Project/${projectId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("Failed to fetch project details");
+      return false;
+    }
+  } catch (error) {
+    console.log("Error in fetchProjectDetails: " + error);
+  }
+};

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 //import "..//css/CreateTaskForMember.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
 
 function EditTaskInProject({ closeModal, taskId, projectId }) {
   console.log("id:" + taskId);
@@ -21,25 +22,11 @@ function EditTaskInProject({ closeModal, taskId, projectId }) {
   });
   const [isLoading, setIsLoading] = useState(false);
 
-  const fetchUsersByProject = async () => {
-    try {
-      const response = await fetch(
-        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+  const fetchUsers = async () => {
+    const response = await fetchGetUsersByProject(projectId);
 
-      if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
-      } else {
-        console.error("Failed to fetch users");
-      }
-    } catch (error) {
-      console.error("Error fetching users:", error);
+    if (response) {
+      setUsers(response);
     }
   };
 
@@ -118,7 +105,7 @@ function EditTaskInProject({ closeModal, taskId, projectId }) {
   };
 
   useEffect(() => {
-    fetchUsersByProject(); // Fetch users based on projectId
+    fetchUsers(); // Fetch users based on projectId
     fetchEditTaskData(); // Fetch task data on modal open
   }, [taskId]);
 

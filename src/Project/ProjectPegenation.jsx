@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import UpdateProjectModel from "./ProjectComponents/UpdateProjectModel";
 import { useNavigate } from "react-router-dom";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import {
+  fetchGetTeammembers,
+  fetchMemberRemove,
+} from "../utils/fetchUtils/teammemberUtils";
 const ProjectPagination = ({ posts, handle }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -24,16 +28,9 @@ const ProjectPagination = ({ posts, handle }) => {
   };
 
   //delte member MemberRemove
-  const handleDeleteMember = (username, id) => {
+  const handleDeleteMember = async (username, id) => {
     var payload = { ProjectId: id, Username: username };
-    fetch(`https://localhost:7157/api/TeamMember/MemberRemove`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload),
-    });
+    await fetchMemberRemove(payload);
   };
 
   const formatDate = (dateString) => {
@@ -65,53 +62,33 @@ const ProjectPagination = ({ posts, handle }) => {
     setCurrentProjectId(null);
   };
 
-  const fetchMembers = (id) => {
+  const fetchMembers = async (id) => {
     console.log("inside fetch");
     console.log(id);
-    fetch(`https://localhost:7157/api/TeamMember/get/${id}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(
-            "Something went wrong while fetching team members: " +
-              res.statusText
-          );
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data.list) {
-          console.log("datalist: " + data.list);
-          const allMembers = data.list;
+    const data = await fetchGetTeammembers(id);
 
-          const acceptedMembers = allMembers.filter(
-            (member) => member.isAccepted && !member.isRequest
-          );
+    if (data && data.list) {
+      console.log("datalist: " + data.list);
+      const allMembers = data.list;
 
-          const pendingRequests = allMembers.filter(
-            (member) => member.isRequest && !member.isAccepted
-          );
+      const acceptedMembers = allMembers.filter(
+        (member) => member.isAccepted && !member.isRequest
+      );
 
-          setTeamMembers({
-            accepted: acceptedMembers,
-            pending: pendingRequests,
-          });
+      const pendingRequests = allMembers.filter(
+        (member) => member.isRequest && !member.isAccepted
+      );
 
-          console.log("Accepted Members:", acceptedMembers);
-          console.log("Pending Requests:", pendingRequests);
-        } else {
-          setTeamMembers({ accepted: [], pending: [] });
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching team members:", error.message);
-        setTeamMembers([]);
+      setTeamMembers({
+        accepted: acceptedMembers,
+        pending: pendingRequests,
       });
+
+      console.log("Accepted Members:", acceptedMembers);
+      console.log("Pending Requests:", pendingRequests);
+    } else {
+      setTeamMembers({ accepted: [], pending: [] });
+    }
   };
 
   return (

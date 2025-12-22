@@ -12,6 +12,7 @@ import TwoCalendarNotification from "../Components/CalendarList";
 import { useNavigate, useParams } from "react-router-dom";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect } from "react";
+import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
 
 const ProjectDetail = () => {
   const [users, setUsers] = useState([]);
@@ -48,48 +49,20 @@ const ProjectDetail = () => {
   };
 
   const fetchUsersByProject = async () => {
-    try {
-      const response = await fetch(
-        `https://localhost:7157/api/TeamMember/GetUsersByProject/${projectId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+    const response = await fetchGetUsersByProject(projectId);
 
-      if (response.ok) {
-        const data = await response.json();
-        setUsers(data);
-      } else {
-        console.error("Failed to fetch users");
-      }
-    } catch (error) {
-      console.error("Error fetching users:", error);
+    if (response) {
+      setUsers(response);
     }
   };
 
   const fetchProjectDetails = async () => {
-    try {
-      const response = await fetch(
-        `https://localhost:7157/api/Project/${projectId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+    const response = await fetchProjectDetails(projectId);
 
-      if (response.ok) {
-        const data = await response.json();
-        await fetchUserProfile(data.ownerMail);
-        setProject(data);
-      } else {
-        console.error("Failed to fetch project details");
-        setProject(null);
-      }
-    } catch (error) {
-      console.error("Error fetching project details:", error);
+    if (response) {
+      await fetchUserProfile(response);
+      setProject(response);
+    } else {
       setProject(null);
     }
   };

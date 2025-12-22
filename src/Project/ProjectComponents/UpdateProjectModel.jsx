@@ -17,6 +17,7 @@ import {
   fetchProjectWithTitle,
   fetchUpdateProject,
 } from "../../utils/fetchUtils/projectUtils";
+import { fetchUpdateTeamMemberCollections } from "../../utils/fetchUtils/teammemberUtils";
 
 function UpdateProjectModel({ closeModal, projectId }) {
   const options = [
@@ -108,21 +109,7 @@ function UpdateProjectModel({ closeModal, projectId }) {
           projectId,
           Members: usernames,
         };
-        fetch(
-          "https://localhost:7157/api/TeamMember/UpdateTeamMemberCollections",
-          {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(payload),
-          }
-        ).then((res) => {
-          if (res.ok) {
-            closeModal();
-          }
-        });
+        await fetchUpdateTeamMemberCollections(payload);
       }
     } catch (error) {
       console.error("Error in handleMemberAdding:", error);
