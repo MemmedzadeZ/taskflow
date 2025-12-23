@@ -13,6 +13,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect } from "react";
 import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
+import { fetchGetProjectWorks } from "../utils/fetchUtils/workUtils";
+import { fetchBasicInfoForProfil } from "../utils/fetchUtils/profileUtils";
 
 const ProjectDetail = () => {
   const [users, setUsers] = useState([]);
@@ -69,21 +71,10 @@ const ProjectDetail = () => {
 
   const fetchUserWorks = async () => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/ProjectWorks/${projectId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch user works");
+      const data = await fetchGetProjectWorks(projectId);
+      if (data) {
+        setWorkList(data);
       }
-      const data = await response.json();
-      setWorkList(data);
     } catch (error) {
       console.error(error);
       setError("There are no tasks within the projects yet");
@@ -122,15 +113,9 @@ const ProjectDetail = () => {
 
   const fetchUserProfile = async () => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Profile/BasicInfoForProfil/${project.ownerMail}`,
-        {
-          method: "GET",
-        }
-      );
+      const data = await fetchBasicInfoForProfil(project.ownerMail);
 
-      if (response.ok) {
-        const data = await response.json();
+      if (data) {
         setBasicInfo(data);
       } else {
         console.error("Error fetching user profile");

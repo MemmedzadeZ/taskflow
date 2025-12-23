@@ -4,6 +4,10 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditTaskInProject from "./EditProjectTask";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import {
+  fetchDeleteProjectTask,
+  fetchWorkUserWorks,
+} from "../utils/fetchUtils/workUtils";
 const ProjectTasksList = () => {
   const [workList, setWorkList] = useState([]);
   const [error, setError] = useState("");
@@ -23,21 +27,10 @@ const ProjectTasksList = () => {
   };
   const fetchUserWorks = async () => {
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Work/UserWorks",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Failed to fetch user works");
+      const data = await fetchWorkUserWorks();
+      if (data) {
+        setWorkList(data);
       }
-      const data = await response.json();
-      setWorkList(data);
     } catch (error) {
       console.error(error);
       setError("There are no tasks within the projects yet");
@@ -76,17 +69,9 @@ const ProjectTasksList = () => {
 
   const handleDeleteTask = async (taskId, projectId) => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetchDeleteProjectTask(taskId, projectId);
 
-      if (response.ok) {
+      if (response) {
         setWorkList((prevData) => {
           const updatedList = prevData.filter((task) => task.taskId !== taskId);
           return updatedList;

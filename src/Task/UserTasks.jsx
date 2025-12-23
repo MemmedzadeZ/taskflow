@@ -6,6 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 import EditTaskModel from "./TaskComponents/EditTaskModel";
 import EditProjectTaskModel from "./TaskComponents/EditProjectTaskModel";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import {
+  fetchUserTasks,
+  fetchWorkUserTasks,
+} from "../utils/fetchUtils/workUtils";
 function UserTasks() {
   const [loading, setLoading] = useState(true);
   const [allTasks, setAllTasks] = useState([]);
@@ -34,18 +38,8 @@ function UserTasks() {
   const fetchTasks = async () => {
     try {
       const [projectTasksResponse, userTasksResponse] = await Promise.all([
-        fetch("https://localhost:7157/api/Work/UserTasks", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }),
-        fetch("https://localhost:7157/api/UserTask/UserTasks", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }),
+        await fetchWorkUserTasks(),
+        await fetchUserTasks(),
       ]);
 
       if (projectTasksResponse.ok && userTasksResponse.ok) {

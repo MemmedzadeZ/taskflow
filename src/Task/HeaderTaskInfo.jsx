@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import {
+  fetchDoneTaskCount,
+  fetchInProgressTaskCount,
+  fetchToDoTaskCount,
+  fetchUserTasksCount,
+  fetchWorkDoneTaskCount,
+  fetchWorkInProgressTaskCount,
+  fetchWorkToDoTaskCount,
+  fetchWorkUserTasksCount,
+} from "../utils/fetchUtils/workUtils";
 function HeaderTaskInfo() {
   const [totalTaskCount, setTotalTaskCount] = useState(0);
   const [onholdTaskCount, setOnHoldTaskCount] = useState(0);
@@ -9,18 +19,8 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch("https://localhost:7157/api/UserTask/UserTasksCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
-          fetch("https://localhost:7157/api/Work/UserTasksCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
+          await fetchUserTasksCount(),
+          await fetchWorkUserTasksCount(),
         ]);
 
       if (userTaskCountResponse.ok && projectTaskCountResponse.ok) {
@@ -41,18 +41,8 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch("https://localhost:7157/api/Work/ToDoTaskCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
-          fetch("https://localhost:7157/api/UserTask/ToDoTaskCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
+          await fetchWorkToDoTaskCount(),
+          await fetchToDoTaskCount(),
         ]);
 
       if (userTaskCountResponse.ok && projectTaskCountResponse.ok) {
@@ -73,18 +63,8 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch("https://localhost:7157/api/Work/InProgressTaskCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
-          fetch("https://localhost:7157/api/UserTask/InProgressTaskCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
+          await fetchWorkInProgressTaskCount(),
+          await fetchInProgressTaskCount(),
         ]);
 
       if (userTaskCountResponse.ok && projectTaskCountResponse.ok) {
@@ -105,18 +85,8 @@ function HeaderTaskInfo() {
     try {
       const [userTaskCountResponse, projectTaskCountResponse] =
         await Promise.all([
-          fetch(" https://localhost:7157/api/Work/DoneTaskCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
-          fetch("https://localhost:7157/api/UserTask/DoneTaskCount", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }),
+          await fetchWorkDoneTaskCount(),
+          await fetchDoneTaskCount(),
         ]);
 
       if (userTaskCountResponse.ok && projectTaskCountResponse.ok) {

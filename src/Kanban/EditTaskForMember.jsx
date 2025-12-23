@@ -4,6 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
+import {
+  fetchEditedProjectForPmTask,
+  fetchGetWork,
+} from "../utils/fetchUtils/workUtils";
 
 function EditTaskModel({ closeModal, taskId }) {
   console.log("id:" + taskId);
@@ -34,19 +38,9 @@ function EditTaskModel({ closeModal, taskId }) {
   const fetchEditTaskData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/${taskId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const data = await fetchGetWork(taskId);
 
-      if (response.ok) {
-        const data = await response.json();
-
+      if (data) {
         const formattedStartDate = data.startDate
           ? new Date(data.startDate).toLocaleDateString("en-CA")
           : "";
@@ -73,23 +67,14 @@ function EditTaskModel({ closeModal, taskId }) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/EditedProjectForPmTask/${taskId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            ...userTask,
-            createdById: selectedUserId,
-            projectId: proId,
-          }), // Send updated task data
-        }
+      const response = await fetchEditedProjectForPmTask(
+        taskId,
+        userTask,
+        selectedUserId,
+        proId
       );
 
-      if (response.ok) {
+      if (response) {
         toast.success("Task successfully updated!");
         fetchEditTaskData();
         closeModal();

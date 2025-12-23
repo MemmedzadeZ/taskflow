@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import {
+  fetchDailyTask,
+  fetchWorkDailyTasks,
+} from "../utils/fetchUtils/workUtils";
 
 export default function DailyTask() {
   const [items, setItems] = useState([]);
@@ -8,18 +12,8 @@ export default function DailyTask() {
 
     try {
       const [projectTasksResponse, userTasksResponse] = await Promise.all([
-        fetch("https://localhost:7157/api/Work/DailyTask", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }),
-        fetch(" https://localhost:7157/api/UserTask/DailyTask", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }),
+        await fetchWorkDailyTasks(),
+        await fetchDailyTask(),
       ]);
 
       if (projectTasksResponse.ok && userTasksResponse.ok) {

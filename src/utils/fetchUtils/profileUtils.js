@@ -159,3 +159,24 @@ export const fetchLogOut = async () => {
     console.log("Error in fetchLogOut: " + error);
   }
 };
+
+export const fetchBasicInfoForProfil = async (ownerMail) => {
+  try {
+    const response = await fetch(
+      URL + `/Profile/BasicInfoForProfil/${ownerMail}`,
+      {
+        method: "GET",
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      console.error("Error fetching user profile");
+      return false;
+    }
+  } catch (error) {
+    console.error(" Error:", error);
+  }
+};

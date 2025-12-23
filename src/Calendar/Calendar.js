@@ -21,6 +21,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useEffect } from "react";
+import {
+  fetchEditedTaskForCalendar,
+  fetchUserTasks,
+  fetchWorkUserTasks,
+} from "../utils/fetchUtils/workUtils";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
 const Calendar = () => {
   const [allTasks, setAllTasks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -29,18 +35,8 @@ const Calendar = () => {
   const fetchTasks = async () => {
     try {
       const [projectTasksResponse, userTasksResponse] = await Promise.all([
-        fetch("https://localhost:7157/api/Work/UserTasks", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }),
-        fetch("https://localhost:7157/api/UserTask/UserTasks", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }),
+        await fetchWorkUserTasks(),
+        await fetchUserTasks(),
       ]);
 
       if (projectTasksResponse.ok && userTasksResponse.ok) {
@@ -86,45 +82,20 @@ const Calendar = () => {
     const newEndDate = event.end || event.start; // Yeni bitiş tarihi (null olabilir)
 
     if (event.extendedProps.source === "user") {
-      try {
-        const response = await fetch(
-          `https://localhost:7157/api/UserTask/EditedTaskForCalendar/${taskId}`,
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify({
-              startDate: newStartDate.toISOString(),
-              deadline: newEndDate.toISOString(),
-            }),
-          }
-        );
+      const response = await fetchEditedTaskForCalendar(
+        newStartDate.toISOString(),
+        newEndDate.toISOString(),
+        taskId
+      );
 
-        if (!response.ok) {
-          throw new Error(" Task update failed!");
-        }
+      if (response) {
         toast.success("Task updated successfully!");
         const activityData = {
           text: "You have updated task start and end time!",
           type: "Task",
         };
 
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
-      } catch (error) {
-        toast.error(`Error: ${error.message}`);
-        info.revert();
+        await fetchNewRecentActivity(activityData);
       }
     } else {
       toast.warning("You cannot edit project tasks!");

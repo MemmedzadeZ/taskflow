@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
 import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
+import { fetchWorkNewTask } from "../utils/fetchUtils/workUtils";
 function AddTaskModel({ closeModal, id, columnId }) {
   const { projectId } = useParams();
   const [proId, setProId] = useState(projectId);
@@ -55,26 +56,15 @@ function AddTaskModel({ closeModal, id, columnId }) {
       Status: statusMap[columnId], // handle default value
     };
 
-    try {
-      const response = await fetch("https://localhost:7157/api/Work/NewTask", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(taskData),
-      });
+    const response = await fetchWorkNewTask(taskData);
 
-      if (response.ok) {
-        toast.success("Append new task successfully");
-        closeModal();
-      } else {
-        toast.error(
-          "Only authorized users can create tasks. Please contact your administrator."
-        );
-      }
-    } catch (error) {
-      toast.error("Error:" + error);
+    if (response) {
+      toast.success("Append new task successfully");
+      closeModal();
+    } else {
+      toast.error(
+        "Only authorized users can create tasks. Please contact your administrator."
+      );
     }
   };
 

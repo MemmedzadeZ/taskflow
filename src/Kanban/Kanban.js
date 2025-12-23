@@ -19,6 +19,7 @@ import Lottie from "lottie-react";
 import loaderjson from "../animations/loader.json";
 import noproject from "../animations/noproject.json";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchDeleteProjectTask } from "../utils/fetchUtils/workUtils";
 
 const initialData = {
   columns: {
@@ -257,17 +258,9 @@ const Kanban = () => {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}?projectId=${projectId}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetchDeleteProjectTask(taskId, projectId);
 
-      if (response.ok) {
+      if (response) {
         // setData((prevData) => {
         //   const updatedColumns = { ...prevData.columns };
 

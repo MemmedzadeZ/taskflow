@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
+import {
+  fetchEditedProjectForPmTask,
+  fetchGetWork,
+} from "../utils/fetchUtils/workUtils";
 
 function EditTaskInProject({ closeModal, taskId, projectId }) {
   console.log("id:" + taskId);
@@ -33,19 +37,9 @@ function EditTaskInProject({ closeModal, taskId, projectId }) {
   const fetchEditTaskData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/${taskId}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const data = await fetchGetWork(taskId);
 
-      if (response.ok) {
-        const data = await response.json();
-
+      if (data) {
         const formattedStartDate = data.startDate
           ? new Date(data.startDate).toLocaleDateString("en-CA")
           : "";
@@ -72,23 +66,14 @@ function EditTaskInProject({ closeModal, taskId, projectId }) {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Work/EditedProjectForPmTask/${taskId}`,
-        {
-          method: "PUT", // PUT method to update
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            ...userTask,
-            createdById: selectedUserId,
-            projectId: projectId,
-          }), // Send updated task data
-        }
+      const response = await fetchEditedProjectForPmTask(
+        taskId,
+        userTask,
+        selectedUserId,
+        projectId
       );
 
-      if (response.ok) {
+      if (response) {
         toast.success("Task successfully updated!");
         fetchEditTaskData(); // Refresh task data after update
         closeModal(); // Close modal after successful update

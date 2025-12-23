@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import {
+  fetchToDoTaskCountForMail,
+  fetchWorkDoneTaskCountForEmail,
+  fetchWorkInProgressTaskCountForEmail,
+  fetchWorkUserTasksCountForEmail,
+} from "../utils/fetchUtils/workUtils";
 function HeaderViewProfile() {
   const { email } = useParams();
 
@@ -10,70 +16,28 @@ function HeaderViewProfile() {
   const fetchTotalTaskCount = async () => {
     console.log("inside message");
 
-    var response = await fetch(
-      `https://localhost:7157/api/Work/UserTasksCountForEmail/${email}`,
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    const data = await fetchWorkUserTasksCountForEmail(email);
     console.log(data);
     setTotalTaskCount(data);
   };
   const fetchOnHoldTaskCount = async () => {
     console.log("hold task count");
 
-    var response = await fetch(
-      `https://localhost:7157/api/Work/ToDoTaskCountForMail/${email}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    var data = await fetchToDoTaskCountForMail();
     console.log(data);
     setOnHoldTaskCount(data);
   };
   const fetchRunningTaskCount = async () => {
     console.log("running task count");
 
-    var response = await fetch(
-      `https://localhost:7157/api/Work/InProgressTaskCountForEmail/${email}`,
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    var data = await fetchWorkInProgressTaskCountForEmail(email);
     console.log(data);
     setRunningTaskCount(data);
   };
   const fetchCompletedTaskCount = async () => {
     console.log("completed task count");
 
-    var response = await fetch(
-      `https://localhost:7157/api/Work/DoneTaskCountForEmail/${email}`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    var data = await fetchWorkDoneTaskCountForEmail(email);
     console.log(data);
     setCompletedTaskCount(data);
   };
