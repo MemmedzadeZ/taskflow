@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./css/CreateTask.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchNewRecentActivity } from "../../utils/fetchUtils/notificationUtils";
+import { fetchCreateNewTask } from "../../utils/fetchUtils/workUtils";
 function CreateTaskModel({ closeModal, id }) {
   const [title, setTaskName] = useState("");
   const [description, setDescription] = useState("");
@@ -23,19 +25,8 @@ function CreateTaskModel({ closeModal, id }) {
     };
 
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/UserTask/NewTask",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(taskData),
-        }
-      );
-
-      if (response.ok) {
+      const response = await fetchCreateNewTask(taskData);
+      if (response) {
         toast.success("Append new task successfully");
         closeModal();
         const activityData = {
@@ -43,17 +34,7 @@ function CreateTaskModel({ closeModal, id }) {
           type: "Task",
         };
 
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        await fetchNewRecentActivity(activityData);
       } else {
         toast.error("Error while creating new task");
       }

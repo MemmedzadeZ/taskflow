@@ -2,6 +2,11 @@ import { useEffect, useState } from "react";
 import "./css/CreateTask.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  fetchEditedTask,
+  fetchGetUserTask,
+} from "../../utils/fetchUtils/workUtils";
+import { fetchNewRecentActivity } from "../../utils/fetchUtils/notificationUtils";
 function EditTaskModel({ closeModal, id }) {
   const [userTask, setUserTask] = useState({
     title: "",
@@ -19,19 +24,8 @@ function EditTaskModel({ closeModal, id }) {
   const fetchTaskData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/UserTask/${id}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (response.ok) {
-        const data = await response.json();
-
+      const data = await fetchGetUserTask(id);
+      if (data) {
         const formattedStartDate = data.startDate
           ? new Date(data.startDate).toLocaleDateString("en-CA")
           : "";
@@ -58,19 +52,8 @@ function EditTaskModel({ closeModal, id }) {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/UserTask/EditedTask/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify(userTask),
-        }
-      );
-
-      if (response.ok) {
+      const response = await fetchEditedTask(id, userTask);
+      if (response) {
         toast.success("Updated task successfully.");
         closeModal();
         const activityData = {
@@ -78,17 +61,7 @@ function EditTaskModel({ closeModal, id }) {
           type: "Task",
         };
 
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        await fetchNewRecentActivity(activityData);
       } else {
         toast.error("Failed to update task.");
       }

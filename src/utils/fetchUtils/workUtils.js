@@ -447,3 +447,52 @@ export const fetchWorkDoneTaskCountForEmail = async (email) => {
     console.log("Error in fetchWorkDoneTaskCountForEmail: " + error);
   }
 };
+
+export const fetchCreateNewTask = async (taskData) => {
+  try {
+    const response = await fetch(URL + "/UserTask/NewTask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(taskData),
+    });
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.log("Error in fetchCreateNewTask: " + error);
+  }
+};
+
+export const fetchGetUserTask = async (id) => {
+  try {
+    const response = await fetch(URL + `/UserTask/${id}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.log("Error in fetchGetUserTask: " + error);
+  }
+};
+
+export const fetchEditedTask = async (id, userTask) => {
+  try {
+    const response = await fetch(URL + `/UserTask/EditedTask/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(userTask),
+    });
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.log("Error in fetchEditedTask: " + error);
+  }
+};
