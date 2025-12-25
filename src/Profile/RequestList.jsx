@@ -23,7 +23,7 @@ function RequestList() {
     if (!connection) {
       const token = localStorage.getItem("token");
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7157/connect", {
+        .withUrl("http://localhost:5204/connect", {
           accessTokenFactory: () => token,
         })
         .configureLogging("information")

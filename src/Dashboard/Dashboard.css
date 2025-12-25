@@ -26,25 +26,7 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
-/* .ul-container {
-  position: relative;
-}
-
-.hidden-div {
-   display: none; 
-  position: absolute;
-  top: 71%;
-  left: 0;
-  background-color: white;
-  border: 1px solid #ccc;
-  padding: 10px;
-  z-index: 1000;
-}
-
-.ul-container:hover .hidden-div {
-  display: block;
-} */
-
+ 
 .vertical-scroll {
   overflow-y: auto;
   scroll-behavior: smooth;

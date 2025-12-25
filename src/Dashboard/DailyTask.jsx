@@ -45,7 +45,6 @@ export default function DailyTask() {
     return acc;
   }, {});
 
-  // Eğer veriler boşsa, boş task'lar için placeholder verisi oluşturuyoruz
   const placeholderTasks = [
     {
       title: "No tasks for this hour",

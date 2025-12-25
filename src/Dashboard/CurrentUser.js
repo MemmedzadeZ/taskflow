@@ -26,7 +26,7 @@ function CurrentPerson() {
 
   return (
     <div className="dropdown d-inline-block mt-12">
-      <div className="d-flex align-items-center">
+      <div className="d-flex align-items-center gap-3">
         <img
           className="rounded-circle header-profile-user"
           src={

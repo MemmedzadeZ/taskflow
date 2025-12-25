@@ -4,7 +4,7 @@ function AllMessages() {
 
   // const fetchMessages = async () => {
   //   console.log("inside long message list");
-  //   var response = await fetch("https://localhost:7157/api/Chat/UserMessages", {
+  //   var response = await fetch("http://localhost:5204/api/Chat/UserMessages", {
   //     method: "GET",
   //     headers: {
   //       Authorization: `Bearer ${localStorage.getItem("token")}`,

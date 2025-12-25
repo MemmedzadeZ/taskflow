@@ -62,7 +62,7 @@ function UserTasks() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
@@ -120,9 +120,9 @@ function UserTasks() {
       let deleteUrl;
 
       if (source === "project") {
-        deleteUrl = `https://localhost:7157/api/Work/DeleteProjectTask/${taskId}`;
+        deleteUrl = `http://localhost:5204/api/Work/DeleteProjectTask/${taskId}`;
       } else if (source === "user") {
-        deleteUrl = `https://localhost:7157/api/UserTask/DeleteUserTask/${taskId}`;
+        deleteUrl = `http://localhost:5204/api/UserTask/DeleteUserTask/${taskId}`;
       }
 
       const response = await fetch(deleteUrl, {

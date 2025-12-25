@@ -106,7 +106,7 @@ function HeaderTaskInfo() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const conn = new HubConnectionBuilder()
-      .withUrl("https://localhost:7157/connect", {
+      .withUrl("http://localhost:5204/connect", {
         accessTokenFactory: () => token,
       })
       .configureLogging("information")
