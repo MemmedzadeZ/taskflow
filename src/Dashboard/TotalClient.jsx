@@ -1,23 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchUsersCount } from "../utils/fetchUtils/authUtils";
 function ClientsCount() {
   const [clientsCount, setClientsCount] = useState(0);
   const fetchData = async () => {
     console.log("calendar message count");
 
-    var response = await fetch(
-      "https://localhost:7157/api/Auth/UsersCount",
-
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    var data = await fetchUsersCount();
 
     console.log(data);
 

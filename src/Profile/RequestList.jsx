@@ -2,7 +2,11 @@ import React, { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { fetchRequestNotification } from "../utils/fetchUtils/notificationUtils";
+import {
+  fetchAcceptRequestNotification,
+  fetchDeleteRequestNotification,
+  fetchRequestNotification,
+} from "../utils/fetchUtils/notificationUtils";
 
 function RequestList() {
   const [notifications, setNotifications] = useState([]);
@@ -57,17 +61,8 @@ function RequestList() {
   // İstek kabul etme işlemi
   const handleAccept = async (requestId) => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Notification/AcceptRequestNotification/${requestId}`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (response.ok) {
+      const response = await fetchAcceptRequestNotification(requestId);
+      if (response) {
         toast.success("Request accepted successfully.");
         setNotifications((prev) =>
           prev.filter((notification) => notification.requestId !== requestId)
@@ -84,18 +79,8 @@ function RequestList() {
   // İstek reddetme işlemi
   const handleReject = async (requestId) => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Notification/DeleteRequestNotification/${requestId}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (response.ok) {
+      const response = await fetchDeleteRequestNotification(requestId);
+      if (response) {
         toast.info("Request deleted successfully.");
         setNotifications((prev) =>
           prev.filter((notification) => notification.requestId !== requestId)

@@ -1,41 +1,22 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
+import { fetchLogOut } from "../utils/fetchUtils/profileUtils";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
 
 function LogoutButton() {
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      var response = await fetch(
-        "https://localhost:7157/api/Profile/Logout",
-
-        {
-          method: "GET",
-
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.status === 200) {
-        console.log(response.data);
+      var response = await fetchLogOut();
+      if (response) {
         const activityData = {
           text: "User logged out",
           type: "logout",
         };
 
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        await fetchNewRecentActivity(activityData);
 
         localStorage.removeItem("token");
         navigate("/auth");

@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchTwoCalendarNotification } from "../utils/fetchUtils/notificationUtils";
 function TwoCalendarNotification() {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
     console.log("inside short message list");
-    var response = await fetch(
-      "https://localhost:7157/api/Notification/TwoCalendarNotification",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    var data = await response.json();
+    const data = await fetchTwoCalendarNotification();
     console.log(data);
     setItems(data);
   };

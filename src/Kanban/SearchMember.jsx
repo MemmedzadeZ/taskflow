@@ -1,4 +1,5 @@
 import $ from "jquery";
+import { fetchSearchedUser } from "../utils/fetchUtils/authUtils";
 
 export const SearchMemberForKanBan = async (e, key) => {
   console.log("inside search");
@@ -8,15 +9,7 @@ export const SearchMemberForKanBan = async (e, key) => {
   div.className = "search-member-div";
   div.id = "searched-kanban-members";
 
-  var response = await fetch("https://localhost:7157/api/Auth/searchedUser", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(key),
-  });
-  var data = await response.json();
+  var data = await fetchSearchedUser(key);
   console.log(data);
   var ul = document.createElement("ul");
   if (data.users && data.users.length > 0) {

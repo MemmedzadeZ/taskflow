@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import LogoutButton from "../Components/Logout";
+import { fetchCurrentUser } from "../utils/fetchUtils/authUtils";
 
 function CurrentPerson() {
   const [username, setUsername] = useState(null);
@@ -10,16 +11,7 @@ function CurrentPerson() {
   const fetchData = async () => {
     console.log("inside user");
 
-    const response = await fetch(
-      "https://localhost:7157/api/Auth/currentUser",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
+    const response = await fetchCurrentUser();
     const data = await response.json();
     console.log(data);
 
@@ -45,7 +37,7 @@ function CurrentPerson() {
           style={{ width: "70px", height: "70px" }}
           alt="Header Avatar"
         />
-        
+
         <span className="info d-xl-inline-block color-span">
           <span className="d-block fs-20 font-w600">{username}</span>
           <span className="d-block mt-7">{email}</span>

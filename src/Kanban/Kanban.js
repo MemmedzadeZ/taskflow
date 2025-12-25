@@ -20,6 +20,12 @@ import loaderjson from "../animations/loader.json";
 import noproject from "../animations/noproject.json";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchDeleteProjectTask } from "../utils/fetchUtils/workUtils";
+import {
+  fetchAllProjectsUserOwn,
+  fetchProjectTaskCanban,
+  fetchProjectTitle,
+  fetchUpdateTaskStatus,
+} from "../utils/fetchUtils/projectUtils";
 
 const initialData = {
   columns: {
@@ -56,18 +62,7 @@ const Kanban = () => {
 
   const getProjectTitle = async () => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Project/ProjectTitle/${projectId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (!response.ok) throw new Error(" Failed to fetch project title!");
-      const data = await response.json();
+      const data = await fetchProjectTitle(projectId);
       console.log(data);
       setProjectTitle(data);
     } catch (error) {
@@ -77,21 +72,7 @@ const Kanban = () => {
   const getTasks = async () => {
     try {
       if (!projectId) {
-        const projectResponse = await fetch(
-          `https://localhost:7157/api/Project/AllProjectsUserOwn`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-
-        if (!projectResponse.ok) {
-          throw new Error("not fetch data");
-        }
-
-        const userProjects = await projectResponse.json();
+        const userProjects = await fetchAllProjectsUserOwn();
 
         if (userProjects.length > 0) {
           const latestProjectId = userProjects[userProjects.length - 1].id;
@@ -104,21 +85,7 @@ const Kanban = () => {
           //  setData(initialData);
         }
       } else {
-        const response = await fetch(
-          `https://localhost:7157/api/Project/ProjectTaskCanban/${projectId}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch tasks");
-        }
-
-        const tasks = await response.json();
+        const tasks = await fetchProjectTaskCanban(projectId);
         setData({ columns: organizeTasksIntoColumns(tasks) });
         setLoading(false);
       }
@@ -227,22 +194,12 @@ const Kanban = () => {
     });
 
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Project/UpdateTaskStatus/${movedTask.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({ newStatus: newStatus }),
-        }
-      );
+      const response = await fetchUpdateTaskStatus(movedTask.id, newStatus);
       console.log(newStatus);
       console.log(movedTask.id);
       console.log(response);
 
-      if (!response.ok) {
+      if (!response) {
         throw new Error(" Failed to update task status!");
       }
 

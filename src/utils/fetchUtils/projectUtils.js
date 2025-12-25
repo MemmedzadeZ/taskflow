@@ -232,3 +232,90 @@ export const fetchProjectDetails = async (projectId) => {
     console.log("Error in fetchProjectDetails: " + error);
   }
 };
+
+export const fetchProjectInvolved = async () => {
+  try {
+    const response = await fetch(URL + "/Project/ProjectInvolved", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.log("Error in fetchProjectInvolved: " + error);
+  }
+};
+
+export const fetchProjectTitle = async (projectId) => {
+  try {
+    const response = await fetch(URL + `/Project/ProjectTitle/${projectId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.log("Error in fetchProjectTitle: " + error);
+  }
+};
+
+export const fetchAllProjectsUserOwn = async () => {
+  try {
+    const response = await fetch(URL + `/Project/AllProjectsUserOwn`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.log("Error in fetchAllProjectsUserOwn: " + error);
+  }
+};
+
+export const fetchProjectTaskCanban = async (projectId) => {
+  try {
+    const response = await fetch(
+      URL + `/Project/ProjectTaskCanban/${projectId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.log("Error in fetchProjectTaskCanban: " + error);
+  }
+};
+
+export const fetchUpdateTaskStatus = async (movedTaskId, newStatus) => {
+  try {
+    const response = await fetch(
+      URL + `/Project/UpdateTaskStatus/${movedTaskId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ newStatus }),
+      }
+    );
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.log("Error in fetchUpdateTaskStatus: " + error);
+  }
+};

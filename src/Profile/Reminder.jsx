@@ -3,7 +3,11 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRef } from "react";
-import { fetchCalendarNotifications } from "../utils/fetchUtils/notificationUtils";
+import {
+  fetchCalendarNotifications,
+  fetchDeletedCalendarMessage,
+  fetchNewRecentActivity,
+} from "../utils/fetchUtils/notificationUtils";
 function Reminder() {
   const [notifications, setNotifications] = useState([]);
   const connectionRef = useRef(null);
@@ -72,33 +76,15 @@ function Reminder() {
     console.log(`Rejected notification with ID: ${id}`);
 
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Notification/DeletedCalendarMessage/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.ok) {
+      const response = await fetchDeletedCalendarMessage(id);
+      if (response) {
         toast.info("Request deleted successfully.");
         const activityData = {
           text: "Deleted a calendar reminder",
           type: "calendar",
         };
 
-        await fetch(
-          "https://localhost:7157/api/Notification/NewRecentActivity",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(activityData),
-          }
-        );
+        await fetchNewRecentActivity(activityData);
       } else {
         toast.error("Failed to delete request.");
       }

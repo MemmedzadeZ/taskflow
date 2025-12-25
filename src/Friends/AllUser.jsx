@@ -4,6 +4,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
 
 function AllUsers() {
   const [friends, setFriends] = useState([]);
@@ -39,24 +40,14 @@ function AllUsers() {
     }));
 
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Notification/NewRequestNotification",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-          body: JSON.stringify({
-            text: "Friend request",
-            receiverEmail: friendEmail,
-            isAccepted: false,
-            notificationType: "FriendRequest",
-          }),
-        }
-      );
+      const response = await fetchNewRecentActivity({
+        text: "Friend request",
+        receiverEmail: friendEmail,
+        isAccepted: false,
+        notificationType: "FriendRequest",
+      });
 
-      if (response.ok) {
+      if (response) {
         toast.success("Follow request sent successfully!");
 
         setFollowStatus((prevStatus) => ({

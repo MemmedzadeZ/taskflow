@@ -1,6 +1,8 @@
 import $ from "jquery";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { fetchSignIn, fetchSignUp } from "../utils/fetchUtils/authUtils";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
 function inputCheckUp(
   email,
   firstname,
@@ -158,27 +160,14 @@ export const createUser = async (
   };
   console.log(userData);
 
-  fetch("https://localhost:7157/api/Auth/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        window.location.href = "/quiz";
-        return response.json();
-      } else {
-        throw new Error(`HTTP status ${response.status}`);
-      }
-    })
-    .then((data) => {
-      console.log("Success:", data);
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
+  const response = await fetchSignUp(userData);
+
+  if (response.ok) {
+    window.location.href = "/quiz";
+    return response.json();
+  } else {
+    throw new Error(`HTTP status ${response.status}`);
+  }
 };
 
 export const loginUser = async (e, username, password) => {
@@ -189,34 +178,15 @@ export const loginUser = async (e, username, password) => {
     password,
   };
   console.log(userData);
-
-  const response = await fetch("https://localhost:7157/api/Auth/signin", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(userData),
-  });
-
-  if (response.ok) {
-    const data = await response.json();
+  const data = await fetchSignIn(userData);
+  if (data) {
     localStorage.setItem("token", data.token);
     const activityData = {
       text: "User logged in.",
       type: "login",
     };
 
-    await fetch("https://localhost:7157/api/Notification/NewRecentActivity", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body: JSON.stringify(activityData),
-    });
+    await fetchNewRecentActivity(activityData);
     window.location.href = "/dashboard";
-  } else {
-    const errorData = await response.json();
-    toast.error("Error:", errorData);
   }
 };

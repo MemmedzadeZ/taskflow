@@ -38,3 +38,72 @@ export const fetchDeleteAccount = async () => {
     console.log("Error in fetchCurrentUser: " + error);
   }
 };
+
+export const fetchUsersCount = async () => {
+  try {
+    var response = await fetch(
+      URL + "/api/Auth/UsersCount",
+
+      {
+        method: "GET",
+
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.log("Error in fetchUsersCount: " + error);
+  }
+};
+
+export const fetchSignUp = async (userData) => {
+  try {
+    const response = await fetch(URL + "/Auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.log("Error in fetchSignUp: " + error);
+  }
+};
+
+export const fetchSignIn = async (userData) => {
+  try {
+    const response = await fetch(URL + "/Auth/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.log("Error in fetchSignIn: " + error);
+  }
+};
+
+export const fetchSearchedUser = async (key) => {
+  try {
+    var response = await fetch(URL + "/Auth/searchedUser", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(key),
+    });
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.log("Error in fetchSearchedUser: " + error);
+  }
+};

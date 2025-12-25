@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchCalendarNotificationCount } from "../utils/fetchUtils/notificationUtils";
 function CalendarCount() {
   const [count, setCount] = useState(0);
 
   const fetchData = async () => {
     console.log("calendar message count");
 
-    var response = await fetch(
-      "https://localhost:7157/api/Notification/CalendarNotificationCount",
-
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    var data = await fetchCalendarNotificationCount();
 
     console.log(data);
 

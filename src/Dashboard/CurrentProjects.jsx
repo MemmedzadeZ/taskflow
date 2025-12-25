@@ -4,6 +4,7 @@ import { Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchProjectInvolved } from "../utils/fetchUtils/projectUtils";
 
 function CurrentProjects() {
   const [projects, setProjects] = useState([]);
@@ -13,21 +14,8 @@ function CurrentProjects() {
   const fetchData = async () => {
     try {
       console.log("Fetching project data");
-      const response = await fetch(
-        "https://localhost:7157/api/Project/ProjectInvolved",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
 
-      if (!response.ok) {
-        throw new Error("Data fetch failed");
-      }
-
-      const data = await response.json();
+      const data = await fetchProjectInvolved();
       console.log(data);
       setProjects(data);
     } catch (error) {

@@ -126,3 +126,129 @@ export const fetchCalendarNotifications = async () => {
     console.error("Error fetching fetchRequestNotification:", error);
   }
 };
+
+export const fetchTwoCalendarNotification = async () => {
+  try {
+    var response = await fetch(URL + "/Notification/TwoCalendarNotification", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchTwoCalendarNotification:", error);
+  }
+};
+
+export const fetchCalendarNotificationCount = async () => {
+  try {
+    var response = await fetch(
+      URL + "/Notification/CalendarNotificationCount",
+
+      {
+        method: "GET",
+
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchCalendarNotificationCount:", error);
+  }
+};
+
+export const fetchUserNotificationCount = async () => {
+  try {
+    var response = await fetch(
+      URL + "/Notification/UserNotificationCount",
+
+      {
+        method: "GET",
+
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchUserNotificationCount:", error);
+  }
+};
+
+export const fetchTwoNotification = async () => {
+  try {
+    var response = await fetch(URL + "/Notification/TwoNotification", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchTwoNotification :", error);
+  }
+};
+
+export const fetchDeletedCalendarMessage = async (id) => {
+  try {
+    const response = await fetch(
+      URL + `/Notification/DeletedCalendarMessage/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchDeletedCalendarMessage :", error);
+  }
+};
+
+export const fetchAcceptRequestNotification = async (requestId) => {
+  try {
+    const response = await fetch(
+      URL + `/Notification/AcceptRequestNotification/${requestId}`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchAcceptRequestNotification :", error);
+  }
+};
+
+export const fetchDeleteRequestNotification = async (requestId) => {
+  try {
+    const response = await fetch(
+      URL + `/Notification/DeleteRequestNotification/${requestId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchDeleteRequestNotification :", error);
+  }
+};

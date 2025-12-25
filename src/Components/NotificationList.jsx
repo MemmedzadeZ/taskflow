@@ -1,20 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchTwoNotification } from "../utils/fetchUtils/notificationUtils";
 function TwoNotification() {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
     console.log("inside short message list");
-    var response = await fetch(
-      "https://localhost:7157/api/Notification/TwoNotification",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    var data = await response.json();
+
+    var data = await fetchTwoNotification();
     console.log(data);
     setItems(data);
   };

@@ -1,24 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchUserNotificationCount } from "../utils/fetchUtils/notificationUtils";
 function CountNotification() {
   const [count, setCount] = useState(0);
 
   const fetchNotifications = async () => {
     console.log("inside notification");
 
-    var response = await fetch(
-      "https://localhost:7157/api/Notification/UserNotificationCount",
-
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    var data = await fetchUserNotificationCount();
 
     console.log(data);
 
