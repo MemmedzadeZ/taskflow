@@ -1,21 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { fetchTwoMessage } from "../utils/fetchUtils/messageUtils";
 
 function TwoMessage() {
   const [items, setItems] = useState([]);
 
   const fetchMessages = async () => {
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Message/TwoMessage",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (!response.ok) throw new Error("Failed to fetch messages");
-      const data = await response.json();
+      const data = await fetchTwoMessage();
       console.log("messagelist" + data);
       setItems(data.dtos || []);
     } catch (error) {

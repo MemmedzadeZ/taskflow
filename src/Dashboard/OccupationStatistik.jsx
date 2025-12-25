@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { fetchOccupationStatistic } from "../utils/fetchUtils/quizUtils";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -8,11 +9,7 @@ function OccupationPercent() {
   const [percent, setPercent] = useState([]);
 
   const fetchData = async () => {
-    const response = await fetch(
-      "https://localhost:7157/api/Quiz/OccupationStatistic",
-      { method: "GET" }
-    );
-    const data = await response.json();
+    const data = await fetchOccupationStatistic();
     setPercent(data);
   };
 

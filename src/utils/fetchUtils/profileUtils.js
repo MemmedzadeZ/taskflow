@@ -180,3 +180,22 @@ export const fetchBasicInfoForProfil = async (ownerMail) => {
     console.error(" Error:", error);
   }
 };
+
+export const fetchAddingOccupationDuringQuiz = async (occupation) => {
+  try {
+    const response = await fetch(URL + "/Profile/AddingOccupationDuringQuiz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({
+        occupation,
+      }),
+    });
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.error("Error in fetchAddingOccupationDuringQuiz:", error);
+  }
+};

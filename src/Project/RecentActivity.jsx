@@ -1,24 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchTeamMemberActivities } from "../utils/fetchUtils/teammemberUtils";
 const RecentActivity = () => {
   const [activityList, setActivities] = useState([]);
 
   // Fetch data from the backend
   const fetchActivities = async () => {
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/ProjectActivity/TeamMemberActivities",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-      if (response.ok) {
+      const data = await fetchTeamMemberActivities();
+      if (data) {
         setActivities(data);
       } else {
         console.error("Error fetching activities", data);

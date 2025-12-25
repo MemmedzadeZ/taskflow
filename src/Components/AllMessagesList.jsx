@@ -1,19 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { fetchUserMessage } from "../utils/fetchUtils/messageUtils";
 function AllMessages() {
   const [items, setItems] = useState([]);
 
   const fetchMessages = async () => {
     console.log("inside long message list");
-    var response = await fetch(
-      "https://localhost:7157/api/Message/UserMessage",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-    var data = await response.json();
+
+    var data = await fetchUserMessage();
     console.log(data);
     setItems(data);
   };

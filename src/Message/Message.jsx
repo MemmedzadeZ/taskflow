@@ -10,31 +10,17 @@ import TwoCalendarNotification from "../Components/CalendarList";
 import ChatPage from "./ChatPage";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import { fetchAllChatsWithFriends } from "../utils/fetchUtils/chatUtils";
 
 const Message = () => {
   const [friends, setFriends] = useState([]);
   const [userEmail, setUserEmail] = useState("");
   const fetchFriendsList = async () => {
-    var response = await fetch(
-      "https://localhost:7157/api/Chat/AllChatsWithFriends",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    var data = await fetchAllChatsWithFriends();
 
-    if (response.ok) {
-      console.log("Request successful");
-      var data = await response.json();
+    if (data) {
       if (data.list.length > 0) setFriends(data.list);
       console.log(data);
-    } else {
-      console.log("Request failed with status:", response.status);
-      var errorData = await response.text();
-      console.log("Error response:", errorData);
     }
   };
 

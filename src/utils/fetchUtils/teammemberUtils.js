@@ -102,3 +102,41 @@ export const fetchUpdateTeamMemberCollections = async (payload) => {
     console.error("Error fetching fetchUpdateTeamMemberCollections:", error);
   }
 };
+
+export const fetchTeamMemberActivities = async () => {
+  try {
+    const response = await fetch(
+      URL + "/ProjectActivity/TeamMemberActivities",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchTeamMemberActivities:", error);
+  }
+};
+
+export const fetchTeamMemberActivitiesWithId = async (projectId) => {
+  try {
+    const response = await fetch(
+      URL + `/ProjectActivity/TeamMemberActivities/${projectId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }
+    );
+    if (response.ok) return await response.json();
+    return false;
+  } catch (error) {
+    console.error("Error fetching fetchTeamMemberActivitiesWithId:", error);
+  }
+};

@@ -3,7 +3,7 @@ import "./TradeQuiz.css"; // CSS faylını əlavə et
 import { useNavigate } from "react-router-dom";
 import Lottie from "lottie-react";
 import tradejson from "../../animations/tradequiz.json";
-
+import { fetchProfession } from "../../utils/fetchUtils/quizUtils";
 
 function TradeQuiz() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -14,7 +14,7 @@ function TradeQuiz() {
     setErrorMessage(""); // Seçim edildikdə error mesajını təmizlə
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!selectedOption) {
@@ -23,17 +23,10 @@ function TradeQuiz() {
       return;
     }
     console.log("Selected option:", selectedOption);
-    fetch("https://localhost:7157/api/Quiz/Profession", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(selectedOption),
-    }).then((response) => {
-      if (response.ok) {
-        navigate("/auth?");
-      }
-    });
+    const response = await fetchProfession(selectedOption);
+    if (response) {
+      navigate("/auth?");
+    }
   };
 
   return (

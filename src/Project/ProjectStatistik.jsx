@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { fetchOccupationStatisticInProjects } from "../utils/fetchUtils/quizUtils";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -12,20 +13,8 @@ const ProjectStatistik = () => {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "https://localhost:7157/api/Quiz/OccupationStatisticInProjects",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (!response.ok) {
-        throw new Error(`HTTP Error: ${response.status}`);
-      }
-      const data = await response.json();
+
+      const data = await fetchOccupationStatisticInProjects();
 
       // Yüzdelerin toplamını kontrol et
       const totalPercentage = data.reduce(

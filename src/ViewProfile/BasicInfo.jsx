@@ -1,20 +1,15 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { fetchBasicInfoForProfil } from "../utils/fetchUtils/profileUtils";
 function BasicInfo() {
   const { email } = useParams();
   const [basicInfo, setBasicInfo] = useState([]);
   useEffect(() => {
     const fetchUserProfile = async () => {
       try {
-        const response = await fetch(
-          `https://localhost:7157/api/Profile/BasicInfoForProfil/${email}`,
-          {
-            method: "GET",
-          }
-        );
+        const data = await fetchBasicInfoForProfil(email);
 
-        if (response.ok) {
-          const data = await response.json();
+        if (data) {
           setBasicInfo(data);
         } else {
           console.error("Error fetching user profile");

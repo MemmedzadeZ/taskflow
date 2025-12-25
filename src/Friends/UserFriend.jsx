@@ -4,6 +4,10 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  fetchAllFriends,
+  fetchUnFollowFriend,
+} from "../utils/fetchUtils/friendUtils";
 
 function UserFriend() {
   const [friends, setFriends] = useState([]);
@@ -18,18 +22,7 @@ function UserFriend() {
 
   const fetchFriends = async () => {
     try {
-      const response = await fetch(
-        "https://localhost:7157/api/Friend/AllFriends",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (!response.ok) throw new Error("Error fetching friends");
-
-      const data = await response.json();
+      const data = await fetchAllFriends();
       setFriends(data);
     } catch (error) {
       console.error("Error fetching friend list:", error);
@@ -38,17 +31,9 @@ function UserFriend() {
 
   const unfollowFriend = async (friendEmail) => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/Friend/UnFollow/${friendEmail}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetchUnFollowFriend(friendEmail);
 
-      if (!response.ok) {
+      if (!response) {
         toast.error("Error while unfollowing friend");
         return;
       }

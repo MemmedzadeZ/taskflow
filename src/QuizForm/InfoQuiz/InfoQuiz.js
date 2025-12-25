@@ -3,6 +3,8 @@ import "./InfoQuiz.css"; // CSS faylını əlavə et
 import { useNavigate } from "react-router-dom";
 import quizjson from "../../animations/tradequiz.json";
 import Lottie from "lottie-react";
+import { fetchOccupation } from "../../utils/fetchUtils/quizUtils";
+import { fetchAddingOccupationDuringQuiz } from "../../utils/fetchUtils/profileUtils";
 
 function InfoQuiz() {
   const [selectedOption, setSelectedOption] = useState("");
@@ -14,7 +16,7 @@ function InfoQuiz() {
     setErrorMessage(""); // Seçim edildikdə error mesajını təmizlə
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(selectedOption);
     if (!selectedOption) {
@@ -24,38 +26,14 @@ function InfoQuiz() {
     }
     console.log(localStorage.getItem("token"));
     console.log("Selected option:", selectedOption); //
-    fetch("https://localhost:7157/api/Quiz/Occupation", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(selectedOption),
-    })
-      .then((response) => {
-        if (response.ok) {
-          fetch(
-            "https://localhost:7157/api/Profile/AddingOccupationDuringQuiz",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-              body: JSON.stringify({
-                occupation: selectedOption,
-              }),
-            }
-          ).then(() => {
-            navigate("/quiztrade");
-          });
-        } else {
-          setErrorMessage("Failed to submit occupation. Please try again.");
-        }
-      })
-      .catch((error) => {
-        console.error("Error submitting occupation:", error);
-        setErrorMessage("An error occurred. Please try again.");
-      });
+    const response = await fetchOccupation();
+
+    if (response) {
+      const data = await fetchAddingOccupationDuringQuiz(selectedOption);
+      if (data) navigate("/quiztrade");
+    } else {
+      setErrorMessage("Failed to submit occupation. Please try again.");
+    }
   };
 
   return (

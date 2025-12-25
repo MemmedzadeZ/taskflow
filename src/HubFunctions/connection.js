@@ -1,5 +1,6 @@
 import $ from "jquery";
 import styled from "styled-components";
+import { fetchFriendAllUsers } from "../utils/fetchUtils/friendUtils";
 
 // export async function GetAllUsers() {
 //   const response = await fetch("https://localhost:7157/api/Friend/AllUser", {
@@ -105,19 +106,8 @@ export async function GetAllUsers() {
   }
   console.log("out first if getall");
 
-  const response = await fetch("https://localhost:7157/api/Friend/AllUser", {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
+  const data = await fetchFriendAllUsers();
 
-  if (!response.ok) {
-    console.error(response.error);
-    return;
-  }
-
-  const data = await response.json();
   console.log(data);
   let content = "";
 

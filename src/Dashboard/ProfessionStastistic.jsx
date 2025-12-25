@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchOccupationStatistic } from "../utils/fetchUtils/quizUtils";
 
 function ProfessionPercent() {
   const [percent, setPercent] = useState([]);
@@ -6,12 +7,7 @@ function ProfessionPercent() {
   const fetchData = async () => {
     console.log("inside occupation percent");
 
-    const response = await fetch(
-      "https://localhost:7157/api/Quiz/OccupationStatistic",
-      {
-        method: "GET",
-      }
-    );
+    const response = await fetchOccupationStatistic();
 
     const data = await response.json();
     console.log(data);

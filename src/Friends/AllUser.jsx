@@ -5,6 +5,10 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
+import {
+  fetchFriendAllUsers,
+  fetchUnFollowFriend,
+} from "../utils/fetchUtils/friendUtils";
 
 function AllUsers() {
   const [friends, setFriends] = useState([]);
@@ -12,25 +16,8 @@ function AllUsers() {
   const navigate = useNavigate();
 
   const fetchFriends = async () => {
-    try {
-      const response = await fetch(
-        "https://localhost:7157/api/Friend/AllUser",
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        setFriends(data);
-      } else {
-        console.error("Error fetching friends list:", response.statusText);
-      }
-    } catch (error) {
-      console.error("Error fetching friends list:", error);
-    }
+    const data = await fetchFriendAllUsers();
+    if (data) setFriends(data);
   };
 
   const handleFollow = async (friendEmail) => {
@@ -133,27 +120,13 @@ function AllUsers() {
     }
   };
   const unfollowFriend = async (friendEmail) => {
-    try {
-      const response = await fetch(
-        `https://localhost:7157/api/Friend/UnFollow/${friendEmail}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      if (!response.ok) {
-        toast.error("Error while unfollowing friend");
-        return;
-      }
-
-      toast.success("Friend unfollowed successfully");
-      fetchFriends();
-    } catch (error) {
-      toast.error("Error while unfollowing friend:" + error);
+    const response = await fetchUnFollowFriend(friendEmail);
+    if (response) {
+      toast.error("Error while unfollowing friend");
+      return;
     }
+    toast.success("Friend unfollowed successfully");
+    fetchFriends();
   };
 
   useEffect(() => {

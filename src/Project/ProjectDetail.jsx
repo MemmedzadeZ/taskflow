@@ -12,7 +12,10 @@ import TwoCalendarNotification from "../Components/CalendarList";
 import { useNavigate, useParams } from "react-router-dom";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect } from "react";
-import { fetchGetUsersByProject } from "../utils/fetchUtils/teammemberUtils";
+import {
+  fetchGetUsersByProject,
+  fetchTeamMemberActivitiesWithId,
+} from "../utils/fetchUtils/teammemberUtils";
 import { fetchGetProjectWorks } from "../utils/fetchUtils/workUtils";
 import { fetchBasicInfoForProfil } from "../utils/fetchUtils/profileUtils";
 
@@ -28,19 +31,8 @@ const ProjectDetail = () => {
 
   const fetchActivities = async () => {
     try {
-      const response = await fetch(
-        `https://localhost:7157/api/ProjectActivity/TeamMemberActivities/${projectId}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-
-      const data = await response.json();
-      if (response.ok) {
+      const data = await fetchTeamMemberActivitiesWithId(projectId);
+      if (data) {
         setActivities(data);
       } else {
         console.error("Error fetching activities", data);

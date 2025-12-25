@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import { faL } from "@fortawesome/free-solid-svg-icons";
+import {
+  fetchAllMessages,
+  fetchNewMessage,
+  fetchRemoveMessage,
+} from "../utils/fetchUtils/chatUtils";
 
 const ChatPage = ({ friendEmail = "" }) => {
   const [messages, setMessages] = useState([]);
@@ -21,19 +26,9 @@ const ChatPage = ({ friendEmail = "" }) => {
   const fetchChat = async (mail) => {
     if (mail !== "") {
       console.log("fetch" + mail);
-      var response = await fetch(
-        `https://localhost:7157/api/ChatMessage/AllMessages/${mail}`,
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      if (response.ok) {
-        var data = await response.json();
 
+      var data = await fetchAllMessages(mail);
+      if (data) {
         setMessages(data.list);
         console.log("datalist; " + data.list);
       } else {
@@ -43,16 +38,8 @@ const ChatPage = ({ friendEmail = "" }) => {
   };
 
   const handleDeleteMessage = async (id) => {
-    var response = await fetch(
-      `https://localhost:7157/api/ChatMessage/RemoveMessage/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (response.ok) {
+    const response = await fetchRemoveMessage(id);
+    if (response) {
       console.log("message deleted successfully");
       fetchChat();
     } else {
@@ -72,22 +59,10 @@ const ChatPage = ({ friendEmail = "" }) => {
       isImage: false,
       text,
     };
-    var response = await fetch(
-      `https://localhost:7157/api/ChatMessage/NewMessage`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(dto),
-      }
-    );
-    if (response.ok) {
+    var data = await fetchNewMessage(dto);
+    if (data) {
       console.log("Message sent!");
       setText("");
-      // fetchChat();
-      var data = await response.json();
       console.log("post method return: " + data);
 
       await GetMessageCall(data.friendId, data.senderId);

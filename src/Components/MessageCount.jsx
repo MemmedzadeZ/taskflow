@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchUserMessageCount } from "../utils/fetchUtils/messageUtils";
 
 function CountMessage() {
   const [count, setCount] = useState(0);
@@ -6,19 +7,7 @@ function CountMessage() {
   const fetchMessages = async () => {
     console.log("inside message");
 
-    var response = await fetch(
-      "https://localhost:7157/api/Message/UserMessageCount",
-
-      {
-        method: "GET",
-
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      }
-    );
-
-    var data = await response.json();
+    var data = await fetchUserMessageCount();
 
     console.log("count" + data);
 
