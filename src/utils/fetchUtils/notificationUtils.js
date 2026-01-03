@@ -2,6 +2,7 @@ const URL = process.env.REACT_APP_API_URL;
 
 export const fetchNewRecentActivity = async (activityData) => {
   try {
+    console.log("in new notif: " + localStorage.getItem("token"));
     const response = await fetch(URL + "/Notification/NewRecentActivity", {
       method: "POST",
       headers: {
@@ -15,6 +16,25 @@ export const fetchNewRecentActivity = async (activityData) => {
     else console.log("In fetchNewRecentActivity response is FALSE: ");
   } catch (error) {
     console.log("Error in fetchNewRecentActivity: " + error);
+  }
+};
+
+export const fetchNewRequestNotification = async (activityData) => {
+  try {
+    console.log("in new notif: " + localStorage.getItem("token"));
+    const response = await fetch(URL + "/Notification/NewRequestNotification", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(activityData),
+    });
+    if (response.ok)
+      console.log("In fetchNewRequestNotification response is true: ");
+    else console.log("In fetchNewRequestNotification response is FALSE: ");
+  } catch (error) {
+    console.log("Error in fetchNewRequestNotification: " + error);
   }
 };
 
@@ -165,6 +185,7 @@ export const fetchCalendarNotificationCount = async () => {
 
 export const fetchUserNotificationCount = async () => {
   try {
+    console.log("in fetchUserNotificationCount");
     var response = await fetch(
       URL + "/Notification/UserNotificationCount",
 
@@ -176,7 +197,14 @@ export const fetchUserNotificationCount = async () => {
         },
       }
     );
-    if (response.ok) return await response.json();
+
+    console.log("in fetchUserNotificationCount: " + JSON.stringify(response));
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      console.log("inside fetchUserNotificationCount");
+      return data;
+    }
     return false;
   } catch (error) {
     console.error("Error fetching fetchUserNotificationCount:", error);

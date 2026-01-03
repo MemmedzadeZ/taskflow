@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchTwoCalendarNotification } from "../utils/fetchUtils/notificationUtils";
+import startSignalRConnection from "../SignalR";
 function TwoCalendarNotification() {
   const [items, setItems] = useState([]);
 
@@ -11,29 +11,19 @@ function TwoCalendarNotification() {
     setItems(data);
   };
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("CalendarNotificationList2", (message) => {
+        fetchData();
+      });
 
-    conn.on("CalendarNotificationList2", (message) => {
-      fetchData();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
   useEffect(() => {
     fetchData();

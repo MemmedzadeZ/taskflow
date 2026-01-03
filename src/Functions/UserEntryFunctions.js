@@ -162,9 +162,9 @@ export const createUser = async (
 
   const response = await fetchSignUp(userData);
 
-  if (response.ok) {
+  if (response) {
     window.location.href = "/quiz";
-    return response.json();
+    return;
   } else {
     throw new Error(`HTTP status ${response.status}`);
   }
@@ -180,13 +180,7 @@ export const loginUser = async (e, username, password) => {
   console.log(userData);
   const data = await fetchSignIn(userData);
   if (data) {
-    localStorage.setItem("token", data.token);
-    const activityData = {
-      text: "User logged in.",
-      type: "login",
-    };
-
-    await fetchNewRecentActivity(activityData);
+    localStorage.setItem("token", data);
     window.location.href = "/dashboard";
   }
 };

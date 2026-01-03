@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditTaskInProject from "./EditProjectTask";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import {
   fetchDeleteProjectTask,
   fetchWorkUserWorks,
 } from "../utils/fetchUtils/workUtils";
+import startSignalRConnection from "../SignalR";
 const ProjectTasksList = () => {
   const [workList, setWorkList] = useState([]);
   const [error, setError] = useState("");
@@ -39,29 +39,19 @@ const ProjectTasksList = () => {
 
   //SIGNALRR
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("ProjectsTaskList", (message) => {
+        fetchUserWorks();
+      });
 
-    conn.on("ProjectsTaskList", (message) => {
-      fetchUserWorks();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
   useEffect(() => {
     fetchUserWorks();

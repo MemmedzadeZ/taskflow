@@ -10,6 +10,7 @@ export const fetchCurrentUser = async () => {
     });
     if (response.ok) {
       var data = await response.json();
+      console.log("fetchCurrentUser: " + data);
       return data;
     } else {
       console.log("In fetchCurrentUser response is FALSE: ");
@@ -22,7 +23,7 @@ export const fetchCurrentUser = async () => {
 
 export const fetchDeleteAccount = async () => {
   try {
-    var response = await fetch(URL + "/api/Auth", {
+    var response = await fetch(URL + "/Auth", {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -42,7 +43,7 @@ export const fetchDeleteAccount = async () => {
 export const fetchUsersCount = async () => {
   try {
     var response = await fetch(
-      URL + "/api/Auth/UsersCount",
+      URL + "/Auth/UsersCount",
 
       {
         method: "GET",
@@ -52,7 +53,11 @@ export const fetchUsersCount = async () => {
         },
       }
     );
-    if (response.ok) return await response.json();
+    if (response.ok) {
+      const data = await response.json();
+      console.log("data in fetchUsersCount: " + data);
+      return data;
+    }
     return false;
   } catch (error) {
     console.log("Error in fetchUsersCount: " + error);
@@ -84,7 +89,11 @@ export const fetchSignIn = async (userData) => {
       },
       body: JSON.stringify(userData),
     });
-    if (response.ok) return true;
+    if (response.ok) {
+      const data = await response.json();
+      console.log("in fetch: " + JSON.stringify(data));
+      return data.token;
+    }
     return false;
   } catch (error) {
     console.log("Error in fetchSignIn: " + error);

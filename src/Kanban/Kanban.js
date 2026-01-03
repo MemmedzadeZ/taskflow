@@ -18,7 +18,6 @@ import EditTaskModel from "./EditTaskForMember";
 import Lottie from "lottie-react";
 import loaderjson from "../animations/loader.json";
 import noproject from "../animations/noproject.json";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchDeleteProjectTask } from "../utils/fetchUtils/workUtils";
 import {
   fetchAllProjectsUserOwn,
@@ -26,6 +25,7 @@ import {
   fetchProjectTitle,
   fetchUpdateTaskStatus,
 } from "../utils/fetchUtils/projectUtils";
+import startSignalRConnection from "../SignalR";
 
 const initialData = {
   columns: {
@@ -96,29 +96,19 @@ const Kanban = () => {
   };
   //SIGNALRR
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("CanbanTaskUpdated", (message) => {
+        getTasks();
+      });
 
-    conn.on("CanbanTaskUpdated", (message) => {
-      getTasks();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, [projectId]);
   useEffect(() => {
     getProjectTitle();

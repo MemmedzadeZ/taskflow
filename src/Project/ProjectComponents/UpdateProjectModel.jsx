@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import Notifier from "../../Error/Notifier";
 import "../css/ProjectStyles.css";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import $, { data } from "jquery";
 import {

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRef } from "react";
@@ -8,6 +7,7 @@ import {
   fetchDeletedCalendarMessage,
   fetchNewRecentActivity,
 } from "../utils/fetchUtils/notificationUtils";
+import startSignalRConnection from "../SignalR";
 function Reminder() {
   const [notifications, setNotifications] = useState([]);
   const connectionRef = useRef(null);
@@ -17,8 +17,8 @@ function Reminder() {
     if (isFetching) return;
     setIsFetching(true);
     try {
-      const response = await fetchCalendarNotifications();
-      const data = await response.json();
+      const data = await fetchCalendarNotifications();
+
       setNotifications(data);
     } catch (error) {
       toast.warning("Error fetching notifications:", error);
@@ -36,20 +36,11 @@ function Reminder() {
         return;
       }
 
-      const token = localStorage.getItem("token");
-      const conn = new HubConnectionBuilder()
-        .withUrl("http://localhost:5204/connect", {
-          accessTokenFactory: () => token,
-        })
-        .configureLogging("information")
-        .build();
+      const conn = await startSignalRConnection();
 
       connectionRef.current = conn;
 
       try {
-        await conn.start();
-        console.log("SignalR connected.");
-
         conn.on("ReminderRequestList", () => {
           console.log("SignalR message received: ReminderRequestList");
           fetchNotifications();

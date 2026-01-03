@@ -5,11 +5,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EditTaskModel from "./TaskComponents/EditTaskModel";
 import EditProjectTaskModel from "./TaskComponents/EditProjectTaskModel";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import {
   fetchUserTasks,
   fetchWorkUserTasks,
 } from "../utils/fetchUtils/workUtils";
+import startSignalRConnection from "../SignalR";
 function UserTasks() {
   const [loading, setLoading] = useState(true);
   const [allTasks, setAllTasks] = useState([]);
@@ -60,29 +60,19 @@ function UserTasks() {
     }
   };
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("UserTaskList", (message) => {
+        fetchTasks();
+      });
 
-    conn.on("UserTaskList", (message) => {
-      fetchTasks();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
 
   useEffect(() => {
@@ -120,9 +110,9 @@ function UserTasks() {
       let deleteUrl;
 
       if (source === "project") {
-        deleteUrl = `http://localhost:5204/api/Work/DeleteProjectTask/${taskId}`;
+        deleteUrl = `http://localhost:7157/api/Work/DeleteProjectTask/${taskId}`;
       } else if (source === "user") {
-        deleteUrl = `http://localhost:5204/api/UserTask/DeleteUserTask/${taskId}`;
+        deleteUrl = `http://localhost:7157/api/UserTask/DeleteUserTask/${taskId}`;
       }
 
       const response = await fetch(deleteUrl, {

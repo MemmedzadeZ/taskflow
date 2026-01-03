@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useNavigate } from "react-router-dom";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchProjectInvolved } from "../utils/fetchUtils/projectUtils";
+import startSignalRConnection from "../SignalR";
 
 function CurrentProjects() {
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [conn, setConn] = useState();
 
   const fetchData = async () => {
     try {
@@ -24,53 +25,30 @@ function CurrentProjects() {
     }
   };
   //SIGNALRR
+
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    let connection;
 
-    conn.on("DashboardReceiveProject", (message) => {
-      fetchData();
-    });
+    const init = async () => {
+      connection = await startSignalRConnection();
+      setConn(connection);
 
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      connection.on("DashboardReceiveProject", () => {
+        fetchData();
+      });
+
+      connection.on("ReceiveProjectUpdateDashboard", () => {
+        fetchData();
+      });
     };
-  }, []);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
 
-    conn.on("ReceiveProjectUpdateDashboard", () => {
-      fetchData();
-    });
+    init();
 
     return () => {
-      if (conn) {
-        conn.stop();
+      if (connection) {
+        connection.off("DashboardReceiveProject");
+        connection.off("ReceiveProjectUpdateDashboard");
+        connection.stop();
       }
     };
   }, []);

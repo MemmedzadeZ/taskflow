@@ -16,12 +16,13 @@ export default function DailyTask() {
         await fetchDailyTask(),
       ]);
 
-      if (projectTasksResponse.ok && userTasksResponse.ok) {
-        const projectTasks = await projectTasksResponse.json();
-        const userTasks = await userTasksResponse.json();
+      if (projectTasksResponse && userTasksResponse) {
         const combinedTasks = [
-          ...projectTasks.map((task) => ({ ...task, source: "project" })),
-          ...userTasks.map((task) => ({ ...task, source: "user" })),
+          ...projectTasksResponse.map((task) => ({
+            ...task,
+            source: "project",
+          })),
+          ...userTasksResponse.map((task) => ({ ...task, source: "user" })),
         ];
         setItems(combinedTasks);
       } else {

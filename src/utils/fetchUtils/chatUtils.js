@@ -41,7 +41,7 @@ export const fetchNewMessage = async (dto) => {
       },
       body: JSON.stringify(dto),
     });
-    if (response.ok) return true;
+    if (response.ok) return await response.json();
     return false;
   } catch (error) {
     console.log("Error in fetchNewMessage: " + error);

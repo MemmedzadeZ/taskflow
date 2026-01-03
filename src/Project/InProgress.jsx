@@ -1,7 +1,7 @@
 import { width } from "@fortawesome/free-solid-svg-icons/fa0";
 import { useState, useEffect } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchOnGoingProject } from "../utils/fetchUtils/projectUtils";
+import startSignalRConnection from "../SignalR";
 
 const InProgress = () => {
   const [projects, setProjects] = useState([]);
@@ -37,32 +37,21 @@ const InProgress = () => {
     return Math.min(Math.round((elapsedDuration / totalDuration) * 100), 100);
   };
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("RecieveInProgressUpdate", () => {
+        fetchData();
+      });
 
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+      // setConnection(conn);
 
-    conn.on("RecieveInProgressUpdate", () => {
-      fetchData();
-    });
-
-    // setConnection(conn);
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
 
   useEffect(() => {

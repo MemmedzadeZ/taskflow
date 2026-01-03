@@ -19,6 +19,7 @@ import {
   fetchEmailConfirmation,
   fetchResetPassword,
 } from "../utils/fetchUtils/profileUtils";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
 
 function Auth() {
   const navigate = useNavigate();
@@ -77,6 +78,15 @@ function Auth() {
   const handleForgotPasswordClick = () => {
     setIsForgotPassword(true);
     setStep(1);
+  };
+  const handleLogin = async (e) => {
+    loginUser(e, username, password);
+    const activityData = {
+      text: "User logged in.",
+      type: "login",
+    };
+
+    await fetchNewRecentActivity(activityData);
   };
 
   const handleSkipStep = () => {
@@ -196,7 +206,7 @@ function Auth() {
               <form
                 className="login"
                 id="login-form"
-                onSubmit={(e) => loginUser(e, username, password)}
+                onSubmit={(e) => handleLogin(e)}
               >
                 <div id="login-username-div" className="field">
                   <input

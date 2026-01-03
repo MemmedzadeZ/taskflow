@@ -11,8 +11,7 @@ function CurrentPerson() {
   const fetchData = async () => {
     console.log("inside user");
 
-    const response = await fetchCurrentUser();
-    const data = await response.json();
+    const data = await fetchCurrentUser();
     console.log(data);
 
     setUsername(data.username);

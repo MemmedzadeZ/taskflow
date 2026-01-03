@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
-import { json, useNavigate } from "react-router-dom";
-import { HubConnectionBuilder } from "@microsoft/signalr";
-
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
+import {
+  fetchNewRecentActivity,
+  fetchNewRequestNotification,
+} from "../utils/fetchUtils/notificationUtils";
 import {
   fetchFriendAllUsers,
   fetchUnFollowFriend,
 } from "../utils/fetchUtils/friendUtils";
+import startSignalRConnection from "../SignalR";
 
 function AllUsers() {
   const [friends, setFriends] = useState([]);
   const [followStatus, setFollowStatus] = useState({});
   const navigate = useNavigate();
+  const connRef = React.useRef(null);
 
   const fetchFriends = async () => {
     const data = await fetchFriendAllUsers();
@@ -41,36 +44,17 @@ function AllUsers() {
           ...prevStatus,
           [friendEmail]: "sent",
         }));
-      } else {
-        const errorData = await response.json();
-        console.error("Error sending follow request:", errorData);
-        toast.error("Failed to send follow request");
-
-        // setFollowStatus((prevStatus) => ({
-        //   ...prevStatus,
-        //   [friendEmail]: "failed",
-        // }));
       }
-      //   const userResponse = await fetch(
-      //     "http://localhost:5204/api/Notification/NewRequestNotification",
-      //     {
-      //       method: "POST",
-      //       headers: {
-      //         "Content-Type": "application/json",
-      //         Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //       },
-      //       body: JSON.stringify({
-      //         text: "Friend request",
-      //         receiverEmail: friendEmail,
-      //         isAccepted: false,
-      //         notificationType: "FriendRequest",
-      //       }),
-      //     }
-      //   );
+      const reqData = {
+        text: "Friend request",
+        receiverEmail: friendEmail,
+        isAccepted: false,
+        notificationType: "FriendRequest",
+      };
+      const userResponse = await fetchNewRequestNotification(reqData);
+
       //   if (userResponse.ok) {
       //     var userData = await userResponse.json();
-
-      //   }
     } catch (error) {
       console.error("Error:", error);
       toast.error("An error occurred while sending the follow request");
@@ -85,40 +69,26 @@ function AllUsers() {
     navigate(`/viewProfile/${friendEmail}`);
   };
 
-  let conn;
-
   const initializeSignalRConnection = async () => {
-    if (!conn) {
-      const token = localStorage.getItem("token");
-      conn = new HubConnectionBuilder()
-        .withUrl("http://localhost:5204/connect", {
-          accessTokenFactory: () => token,
-        })
-        .configureLogging("information")
-        .build();
-
-      try {
-        await conn.start();
-        console.log("SignalR connected.");
-      } catch (err) {
-        console.error("SignalR connection error:", err);
-      }
+    if (!connRef.current) {
+      connRef.current = await startSignalRConnection();
     }
   };
 
   const SendFollowCall = async (id) => {
-    if (!conn || conn.state !== "Connected") {
-      console.warn("Connection not established. Attempting to connect...");
-      await initializeSignalRConnection();
+    if (!connRef.current || connRef.current.state !== "Connected") {
+      console.warn("SignalR not connected");
+      return;
     }
 
     try {
-      await conn.invoke("SendFollow", id);
+      await connRef.current.invoke("SendFollow", id);
       console.log(`Follow request sent for ID: ${id}`);
     } catch (err) {
       console.error("Error sending follow request:", err);
     }
   };
+
   const unfollowFriend = async (friendEmail) => {
     const response = await fetchUnFollowFriend(friendEmail);
     if (response) {
@@ -130,23 +100,33 @@ function AllUsers() {
   };
 
   useEffect(() => {
-    if (!conn || conn.state !== "Connected") {
-      console.warn("Connection not established. Attempting to connect...");
-      initializeSignalRConnection();
-    }
+    let isMounted = true;
 
-    conn.on("UpdateUserActivity", () => {
-      console.log("update user activity");
-      fetchFriends();
-    });
-    conn.on("InwokeSendFollow", (userId) => {
-      fetchFriends();
-      SendFollowCall(userId);
-    });
+    const setupSignalR = async () => {
+      await initializeSignalRConnection();
+
+      if (!connRef.current || !isMounted) return;
+
+      connRef.current.on("UpdateUserActivity", () => {
+        console.log("update user activity");
+        fetchFriends();
+      });
+
+      connRef.current.on("InwokeSendFollow", (userId) => {
+        fetchFriends();
+        SendFollowCall(userId);
+      });
+    };
+
+    setupSignalR();
 
     return () => {
-      if (conn) {
-        conn.stop();
+      isMounted = false;
+      if (connRef.current) {
+        connRef.current.off("UpdateUserActivity");
+        connRef.current.off("InwokeSendFollow");
+        connRef.current.stop();
+        connRef.current = null;
       }
     };
   }, []);

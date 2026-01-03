@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
-import { faL } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useRef, useState } from "react";
 import {
   fetchAllMessages,
   fetchNewMessage,
   fetchRemoveMessage,
 } from "../utils/fetchUtils/chatUtils";
+import startSignalRConnection from "../SignalR";
 
 const ChatPage = ({ friendEmail = "" }) => {
   const [messages, setMessages] = useState([]);
@@ -70,74 +69,50 @@ const ChatPage = ({ friendEmail = "" }) => {
       console.log("Error occured while seding message!");
     }
   };
-  let conn;
-
+  const connRef = useRef(null);
   const initializeSignalRConnection = async () => {
-    if (!conn) {
-      const token = localStorage.getItem("token");
-      conn = new HubConnectionBuilder()
-        .withUrl("http://localhost:5204/connect", {
-          accessTokenFactory: () => token,
-        })
-        .configureLogging("information")
-        .build();
-    }
-
-    if (conn.state !== "Connected") {
-      try {
-        await conn.start();
-        console.log("SignalR connected.");
-      } catch (err) {
-        console.error("Error starting SignalR connection:", err);
-      }
+    if (!connRef.current) {
+      connRef.current = await startSignalRConnection();
     }
   };
 
   async function GetMessageCall(receiverId, senderId) {
-    await initializeSignalRConnection();
-
-    if (conn.state === "Connected") {
+    if (!connRef.current) {
+      connRef.current = await startSignalRConnection();
+    }
+    if (connRef.current) {
       try {
-        await conn.invoke("GetMessages", receiverId, senderId);
-        console.log("GetMessages invoked successfully.");
+        await connRef.current.invoke("GetMessages", receiverId, senderId);
       } catch (err) {
         console.error("Error invoking GetMessages:", err);
       }
-    } else {
-      console.error("SignalR connection not in Connected state.");
     }
   }
   useEffect(() => {
     const setupSignalR = async () => {
       await initializeSignalRConnection();
 
-      if (conn.state === "Connected") {
-        // conn.current.off("ReceiveMessages2");
-        conn.on("ReceiveMessages2", (mail) => {
-          console.log("mailll: " + mail);
-          if (mail) {
-            fetchChat(mail);
-          }
-        });
-        console.log("ReceiveMessages listener added.");
-      } else {
-        console.error("SignalR connection not in Connected state.");
-      }
+      if (!connRef.current) return;
+
+      connRef.current.off("ReceiveMessages2");
+
+      connRef.current.on("ReceiveMessages2", (mail) => {
+        if (mail) {
+          fetchChat(mail);
+        }
+      });
     };
 
     setupSignalR();
 
     return () => {
-      if (conn) {
-        conn
-          .stop()
-          .then(() => console.log("SignalR connection stopped."))
-          .catch((err) =>
-            console.error("Error stopping SignalR connection:", err)
-          );
+      if (connRef.current) {
+        connRef.current.stop();
+        connRef.current = null;
       }
     };
   }, []);
+
   // useEffect(() => {
   //   const setupSignalR = async () => {
   //     await initializeSignalRConnection();

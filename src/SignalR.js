@@ -17,6 +17,7 @@ async function startSignalRConnection() {
   } catch (error) {
     console.error("SignalR connection failed: ", error);
   }
+  return connection;
 }
 
 export default startSignalRConnection;

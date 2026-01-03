@@ -10,6 +10,7 @@ function OccupationPercent() {
 
   const fetchData = async () => {
     const data = await fetchOccupationStatistic();
+    console.log("data in fetchData: " + data);
     setPercent(data);
   };
 

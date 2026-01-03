@@ -10,7 +10,6 @@ import TwoNotification from "../Components/NotificationList";
 import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
 import { useNavigate, useParams } from "react-router-dom";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect } from "react";
 import {
   fetchGetUsersByProject,
@@ -18,6 +17,7 @@ import {
 } from "../utils/fetchUtils/teammemberUtils";
 import { fetchGetProjectWorks } from "../utils/fetchUtils/workUtils";
 import { fetchBasicInfoForProfil } from "../utils/fetchUtils/profileUtils";
+import startSignalRConnection from "../SignalR";
 
 const ProjectDetail = () => {
   const [users, setUsers] = useState([]);
@@ -75,32 +75,22 @@ const ProjectDetail = () => {
 
   //SIGNALRR
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("ProjectDetailTaskList", (message) => {
+        fetchUserWorks();
+      });
+      conn.on("ProjectRecentActivityInDetail", (message) => {
+        fetchActivities();
+      });
 
-    conn.on("ProjectDetailTaskList", (message) => {
-      fetchUserWorks();
-    });
-    conn.on("ProjectRecentActivityInDetail", (message) => {
-      fetchActivities();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, [projectId]);
 
   const fetchUserProfile = async () => {

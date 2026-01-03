@@ -9,8 +9,8 @@ import CalendarCount from "../Components/CalendarNotificationCount";
 import TwoCalendarNotification from "../Components/CalendarList";
 import ChatPage from "./ChatPage";
 import SidebarSearchComponent from "../SideBar/SidebarSearchComponent";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchAllChatsWithFriends } from "../utils/fetchUtils/chatUtils";
+import startSignalRConnection from "../SignalR";
 
 const Message = () => {
   const [friends, setFriends] = useState([]);
@@ -31,22 +31,7 @@ const Message = () => {
 
   const initializeSignalRConnection = async () => {
     if (!conn) {
-      const token = localStorage.getItem("token");
-      conn = new HubConnectionBuilder()
-        .withUrl("http://localhost:5204/connect", {
-          accessTokenFactory: () => token,
-        })
-        .configureLogging("information")
-        .build();
-    }
-
-    if (conn.state !== "Connected") {
-      try {
-        await conn.start();
-        console.log("SignalR connected.");
-      } catch (err) {
-        console.error("Error starting SignalR connection:", err);
-      }
+      conn = await startSignalRConnection();
     }
   };
   useEffect(() => {

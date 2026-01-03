@@ -6,9 +6,9 @@ import {
   fetchDeleteAccount,
 } from "../utils/fetchUtils/authUtils";
 import "react-toastify/dist/ReactToastify.css";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
 import { fetchLogOut } from "../utils/fetchUtils/profileUtils";
+import startSignalRConnection from "../SignalR";
 function PersonalInfo() {
   const [username, setUserName] = useState(null);
   const [fullname, setFullname] = useState(null);
@@ -64,29 +64,19 @@ function PersonalInfo() {
     }
   };
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("ProfileUpdated", (message) => {
+        fetchData();
+      });
 
-    conn.on("ProfileUpdated", (message) => {
-      fetchData();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
   useEffect(() => {
     fetchData();

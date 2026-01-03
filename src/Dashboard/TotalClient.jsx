@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchUsersCount } from "../utils/fetchUtils/authUtils";
+import startSignalRConnection from "../SignalR";
 function ClientsCount() {
   const [clientsCount, setClientsCount] = useState(0);
   const fetchData = async () => {
@@ -13,31 +13,20 @@ function ClientsCount() {
     setClientsCount(data);
   };
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("TotalClientsUpdated", () => {
+        console.log("inside signalr");
+        fetchData();
+      });
 
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
-
-    conn.on("TotalClientsUpdated", () => {
-      console.log("inside signalr");
-      fetchData();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
 
   useEffect(() => {

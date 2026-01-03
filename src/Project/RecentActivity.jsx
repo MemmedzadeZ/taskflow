@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchTeamMemberActivities } from "../utils/fetchUtils/teammemberUtils";
+import startSignalRConnection from "../SignalR";
 const RecentActivity = () => {
   const [activityList, setActivities] = useState([]);
 
@@ -19,29 +19,19 @@ const RecentActivity = () => {
   };
   //SIGNALRR
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("ProjectsRecentActivity", (message) => {
+        fetchActivities();
+      });
 
-    conn.on("ProjectsRecentActivity", (message) => {
-      fetchActivities();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
   // Fetch the activities when the component is mounted
   useEffect(() => {

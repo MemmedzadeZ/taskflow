@@ -23,7 +23,7 @@ function DashboardTemplate() {
 
   const themeCookieName = "theme";
   const themeDark = "dark";
-  const themeLight = "light"; 
+  const themeLight = "light";
   const body = document.getElementsByTagName("body")[0];
   function setCookie(cname, cvalue, exdays) {
     var d = new Date();
@@ -31,7 +31,6 @@ function DashboardTemplate() {
     var expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
   }
-
 
   useEffect(() => {
     const savedTheme = document.cookie

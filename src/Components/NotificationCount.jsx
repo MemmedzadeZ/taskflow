@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchUserNotificationCount } from "../utils/fetchUtils/notificationUtils";
+import startSignalRConnection from "../SignalR";
 function CountNotification() {
   const [count, setCount] = useState(0);
 
@@ -10,34 +10,23 @@ function CountNotification() {
     var data = await fetchUserNotificationCount();
 
     console.log(data);
-
     setCount(data);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("RequestCount", (message) => {
+        fetchNotifications();
+      });
 
-    conn.on("RequestCount", (message) => {
-      fetchNotifications();
-    });
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
   useEffect(() => {
     fetchNotifications();

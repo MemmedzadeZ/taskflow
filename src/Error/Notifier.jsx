@@ -64,7 +64,7 @@ export default Notifier;
 
 //   try {
 //     const response = await fetch(
-//       `http://localhost:5204/api/Project/Put/${projectId}`,
+//       `http://localhost:7157/api/Project/Put/${projectId}`,
 //       {
 //         method: "PUT",
 //         headers: {
@@ -82,7 +82,7 @@ export default Notifier;
 //       };
 
 //       const notificationResponse = await fetch(
-//         "http://localhost:5204/api/Notification/NewRecentActivity",
+//         "http://localhost:7157/api/Notification/NewRecentActivity",
 //         {
 //           method: "POST",
 //           headers: {
@@ -131,7 +131,7 @@ export default Notifier;
 
 //         const newTitle = title.trim();
 //         const projectResponse = await fetch(
-//           "http://localhost:5204/api/Project/ProjectWithTitle",
+//           "http://localhost:7157/api/Project/ProjectWithTitle",
 //           {
 //             method: "POST",
 //             headers: {
@@ -170,7 +170,7 @@ export default Notifier;
 //         };
 
 //         fetch(
-//           "http://localhost:5204/api/TeamMember/UpdateTeamMemberCollections",
+//           "http://localhost:7157/api/TeamMember/UpdateTeamMemberCollections",
 //           {
 //             method: "POST",
 //             headers: {

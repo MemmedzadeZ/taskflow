@@ -13,7 +13,7 @@ const LinearChart = () => {
   const fetchDatas = async () => {
     console.log(selectedProject);
     var response = await fetch(
-      `http://localhost:5204/api/Project/TasksDependingMonths`,
+      `http://localhost:/api/Project/TasksDependingMonths`,
       {
         method: "POST",
         headers: {
@@ -77,7 +77,7 @@ const LinearChart = () => {
   const fetchProjectNames = async () => {
     console.log("inside fillProjectNames");
     var response = await fetch(
-      "http://localhost:5204/api/Project/ProjectNames",
+      "http://localhost:7157/api/Project/ProjectNames",
       {
         method: "GET",
         headers: {

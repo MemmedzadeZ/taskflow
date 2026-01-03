@@ -5,12 +5,12 @@ import Notifier from "../../Error/Notifier";
 import ProjectPagination from "../ProjectPegenation";
 import Lottie from "lottie-react";
 import noproject from "../../animations/noproject.json";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { fetchDeleteAccount } from "../../utils/fetchUtils/authUtils";
 import {
   fetchDeleteProject,
   fetchExtendedProjectList,
 } from "../../utils/fetchUtils/projectUtils";
+import startSignalRConnection from "../../SignalR";
 
 const AllProjects = () => {
   const [allProjects, setAllProjects] = useState([]);
@@ -47,7 +47,7 @@ const AllProjects = () => {
   // const realTimeUpdate = () => {
   //   const token = localStorage.getItem("token");
   //   const connection = new HubConnectionBuilder()
-  //     .withUrl("http://localhost:5204/connect", {
+  //     .withUrl("http://localhost:7157/connect", {
   //       accessTokenFactory: () => token,
   //     })
   //     .withAutomaticReconnect()
@@ -57,32 +57,21 @@ const AllProjects = () => {
 
   // SignalR !!!!!!
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const conn = new HubConnectionBuilder()
-      .withUrl("http://localhost:5204/connect", {
-        accessTokenFactory: () => token,
-      })
-      .configureLogging("information")
-      .build();
+    const initializeSignalR = async () => {
+      const conn = await startSignalRConnection();
+      conn.on("ReceiveProjectUpdate", () => {
+        fetchProjects();
+      });
 
-    conn
-      .start()
-      .then(() => {
-        console.log("SignalR connected.");
-      })
-      .catch((err) => console.error("SignalR connection error:", err));
+      // setConnection(conn);
 
-    conn.on("ReceiveProjectUpdate", () => {
-      fetchProjects();
-    });
-
-    // setConnection(conn);
-
-    return () => {
-      if (conn) {
-        conn.stop();
-      }
+      return () => {
+        if (conn) {
+          conn.stop();
+        }
+      };
     };
+    initializeSignalR();
   }, []);
 
   // const updateProjectList = (projectId) => {

@@ -28,12 +28,12 @@ function InfoQuiz() {
     console.log("Selected option:", selectedOption); //
     const response = await fetchOccupation();
 
-    if (response) {
-      const data = await fetchAddingOccupationDuringQuiz(selectedOption);
-      if (data) navigate("/quiztrade");
-    } else {
-      setErrorMessage("Failed to submit occupation. Please try again.");
-    }
+    // if (response) {
+    // const data = await fetchAddingOccupationDuringQuiz(selectedOption);
+    navigate("/quiztrade");
+    // } else {
+    //   setErrorMessage("Failed to submit occupation. Please try again.");
+    // }
   };
 
   return (

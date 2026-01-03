@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -7,58 +6,55 @@ import {
   fetchDeleteRequestNotification,
   fetchRequestNotification,
 } from "../utils/fetchUtils/notificationUtils";
+import startSignalRConnection from "../SignalR";
 
 function RequestList() {
   const [notifications, setNotifications] = useState([]);
   const [connection, setConnection] = useState(null);
 
-  // Bildirimleri çekmek için API çağrısı
   const fetchNotifications = async () => {
     const response = await fetchRequestNotification();
     if (response) setNotifications(response);
   };
 
-  // SignalR bağlantısını başlatma
-  const initializeSignalRConnection = async () => {
-    if (!connection) {
-      const token = localStorage.getItem("token");
-      const newConnection = new HubConnectionBuilder()
-        .withUrl("http://localhost:5204/connect", {
-          accessTokenFactory: () => token,
-        })
-        .configureLogging("information")
-        .build();
+  // const initializeSignalRConnection = async () => {
+  //   if (!connection) {
+  //     const newConnection = await startSignalRConnection();
+  //     newConnection.on("RequestList", fetchNotifications);
 
-      newConnection.on("RequestList", fetchNotifications);
+  //     try {
+  //       console.log("SignalR connected.");
+  //       setConnection(newConnection);
+  //     } catch (err) {
+  //       console.error("SignalR connection error:", err);
+  //     }
+  //   }
+  // };
 
-      try {
-        await newConnection.start();
-        console.log("SignalR connected.");
-        setConnection(newConnection);
-      } catch (err) {
-        console.error("SignalR connection error:", err);
-      }
-    }
-  };
-
-  // SignalR bağlantısını başlatma ve temizleme işlemleri
   useEffect(() => {
-    initializeSignalRConnection();
+    let activeConnection;
+
+    const start = async () => {
+      activeConnection = await startSignalRConnection();
+      activeConnection.on("UpdateProfileRequestList", fetchNotifications);
+      setConnection(activeConnection);
+      console.log("SignalR connected.");
+    };
+
+    start();
 
     return () => {
-      if (connection) {
-        connection.stop();
+      if (activeConnection) {
+        activeConnection.stop();
         console.log("SignalR disconnected.");
       }
     };
-  }, [connection]);
+  }, []);
 
-  // İlk bildirimlerin çekilmesi
   useEffect(() => {
     fetchNotifications();
   }, []);
 
-  // İstek kabul etme işlemi
   const handleAccept = async (requestId) => {
     try {
       const response = await fetchAcceptRequestNotification(requestId);

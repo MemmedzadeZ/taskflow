@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import UpdateProjectModel from "./ProjectComponents/UpdateProjectModel";
 import { useNavigate } from "react-router-dom";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import {
   fetchGetTeammembers,
   fetchMemberRemove,

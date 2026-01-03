@@ -2,10 +2,18 @@ const URL = process.env.REACT_APP_API_URL;
 
 export const fetchOccupationStatistic = async () => {
   try {
-    const response = await fetch("/Quiz/OccupationStatistic", {
+    const response = await fetch(URL + "/Quiz/OccupationStatistic", {
       method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    if (response.ok) return await response.json();
+    // console.log("occupation data:" + JSON.stringify(response));
+    if (response.ok) {
+      const data = await response.json();
+      console.log("occupation data:" + data);
+      return data;
+    }
     return false;
   } catch (error) {
     console.log("Error in fetchOccupationStatistic: " + error);

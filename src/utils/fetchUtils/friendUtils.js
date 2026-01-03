@@ -30,6 +30,22 @@ export const fetchUnFollowFriend = async (friendEmail) => {
   }
 };
 
+export const fetchSendFollow = async (friendId) => {
+  try {
+    const response = await fetch(URL + `/Friend/NewFriend`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify(friendId),
+    });
+    if (response.ok) return true;
+    return false;
+  } catch (error) {
+    console.log("Error in fetchSendFollow: " + error);
+  }
+};
+
 export const fetchAllFriends = async () => {
   try {
     const response = await fetch(URL + "/Friend/AllFriends", {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { fetchFriendAllUsers } from "../utils/fetchUtils/friendUtils";
 
 // export async function GetAllUsers() {
-//   const response = await fetch("http://localhost:5204/api/Friend/AllUser", {
+//   const response = await fetch("http://localhost:7157/api/Friend/AllUser", {
 //     method: "GET",
 //     headers: {
 //       Authorization: `Bearer ${localStorage.getItem("token")}`,

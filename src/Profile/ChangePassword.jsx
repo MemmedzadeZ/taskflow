@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  fetchNewRecentActivity,
-  fetchUpdatePassword,
-} from "../utils/fetchUtils/profileUtils";
+import { fetchUpdatePassword } from "../utils/fetchUtils/profileUtils";
+import { fetchNewRecentActivity } from "../utils/fetchUtils/notificationUtils";
 function ChangePassword() {
   const [passwordData, setPasswordData] = useState({
     oldPassword: "",
